@@ -1,0 +1,88 @@
+{
+  "source": {
+    "name": "gstack",
+    "repo": "https://github.com/garrytan/gstack",
+    "license": "MIT",
+    "commit": "2aa745cb0e4331d683e727ec77385d04cdbb45a2"
+  },
+  "ported_at": "2026-03-14",
+  "skills": [
+    {
+      "upstream_slug": "plan-ceo-review",
+      "codex_slug": "plan-ceo-review",
+      "status": "ported",
+      "summary": "Founder-style plan review ported into concise Codex skill form.",
+      "source_files": [
+        "plan-ceo-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "plan-eng-review",
+      "codex_slug": "plan-eng-review",
+      "status": "planned",
+      "summary": "Engineering execution review and architecture hardening.",
+      "source_files": [
+        "plan-eng-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "review",
+      "codex_slug": "review",
+      "status": "planned",
+      "summary": "Pre-landing PR review with structural issue detection.",
+      "source_files": [
+        "review/SKILL.md",
+        "review/checklist.md",
+        "review/greptile-triage.md"
+      ]
+    },
+    {
+      "upstream_slug": "ship",
+      "codex_slug": "ship",
+      "status": "planned",
+      "summary": "Release engineer workflow for sync, test, push, and PR creation.",
+      "source_files": [
+        "ship/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "browse",
+      "codex_slug": "browse",
+      "status": "planned",
+      "summary": "Browser-driven QA and exploration workflow.",
+      "source_files": [
+        "browse/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "qa",
+      "codex_slug": "qa",
+      "status": "planned",
+      "summary": "Systematic diff-aware QA workflow.",
+      "source_files": [
+        "qa/SKILL.md",
+        "qa/references/issue-taxonomy.md",
+        "qa/templates/qa-report-template.md"
+      ]
+    },
+    {
+      "upstream_slug": "setup-browser-cookies",
+      "codex_slug": "setup-browser-cookies",
+      "status": "planned",
+      "summary": "Browser session and cookie import workflow.",
+      "source_files": [
+        "setup-browser-cookies/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "retro",
+      "codex_slug": "retro",
+      "status": "planned",
+      "summary": "Team-aware engineering retrospective workflow.",
+      "source_files": [
+        "retro/SKILL.md"
+      ]
+    }
+  ]
+}
+
