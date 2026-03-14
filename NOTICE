@@ -1,0 +1,12 @@
+This repository includes derivative work based on the MIT-licensed
+`garrytan/gstack` project.
+
+Upstream project:
+- Repository: https://github.com/garrytan/gstack
+- License: MIT
+- Pinned commit used for this MVP: 2aa745cb0e4331d683e727ec77385d04cdbb45a2
+
+Current reference port in this repository:
+- Upstream skill: `plan-ceo-review`
+- Local Codex port: `skills/plan-ceo-review/`
+
