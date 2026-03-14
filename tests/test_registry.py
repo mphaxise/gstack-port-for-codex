@@ -46,14 +46,18 @@ class RegistryTests(unittest.TestCase):
                     "upstream_slug": "one",
                     "codex_slug": "shared",
                     "status": "planned",
+                    "port_kind": "native",
                     "summary": "first",
+                    "notes": "first notes",
                     "source_files": ["one/SKILL.md"],
                 },
                 {
                     "upstream_slug": "two",
                     "codex_slug": "shared",
                     "status": "planned",
+                    "port_kind": "native",
                     "summary": "second",
+                    "notes": "second notes",
                     "source_files": ["two/SKILL.md"],
                 },
             ],
@@ -71,6 +75,13 @@ class RegistryTests(unittest.TestCase):
 
         self.assertIn("plan-ceo-review", table)
         self.assertIn("ported", table)
+        self.assertIn("runtime-aware", table)
+
+    def test_all_upstream_skills_are_now_ported(self) -> None:
+        skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")
+        ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
+
+        self.assertEqual(len(ported), 8)
 
 
 if __name__ == "__main__":

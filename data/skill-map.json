@@ -11,7 +11,9 @@
       "upstream_slug": "plan-ceo-review",
       "codex_slug": "plan-ceo-review",
       "status": "ported",
+      "port_kind": "native",
       "summary": "Founder-style plan review ported into concise Codex skill form.",
+      "notes": "Preserves the three upstream review modes with Codex-native questioning rules.",
       "source_files": [
         "plan-ceo-review/SKILL.md"
       ]
@@ -19,8 +21,10 @@
     {
       "upstream_slug": "plan-eng-review",
       "codex_slug": "plan-eng-review",
-      "status": "planned",
+      "status": "ported",
+      "port_kind": "native",
       "summary": "Engineering execution review and architecture hardening.",
+      "notes": "Preserves scope challenge and section-by-section execution review.",
       "source_files": [
         "plan-eng-review/SKILL.md"
       ]
@@ -28,8 +32,10 @@
     {
       "upstream_slug": "review",
       "codex_slug": "review",
-      "status": "planned",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
       "summary": "Pre-landing PR review with structural issue detection.",
+      "notes": "Ports the two-pass review flow and optional Greptile triage into Codex review conventions.",
       "source_files": [
         "review/SKILL.md",
         "review/checklist.md",
@@ -39,8 +45,10 @@
     {
       "upstream_slug": "ship",
       "codex_slug": "ship",
-      "status": "planned",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
       "summary": "Release engineer workflow for sync, test, push, and PR creation.",
+      "notes": "Keeps the release orchestration while making versioning and changelog steps conditional.",
       "source_files": [
         "ship/SKILL.md"
       ]
@@ -48,8 +56,10 @@
     {
       "upstream_slug": "browse",
       "codex_slug": "browse",
-      "status": "planned",
+      "status": "ported",
+      "port_kind": "runtime-aware",
       "summary": "Browser-driven QA and exploration workflow.",
+      "notes": "Workflow ported fully; runtime parity depends on available Codex or repo-local browser tooling.",
       "source_files": [
         "browse/SKILL.md"
       ]
@@ -57,8 +67,10 @@
     {
       "upstream_slug": "qa",
       "codex_slug": "qa",
-      "status": "planned",
+      "status": "ported",
+      "port_kind": "runtime-aware",
       "summary": "Systematic diff-aware QA workflow.",
+      "notes": "QA modes, issue taxonomy, and report template are ported; execution relies on browser tooling.",
       "source_files": [
         "qa/SKILL.md",
         "qa/references/issue-taxonomy.md",
@@ -68,8 +80,10 @@
     {
       "upstream_slug": "setup-browser-cookies",
       "codex_slug": "setup-browser-cookies",
-      "status": "planned",
+      "status": "ported",
+      "port_kind": "runtime-aware",
       "summary": "Browser session and cookie import workflow.",
+      "notes": "Preserves the authenticated-session workflow with explicit fallback options.",
       "source_files": [
         "setup-browser-cookies/SKILL.md"
       ]
@@ -77,12 +91,13 @@
     {
       "upstream_slug": "retro",
       "codex_slug": "retro",
-      "status": "planned",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
       "summary": "Team-aware engineering retrospective workflow.",
+      "notes": "Preserves time-window parsing, metrics, compare mode, and persistent-history expectations.",
       "source_files": [
         "retro/SKILL.md"
       ]
     }
   ]
 }
-

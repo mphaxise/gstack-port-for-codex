@@ -5,12 +5,14 @@ from pathlib import Path
 
 
 ALLOWED_STATUSES = {"ported", "planned", "blocked"}
+ALLOWED_PORT_KINDS = {"native", "workflow-adapted", "runtime-aware"}
 REQUIRED_DOCS = (
     Path("docs/idea-strategy.md"),
     Path("docs/product-strategy.md"),
     Path("docs/implementation-strategy.md"),
     Path("docs/mvp-plan.md"),
     Path("docs/compatibility-map.md"),
+    Path("docs/runtime-compatibility.md"),
 )
 
 
@@ -62,7 +64,9 @@ def validate_skill_map(data: dict) -> list[str]:
         upstream_slug = skill.get("upstream_slug")
         codex_slug = skill.get("codex_slug")
         status = skill.get("status")
+        port_kind = skill.get("port_kind")
         summary = skill.get("summary")
+        notes = skill.get("notes")
         source_files = skill.get("source_files")
 
         if not upstream_slug:
@@ -74,8 +78,15 @@ def validate_skill_map(data: dict) -> list[str]:
                 f"Skill entry #{index} has invalid status {status!r}; "
                 f"expected one of {sorted(ALLOWED_STATUSES)}."
             )
+        if port_kind not in ALLOWED_PORT_KINDS:
+            errors.append(
+                f"Skill entry #{index} has invalid port_kind {port_kind!r}; "
+                f"expected one of {sorted(ALLOWED_PORT_KINDS)}."
+            )
         if not summary:
             errors.append(f"Skill entry #{index} is missing summary.")
+        if not notes:
+            errors.append(f"Skill entry #{index} is missing notes.")
         if not isinstance(source_files, list) or not source_files:
             errors.append(f"Skill entry #{index} needs at least one source_files entry.")
 
@@ -139,28 +150,30 @@ def format_status_table(data: dict) -> str:
             skill["upstream_slug"],
             skill["codex_slug"],
             skill["status"],
+            skill["port_kind"],
             skill["summary"],
         )
         for skill in data["skills"]
     ]
 
-    widths = [len("Upstream"), len("Codex"), len("Status"), len("Summary")]
-    for upstream, codex, status, summary in rows:
+    widths = [len("Upstream"), len("Codex"), len("Status"), len("Port kind"), len("Summary")]
+    for upstream, codex, status, port_kind, summary in rows:
         widths[0] = max(widths[0], len(upstream))
         widths[1] = max(widths[1], len(codex))
         widths[2] = max(widths[2], len(status))
-        widths[3] = max(widths[3], len(summary))
+        widths[3] = max(widths[3], len(port_kind))
+        widths[4] = max(widths[4], len(summary))
 
-    def render(row: tuple[str, str, str, str]) -> str:
+    def render(row: tuple[str, str, str, str, str]) -> str:
         return (
             f"{row[0]:<{widths[0]}}  "
             f"{row[1]:<{widths[1]}}  "
             f"{row[2]:<{widths[2]}}  "
-            f"{row[3]:<{widths[3]}}"
+            f"{row[3]:<{widths[3]}}  "
+            f"{row[4]:<{widths[4]}}"
         )
 
-    header = render(("Upstream", "Codex", "Status", "Summary"))
+    header = render(("Upstream", "Codex", "Status", "Port kind", "Summary"))
     divider = render(tuple("-" * width for width in widths))
     body = "\n".join(render(row) for row in rows)
     return "\n".join((header, divider, body))
-
