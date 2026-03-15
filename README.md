@@ -16,6 +16,7 @@ The source idea was captured on 2026-03-14 in `/Users/praneet/.codex/worktrees/1
 - Rationale: port a known coding-skills system into Codex format and re-open it for community reuse.
 - Current product shape: a public compatibility layer with explicit parity classes instead of pretending every skill has identical runtime support.
 - Adoption goal: let a Codex user copy stable skills today and understand exactly what extra tooling the runtime-aware skills need.
+- Public-facing copy: `docs/launch-copy.md` includes a suggested GitHub description, tagline, and short intro blurbs.
 
 ## Current Coverage
 
