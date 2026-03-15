@@ -2,7 +2,7 @@
 
 ## Build Goal
 
-Stand up a maintainable public repository that can absorb additional gstack skill ports without turning into a pile of one-off prompt files.
+Stand up a maintainable public repository that can preserve parity with gstack over time without turning into a pile of one-off prompt files or overclaiming runtime support.
 
 ## Problem Statement
 
@@ -51,18 +51,17 @@ A direct copy of gstack into Codex would carry over too much agent-specific beha
 
 ## Risks And Assumptions
 
-- Browser-dependent workflows may need Codex-specific tooling before they can be ported honestly.
+- Browser-dependent workflows need Codex-specific tooling boundaries so they can be ported honestly without implying bundled runtime parity.
 - Some upstream skills are intentionally huge; their Codex ports should be compressed without losing the operating posture.
-- The first port must feel representative enough to guide later contributors.
+- The reference pattern should stay representative enough to guide later contributors and maintenance work.
 
-## 60-90 Minute First Milestone
+## Near-Term Implementation Focus
 
-1. Initialize the repo and write the strategy documents.
-2. Publish the upstream-to-Codex map as both Markdown and JSON.
-3. Port `plan-ceo-review` into a concise Codex skill with supporting references.
-4. Add validation and tests.
+1. Keep the README, strategy docs, registry, and compatibility map aligned.
+2. Preserve structural validation for docs and skill metadata.
+3. Add concrete runtime-aware examples before attempting runtime shims.
+4. Add parity-maintenance tooling only after the public adoption story is stable.
 
-## End-Of-Day Outcome
+## Near-Term Outcome
 
-The repo should be ready for public push, with one real skill, one clear migration system, and a small amount of code that keeps future contributions honest.
-
+The repo should stay ready for public adoption, with a clear migration system, explicit runtime boundaries, and a small amount of code that keeps future contributions honest.

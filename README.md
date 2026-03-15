@@ -4,26 +4,34 @@ Codex-native ports of the full [garrytan/gstack](https://github.com/garrytan/gst
 
 This repository now covers all eight upstream gstack skills, with Codex-native adaptations for planning, review, shipping, retros, browser work, QA, and session setup.
 
+The repo is organized as a stable core plus a host-dependent runtime layer:
+
+- Stable core: `plan-ceo-review`, `plan-eng-review`, `review`, `ship`, and `retro`
+- Experimental runtime-aware layer: `browse`, `qa`, and `setup-browser-cookies`
+
 ## Why This Exists
 
 The source idea was captured on 2026-03-14 in `/Users/praneet/.codex/worktrees/114e/PraneetIdeas/manual_ideas.json` and `/Users/praneet/.codex/worktrees/114e/PraneetIdeas/memory.md`.
 
-- Rationale: high leverage project that ports a known coding-skills system into Codex format and re-opens it for community reuse.
-- First milestone: create repo scaffold with a SKILL format map, one fully ported reference skill, and a compatibility README.
-- End-of-day target: public repo with initial ported skill, usage docs, and a clear migration checklist for the remaining skills.
+- Rationale: port a known coding-skills system into Codex format and re-open it for community reuse.
+- Current product shape: a public compatibility layer with explicit parity classes instead of pretending every skill has identical runtime support.
+- Adoption goal: let a Codex user copy stable skills today and understand exactly what extra tooling the runtime-aware skills need.
 
 ## Current Coverage
 
-- `skills/plan-ceo-review/`: founder-style plan review
-- `skills/plan-eng-review/`: engineering execution review
-- `skills/review/`: pre-landing PR review
-- `skills/ship/`: release workflow orchestration
-- `skills/retro/`: engineering retrospective workflow
-- `skills/browse/`: browser QA and dogfooding workflow port
-- `skills/qa/`: structured QA workflow with issue taxonomy and report template
-- `skills/setup-browser-cookies/`: authenticated session setup workflow
+- Stable core:
+  - `skills/plan-ceo-review/`: founder-style plan review
+  - `skills/plan-eng-review/`: engineering execution review
+  - `skills/review/`: pre-landing PR review
+  - `skills/ship/`: release workflow orchestration
+  - `skills/retro/`: engineering retrospective workflow
+- Experimental runtime-aware layer:
+  - `skills/browse/`: browser QA and dogfooding workflow port
+  - `skills/qa/`: structured QA workflow with issue taxonomy and report template
+  - `skills/setup-browser-cookies/`: authenticated session setup workflow
 - `docs/compatibility-map.md`: upstream-to-Codex map for the full surface
 - `docs/runtime-compatibility.md`: explicit notes for browser/runtime-heavy adaptations
+- `docs/adoption-examples.md`: copy/paste examples for a stable skill and a runtime-aware flow
 - `data/skill-map.json`: machine-readable port registry pinned to an upstream commit
 - `scripts/validate_repo.py`: repo health check for docs, registry, and ported skills
 - `scripts/print_status.py`: terminal-friendly status table for the port surface
@@ -38,6 +46,7 @@ gstack-port-for-codex/
 │   ├── product-strategy.md
 │   ├── implementation-strategy.md
 │   ├── mvp-plan.md
+│   ├── adoption-examples.md
 │   ├── compatibility-map.md
 │   └── runtime-compatibility.md
 ├── data/
@@ -77,9 +86,14 @@ Port kinds used in this repo:
 - `workflow-adapted`: same workflow intent, but reshaped around Codex conventions and outputs
 - `runtime-aware`: workflow ported, but execution depends on whatever browser/session tooling the host Codex environment provides
 
+In practice:
+
+- Start with `native` and `workflow-adapted` skills if you want immediate, low-friction adoption.
+- Treat `runtime-aware` skills as host-dependent integrations that need browser or session tooling around them.
+
 ## Port Highlights
 
-The initial reference port is `plan-ceo-review`, adapted from upstream gstack commit `2aa745cb0e4331d683e727ec77385d04cdbb45a2`.
+The reference pattern started with `plan-ceo-review`, adapted from upstream gstack commit `2aa745cb0e4331d683e727ec77385d04cdbb45a2`.
 
 Patterns reused across the full port:
 
@@ -93,8 +107,15 @@ Patterns reused across the full port:
 
 1. Review any skill under `skills/`.
 2. Copy the folders you want into your Codex skills directory, or use this repo as a porting reference.
-3. Use `docs/compatibility-map.md`, `docs/runtime-compatibility.md`, and `data/skill-map.json` to understand port type and parity.
-4. Run the validation checks before opening a PR.
+3. Start with the stable core if you want the quickest path to value.
+4. Use `docs/compatibility-map.md`, `docs/runtime-compatibility.md`, `docs/adoption-examples.md`, and `data/skill-map.json` to understand port type, parity, and expected host tooling.
+5. Treat `browse`, `qa`, and `setup-browser-cookies` as workflow ports that still need compatible runtime support in your Codex environment.
+6. Run the validation checks before opening a PR.
+
+## Adoption Examples
+
+- Stable skill example: `docs/adoption-examples.md` shows how to use `plan-ceo-review` as a direct planning aid with no extra runtime setup.
+- Runtime-aware example: the same doc shows how to use `qa` honestly in an environment that may only have partial browser tooling.
 
 ## Checks
 

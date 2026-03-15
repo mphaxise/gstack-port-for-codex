@@ -2,6 +2,15 @@
 
 Pinned upstream source: `garrytan/gstack@2aa745cb0e4331d683e727ec77385d04cdbb45a2`
 
+This map tracks full upstream coverage, but the right way to read it is by adoption tier as well as by status.
+
+## Adoption Tiers
+
+- Stable core: `native` and `workflow-adapted` skills that Codex users can adopt immediately without extra browser or session runtime work
+- Experimental runtime-aware layer: skills whose workflow is ported, but whose execution depth depends on the host Codex environment
+
+`Status = ported` means the workflow has been translated into Codex form. It does not imply identical runtime parity for browser-heavy flows.
+
 ## Porting Rules
 
 - Preserve the workflow intent and operating posture.
@@ -14,14 +23,14 @@ Pinned upstream source: `garrytan/gstack@2aa745cb0e4331d683e727ec77385d04cdbb45a
 
 | Upstream gstack skill | Codex skill target | Status | Port kind | Notes |
 | --- | --- | --- | --- | --- |
-| `plan-ceo-review` | `plan-ceo-review` | ported | `native` | Founder-style plan review preserved with Codex-friendly references and questioning rules. |
-| `plan-eng-review` | `plan-eng-review` | ported | `native` | Engineering review ported with scope-mode handling and explicit output structure. |
-| `review` | `review` | ported | `workflow-adapted` | Preserves two-pass review and optional Greptile triage in Codex-native review style. |
-| `ship` | `ship` | ported | `workflow-adapted` | Preserves automated release flow while making versioning/changelog steps conditional. |
-| `browse` | `browse` | ported | `runtime-aware` | Workflow ported; host browser/tooling determines execution depth. |
-| `qa` | `qa` | ported | `runtime-aware` | QA modes, taxonomy, and report template ported; runtime depends on available browser tools. |
-| `setup-browser-cookies` | `setup-browser-cookies` | ported | `runtime-aware` | Session-setup workflow ported with Codex-native fallback strategies. |
-| `retro` | `retro` | ported | `workflow-adapted` | Team-aware retrospective workflow ported with history and compare guidance. |
+| `plan-ceo-review` | `plan-ceo-review` | ported | `native` | Stable-core planning skill with Codex-friendly references and questioning rules. |
+| `plan-eng-review` | `plan-eng-review` | ported | `native` | Stable-core engineering review with scope-mode handling and explicit output structure. |
+| `review` | `review` | ported | `workflow-adapted` | Stable-core PR review preserving two-pass analysis and optional Greptile triage. |
+| `ship` | `ship` | ported | `workflow-adapted` | Stable-core release workflow with conditional versioning and changelog behavior. |
+| `browse` | `browse` | ported | `runtime-aware` | Experimental runtime-aware workflow; host browser/tooling determines execution depth. |
+| `qa` | `qa` | ported | `runtime-aware` | Experimental runtime-aware QA flow; runtime depends on available browser tools. |
+| `setup-browser-cookies` | `setup-browser-cookies` | ported | `runtime-aware` | Experimental runtime-aware session setup with Codex-native fallback strategies. |
+| `retro` | `retro` | ported | `workflow-adapted` | Stable-core retrospective workflow with history and compare guidance. |
 
 ## Adaptation Notes
 
@@ -47,5 +56,4 @@ Pinned upstream source: `garrytan/gstack@2aa745cb0e4331d683e727ec77385d04cdbb45a
 
 ### Runtime-Heavy Skills
 
-The browser-centric workflows are fully ported as skills, but not as a bundled replacement for gstack's Playwright binary. See `docs/runtime-compatibility.md` for the exact adaptation boundary and host-tool expectations.
-
+The browser-centric workflows are fully ported as skills, but not as a bundled replacement for gstack's Playwright binary. Treat them as the experimental runtime-aware layer and see `docs/runtime-compatibility.md` plus `docs/adoption-examples.md` for the exact adaptation boundary and host-tool expectations.

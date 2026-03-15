@@ -1,73 +1,76 @@
 # MVP Plan
 
-## MVP Definition
+## Public V0 Definition
 
-The first vertical slice is complete when this repo proves the porting model works end to end:
+The first public version is complete when the repo proves the compatibility model end to end:
 
 - the idea and product intent are documented
 - the upstream surface area is mapped
-- one skill is ported in native Codex form
+- all eight upstream skills are represented in Codex form
+- stable-core and runtime-aware boundaries are explicit
 - checks verify the structure
+- usage examples prove how adoption should work in practice
 
-## 60-90 Minute First Milestone
+## What Already Shipped
 
-### Minute 0-20
+- Full compatibility inventory in Markdown and JSON
+- Eight ported skills across `native`, `workflow-adapted`, and `runtime-aware` classes
+- Runtime compatibility notes for browser-heavy workflows
+- Structural validation and regression tests
 
-- Read source backlog files and extract the idea context
-- Inspect upstream gstack structure
-- Lock the initial repo layout and the first reference skill
+## Public V0 Milestone
 
-### Minute 20-45
+### Step 1: Clarify Positioning
 
-- Write `README.md`
-- Create the required strategy docs
-- Publish `docs/compatibility-map.md`
-- Create `data/skill-map.json`
+- Recast the repo as a compatibility layer rather than a claim of identical runtime parity
+- Split the top-level story into stable core versus runtime-aware ports
+- Make adoption guidance visible in `README.md`
 
-### Minute 45-70
+### Step 2: Add Proof
 
-- Port `plan-ceo-review`
-- Split the port into concise skill guidance plus references
-- Add attribution and source pinning
+- Add one stable-core usage example
+- Add one runtime-aware usage example with explicit blind spots
+- Keep the examples short enough that a new adopter can copy the workflow without reading the whole repo
 
-### Minute 70-90
+### Step 3: Preserve Integrity
 
-- Add validator and status scripts
-- Add tests
-- Run checks
-- Commit in logical slices
+- Keep the registry, compatibility docs, and README aligned
+- Run validation and tests before publishing updates
+- Avoid adding more breadth until the adoption story is crisp
 
 ## Acceptance Criteria
 
-- `README.md` clearly explains the repo, source, MVP, and next steps
-- All requested docs exist and include problem statement, target users, scope, risks, architecture, first milestone, and end-of-day outcome
-- One skill exists under `skills/` and validates cleanly
+- `README.md` clearly distinguishes immediate-adoption skills from host-dependent skills
+- `docs/product-strategy.md` and `docs/mvp-plan.md` match the repo's current shipped state
+- At least one stable-core example and one runtime-aware example exist
+- The compatibility map, runtime notes, and examples tell the same story
 - `python3 scripts/validate_repo.py` passes
+- `python3 scripts/print_status.py` passes
 - `python3 -m unittest discover -s tests` passes
 
-## Scope: MVP Vs Later
+## Scope: Public V0 Vs Later
 
-### MVP
+### Public V0
 
-- One reference port
 - Full compatibility inventory
+- All current ports published with explicit parity classes
 - Lightweight validation
-- Public-ready docs
+- Public-ready docs and examples
 
 ### Later
 
-- More skill ports
+- Concrete runtime adapters or shims for browser-heavy skills
 - Import helpers
 - CI workflow
 - Upstream diffing and parity tracking
 
 ## Risks And Assumptions
 
-- Assumption: one excellent port beats several shallow ones.
+- Assumption: explicit scope boundaries are more valuable than claiming seamless parity.
 - Risk: contributor expectations may drift unless the registry and docs stay aligned.
+- Risk: runtime-aware skills may be adopted incorrectly if examples do not show honest fallback behavior.
 - Risk: browser tooling ports will require separate design work.
 
-## End-Of-Day Outcome
+## Near-Term Outcome
 
-The repo can be published as a credible starting point for a public community porting effort rather than a private sketchpad.
-
+The repo can be published as a credible compatibility layer for Codex users: useful immediately for the stable core, honest about runtime dependencies, and ready for incremental parity work rather than a big-bang rewrite.

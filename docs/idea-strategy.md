@@ -11,7 +11,7 @@
 
 ## Extracted Rationale
 
-The source idea is straightforward: take the useful workflow system from gstack, port it into Codex's skill conventions, and make the result reusable in public. The leverage comes from not inventing a new workflow language from scratch; instead, it converts an already opinionated operating model into a format Codex users can actually adopt.
+The source idea is straightforward: take the useful workflow system from gstack, port it into Codex's skill conventions, and make the result reusable in public. The leverage comes from not inventing a new workflow language from scratch; instead, it converts an already opinionated operating model into a format Codex users can actually adopt. That initial idea has now matured into a compatibility layer with explicit parity classes rather than a single reference port.
 
 ## Problem Statement
 
@@ -21,27 +21,28 @@ Useful prompt-operating systems often become trapped inside one coding agent's c
 
 - Codex power users who want sharper operating modes than a single generic assistant persona
 - Teams migrating from Claude-centric workflows to Codex
-- Open-source contributors who want a clean, documented starting point for additional skill ports
+- Open-source contributors who want a clean, documented starting point for maintaining and extending the port
 
 ## Scope
 
-### MVP
+### Public V0
 
 - Pin a real upstream gstack commit
 - Publish a compatibility map for the full upstream skill surface
-- Ship one high-quality reference port in native Codex skill format
-- Add lightweight validation so future ports follow a consistent structure
+- Ship all eight current ports with explicit parity types
+- Add lightweight validation so future maintenance follows a consistent structure
+- Include adoption examples that show the difference between stable and runtime-aware usage
 
 ### Later
 
-- Port the remaining strategy, review, QA, release, and browser workflows
+- Deepen runtime parity for browser- and session-heavy skills
 - Add import tooling for faster upstream-to-Codex translation
-- Add richer regression tests and example prompts for each port
+- Add richer regression tests and example integrations for each port type
 
 ## Risks And Assumptions
 
-- Assumption: the right first win is a compact, native Codex port, not a literal copy.
-- Assumption: `plan-ceo-review` is the highest-leverage first slice because it is self-contained and broadly useful.
+- Assumption: explicit compatibility boundaries are more trustworthy than claiming seamless parity.
+- Assumption: `plan-ceo-review` remains the best anchor example because it is self-contained and broadly useful.
 - Risk: browser-heavy skills such as `browse` and `setup-browser-cookies` will need a separate Codex tool strategy.
 - Risk: Codex skill expectations may evolve, so the port format should stay simple and documented.
 
@@ -52,17 +53,16 @@ Useful prompt-operating systems often become trapped inside one coding agent's c
 - Python stdlib scripts for zero-dependency checks
 - One skill folder per port, with references for progressive disclosure
 
-## 60-90 Minute First Milestone
+## Public Launch Goal
 
-Create the repo scaffold, write the strategy docs, publish the full upstream mapping, and land one working reference port for `plan-ceo-review` with validation checks.
+Ship a public repo that makes the adaptation easy to understand: what is ready for immediate adoption, what depends on host runtime support, and how contributors should preserve the pattern over time.
 
-## End-Of-Day Outcome
+## Near-Term Outcome
 
-Public repo with a solid README, strategy docs, one Codex-native reference skill, a migration map for the remaining gstack skills, and enough automation to prevent the repo from turning into drift-prone notes.
+Public repo with a solid README, aligned strategy docs, full-surface compatibility map, adoption examples, and enough automation to prevent the repo from turning into drift-prone notes.
 
 ## Notes
 
 Source note carried forward from the backlog:
 
 > Project goal: take GStack skills for cloud code configuration, port to Codex skills conventions, and open source it for reuse.
-

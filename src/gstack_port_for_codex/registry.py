@@ -11,6 +11,7 @@ REQUIRED_DOCS = (
     Path("docs/product-strategy.md"),
     Path("docs/implementation-strategy.md"),
     Path("docs/mvp-plan.md"),
+    Path("docs/adoption-examples.md"),
     Path("docs/compatibility-map.md"),
     Path("docs/runtime-compatibility.md"),
 )
