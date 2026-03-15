@@ -18,6 +18,35 @@ The source idea was captured on 2026-03-14 in `/Users/praneet/.codex/worktrees/1
 - Adoption goal: let a Codex user copy stable skills today and understand exactly what extra tooling the runtime-aware skills need.
 - Public-facing copy: `docs/launch-copy.md` includes a suggested GitHub description, tagline, and short intro blurbs.
 
+## Quick Start
+
+If you want the fastest path to value, start with one stable-core skill such as `plan-ceo-review` or `review`.
+
+1. Copy one or more stable-core skills into your Codex skills directory:
+
+```bash
+mkdir -p "$CODEX_HOME/skills"
+cp -R skills/plan-ceo-review "$CODEX_HOME/skills/"
+cp -R skills/review "$CODEX_HOME/skills/"
+```
+
+2. Start a Codex session in the repo where you want to use the skill.
+3. Invoke the skill directly by name in your request:
+
+```text
+/plan-ceo-review
+Review our rollout plan for preview deployments before we start coding.
+```
+
+```text
+Use $review on this branch and look for blocking issues.
+```
+
+4. Add `plan-eng-review`, `ship`, and `retro` next if you want a fuller workflow set.
+5. Add `browse`, `qa`, and `setup-browser-cookies` only after checking `docs/runtime-compatibility.md`.
+
+If you want a concrete stable-skill example plus a runtime-aware example, see `docs/adoption-examples.md`.
+
 ## Current Coverage
 
 - Stable core:
