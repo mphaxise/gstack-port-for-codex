@@ -63,6 +63,7 @@ If you want a concrete stable-skill example plus a runtime-aware example, see `d
 - `docs/runtime-compatibility.md`: explicit notes for browser/runtime-heavy adaptations
 - `docs/adoption-examples.md`: copy/paste examples for a stable skill and a runtime-aware flow
 - `data/skill-map.json`: machine-readable port registry pinned to an upstream commit
+- `scripts/check_upstream_drift.py`: compare the pinned upstream commit against current upstream `main`
 - `scripts/validate_repo.py`: repo health check for docs, registry, and ported skills
 - `scripts/print_status.py`: terminal-friendly status table for the port surface
 - `tests/`: regression checks for the registry and validator
@@ -91,6 +92,7 @@ gstack-port-for-codex/
 │   ├── setup-browser-cookies/
 │   └── ship/
 ├── scripts/
+│   ├── check_upstream_drift.py
 │   ├── print_status.py
 │   └── validate_repo.py
 ├── src/
@@ -150,6 +152,7 @@ Patterns reused across the full port:
 ## Checks
 
 ```bash
+python3 scripts/check_upstream_drift.py
 python3 scripts/validate_repo.py
 python3 scripts/print_status.py
 python3 -m unittest discover -s tests
@@ -166,5 +169,5 @@ Attribution details live in `NOTICE`.
 ## Roadmap
 
 - Deepen runtime parity for `browse`, `qa`, and `setup-browser-cookies`.
-- Add upstream-diff tooling so future gstack changes can be compared against this port.
+- Deepen upstream-drift tooling so future gstack changes can be triaged faster.
 - Add contributor automation for new skill ports and validation.
