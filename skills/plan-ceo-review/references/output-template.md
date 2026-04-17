@@ -5,6 +5,7 @@ Use this structure for the final review.
 ## 1. Mode
 
 - State the selected mode and one-sentence reason.
+- If you proceeded on an assumption instead of asking, say that assumption plainly.
 
 ## 2. Problem Framing
 
@@ -46,4 +47,3 @@ RISK | WHY IT MATTERS | MITIGATION
 ## 7. Next Actions
 
 - End with the next 1-3 concrete actions.
-
