@@ -51,6 +51,14 @@ Core GBrain ports:
 - `testing`
 - `webhook-transforms`
 
+### Natural-Language Routing
+
+You do not need to remember the skill names. The repo now also includes:
+
+- `workflow-router`
+
+Its job is to infer the right 1-3 skills from a normal request and apply them automatically.
+
 ## Local Brain Substrate
 
 To make the memory-oriented skills honest instead of aspirational, the repo includes a minimal local `brain/` corpus plus deterministic helpers:
@@ -106,6 +114,7 @@ cp -R skills/brain-ops "$CODEX_HOME/skills/"
 cp -R skills/signal-detector "$CODEX_HOME/skills/"
 cp -R skills/cron-scheduler "$CODEX_HOME/skills/"
 cp -R skills/testing "$CODEX_HOME/skills/"
+cp -R skills/workflow-router "$CODEX_HOME/skills/"
 ```
 
 Examples:
@@ -116,6 +125,7 @@ Examples:
 - Use `$signal-detector` to capture the user's own phrasing into `brain/originals/` or `brain/ideas/`.
 - Use `$citation-fixer` for citation audits.
 - Use `$cron-scheduler` for recurring Codex automations.
+- Or just ask naturally and let `$workflow-router` choose the right skill flow.
 
 ## Checks
 

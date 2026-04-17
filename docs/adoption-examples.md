@@ -1,5 +1,27 @@
 # Adoption Examples
 
+## Example 0: Natural-Language Routing
+
+Use this when you do not want to remember skill names and just want the repo to choose the right workflow.
+
+### User request
+
+```text
+Can you save this meeting note into the brain, link the people involved, and tell me what still looks thin?
+```
+
+### Expected Codex behavior
+
+1. Detect that the user did not name a skill and load `workflow-router`.
+2. Route to `meeting-ingestion` as the primary skill.
+3. Optionally follow with `enrich` if the created pages still look thin.
+4. Tell the user briefly which skill path was chosen.
+
+### Why this matters
+
+- The user should not have to memorize `meeting-ingestion`, `signal-detector`, `brain-ops`, or any other exact name.
+- The router makes the skillpack feel like a working operating system instead of a bag of commands.
+
 These examples show the intended difference between the stable core and the runtime-aware layer.
 
 ## Example 1: Stable Core With `plan-ceo-review`
@@ -92,6 +114,7 @@ Seed the local brain with a small real corpus and prove that query, signal captu
 
 ## Adoption Guidance
 
+- Start with natural-language requests if you do not want to memorize skill names; `workflow-router` should infer the right path.
 - Adopt the stable core first if your goal is immediate team-wide reuse.
 - Add the runtime-aware skills when your Codex environment already has browser or session tooling, or when explicit limitations are acceptable.
 - Use `docs/runtime-compatibility.md` alongside these examples when deciding whether a runtime-aware skill is ready for your environment.
