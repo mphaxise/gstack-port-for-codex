@@ -77,11 +77,47 @@ class RegistryTests(unittest.TestCase):
         self.assertIn("ported", table)
         self.assertIn("runtime-aware", table)
 
-    def test_all_upstream_skills_are_now_ported(self) -> None:
+    def test_all_gstack_upstream_skills_are_now_ported(self) -> None:
         skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")
         ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
 
         self.assertEqual(len(ported), 8)
+
+    def test_full_gbrain_surface_is_now_ported(self) -> None:
+        skill_map = load_skill_map(REPO_ROOT / "data" / "gbrain-skill-map.json")
+        ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
+
+        self.assertEqual(len(skill_map["skills"]), 25)
+        self.assertEqual(
+            sorted(skill["codex_slug"] for skill in ported),
+            [
+                "brain-ops",
+                "briefing",
+                "citation-fixer",
+                "cron-scheduler",
+                "cross-modal-review",
+                "daily-task-manager",
+                "daily-task-prep",
+                "data-research",
+                "enrich",
+                "idea-ingest",
+                "ingest",
+                "maintain",
+                "media-ingest",
+                "meeting-ingestion",
+                "migrate",
+                "publish",
+                "query",
+                "repo-architecture",
+                "reports",
+                "setup",
+                "signal-detector",
+                "skill-creator",
+                "soul-audit",
+                "testing",
+                "webhook-transforms",
+            ],
+        )
 
 
 if __name__ == "__main__":

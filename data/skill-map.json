@@ -38,8 +38,8 @@
       "notes": "Ports the two-pass review flow and optional Greptile triage into Codex review conventions.",
       "source_files": [
         "review/SKILL.md",
-        "review/checklist.md",
-        "review/greptile-triage.md"
+        "review/references/checklist.md",
+        "review/references/greptile-triage.md"
       ]
     },
     {

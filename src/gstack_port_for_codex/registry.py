@@ -11,9 +11,18 @@ REQUIRED_DOCS = (
     Path("docs/product-strategy.md"),
     Path("docs/implementation-strategy.md"),
     Path("docs/mvp-plan.md"),
+    Path("docs/gbrain-adaptation-memo.md"),
+    Path("docs/gbrain-import-inventory.md"),
+    Path("docs/gbrain-compatibility-map.md"),
+    Path("docs/gbrain-resolver.md"),
+    Path("docs/codex-brain-substrate.md"),
     Path("docs/adoption-examples.md"),
     Path("docs/compatibility-map.md"),
     Path("docs/runtime-compatibility.md"),
+)
+SKILL_MAP_FILES = (
+    Path("data/skill-map.json"),
+    Path("data/gbrain-skill-map.json"),
 )
 
 
@@ -44,15 +53,15 @@ def validate_skill_map(data: dict) -> list[str]:
 
     source = data.get("source")
     if not isinstance(source, dict):
-        errors.append("Missing top-level source object in data/skill-map.json.")
+        errors.append("Missing top-level source object in a skill map file.")
     else:
         for key in ("name", "repo", "license", "commit"):
             if not source.get(key):
-                errors.append(f"Missing source.{key} in data/skill-map.json.")
+                errors.append(f"Missing source.{key} in a skill map file.")
 
     skills = data.get("skills")
     if not isinstance(skills, list) or not skills:
-        errors.append("data/skill-map.json must include a non-empty skills list.")
+        errors.append("Each skill map file must include a non-empty skills list.")
         return errors
 
     seen_upstream: set[str] = set()
@@ -115,32 +124,38 @@ def validate_repo(repo_root: Path) -> list[str]:
     if not readme_path.exists():
         errors.append("Missing README.md.")
 
-    skill_map_path = repo_root / "data" / "skill-map.json"
-    if not skill_map_path.exists():
-        errors.append("Missing data/skill-map.json.")
-        return errors
-
-    skill_map = load_skill_map(skill_map_path)
-    errors.extend(validate_skill_map(skill_map))
-
-    for skill in skill_map.get("skills", []):
-        if skill.get("status") != "ported":
+    for skill_map_rel in SKILL_MAP_FILES:
+        skill_map_path = repo_root / skill_map_rel
+        if not skill_map_path.exists():
+            errors.append(f"Missing {skill_map_rel}.")
             continue
 
-        codex_slug = skill["codex_slug"]
-        skill_md = repo_root / "skills" / codex_slug / "SKILL.md"
-        if not skill_md.exists():
-            errors.append(f"Ported skill is missing SKILL.md: skills/{codex_slug}/SKILL.md.")
-            continue
+        skill_map = load_skill_map(skill_map_path)
+        errors.extend(validate_skill_map(skill_map))
 
-        frontmatter = extract_frontmatter_keys(skill_md.read_text(encoding="utf-8"))
-        if frontmatter.get("name") != codex_slug:
-            errors.append(
-                f"skills/{codex_slug}/SKILL.md has name={frontmatter.get('name')!r}; "
-                f"expected {codex_slug!r}."
-            )
-        if not frontmatter.get("description"):
-            errors.append(f"skills/{codex_slug}/SKILL.md is missing a description frontmatter field.")
+        for skill in skill_map.get("skills", []):
+            if skill.get("status") != "ported":
+                continue
+
+            codex_slug = skill["codex_slug"]
+            skill_md = repo_root / "skills" / codex_slug / "SKILL.md"
+            if not skill_md.exists():
+                errors.append(f"Ported skill is missing SKILL.md: skills/{codex_slug}/SKILL.md.")
+                continue
+
+            frontmatter = extract_frontmatter_keys(skill_md.read_text(encoding="utf-8"))
+            if frontmatter.get("name") != codex_slug:
+                errors.append(
+                    f"skills/{codex_slug}/SKILL.md has name={frontmatter.get('name')!r}; "
+                    f"expected {codex_slug!r}."
+                )
+            if not frontmatter.get("description"):
+                errors.append(f"skills/{codex_slug}/SKILL.md is missing a description frontmatter field.")
+
+            for source_file in skill.get("source_files", []):
+                source_path = repo_root / "skills" / source_file
+                if not source_path.exists():
+                    errors.append(f"Missing ported skill source file: skills/{source_file}.")
 
     return errors
 

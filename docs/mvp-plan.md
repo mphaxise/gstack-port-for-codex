@@ -1,76 +1,76 @@
 # MVP Plan
 
-## Public V0 Definition
+## Phase-Two MVP Definition
 
-The first public version is complete when the repo proves the compatibility model end to end:
+The current MVP is:
 
-- the idea and product intent are documented
-- the upstream surface area is mapped
-- all eight upstream skills are represented in Codex form
-- stable-core and runtime-aware boundaries are explicit
-- checks verify the structure
-- usage examples prove how adoption should work in practice
+- the full upstream GBrain surface represented and ported in this repo
+- a minimal local substrate that makes the memory-oriented ports honest
+- explicit workflow adaptations for the parts of upstream GBrain that were ambient or service-backed
 
-## What Already Shipped
+## Problem Statement
 
-- Full compatibility inventory in Markdown and JSON
-- Eight ported skills across `native`, `workflow-adapted`, and `runtime-aware` classes
-- Runtime compatibility notes for browser-heavy workflows
-- Structural validation and regression tests
+Without a full-surface map, the repo feels like a side project. Without actual skill ports, it feels like paperwork. Without a minimal substrate, the memory layer would still be aspirational. The MVP has to solve all three.
 
-## Public V0 Milestone
+## Target Users
 
-### Step 1: Clarify Positioning
+- current adopters of the GStack Codex ports
+- contributors extending the GBrain layer
+- Codex users who want operational and memory-adjacent workflows around the coding core
 
-- Recast the repo as a compatibility layer rather than a claim of identical runtime parity
-- Split the top-level story into stable core versus runtime-aware ports
-- Make adoption guidance visible in `README.md`
+## Scope
 
-### Step 2: Add Proof
+### MVP
 
-- Add one stable-core usage example
-- Add one runtime-aware usage example with explicit blind spots
-- Keep the examples short enough that a new adopter can copy the workflow without reading the whole repo
-
-### Step 3: Preserve Integrity
-
-- Keep the registry, compatibility docs, and README aligned
-- Run validation and tests before publishing updates
-- Avoid adding more breadth until the adoption story is crisp
-
-## Acceptance Criteria
-
-- `README.md` clearly distinguishes immediate-adoption skills from host-dependent skills
-- `docs/product-strategy.md` and `docs/mvp-plan.md` match the repo's current shipped state
-- At least one stable-core example and one runtime-aware example exist
-- The compatibility map, runtime notes, and examples tell the same story
-- `python3 scripts/validate_repo.py` passes
-- `python3 scripts/print_status.py` passes
-- `python3 -m unittest discover -s tests` passes
-
-## Scope: Public V0 Vs Later
-
-### Public V0
-
-- Full compatibility inventory
-- All current ports published with explicit parity classes
-- Lightweight validation
-- Public-ready docs and examples
+- refresh strategy docs for the full-port direction
+- add full-surface GBrain compatibility and resolver docs
+- track all 25 upstream GBrain skills in the registry
+- port the full GBrain surface with honest workflow adaptations where needed
+- add the local `brain/` substrate plus helper scripts
+- keep validation and tests green
 
 ### Later
 
-- Concrete runtime adapters or shims for browser-heavy skills
-- Import helpers
-- CI workflow
-- Upstream diffing and parity tracking
+- add richer background/runtime support if higher-fidelity parity becomes worth it
+- deepen ingest and transformation ergonomics
+- decide whether a larger substrate should replace the current local helpers
+
+## Architecture And Tech Choices
+
+- preserve the existing GStack port and validation
+- layer the GBrain port into parallel registries and docs
+- classify each upstream skill by practical Codex fit
+- use the local `brain/` corpus as the smallest honest substrate before a larger backend exists
 
 ## Risks And Assumptions
 
-- Assumption: explicit scope boundaries are more valuable than claiming seamless parity.
-- Risk: contributor expectations may drift unless the registry and docs stay aligned.
-- Risk: runtime-aware skills may be adopted incorrectly if examples do not show honest fallback behavior.
-- Risk: browser tooling ports will require separate design work.
+- Assumption: full-surface packaging is the right product shape for this repo.
+- Assumption: explicit workflow adaptation is better than leaving high-value skills marked forever blocked.
+- Risk: the current local substrate may still prove too thin for some future usage.
+- Risk: users may confuse workflow-adapted parity with runtime-identical parity unless the docs stay clear.
 
-## Near-Term Outcome
+## 60-90 Minute First Milestone
 
-The repo can be published as a credible compatibility layer for Codex users: useful immediately for the stable core, honest about runtime dependencies, and ready for incremental parity work rather than a big-bang rewrite.
+- remove the collaboration checkpoint that was artificially narrowing planning
+- add the full GBrain registry and compatibility docs
+- port the first workflow tranche
+- add the smallest honest substrate for the memory skills
+
+## End-Of-Day Outcome
+
+- a credible full-port foundation
+- a working file-backed local brain substrate
+- a full-surface GBrain port with explicit adaptation notes
+
+## Acceptance Criteria
+
+- `README.md` reflects the full-port direction
+- `data/gbrain-skill-map.json` includes the full upstream surface
+- `docs/gbrain-compatibility-map.md`, `docs/gbrain-resolver.md`, and `docs/codex-brain-substrate.md` exist
+- all 25 GBrain skills are ported with real `SKILL.md` files
+- validation and tests pass
+
+## Not In Scope
+
+- full backend/runtime identity with upstream GBrain
+- pretending a live webhook server or always-on daemon exists when it does not

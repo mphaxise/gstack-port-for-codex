@@ -10,12 +10,30 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from gstack_port_for_codex.registry import format_status_table, load_skill_map  # noqa: E402
 
 
+SKILL_MAPS = (
+    ("GStack Core", REPO_ROOT / "data" / "skill-map.json"),
+    ("GBrain Imports", REPO_ROOT / "data" / "gbrain-skill-map.json"),
+)
+
+
 def main() -> int:
-    skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")
-    print(format_status_table(skill_map))
+    sections: list[str] = []
+    for title, path in SKILL_MAPS:
+        skill_map = load_skill_map(path)
+        source = skill_map["source"]
+        sections.append(
+            "\n".join(
+                (
+                    title,
+                    f"Source: {source['name']} @ {source['commit']}",
+                    format_status_table(skill_map),
+                )
+            )
+        )
+
+    print("\n\n".join(sections))
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

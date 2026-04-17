@@ -1,173 +1,144 @@
 # GStack Port for Codex
 
-Codex-native ports of the full [garrytan/gstack](https://github.com/garrytan/gstack) skill surface: a reusable migration kit for bringing high-rigor coding workflows from Claude-style slash commands into Codex skills.
+Codex-native ports of the full [garrytan/gstack](https://github.com/garrytan/gstack) skill surface plus a full-surface workflow port of [garrytan/gbrain](https://github.com/garrytan/gbrain).
 
-This repository now covers all eight upstream gstack skills, with Codex-native adaptations for planning, review, shipping, retros, browser work, QA, and session setup.
+This repo started as a GStack compatibility layer. It now bundles GStack's coding engine and GBrain's operating layer into one Codex-native package, with explicit notes where upstream ambient behavior has been adapted into deliberate local workflows.
 
-The repo is organized as a stable core plus a host-dependent runtime layer:
+## What Exists Today
 
-- Stable core: `plan-ceo-review`, `plan-eng-review`, `review`, `ship`, and `retro`
-- Experimental runtime-aware layer: `browse`, `qa`, and `setup-browser-cookies`
+### Full GStack Port
 
-## Why This Exists
+All eight upstream GStack skills are ported:
 
-The source idea was captured on 2026-03-14 in `/Users/praneet/.codex/worktrees/114e/PraneetIdeas/manual_ideas.json` and `/Users/praneet/.codex/worktrees/114e/PraneetIdeas/memory.md`.
+- `plan-ceo-review`
+- `plan-eng-review`
+- `review`
+- `ship`
+- `browse`
+- `qa`
+- `setup-browser-cookies`
+- `retro`
 
-- Rationale: port a known coding-skills system into Codex format and re-open it for community reuse.
-- Current product shape: a public compatibility layer with explicit parity classes instead of pretending every skill has identical runtime support.
-- Adoption goal: let a Codex user copy stable skills today and understand exactly what extra tooling the runtime-aware skills need.
-- Public-facing copy: `docs/launch-copy.md` includes a suggested GitHub description, tagline, and short intro blurbs.
+### Full GBrain Surface Ported
+
+All 25 upstream GBrain skills are tracked in `data/gbrain-skill-map.json` and now have Codex ports. The lighter operational layer ports directly, while the deeper memory layer is rewritten around the local `brain/` substrate and helper scripts.
+
+Core GBrain ports:
+
+- `briefing`
+- `brain-ops`
+- `citation-fixer`
+- `cron-scheduler`
+- `cross-modal-review`
+- `data-research`
+- `daily-task-manager`
+- `daily-task-prep`
+- `enrich`
+- `idea-ingest`
+- `ingest`
+- `maintain`
+- `media-ingest`
+- `meeting-ingestion`
+- `migrate`
+- `publish`
+- `query`
+- `repo-architecture`
+- `reports`
+- `setup`
+- `signal-detector`
+- `skill-creator`
+- `soul-audit`
+- `testing`
+- `webhook-transforms`
+
+## Local Brain Substrate
+
+To make the memory-oriented skills honest instead of aspirational, the repo includes a minimal local `brain/` corpus plus deterministic helpers:
+
+- `python3 scripts/brain_init.py`
+- `python3 scripts/brain_search.py "query"`
+- `python3 scripts/brain_put.py --title ... --category ... --text "..."`
+- `python3 scripts/brain_link.py --from-ref ... --to-ref ... --context "..."`
+- `python3 scripts/brain_citations.py --fix --verbose`
+- `python3 scripts/brain_ingest_source.py <file> --title ...`
+- `python3 scripts/brain_ingest_meeting.py <file> --title ... --date ...`
+- `python3 scripts/brain_transform_event.py payload.json --event-type auto`
+- `python3 scripts/brain_capture_signal.py --text "..." --mode original`
+- `python3 scripts/brain_doctor.py`
+
+See [docs/codex-brain-substrate.md](/Users/praneet/gstack-port-for-codex/docs/codex-brain-substrate.md) and [brain/README.md](/Users/praneet/gstack-port-for-codex/brain/README.md).
+
+## Repo Direction
+
+The working shape is:
+
+```text
+GStack coding core + GBrain ops layer + local brain substrate + explicit workflow adaptations
+```
+
+That means:
+
+- direct Codex fits stay `native`
+- upstream runtime-heavy behaviors become `workflow-adapted` when a local, honest equivalent exists
+- parity notes stay explicit in the registries and docs
+
+## GBrain Porting Artifacts
+
+- `docs/gbrain-adaptation-memo.md`
+- `docs/gbrain-import-inventory.md`
+- `docs/gbrain-compatibility-map.md`
+- `docs/gbrain-resolver.md`
+- `docs/codex-brain-substrate.md`
+- `data/gbrain-skill-map.json`
 
 ## Quick Start
 
-If you want the fastest path to value, start with one stable-core skill such as `plan-ceo-review` or `review`.
-
-1. Copy one or more stable-core skills into your Codex skills directory:
+Copy any skill you want into your Codex skills directory:
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
 cp -R skills/plan-ceo-review "$CODEX_HOME/skills/"
 cp -R skills/review "$CODEX_HOME/skills/"
+cp -R skills/query "$CODEX_HOME/skills/"
+cp -R skills/ingest "$CODEX_HOME/skills/"
+cp -R skills/enrich "$CODEX_HOME/skills/"
+cp -R skills/brain-ops "$CODEX_HOME/skills/"
+cp -R skills/signal-detector "$CODEX_HOME/skills/"
+cp -R skills/cron-scheduler "$CODEX_HOME/skills/"
+cp -R skills/testing "$CODEX_HOME/skills/"
 ```
 
-2. Start a Codex session in the repo where you want to use the skill.
-3. Invoke the skill directly by name in your request:
+Examples:
 
-```text
-/plan-ceo-review
-Review our rollout plan for preview deployments before we start coding.
-```
-
-```text
-Use $review on this branch and look for blocking issues.
-```
-
-4. Add `plan-eng-review`, `ship`, and `retro` next if you want a fuller workflow set.
-5. Add `browse`, `qa`, and `setup-browser-cookies` only after checking `docs/runtime-compatibility.md`.
-
-If you want a concrete stable-skill example plus a runtime-aware example, see `docs/adoption-examples.md`.
-
-## Current Coverage
-
-- Stable core:
-  - `skills/plan-ceo-review/`: founder-style plan review
-  - `skills/plan-eng-review/`: engineering execution review
-  - `skills/review/`: pre-landing PR review
-  - `skills/ship/`: release workflow orchestration
-  - `skills/retro/`: engineering retrospective workflow
-- Experimental runtime-aware layer:
-  - `skills/browse/`: browser QA and dogfooding workflow port
-  - `skills/qa/`: structured QA workflow with issue taxonomy and report template
-  - `skills/setup-browser-cookies/`: authenticated session setup workflow
-- `docs/compatibility-map.md`: upstream-to-Codex map for the full surface
-- `docs/runtime-compatibility.md`: explicit notes for browser/runtime-heavy adaptations
-- `docs/adoption-examples.md`: copy/paste examples for a stable skill and a runtime-aware flow
-- `data/skill-map.json`: machine-readable port registry pinned to an upstream commit
-- `scripts/check_upstream_drift.py`: compare the pinned upstream commit against current upstream `main`
-- `scripts/validate_repo.py`: repo health check for docs, registry, and ported skills
-- `scripts/print_status.py`: terminal-friendly status table for the port surface
-- `tests/`: regression checks for the registry and validator
-
-## Repository Layout
-
-```text
-gstack-port-for-codex/
-├── docs/
-│   ├── idea-strategy.md
-│   ├── product-strategy.md
-│   ├── implementation-strategy.md
-│   ├── mvp-plan.md
-│   ├── adoption-examples.md
-│   ├── compatibility-map.md
-│   └── runtime-compatibility.md
-├── data/
-│   └── skill-map.json
-├── skills/
-│   ├── browse/
-│   ├── plan-ceo-review/
-│   ├── plan-eng-review/
-│   ├── qa/
-│   ├── retro/
-│   ├── review/
-│   ├── setup-browser-cookies/
-│   └── ship/
-├── scripts/
-│   ├── check_upstream_drift.py
-│   ├── print_status.py
-│   └── validate_repo.py
-├── src/
-│   └── gstack_port_for_codex/
-└── tests/
-```
-
-## Compatibility Model
-
-gstack is built around Claude Code slash commands. Codex skills work differently, so each port needs an adaptation layer rather than a direct copy.
-
-Core translation rules in this repo:
-
-- Slash-command invocation becomes skill discovery by name and description.
-- Claude-only tool declarations are removed or rewritten into Codex-native guidance.
-- Large monolithic prompts are split into a concise `SKILL.md` plus targeted references.
-- Interactive `AskUserQuestion` flows are adapted to Codex's "ask only when necessary" collaboration style.
-- Update-check and install-time shell behavior stay out of the skill unless they are essential to the workflow.
-
-Port kinds used in this repo:
-
-- `native`: direct Codex-friendly prompt workflow with minimal behavioral translation
-- `workflow-adapted`: same workflow intent, but reshaped around Codex conventions and outputs
-- `runtime-aware`: workflow ported, but execution depends on whatever browser/session tooling the host Codex environment provides
-
-In practice:
-
-- Start with `native` and `workflow-adapted` skills if you want immediate, low-friction adoption.
-- Treat `runtime-aware` skills as host-dependent integrations that need browser or session tooling around them.
-
-## Port Highlights
-
-The reference pattern started with `plan-ceo-review`, adapted from upstream gstack commit `2aa745cb0e4331d683e727ec77385d04cdbb45a2`.
-
-Patterns reused across the full port:
-
-- Remove Claude-specific update checks and runtime-only tool declarations.
-- Compress giant single-file prompts into Codex-friendly overview files plus references.
-- Preserve the core operating modes and review posture of each upstream skill.
-- Reframe interactive questioning around Codex's default behavior: ask only when ambiguity materially changes the recommendation.
-- Be explicit when a workflow depends on host runtime capabilities that this repo does not reimplement.
-
-## Using The Port
-
-1. Review any skill under `skills/`.
-2. Copy the folders you want into your Codex skills directory, or use this repo as a porting reference.
-3. Start with the stable core if you want the quickest path to value.
-4. Use `docs/compatibility-map.md`, `docs/runtime-compatibility.md`, `docs/adoption-examples.md`, and `data/skill-map.json` to understand port type, parity, and expected host tooling.
-5. Treat `browse`, `qa`, and `setup-browser-cookies` as workflow ports that still need compatible runtime support in your Codex environment.
-6. Run the validation checks before opening a PR.
-
-## Adoption Examples
-
-- Stable skill example: `docs/adoption-examples.md` shows how to use `plan-ceo-review` as a direct planning aid with no extra runtime setup.
-- Runtime-aware example: the same doc shows how to use `qa` honestly in an environment that may only have partial browser tooling.
+- Use `$query` to search the local brain corpus.
+- Use `$ingest`, `$idea-ingest`, or `$meeting-ingestion` to turn files into durable brain pages.
+- Use `$brain-ops` before outside research when local memory should shape the answer.
+- Use `$signal-detector` to capture the user's own phrasing into `brain/originals/` or `brain/ideas/`.
+- Use `$citation-fixer` for citation audits.
+- Use `$cron-scheduler` for recurring Codex automations.
 
 ## Checks
 
 ```bash
-python3 scripts/check_upstream_drift.py
 python3 scripts/validate_repo.py
-python3 scripts/print_status.py
 python3 -m unittest discover -s tests
+python3 scripts/brain_doctor.py
+python3 scripts/print_status.py
 ```
 
-## Upstream Source
+## Upstream Sources
 
-- Upstream repo: [garrytan/gstack](https://github.com/garrytan/gstack)
-- Upstream license: MIT
-- Upstream pinned commit for this port snapshot: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`
+- GStack source pin: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`
+- GBrain source pin: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`
 
-Attribution details live in `NOTICE`.
+## Most Adapted GBrain Ports
 
-## Roadmap
+These are ported, but their upstream ambient/runtime behavior is intentionally rewritten around local files and explicit invocation:
 
-- Deepen runtime parity for `browse`, `qa`, and `setup-browser-cookies`.
-- Deepen upstream-drift tooling so future gstack changes can be triaged faster.
-- Add contributor automation for new skill ports and validation.
+- `brain-ops`
+- `signal-detector`
+- `idea-ingest`
+- `media-ingest`
+- `meeting-ingestion`
+- `citation-fixer`
+- `webhook-transforms`

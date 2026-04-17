@@ -2,66 +2,101 @@
 
 ## Build Goal
 
-Stand up a maintainable public repository that can preserve parity with gstack over time without turning into a pile of one-off prompt files or overclaiming runtime support.
+Port the full upstream GBrain skill surface into this repo alongside the existing full GStack port, while keeping the deepest runtime differences explicit.
 
 ## Problem Statement
 
-A direct copy of gstack into Codex would carry over too much agent-specific behavior. The implementation needs to preserve the useful workflow intent while translating the mechanics into Codex-native skills and keeping the resulting repo easy to extend.
+The implementation challenge is not just to add another skill. It is to expand the repo from a single-upstream skillpack into a two-upstream Codex package without losing clarity, and to do it without faking a background GBrain service that does not actually exist here.
 
 ## Architecture
 
 ```text
-          upstream gstack repo
-                   |
-                   v
-        docs/compatibility-map.md
-                   +
-            data/skill-map.json
-                   |
-                   v
-       skills/<codex-skill>/SKILL.md
-                   +
-             skills/.../references
-                   |
-                   v
-      scripts/validate_repo.py + tests/
+full gstack port
+      +
+full gbrain registry + compatibility docs + resolver doc
+      +
+25 Codex skill ports
+      +
+local file-based brain substrate
+      +
+explicit workflow adaptations for ambient/runtime-heavy behaviors
+      =
+unified Codex package with honest parity
 ```
 
 ## Core Components
 
-- `docs/`: product, strategy, and migration context
-- `data/skill-map.json`: single source of truth for upstream skill status
-- `skills/`: the actual Codex ports
-- `src/gstack_port_for_codex/`: reusable validation and reporting logic
-- `scripts/`: small CLIs for validation and status output
-- `tests/`: regression coverage for the registry and validator
+- `data/skill-map.json`
+  - GStack source registry
+- `data/gbrain-skill-map.json`
+  - full GBrain source registry
+- `docs/gbrain-compatibility-map.md`
+  - full-surface parity view
+- `docs/gbrain-resolver.md`
+  - Codex-facing routing view for the GBrain layer
+- `docs/codex-brain-substrate.md`
+  - local substrate design and helper scripts
+- `brain/`
+  - file-backed local corpus for the memory-oriented skills
+- `skills/*`
+  - actual Codex ports
+- `src/gstack_port_for_codex/brain.py`
+  - deterministic helpers for the local substrate
+- `src/gstack_port_for_codex/registry.py`
+  - validation for both upstream surfaces
 
 ## Tech Choices
 
-- Python stdlib only: fast to run, no bootstrapping friction
-- JSON registry: easy to diff, test, and consume from scripts
-- Markdown skills with progressive disclosure: keep `SKILL.md` concise and push details into references
+- keep skill ports Markdown-first
+- use JSON registries for validation and status reporting
+- add deterministic helper code only where it unlocks honest applicability
+- use a local file-backed substrate before considering a larger backend recreation
 
-## Porting Rules
+## Ported Now
 
-- Keep upstream intent, not upstream ceremony.
-- Remove Claude-only runtime glue such as update checks and tool declarations.
-- Preserve naming where it helps contributors correlate upstream and ported skills.
-- Document every non-trivial behavioral change in the compatibility map.
+- all 8 upstream GStack skills
+- all 25 upstream GBrain skills
+
+The main implementation distinction is not "done versus blocked." It is:
+
+- direct Codex fit
+- workflow adaptation around local files, helpers, connectors, and automations
+
+## Most Adapted Layer
+
+- `brain-ops`
+- `signal-detector`
+- `idea-ingest`
+- `media-ingest`
+- `meeting-ingestion`
+- `citation-fixer`
+- `webhook-transforms`
+
+These are the areas where upstream ambient/runtime behavior became explicit Codex workflow.
 
 ## Risks And Assumptions
 
-- Browser-dependent workflows need Codex-specific tooling boundaries so they can be ported honestly without implying bundled runtime parity.
-- Some upstream skills are intentionally huge; their Codex ports should be compressed without losing the operating posture.
-- The reference pattern should stay representative enough to guide later contributors and maintenance work.
+- Risk: a large surface can drift without manifest-like artifacts.
+  - Mitigation: registry plus compatibility map plus resolver doc.
+- Risk: users may over-read the local substrate as full backend parity.
+  - Mitigation: keep the adaptation notes concrete in each skill and in the compatibility docs.
+- Risk: later higher-fidelity runtime support could want different primitives.
+  - Mitigation: keep the current helpers small, local, and replaceable.
 
-## Near-Term Implementation Focus
+## 60-90 Minute First Milestone
 
-1. Keep the README, strategy docs, registry, and compatibility map aligned.
-2. Preserve structural validation for docs and skill metadata.
-3. Add concrete runtime-aware examples before attempting runtime shims.
-4. Add parity-maintenance tooling only after the public adoption story is stable.
+- broaden the registry to the full upstream GBrain surface
+- add compatibility and resolver docs
+- port the first workflow tranche
+- add the smallest honest substrate needed to unlock the memory layer
 
-## Near-Term Outcome
+## End-Of-Day Outcome
 
-The repo should stay ready for public adoption, with a clear migration system, explicit runtime boundaries, and a small amount of code that keeps future contributions honest.
+- a materially larger GBrain port surface
+- a working local substrate for the memory-oriented skills
+- a credible full-surface Codex port rather than a sampler pack
+
+## Not In Scope
+
+- bundling a full GBrain retrieval engine into this repo today
+- recreating live inbound webhook infrastructure or an always-on daemon
