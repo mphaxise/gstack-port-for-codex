@@ -6,7 +6,7 @@
 - Local pinned upstream commit: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`.
 - Latest upstream commit reviewed: `4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045`.
 - Upstream delta since the current pin: `178` commits and `300` changed files.
-- Current local GStack ports: `office-hours`, `plan-ceo-review`, `plan-eng-review`, `autoplan`, `review`, `investigate`, `ship`, `browse`, `qa`, `qa-only`, `setup-browser-cookies`, and `retro`.
+- Current local GStack ports: the full current 38-skill upstream GStack surface, with mixed freshness tracked per skill in `data/skill-map.json`.
 - Current local GBrain layer: the full tracked GBrain surface in `data/gbrain-skill-map.json`, plus `workflow-router` and the local `brain/` helper scripts.
 
 This plan focuses on two jobs:
@@ -16,14 +16,14 @@ This plan focuses on two jobs:
 
 ## Progress In This Branch
 
-This branch completes the first high-leverage tranche from the plan:
+This branch now completes the full coverage pass for the current upstream surface:
 
-- added `office-hours`
-- added `autoplan`
-- added `investigate`
-- added `qa-only`
+- added the planning bridge skills
+- added the full design and developer-experience layer
+- added release, security, health, learning, and checkpoint skills
+- added safety, browser, and utility skills
 - added per-skill source freshness metadata in `data/skill-map.json`
-- updated `workflow-router`, `README.md`, and `docs/compatibility-map.md` to reflect the broader GStack surface honestly
+- updated `workflow-router`, `README.md`, and `docs/compatibility-map.md` to reflect the full-surface port honestly
 
 ## Skills Used To Build This Plan
 
@@ -66,18 +66,7 @@ The first version of this plan was strongest in engineering execution and releas
 
 ### Current GStack ports
 
-- `office-hours`
-- `plan-ceo-review`
-- `plan-eng-review`
-- `autoplan`
-- `review`
-- `investigate`
-- `ship`
-- `browse`
-- `qa`
-- `qa-only`
-- `setup-browser-cookies`
-- `retro`
+The repo now covers the full current upstream GStack surface. The remaining roadmap is about freshness, integration depth, and runtime parity, not missing-skill coverage.
 
 ### Prior GBrain enhancements that should shape the next phase
 
@@ -109,29 +98,14 @@ The biggest drift is in the runtime-heavy area:
 
 `ship` and `setup-browser-cookies` look comparatively more stable since the current pin.
 
-### High-leverage missing skills
+### Next Parity Targets
 
-These are the missing upstream skills that most directly strengthen the current sprint loop:
+Now that coverage is complete, the next engineering work is:
 
-- pre-implementation design and DX review: `plan-design-review`, `plan-devex-review`
-- live design and DX audit: `design-review`, `devex-review`
-- release and operational closure: `document-release`, `setup-deploy`, `land-and-deploy`, `benchmark`, `canary`
-- security and continuity: `cso`, `health`, `learn`, `checkpoint`
-
-### Lower-priority or host-specific follow-ons
-
-- `careful`
-- `codex`
-- `design-consultation`
-- `design-html`
-- `design-shotgun`
-- `freeze`
-- `gstack-upgrade`
-- `guard`
-- `open-gstack-browser`
-- `pair-agent`
-- `plan-tune`
-- `unfreeze`
+- refresh the older pre-existing ports against upstream HEAD, especially `plan-ceo-review`, `plan-eng-review`, `review`, `browse`, `qa`, and `retro`
+- deepen the design and DX layer so it leaves behind reusable artifacts and evidence instead of one-shot guidance
+- deepen release, security, health, learning, and checkpoint workflows around the GBrain reporting and memory substrate
+- improve runtime-heavy browser utilities and visible-browser flows without pretending their host support is stronger than it is
 
 ## Enhancement Roadmap
 
@@ -169,68 +143,32 @@ The next step for the newly landed skills is not more breadth, but tighter integ
 - make `investigate` produce durable debugging reports or follow-up tasks when the fix is deferred
 - make `qa-only` and `qa` share the same evidence and reporting path
 
-### Phase 4: Close the missing design and developer-experience review loop
+### Phase 4: Deepen the design and developer-experience layer
 
-Port in this order:
+- make `plan-design-review` and `plan-devex-review` produce reusable planning artifacts
+- make `design-review` and `devex-review` share clearer evidence and scoring paths
+- connect `design-consultation`, `design-shotgun`, and `design-html` into a coherent creation pipeline instead of isolated prompts
 
-- `plan-design-review`
-- `plan-devex-review`
-- `design-review`
-- `devex-review`
+### Phase 5: Deepen release, security, health, and memory loops
 
-Then consider:
+- make `document-release`, `land-and-deploy`, `setup-deploy`, `benchmark`, and `canary` produce durable reports
+- make `cso`, `health`, `learn`, and `checkpoint` reuse the GBrain substrate instead of inventing parallel storage
+- connect deploy verification and benchmark/canary follow-ups through `cron-scheduler` when recurring checks are useful
 
-- `design-consultation`
-- `design-shotgun`
-- `design-html`
+### Phase 6: Deepen safety, browser, and utility workflows
 
-Rationale:
-After the full skill audit, this lane should come earlier than a pure release-ops expansion. Without it, the repo still has a strong engineering loop but an incomplete product-quality loop.
-
-### Phase 5: Add post-merge, post-deploy, security, and memory loops
-
-Port and integrate:
-
-- `document-release`
-- `land-and-deploy`
-- `setup-deploy`
-- `benchmark`
-- `canary`
-- `cso`
-- `health`
-- `learn`
-- `checkpoint`
-
-Suggested GBrain tie-ins:
-
-- `learn` should reuse `brain-ops`, `query`, `signal-detector`, and `reports`.
-- `document-release` should reuse `publish`, `citation-fixer`, and `repo-architecture`.
-- `benchmark` and `canary` should reuse `reports` and `cron-scheduler`.
-- `land-and-deploy` should reuse the release artifacts produced by the improved `ship` flow.
-- `checkpoint` should reuse `reports` or another stable saved-artifact path instead of inventing a parallel memory layer.
-
-### Phase 6: Treat safety wrappers, creation tools, and host-specific utilities as last-mile work
-
-- `careful`
-- `freeze`
-- `guard`
-- `unfreeze`
-- `gstack-upgrade`
-- `codex`
-- `pair-agent`
-- `open-gstack-browser`
-- `plan-tune`
-
-These are useful, but they should not come before the core workflow and memory improvements.
+- tighten `careful`, `freeze`, `guard`, `unfreeze`, and `plan-tune` into clearer reusable operating modes
+- improve `open-gstack-browser`, `connect-chrome`, and `pair-agent` around the actual browser/runtime capabilities available in Codex
+- keep `gstack-upgrade` and `codex` useful as higher-level operator workflows rather than thin wrappers
 
 ## Recommended Order Of Execution
 
 1. Refresh the existing eight GStack ports and improve drift tracking.
 2. Add report and memory integration to `plan-*`, `review`, `qa`, `ship`, and `retro`.
 3. Harden `office-hours`, `autoplan`, `investigate`, and `qa-only` as a clean bridge into the planning and QA stack.
-4. Port `plan-design-review` and `plan-devex-review`, then add `design-review` and `devex-review`.
-5. Add deploy, security, monitoring, and memory-loop skills.
-6. Backfill safety wrappers, creation tools, and host-specific utilities.
+4. Deepen the design and DX layer into a real evidence-backed product-quality loop.
+5. Deepen deploy, security, monitoring, and memory workflows around the GBrain substrate.
+6. Tighten safety wrappers and browser utilities around real Codex runtime behavior.
 
 ## Guardrail
 
@@ -244,6 +182,6 @@ Do not spend the next phase chasing full parity with upstream browser packaging 
 
 - The eight current GStack ports are reviewed against upstream HEAD and marked with freshness metadata.
 - `review`, `qa`, `ship`, and `retro` produce durable artifacts through `reports/` or the local `brain/` substrate.
-- `office-hours`, `investigate`, `qa-only`, and `autoplan` exist as first-class skills and are wired into routing.
+- the full current upstream GStack surface exists as first-class skills and is wired into routing where the intent is clear.
 - `workflow-router` knows when to invoke the new skills.
 - Repo docs clearly distinguish pinned historical parity from latest-upstream gap analysis.

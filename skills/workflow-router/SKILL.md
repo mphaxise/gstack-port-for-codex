@@ -38,15 +38,26 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user is still brainstorming, validating whether to build something, or shaping a pre-plan idea, use `office-hours`.
 - If the user wants the planning stack run in one pass, use `autoplan`.
 - If the product direction is chosen and architecture or execution rigor is needed, use `plan-eng-review`.
+- If the user wants pre-implementation design critique, use `plan-design-review`.
+- If the user wants pre-implementation developer-experience critique, use `plan-devex-review`.
+- If the user wants live visual polish or a design audit, use `design-review`.
+- If the user wants a stronger design system or visual direction, use `design-consultation`.
+- If the user wants multiple design directions, use `design-shotgun`.
+- If the user wants a design turned into code, use `design-html`.
+- If the user wants a real onboarding or docs audit for developers, use `devex-review`.
 - If the user wants memory-grounded answers, use `query` or `brain-ops`.
 - If the user wants something saved into the brain, use `signal-detector`, `ingest`, `idea-ingest`, `media-ingest`, or `meeting-ingestion` based on the artifact.
 - If the user wants recurring work, use `cron-scheduler`.
 - If the user is debugging or asking why something broke, use `investigate`.
 - If the user wants pre-landing scrutiny, use `review`.
 - If the user wants to push and open a PR, use `ship` after `review`.
+- If the user wants to merge and verify production, use `land-and-deploy`.
+- If the user wants a documentation sync after shipping, use `document-release`.
 - If the user wants QA or browser verification, use `qa` and `browse`.
 - If the user wants report-only QA, use `qa-only`.
-- If the user wants repo or corpus health, use `maintain` or `testing`.
+- If the user wants a security audit, use `cso`.
+- If the user wants to save or resume working state, use `checkpoint`.
+- If the user wants repo or corpus health, use `health`, `maintain`, or `testing`.
 
 ## Guardrails
 

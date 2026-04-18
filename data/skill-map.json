@@ -148,6 +148,318 @@
       "source_files": [
         "retro/SKILL.md"
       ]
+    },
+    {
+      "upstream_slug": "plan-design-review",
+      "codex_slug": "plan-design-review",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Pre-implementation design review for planned user-facing work.",
+      "notes": "Adapts the upstream design-plan critique into a concise Codex workflow that improves hierarchy, flow, and interaction quality before implementation.",
+      "source_files": [
+        "plan-design-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "plan-devex-review",
+      "codex_slug": "plan-devex-review",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Pre-implementation developer-experience review for developer-facing plans.",
+      "notes": "Ports the upstream DevEx planning lens into a Codex workflow around onboarding, time-to-value, and friction reduction.",
+      "source_files": [
+        "plan-devex-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "design-review",
+      "codex_slug": "design-review",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Live design audit and polish workflow for implemented UI.",
+      "notes": "Uses the best available evidence path to find visual or interaction issues, then fixes them or reports them explicitly.",
+      "source_files": [
+        "design-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "devex-review",
+      "codex_slug": "devex-review",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Live developer-experience audit for docs, setup, and onboarding.",
+      "notes": "Adapts the upstream DX audit into a Codex workflow that measures real onboarding friction and evidence-backed setup problems.",
+      "source_files": [
+        "devex-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "design-consultation",
+      "codex_slug": "design-consultation",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Design-system and visual-direction consultation workflow.",
+      "notes": "Ports upstream design-system direction setting into a Codex-native process for defining aesthetic, typography, color, spacing, and motion.",
+      "source_files": [
+        "design-consultation/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "design-shotgun",
+      "codex_slug": "design-shotgun",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Rapid multi-variant design exploration workflow.",
+      "notes": "Creates several distinct design directions and iterates on taste feedback without pretending minor color swaps are real exploration.",
+      "source_files": [
+        "design-shotgun/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "design-html",
+      "codex_slug": "design-html",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Design-to-implementation workflow for real UI code.",
+      "notes": "Turns an approved design direction into framework-native UI while staying responsive, content-aware, and production-minded.",
+      "source_files": [
+        "design-html/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "document-release",
+      "codex_slug": "document-release",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Post-ship documentation sync workflow.",
+      "notes": "Updates only the docs affected by shipped changes and can save a durable release artifact through the reports pattern.",
+      "source_files": [
+        "document-release/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "setup-deploy",
+      "codex_slug": "setup-deploy",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Deployment-configuration capture for later automated release work.",
+      "notes": "Makes the repo's production URL, deploy path, and health checks explicit before land-and-deploy runs.",
+      "source_files": [
+        "setup-deploy/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "land-and-deploy",
+      "codex_slug": "land-and-deploy",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Merge-and-verify release workflow through production checks.",
+      "notes": "Adapts landing and deploy verification into a Codex workflow that stops on failed CI, bad deploys, or unverified production health.",
+      "source_files": [
+        "land-and-deploy/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "benchmark",
+      "codex_slug": "benchmark",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Performance baseline and regression workflow.",
+      "notes": "Captures the best available load-time and resource-size signals and can save comparable benchmark reports over time.",
+      "source_files": [
+        "benchmark/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "canary",
+      "codex_slug": "canary",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Post-deploy live monitoring workflow.",
+      "notes": "Watches the most important live signals after deployment and can hand recurring checks off to cron-scheduler.",
+      "source_files": [
+        "canary/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "cso",
+      "codex_slug": "cso",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Security audit workflow with concrete exploit-oriented findings.",
+      "notes": "Ports the upstream CSO role into a Codex-native audit over trust boundaries, secret handling, supply chain, and deploy risk.",
+      "source_files": [
+        "cso/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "health",
+      "codex_slug": "health",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Codebase health-check workflow across real repo signals.",
+      "notes": "Reuses testing and maintenance patterns to summarize the most important repo health signals without fake precision.",
+      "source_files": [
+        "health/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "learn",
+      "codex_slug": "learn",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Project-learning management workflow.",
+      "notes": "Keeps reusable project lessons in the repo's durable brain, reporting, and signal-capture patterns instead of a separate opaque memory layer.",
+      "source_files": [
+        "learn/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "checkpoint",
+      "codex_slug": "checkpoint",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Save-and-resume workflow for durable working-state checkpoints.",
+      "notes": "Uses timestamped reports or equivalent durable artifacts to capture branch state, open questions, and next actions for clean resumption.",
+      "source_files": [
+        "checkpoint/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "careful",
+      "codex_slug": "careful",
+      "status": "ported",
+      "port_kind": "native",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Destructive-action guardrail workflow.",
+      "notes": "Warns before risky actions and pushes the user toward reversible changes wherever possible.",
+      "source_files": [
+        "careful/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "freeze",
+      "codex_slug": "freeze",
+      "status": "ported",
+      "port_kind": "native",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Edit-scope boundary workflow for focused changes.",
+      "notes": "Keeps edits inside an explicit path boundary until the user widens it or invokes unfreeze.",
+      "source_files": [
+        "freeze/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "guard",
+      "codex_slug": "guard",
+      "status": "ported",
+      "port_kind": "native",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Combined safety and scope-boundary workflow.",
+      "notes": "Applies the destructive-action discipline from careful together with the edit boundary from freeze.",
+      "source_files": [
+        "guard/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "unfreeze",
+      "codex_slug": "unfreeze",
+      "status": "ported",
+      "port_kind": "native",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Boundary-clearing workflow after freeze.",
+      "notes": "Clears or widens the prior edit boundary explicitly so the current scope is no longer ambiguous.",
+      "source_files": [
+        "unfreeze/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "gstack-upgrade",
+      "codex_slug": "gstack-upgrade",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Repo and local-skill update workflow for this Codex port package.",
+      "notes": "Refreshes the checkout or local install, then revalidates so upgrades are explicit and trustworthy.",
+      "source_files": [
+        "gstack-upgrade/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "codex",
+      "codex_slug": "codex",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Independent second-opinion workflow.",
+      "notes": "Provides review, challenge, and consult modes as a deliberate second-pass analysis pattern inside the Codex environment.",
+      "source_files": [
+        "codex/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "pair-agent",
+      "codex_slug": "pair-agent",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Multi-agent collaboration workflow for paired execution.",
+      "notes": "Adapts shared-browser and paired-agent coordination into a Codex-native ownership and runtime-coordination workflow.",
+      "source_files": [
+        "pair-agent/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "open-gstack-browser",
+      "codex_slug": "open-gstack-browser",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Visible-browser launch workflow.",
+      "notes": "Uses the best available browser runtime for a headed session and stays explicit about runtime limitations.",
+      "source_files": [
+        "open-gstack-browser/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "connect-chrome",
+      "codex_slug": "connect-chrome",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Compatibility wrapper for visible browser attachment.",
+      "notes": "Treats connect-chrome requests as open-gstack-browser requests while staying honest about the actual runtime path available in Codex.",
+      "source_files": [
+        "connect-chrome/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "plan-tune",
+      "codex_slug": "plan-tune",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Planning-preference tuning workflow.",
+      "notes": "Captures recurring planning preferences around questions, explanation style, and scope choices as durable notes for future planning runs.",
+      "source_files": [
+        "plan-tune/SKILL.md"
+      ]
     }
   ]
 }

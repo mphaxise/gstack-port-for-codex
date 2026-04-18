@@ -1,29 +1,25 @@
 # GStack Port for Codex
 
-Codex-native ports of a growing high-leverage slice of [garrytan/gstack](https://github.com/garrytan/gstack) plus a full-surface workflow port of [garrytan/gbrain](https://github.com/garrytan/gbrain).
+Codex-native ports of the full current [garrytan/gstack](https://github.com/garrytan/gstack) skill surface plus a full-surface workflow port of [garrytan/gbrain](https://github.com/garrytan/gbrain).
 
 This repo started as a GStack compatibility layer. It now bundles GStack's coding engine and GBrain's operating layer into one Codex-native package, with explicit notes where upstream ambient behavior has been adapted into deliberate local workflows.
 
 ## What Exists Today
 
-### Current GStack Core Ports
+### Full Current GStack Surface
 
-This repo now ports 12 high-leverage GStack skills:
+This repo now ports the full current 38-skill upstream GStack surface. The machine-readable source of truth is `data/skill-map.json`, including mixed freshness via per-skill `source_commit` when a skill was ported from a newer upstream commit.
 
-- `office-hours`
-- `plan-ceo-review`
-- `plan-eng-review`
-- `autoplan`
-- `review`
-- `investigate`
-- `ship`
-- `browse`
-- `qa`
-- `qa-only`
-- `setup-browser-cookies`
-- `retro`
+High-level groups:
 
-This is no longer framed as full latest-head parity with upstream. The baseline source pin is still tracked in `data/skill-map.json`, while newer ports can record a newer per-skill `source_commit`. See:
+- Planning: `office-hours`, `plan-ceo-review`, `plan-eng-review`, `plan-design-review`, `plan-devex-review`, `autoplan`, `plan-tune`
+- Review and QA: `review`, `investigate`, `browse`, `qa`, `qa-only`, `design-review`, `devex-review`
+- Design creation: `design-consultation`, `design-shotgun`, `design-html`
+- Release and ops: `ship`, `document-release`, `setup-deploy`, `land-and-deploy`, `benchmark`, `canary`, `health`, `retro`
+- Security and safety: `cso`, `careful`, `freeze`, `guard`, `unfreeze`
+- Utilities and continuity: `open-gstack-browser`, `connect-chrome`, `pair-agent`, `setup-browser-cookies`, `codex`, `learn`, `checkpoint`, `gstack-upgrade`
+
+For the adaptation boundary and parity notes, see:
 
 - `docs/compatibility-map.md`
 - `docs/gstack-enhancement-plan.md`
