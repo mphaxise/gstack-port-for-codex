@@ -30,6 +30,14 @@ def load_skill_map(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def skill_source_commit(skill_map: dict, skill: dict) -> str:
+    return str(skill.get("source_commit") or skill_map["source"]["commit"])
+
+
+def short_commit(commit: str) -> str:
+    return commit[:7]
+
+
 def extract_frontmatter_keys(text: str) -> dict[str, str]:
     lines = text.splitlines()
     if not lines or lines[0].strip() != "---":
@@ -78,6 +86,7 @@ def validate_skill_map(data: dict) -> list[str]:
         summary = skill.get("summary")
         notes = skill.get("notes")
         source_files = skill.get("source_files")
+        source_commit = skill.get("source_commit")
 
         if not upstream_slug:
             errors.append(f"Skill entry #{index} is missing upstream_slug.")
@@ -99,6 +108,12 @@ def validate_skill_map(data: dict) -> list[str]:
             errors.append(f"Skill entry #{index} is missing notes.")
         if not isinstance(source_files, list) or not source_files:
             errors.append(f"Skill entry #{index} needs at least one source_files entry.")
+        if source_commit is not None:
+            if not isinstance(source_commit, str) or len(source_commit.strip()) < 7:
+                errors.append(
+                    f"Skill entry #{index} has invalid source_commit {source_commit!r}; "
+                    "expected a git commit SHA string."
+                )
 
         if upstream_slug:
             if upstream_slug in seen_upstream:
@@ -167,29 +182,32 @@ def format_status_table(data: dict) -> str:
             skill["codex_slug"],
             skill["status"],
             skill["port_kind"],
+            short_commit(skill_source_commit(data, skill)),
             skill["summary"],
         )
         for skill in data["skills"]
     ]
 
-    widths = [len("Upstream"), len("Codex"), len("Status"), len("Port kind"), len("Summary")]
-    for upstream, codex, status, port_kind, summary in rows:
+    widths = [len("Upstream"), len("Codex"), len("Status"), len("Port kind"), len("Source"), len("Summary")]
+    for upstream, codex, status, port_kind, source, summary in rows:
         widths[0] = max(widths[0], len(upstream))
         widths[1] = max(widths[1], len(codex))
         widths[2] = max(widths[2], len(status))
         widths[3] = max(widths[3], len(port_kind))
-        widths[4] = max(widths[4], len(summary))
+        widths[4] = max(widths[4], len(source))
+        widths[5] = max(widths[5], len(summary))
 
-    def render(row: tuple[str, str, str, str, str]) -> str:
+    def render(row: tuple[str, str, str, str, str, str]) -> str:
         return (
             f"{row[0]:<{widths[0]}}  "
             f"{row[1]:<{widths[1]}}  "
             f"{row[2]:<{widths[2]}}  "
             f"{row[3]:<{widths[3]}}  "
-            f"{row[4]:<{widths[4]}}"
+            f"{row[4]:<{widths[4]}}  "
+            f"{row[5]:<{widths[5]}}"
         )
 
-    header = render(("Upstream", "Codex", "Status", "Port kind", "Summary"))
+    header = render(("Upstream", "Codex", "Status", "Port kind", "Source", "Summary"))
     divider = render(tuple("-" * width for width in widths))
     body = "\n".join(render(row) for row in rows)
     return "\n".join((header, divider, body))

@@ -1,23 +1,32 @@
 # GStack Port for Codex
 
-Codex-native ports of the full [garrytan/gstack](https://github.com/garrytan/gstack) skill surface plus a full-surface workflow port of [garrytan/gbrain](https://github.com/garrytan/gbrain).
+Codex-native ports of a growing high-leverage slice of [garrytan/gstack](https://github.com/garrytan/gstack) plus a full-surface workflow port of [garrytan/gbrain](https://github.com/garrytan/gbrain).
 
 This repo started as a GStack compatibility layer. It now bundles GStack's coding engine and GBrain's operating layer into one Codex-native package, with explicit notes where upstream ambient behavior has been adapted into deliberate local workflows.
 
 ## What Exists Today
 
-### Full GStack Port
+### Current GStack Core Ports
 
-All eight upstream GStack skills are ported:
+This repo now ports 12 high-leverage GStack skills:
 
+- `office-hours`
 - `plan-ceo-review`
 - `plan-eng-review`
+- `autoplan`
 - `review`
+- `investigate`
 - `ship`
 - `browse`
 - `qa`
+- `qa-only`
 - `setup-browser-cookies`
 - `retro`
+
+This is no longer framed as full latest-head parity with upstream. The baseline source pin is still tracked in `data/skill-map.json`, while newer ports can record a newer per-skill `source_commit`. See:
+
+- `docs/compatibility-map.md`
+- `docs/gstack-enhancement-plan.md`
 
 ### Full GBrain Surface Ported
 
@@ -105,8 +114,12 @@ Copy any skill you want into your Codex skills directory:
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
+cp -R skills/office-hours "$CODEX_HOME/skills/"
 cp -R skills/plan-ceo-review "$CODEX_HOME/skills/"
+cp -R skills/autoplan "$CODEX_HOME/skills/"
+cp -R skills/investigate "$CODEX_HOME/skills/"
 cp -R skills/review "$CODEX_HOME/skills/"
+cp -R skills/qa-only "$CODEX_HOME/skills/"
 cp -R skills/query "$CODEX_HOME/skills/"
 cp -R skills/ingest "$CODEX_HOME/skills/"
 cp -R skills/enrich "$CODEX_HOME/skills/"
@@ -119,6 +132,10 @@ cp -R skills/workflow-router "$CODEX_HOME/skills/"
 
 Examples:
 
+- Use `$office-hours` when an idea is still fuzzy and needs better framing.
+- Use `$autoplan` when you want one pass over the current planning stack.
+- Use `$investigate` before speculative debugging changes.
+- Use `$qa-only` when you want a report without code changes.
 - Use `$query` to search the local brain corpus.
 - Use `$ingest`, `$idea-ingest`, or `$meeting-ingestion` to turn files into durable brain pages.
 - Use `$brain-ops` before outside research when local memory should shape the answer.

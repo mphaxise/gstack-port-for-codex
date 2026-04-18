@@ -5,8 +5,20 @@
     "license": "MIT",
     "commit": "2aa745cb0e4331d683e727ec77385d04cdbb45a2"
   },
-  "ported_at": "2026-03-14",
+  "ported_at": "2026-04-18",
   "skills": [
+    {
+      "upstream_slug": "office-hours",
+      "codex_slug": "office-hours",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Product and project framing workflow for ideas before plan review.",
+      "notes": "Adapts YC-style office-hours questioning into a concise Codex-native discovery workflow with startup and builder modes.",
+      "source_files": [
+        "office-hours/SKILL.md"
+      ]
+    },
     {
       "upstream_slug": "plan-ceo-review",
       "codex_slug": "plan-ceo-review",
@@ -27,6 +39,18 @@
       "notes": "Preserves scope challenge and section-by-section execution review.",
       "source_files": [
         "plan-eng-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "autoplan",
+      "codex_slug": "autoplan",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Automatic planning pipeline over the current Codex port surface.",
+      "notes": "Runs office-hours when needed, then consolidates CEO and engineering review while calling out missing design and DX coverage explicitly.",
+      "source_files": [
+        "autoplan/SKILL.md"
       ]
     },
     {
@@ -65,6 +89,18 @@
       ]
     },
     {
+      "upstream_slug": "investigate",
+      "codex_slug": "investigate",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Root-cause-first debugging workflow.",
+      "notes": "Ports the upstream investigate discipline into a Codex-native investigate-analyze-hypothesize-implement loop with a no-blind-fixes guardrail.",
+      "source_files": [
+        "investigate/SKILL.md"
+      ]
+    },
+    {
       "upstream_slug": "qa",
       "codex_slug": "qa",
       "status": "ported",
@@ -73,6 +109,20 @@
       "notes": "QA modes, issue taxonomy, and report template are ported; execution relies on browser tooling.",
       "source_files": [
         "qa/SKILL.md",
+        "qa/references/issue-taxonomy.md",
+        "qa/templates/qa-report-template.md"
+      ]
+    },
+    {
+      "upstream_slug": "qa-only",
+      "codex_slug": "qa-only",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "summary": "Report-only QA workflow with no code changes.",
+      "notes": "Reuses the QA taxonomy and report structure while explicitly forbidding code edits or opportunistic fixes.",
+      "source_files": [
+        "qa-only/SKILL.md",
         "qa/references/issue-taxonomy.md",
         "qa/templates/qa-report-template.md"
       ]

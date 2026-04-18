@@ -76,12 +76,30 @@ class RegistryTests(unittest.TestCase):
         self.assertIn("plan-ceo-review", table)
         self.assertIn("ported", table)
         self.assertIn("runtime-aware", table)
+        self.assertIn("Source", table)
 
-    def test_all_gstack_upstream_skills_are_now_ported(self) -> None:
+    def test_current_gstack_ports_count(self) -> None:
         skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")
         ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
 
-        self.assertEqual(len(ported), 8)
+        self.assertEqual(len(ported), 12)
+        self.assertEqual(
+            sorted(skill["codex_slug"] for skill in ported),
+            [
+                "autoplan",
+                "browse",
+                "investigate",
+                "office-hours",
+                "plan-ceo-review",
+                "plan-eng-review",
+                "qa",
+                "qa-only",
+                "retro",
+                "review",
+                "setup-browser-cookies",
+                "ship",
+            ],
+        )
 
     def test_full_gbrain_surface_is_now_ported(self) -> None:
         skill_map = load_skill_map(REPO_ROOT / "data" / "gbrain-skill-map.json")

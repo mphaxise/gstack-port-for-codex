@@ -25,7 +25,8 @@ def main() -> int:
             "\n".join(
                 (
                     title,
-                    f"Source: {source['name']} @ {source['commit']}",
+                    f"Baseline source: {source['name']} @ {source['commit']}",
+                    "Per-skill source freshness appears in the Source column when a skill was ported from a newer upstream commit.",
                     format_status_table(skill_map),
                 )
             )
