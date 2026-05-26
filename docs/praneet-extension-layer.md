@@ -31,3 +31,10 @@ These skills are not generic review prompts. They are meant to make the port mor
 ## Routing
 
 `workflow-router` routes natural-language requests into these skills when the user asks about responsible design, accessibility, market judgment, research synthesis, executive design review, or whether a prior recommendation worked.
+
+The router should use a two-step chief-of-staff selection pattern:
+
+1. Cast a generous first-pass net across all skills that might help the user's task.
+2. Critically pare the list down based on whether the task is one-time or repeated, strategic or tactical, high-stakes or low-stakes, memory-bearing or ephemeral, and whether each skill adds real leverage.
+
+This lets Codex take more responsibility for skill selection without turning every request into needless process.

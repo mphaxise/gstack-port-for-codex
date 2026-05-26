@@ -69,6 +69,8 @@ Use this table when a natural-language request could map to several skills.
 
 ## Selection Notes
 
+- Start generously: identify all plausible skills before choosing.
+- Then apply a chief-of-staff filter: decide which skills actually improve the task given the user's context, stakes, repetition, and desired output.
 - Prefer the first skill alone when it fully covers the request.
 - Add the follow-on skill only when the task naturally moves into that second stage.
 - If the user explicitly names a skill, honor that instead of overriding it with this map.

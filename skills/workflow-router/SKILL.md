@@ -1,6 +1,6 @@
 ---
 name: workflow-router
-description: Natural-language router for this repo's GStack and GBrain skillpack. Use when the user asks for help in or about this repo without naming a skill, and you should infer the right 1-3 skills and apply them automatically.
+description: Natural-language router for this repo's GStack, GBrain, and Praneet extension skills. Use when the user asks naturally and Codex should generously consider relevant skills, then critically choose the smallest useful set.
 ---
 
 # Workflow Router
@@ -9,11 +9,17 @@ Use this skill when the user speaks naturally and should not have to remember th
 
 This router is repo-local. Its job is to translate a plain-English request into the smallest useful combination of installed skills.
 
+Default posture: act like the user's chief of staff for skill selection. The user is deliberately delegating more skill-picking judgment to Codex, so consider the available skill surface proactively instead of waiting for exact skill names.
+
 Read `references/intent-map.md` before routing if the match is not obvious.
 
 ## Workflow
 
-1. Classify the request by intent:
+1. Cast a generous first-pass net.
+   - list every skill that could plausibly add leverage
+   - include operating-context skills such as `brain-ops`, `query`, `reports`, `capture`, `outcome-memory`, or `responsible-design-review` when the task has memory, decision, ethics, or follow-up implications
+   - do not stop at the first matching skill
+2. Classify the request by intent:
    - planning
    - engineering design
    - brain lookup
@@ -31,12 +37,18 @@ Read `references/intent-map.md` before routing if the match is not obvious.
    - automation
    - review or ship
    - publishing or reporting
-2. Pick the smallest useful set of skills:
+3. Critically pare down the candidate list:
+   - Is this a one-time task or a repeated workflow?
+   - Is the user asking for execution, review, strategy, memory, or governance?
+   - Is the work high-stakes enough to justify safety, responsible design, accessibility, security, or research checks?
+   - Would the skill add real context or quality, or just process overhead?
+   - Is there a natural pipeline, or is one skill enough?
+4. Pick the smallest useful final set of skills:
    - usually one skill
    - sometimes two in sequence
    - rarely three if there is a natural pipeline
-3. Tell the user briefly which skill(s) you are using.
-4. Execute the chosen skill workflow instead of asking the user to reformulate the request.
+5. Tell the user briefly which skill(s) you are using and why.
+6. Execute the chosen skill workflow instead of asking the user to reformulate the request.
 
 ## Default Routing Rules
 
@@ -89,5 +101,7 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 
 - Do not ask the user to memorize skill keywords.
 - Do not route to multiple skills when one will do.
+- Do not overload a simple task with a parade of skills just because they are available.
+- Do not skip the first-pass candidate scan for ambiguous, strategic, repeated, or high-stakes work.
 - Do not claim a skill was used if you only borrowed the idea.
 - If no installed skill meaningfully helps, proceed normally instead of forcing a bad match.
