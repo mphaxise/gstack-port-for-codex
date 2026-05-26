@@ -520,6 +520,126 @@
       "source_files": [
         "document-generate/SKILL.md"
       ]
+    },
+    {
+      "upstream_slug": "benchmark-models",
+      "codex_slug": "benchmark-models",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Cross-model benchmark workflow for prompts, skills, and tasks.",
+      "notes": "Adapts upstream model comparison to whichever model CLIs or Codex paths are actually available locally, with no invented metrics.",
+      "source_files": [
+        "benchmark-models/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "ios-clean",
+      "codex_slug": "ios-clean",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Remove GStack iOS debug bridge artifacts from an iOS app.",
+      "notes": "Ports the cleanup workflow with explicit guardrails around generated bridge files versus app-owned code.",
+      "source_files": [
+        "ios-clean/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "ios-design-review",
+      "codex_slug": "ios-design-review",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Visual design audit workflow for iOS apps.",
+      "notes": "Adapts real-device upstream review to available simulator or device evidence and Apple-platform tooling.",
+      "source_files": [
+        "ios-design-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "ios-fix",
+      "codex_slug": "ios-fix",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Evidence-first iOS bug fixing workflow.",
+      "notes": "Ports the find-fix-verify loop while requiring reproducible evidence and available Apple build tooling.",
+      "source_files": [
+        "ios-fix/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "ios-qa",
+      "codex_slug": "ios-qa",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Structured QA workflow for iOS apps.",
+      "notes": "Adapts live-device QA to Codex, XcodeBuildMCP, simulator, or device capabilities and distinguishes actual coverage.",
+      "source_files": [
+        "ios-qa/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "ios-sync",
+      "codex_slug": "ios-sync",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Refresh GStack iOS debug bridge artifacts.",
+      "notes": "Ports bridge regeneration with careful boundaries around generated debug files and production app code.",
+      "source_files": [
+        "ios-sync/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "landing-report",
+      "codex_slug": "landing-report",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Read-only landing queue and release slot report.",
+      "notes": "Adapts workspace-aware landing status into a non-mutating Codex report over local git and available GitHub state.",
+      "source_files": [
+        "landing-report/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "make-pdf",
+      "codex_slug": "make-pdf",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Convert markdown or brain pages into polished PDFs.",
+      "notes": "Uses upstream make-pdf when installed and otherwise routes through available local document tooling without mutating source markdown.",
+      "source_files": [
+        "make-pdf/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "scrape",
+      "codex_slug": "scrape",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Read-only structured data extraction from web pages.",
+      "notes": "Ports the prototype-first scrape workflow into Codex browser/web tooling, with skillify handoff for repeated flows.",
+      "source_files": [
+        "scrape/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "skillify",
+      "codex_slug": "skillify",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Codify a proven workflow or scrape into a durable skill.",
+      "notes": "Combines upstream GStack scrape codification with the GBrain meta-skill pattern for this repo.",
+      "source_files": [
+        "skillify/SKILL.md"
+      ]
     }
   ]
 }

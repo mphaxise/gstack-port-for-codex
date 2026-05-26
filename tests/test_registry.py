@@ -82,7 +82,7 @@ class RegistryTests(unittest.TestCase):
         skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")
         ported = [skill["codex_slug"] for skill in skill_map["skills"] if skill["status"] == "ported"]
 
-        self.assertEqual(len(ported), 43)
+        self.assertEqual(len(ported), 53)
         for slug in (
             "office-hours",
             "autoplan",
@@ -91,6 +91,12 @@ class RegistryTests(unittest.TestCase):
             "context-save",
             "context-restore",
             "document-generate",
+            "benchmark-models",
+            "ios-qa",
+            "landing-report",
+            "make-pdf",
+            "scrape",
+            "skillify",
             "plan-design-review",
             "devex-review",
             "document-release",
@@ -101,13 +107,24 @@ class RegistryTests(unittest.TestCase):
         ):
             self.assertIn(slug, ported)
 
-    def test_current_gbrain_ports_include_memory_governance(self) -> None:
+    def test_current_gbrain_surface_is_ported(self) -> None:
         skill_map = load_skill_map(REPO_ROOT / "data" / "gbrain-skill-map.json")
         ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
 
-        self.assertEqual(len(skill_map["skills"]), 29)
-        self.assertEqual(len(ported), 29)
-        for slug in ("capture", "brain-taxonomist", "schema-author", "frontmatter-guard"):
+        self.assertEqual(len(skill_map["skills"]), 48)
+        self.assertEqual(len(ported), 48)
+        for slug in (
+            "capture",
+            "brain-taxonomist",
+            "schema-author",
+            "frontmatter-guard",
+            "article-enrichment",
+            "concept-synthesis",
+            "perplexity-research",
+            "minion-orchestrator",
+            "skillpack-check",
+            "voice-note-ingest",
+        ):
             self.assertIn(slug, [skill["codex_slug"] for skill in ported])
 
 

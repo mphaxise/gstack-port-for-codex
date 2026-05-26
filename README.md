@@ -8,17 +8,18 @@ This repo started as a GStack compatibility layer. It now bundles GStack's codin
 
 ### GStack Surface
 
-This repo now tracks the latest upstream GStack direction while preserving the local Codex/GBrain adaptations. As of the `2026-05-26` refresh, `data/skill-map.json` contains 43 GStack-facing ports, including the new upstream GBrain bridge and context/doc-generation names.
+This repo now tracks the latest upstream GStack direction while preserving the local Codex/GBrain adaptations. As of the `2026-05-26` refresh, `data/skill-map.json` contains all 52 current upstream GStack skills plus the legacy local `checkpoint` compatibility skill.
 
 High-level groups:
 
 - Planning: `office-hours`, `plan-ceo-review`, `plan-eng-review`, `plan-design-review`, `plan-devex-review`, `autoplan`, `plan-tune`
-- Review and QA: `review`, `investigate`, `browse`, `qa`, `qa-only`, `design-review`, `devex-review`
+- Review and QA: `review`, `investigate`, `browse`, `qa`, `qa-only`, `design-review`, `devex-review`, `scrape`
 - Design creation: `design-consultation`, `design-shotgun`, `design-html`
-- Release and ops: `ship`, `document-release`, `document-generate`, `setup-deploy`, `land-and-deploy`, `benchmark`, `canary`, `health`, `retro`
+- Release and ops: `ship`, `document-release`, `document-generate`, `setup-deploy`, `land-and-deploy`, `benchmark`, `benchmark-models`, `canary`, `health`, `retro`, `landing-report`, `make-pdf`
 - Security and safety: `cso`, `careful`, `freeze`, `guard`, `unfreeze`
 - GBrain bridge and continuity: `setup-gbrain`, `sync-gbrain`, `context-save`, `context-restore`, `checkpoint`, `learn`
-- Utilities: `open-gstack-browser`, `connect-chrome`, `pair-agent`, `setup-browser-cookies`, `codex`, `gstack-upgrade`
+- iOS runtime: `ios-qa`, `ios-fix`, `ios-design-review`, `ios-sync`, `ios-clean`
+- Utilities: `open-gstack-browser`, `connect-chrome`, `pair-agent`, `setup-browser-cookies`, `codex`, `gstack-upgrade`, `skillify`
 
 For the adaptation boundary and parity notes, see:
 
@@ -27,36 +28,57 @@ For the adaptation boundary and parity notes, see:
 
 ### GBrain Surface
 
-The GBrain port is intentionally local-first: the lighter operational layer ports directly, while the deeper memory layer is rewritten around the local `brain/` substrate and helper scripts. As of the `2026-05-26` refresh, `data/gbrain-skill-map.json` tracks 29 GBrain ports, including the newer capture, taxonomy, schema, and frontmatter guard workflows.
+The GBrain port is intentionally local-first: the lighter operational layer ports directly, while the deeper memory layer is rewritten around the local `brain/` substrate and helper scripts. As of the `2026-05-26` refresh, `data/gbrain-skill-map.json` tracks all 48 current upstream GBrain skills.
 
 Core GBrain ports:
 
-- `briefing`
+- `academic-verify`
+- `archive-crawler`
+- `article-enrichment`
+- `ask-user`
+- `book-mirror`
 - `brain-ops`
+- `brain-pdf`
 - `brain-taxonomist`
-- `citation-fixer`
+- `briefing`
 - `capture`
+- `citation-fixer`
+- `cold-start`
+- `concept-synthesis`
 - `cron-scheduler`
 - `cross-modal-review`
-- `data-research`
 - `daily-task-manager`
 - `daily-task-prep`
+- `data-research`
+- `eiirp`
 - `enrich`
+- `frontmatter-guard`
+- `functional-area-resolver`
 - `idea-ingest`
 - `ingest`
+- `install`
 - `maintain`
 - `media-ingest`
 - `meeting-ingestion`
 - `migrate`
+- `minion-orchestrator`
+- `perplexity-research`
 - `publish`
 - `query`
 - `repo-architecture`
 - `reports`
+- `schema-author`
 - `setup`
 - `signal-detector`
 - `skill-creator`
+- `skillify`
+- `skillpack-check`
+- `skillpack-harvest`
+- `smoke-test`
 - `soul-audit`
+- `strategic-reading`
 - `testing`
+- `voice-note-ingest`
 - `webhook-transforms`
 
 ### Natural-Language Routing
@@ -127,6 +149,9 @@ cp -R skills/capture "$CODEX_HOME/skills/"
 cp -R skills/brain-taxonomist "$CODEX_HOME/skills/"
 cp -R skills/setup-gbrain "$CODEX_HOME/skills/"
 cp -R skills/sync-gbrain "$CODEX_HOME/skills/"
+cp -R skills/scrape "$CODEX_HOME/skills/"
+cp -R skills/skillify "$CODEX_HOME/skills/"
+cp -R skills/skillpack-check "$CODEX_HOME/skills/"
 cp -R skills/signal-detector "$CODEX_HOME/skills/"
 cp -R skills/cron-scheduler "$CODEX_HOME/skills/"
 cp -R skills/testing "$CODEX_HOME/skills/"
@@ -143,6 +168,8 @@ Examples:
 - Use `$setup-gbrain` and `$sync-gbrain` to verify or refresh the local brain substrate.
 - Use `$capture` when the user says to remember or save a thought.
 - Use `$brain-taxonomist`, `$schema-author`, and `$frontmatter-guard` to keep local brain pages filed and structured cleanly.
+- Use `$skillpack-check` or `$smoke-test` after upgrades and restarts.
+- Use `$scrape` for read-only data extraction and `$skillify` when a repeated flow should become a reusable skill.
 - Use `$ingest`, `$idea-ingest`, or `$meeting-ingestion` to turn files into durable brain pages.
 - Use `$brain-ops` before outside research when local memory should shape the answer.
 - Use `$signal-detector` to capture the user's own phrasing into `brain/originals/` or `brain/ideas/`.
