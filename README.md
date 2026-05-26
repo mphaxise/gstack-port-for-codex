@@ -89,6 +89,14 @@ You do not need to remember the skill names. The repo now also includes:
 
 Its job is to infer the right 1-3 skills from a normal request and apply them automatically.
 
+`workflow-router` now uses a chief-of-staff selection pattern:
+
+1. Cast a generous first-pass net across skills that could plausibly help.
+2. Critically pare that list down based on task context, repetition, stakes, memory value, and whether each skill adds real leverage.
+3. Use the smallest useful final set instead of asking the user to know or name the right skill.
+
+This means Codex should proactively consider planning, memory, responsible design, accessibility, research, review, QA, and reporting skills when they fit the work, while avoiding unnecessary process for simple one-off tasks.
+
 ### Praneet Extensions
 
 This repo also includes a local extension layer in `data/praneet-skill-map.json`. These are hand-port enhancements that preserve GStack/GBrain parity while adding Praneet's design leadership, social ethics, responsible design, founder judgment, and outcome-learning lens.
