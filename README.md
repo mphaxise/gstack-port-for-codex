@@ -89,6 +89,20 @@ You do not need to remember the skill names. The repo now also includes:
 
 Its job is to infer the right 1-3 skills from a normal request and apply them automatically.
 
+### Praneet Extensions
+
+This repo also includes a local extension layer in `data/praneet-skill-map.json`. These are hand-port enhancements that preserve GStack/GBrain parity while adding Praneet's design leadership, social ethics, responsible design, founder judgment, and outcome-learning lens.
+
+Praneet extension skills:
+
+- `responsible-design-review`
+- `accessibility-review`
+- `research-synthesis`
+- `startup-memo`
+- `market-map`
+- `design-leadership-review`
+- `outcome-memory`
+
 ## Local Brain Substrate
 
 To make the memory-oriented skills honest instead of aspirational, the repo includes a minimal local `brain/` corpus plus deterministic helpers:
@@ -127,7 +141,9 @@ That means:
 - `docs/gbrain-compatibility-map.md`
 - `docs/gbrain-resolver.md`
 - `docs/codex-brain-substrate.md`
+- `docs/praneet-extension-layer.md`
 - `data/gbrain-skill-map.json`
+- `data/praneet-skill-map.json`
 
 ## Quick Start
 
@@ -152,6 +168,13 @@ cp -R skills/sync-gbrain "$CODEX_HOME/skills/"
 cp -R skills/scrape "$CODEX_HOME/skills/"
 cp -R skills/skillify "$CODEX_HOME/skills/"
 cp -R skills/skillpack-check "$CODEX_HOME/skills/"
+cp -R skills/responsible-design-review "$CODEX_HOME/skills/"
+cp -R skills/accessibility-review "$CODEX_HOME/skills/"
+cp -R skills/research-synthesis "$CODEX_HOME/skills/"
+cp -R skills/startup-memo "$CODEX_HOME/skills/"
+cp -R skills/market-map "$CODEX_HOME/skills/"
+cp -R skills/design-leadership-review "$CODEX_HOME/skills/"
+cp -R skills/outcome-memory "$CODEX_HOME/skills/"
 cp -R skills/signal-detector "$CODEX_HOME/skills/"
 cp -R skills/cron-scheduler "$CODEX_HOME/skills/"
 cp -R skills/testing "$CODEX_HOME/skills/"
@@ -170,6 +193,9 @@ Examples:
 - Use `$brain-taxonomist`, `$schema-author`, and `$frontmatter-guard` to keep local brain pages filed and structured cleanly.
 - Use `$skillpack-check` or `$smoke-test` after upgrades and restarts.
 - Use `$scrape` for read-only data extraction and `$skillify` when a repeated flow should become a reusable skill.
+- Use `$responsible-design-review`, `$accessibility-review`, and `$design-leadership-review` when quality depends on ethics, inclusion, and executive design judgment.
+- Use `$startup-memo`, `$market-map`, and `$research-synthesis` when founder judgment needs stronger evidence and market context.
+- Use `$outcome-memory` when a prior recommendation should update future judgment.
 - Use `$ingest`, `$idea-ingest`, or `$meeting-ingestion` to turn files into durable brain pages.
 - Use `$brain-ops` before outside research when local memory should shape the answer.
 - Use `$signal-detector` to capture the user's own phrasing into `brain/originals/` or `brain/ideas/`.

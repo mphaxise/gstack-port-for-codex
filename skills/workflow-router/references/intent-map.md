@@ -9,6 +9,9 @@ Use this table when a natural-language request could map to several skills.
 | "Run the planning stack for me" | `autoplan` | none |
 | "How should we build this?" | `plan-eng-review` | `testing` |
 | "Critique the design before we build it" | `plan-design-review` | `plan-eng-review` |
+| "Review this for responsible design or ethics" | `responsible-design-review` | `accessibility-review` |
+| "Review accessibility" | `accessibility-review` | `design-review` |
+| "Run a CDO-level design leadership review" | `design-leadership-review` | `responsible-design-review` |
 | "Critique the developer experience before we build it" | `plan-devex-review` | `plan-eng-review` |
 | "Why is this broken?" or "Debug this" | `investigate` | `review` |
 | "Audit the live design" | `design-review` | `qa` |
@@ -32,6 +35,9 @@ Use this table when a natural-language request could map to several skills.
 | "Enrich this article" | `article-enrichment` | `citation-fixer` |
 | "Verify this paper or claim" | `academic-verify` | `perplexity-research` |
 | "Research this with current sources" | `perplexity-research` | `capture` |
+| "Synthesize this research" | `research-synthesis` | `responsible-design-review` |
+| "Write a startup or founder memo" | `startup-memo` | `market-map` |
+| "Map this market" | `market-map` | `research-synthesis` |
 | "Synthesize these concepts" | `concept-synthesis` | `brain-taxonomist` |
 | "Read this strategically" | `strategic-reading` | `query` |
 | "Ingest this voice note" | `voice-note-ingest` | `capture` |
@@ -55,6 +61,7 @@ Use this table when a natural-language request could map to several skills.
 | "Check the skillpack" | `skillpack-check` | `smoke-test` |
 | "Smoke test after restart" | `smoke-test` | `skillpack-check` |
 | "Organize everything from this session" | `eiirp` | `reports` |
+| "Did our previous recommendation work?" | `outcome-memory` | `retro` |
 | "Generate missing documentation" | `document-generate` | `document-release` |
 | "Save progress so we can resume later" | `context-save` | `reports` |
 | "Resume where we left off" | `context-restore` | `query` |

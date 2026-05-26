@@ -8,6 +8,7 @@
 - Latest upstream GBrain commit reviewed: `32f8be96c2409b8ccd35b7835692fd56b640f5c4`.
 - Current local GStack ports: `52 / 52` current upstream GStack skills are represented under current upstream names, plus the legacy `checkpoint` compatibility skill.
 - Current local GBrain layer: `48 / 48` current upstream GBrain skills are represented, plus `workflow-router` and the local `brain/` helper scripts.
+- Current Praneet extension layer: `7` hand-port enhanced skills add design leadership, responsible design, social ethics, founder judgment, research synthesis, and outcome memory without changing upstream parity accounting.
 
 This plan focuses on two jobs:
 
@@ -27,6 +28,7 @@ This branch completed the April coverage pass and now has the first May 26 refre
 - added the remaining May 26 GStack skills: `benchmark-models`, `ios-clean`, `ios-design-review`, `ios-fix`, `ios-qa`, `ios-sync`, `landing-report`, `make-pdf`, `scrape`, `skillify`
 - added the remaining May 26 GBrain skills, including research, enrichment, orchestration, install, smoke-test, and skillpack workflows
 - added per-skill source freshness metadata in the registries
+- added Praneet-specific hand-port enhancements: `responsible-design-review`, `accessibility-review`, `research-synthesis`, `startup-memo`, `market-map`, `design-leadership-review`, `outcome-memory`
 - updated `workflow-router`, `README.md`, and `docs/compatibility-map.md` to reflect the full-surface port honestly
 
 ## Skills Used To Build This Plan
@@ -99,6 +101,8 @@ The first refresh tranche has been ported locally:
 
 No current upstream GStack or GBrain skill names are missing after this refresh. The remaining work is depth: improving runtime fidelity, drift tooling, docs, and integration quality.
 
+The Praneet extension layer is intentionally not counted as upstream parity. It is the local leadership layer: design ethics, accessibility, market judgment, design-executive decision records, and outcome memory.
+
 ### Next Parity Targets
 
 Now that coverage is complete, the next engineering work is:
@@ -167,6 +171,7 @@ The next step for the newly landed skills is not more breadth, but tighter integ
 4. Deepen deploy, security, monitoring, and memory workflows around the GBrain substrate.
 5. Tighten safety wrappers and browser utilities around real Codex runtime behavior.
 6. Add an automated parity checker for future upstream drift.
+7. Deepen the Praneet extension layer with reusable reports and brain links once the seven new skills have been used in real sessions.
 
 ## Guardrail
 

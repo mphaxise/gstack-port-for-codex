@@ -127,6 +127,25 @@ class RegistryTests(unittest.TestCase):
         ):
             self.assertIn(slug, [skill["codex_slug"] for skill in ported])
 
+    def test_praneet_extension_layer_is_registered(self) -> None:
+        skill_map = load_skill_map(REPO_ROOT / "data" / "praneet-skill-map.json")
+        ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
+
+        self.assertEqual(len(ported), 7)
+        self.assertEqual(
+            sorted(skill["codex_slug"] for skill in ported),
+            [
+                "accessibility-review",
+                "design-leadership-review",
+                "market-map",
+                "outcome-memory",
+                "research-synthesis",
+                "responsible-design-review",
+                "startup-memo",
+            ],
+        )
+        self.assertTrue(all(skill["port_kind"] == "hand-port-enhanced" for skill in ported))
+
 
 if __name__ == "__main__":
     unittest.main()

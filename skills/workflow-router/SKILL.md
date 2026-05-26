@@ -22,6 +22,9 @@ Read `references/intent-map.md` before routing if the match is not obvious.
    - brain taxonomy or schema
    - source or meeting ingest
    - research or enrichment
+   - responsible design or accessibility
+   - founder strategy
+   - design leadership
    - maintenance or testing
    - iOS app work
    - browser QA
@@ -43,6 +46,9 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants the planning stack run in one pass, use `autoplan`.
 - If the product direction is chosen and architecture or execution rigor is needed, use `plan-eng-review`.
 - If the user wants pre-implementation design critique, use `plan-design-review`.
+- If the user wants responsible design, human impact, social ethics, consent, dark patterns, or vulnerable-user review, use `responsible-design-review`.
+- If the user wants accessibility, inclusive interaction quality, WCAG-style review, screen reader/keyboard review, or cognitive load review, use `accessibility-review`.
+- If the user wants CDO-level design governance, critique culture, design principles, or stakeholder design alignment, use `design-leadership-review`.
 - If the user wants pre-implementation developer-experience critique, use `plan-devex-review`.
 - If the user wants live visual polish or a design audit, use `design-review`.
 - If the user wants iOS app QA, bug fixing, design review, debug bridge refresh, or bridge cleanup, use `ios-qa`, `ios-fix`, `ios-design-review`, `ios-sync`, or `ios-clean`.
@@ -56,8 +62,12 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants a specialized ingest, use `signal-detector`, `ingest`, `idea-ingest`, `media-ingest`, or `meeting-ingestion` based on the artifact.
 - If the user wants to change where brain pages belong, use `schema-author` after `brain-taxonomist`.
 - If the user wants current research, academic verification, article enrichment, strategic reading, or concept synthesis, use `perplexity-research`, `academic-verify`, `article-enrichment`, `strategic-reading`, or `concept-synthesis`.
+- If the user wants research distilled into decision-ready design or product insight, use `research-synthesis`.
+- If the user wants startup, founder, product-market, or investment-style judgment, use `startup-memo`.
+- If the user wants a competitive landscape or category map, use `market-map`.
 - If the user wants archive, book, voice-note, or PDF brain processing, use `archive-crawler`, `book-mirror`, `voice-note-ingest`, or `brain-pdf`.
 - If the user wants a work-session organization pass, use `eiirp`.
+- If the user wants to learn from whether a prior plan or review worked, use `outcome-memory`.
 - If the user wants skillpack health or post-restart validation, use `skillpack-check` or `smoke-test`.
 - If the user wants recurring work, use `cron-scheduler`.
 - If the user is debugging or asking why something broke, use `investigate`.

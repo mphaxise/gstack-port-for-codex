@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 ALLOWED_STATUSES = {"ported", "planned", "blocked"}
-ALLOWED_PORT_KINDS = {"native", "workflow-adapted", "runtime-aware"}
+ALLOWED_PORT_KINDS = {"native", "workflow-adapted", "runtime-aware", "hand-port-enhanced"}
 REQUIRED_DOCS = (
     Path("docs/idea-strategy.md"),
     Path("docs/product-strategy.md"),
@@ -23,6 +23,7 @@ REQUIRED_DOCS = (
 SKILL_MAP_FILES = (
     Path("data/skill-map.json"),
     Path("data/gbrain-skill-map.json"),
+    Path("data/praneet-skill-map.json"),
 )
 
 

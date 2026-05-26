@@ -13,6 +13,7 @@ from gstack_port_for_codex.registry import format_status_table, load_skill_map  
 SKILL_MAPS = (
     ("GStack Core", REPO_ROOT / "data" / "skill-map.json"),
     ("GBrain Imports", REPO_ROOT / "data" / "gbrain-skill-map.json"),
+    ("Praneet Extensions", REPO_ROOT / "data" / "praneet-skill-map.json"),
 )
 
 
