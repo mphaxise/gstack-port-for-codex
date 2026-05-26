@@ -2,12 +2,12 @@
 
 ## Snapshot
 
-- Reviewed on `2026-04-18`.
+- Reviewed on `2026-05-26`.
 - Local pinned upstream commit: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`.
-- Latest upstream commit reviewed: `4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045`.
-- Upstream delta since the current pin: `178` commits and `300` changed files.
-- Current local GStack ports: the full current 38-skill upstream GStack surface, with mixed freshness tracked per skill in `data/skill-map.json`.
-- Current local GBrain layer: the full tracked GBrain surface in `data/gbrain-skill-map.json`, plus `workflow-router` and the local `brain/` helper scripts.
+- Latest upstream GStack commit reviewed: `cf50443b63e461a7c0796857f69d572781acab8e`.
+- Latest upstream GBrain commit reviewed: `32f8be96c2409b8ccd35b7835692fd56b640f5c4`.
+- Current local GStack ports: `42 / 52` current upstream GStack skills are represented under current upstream names, plus the legacy `checkpoint` compatibility skill.
+- Current local GBrain layer: `29 / 48` current upstream GBrain skills are represented, plus `workflow-router` and the local `brain/` helper scripts.
 
 This plan focuses on two jobs:
 
@@ -16,12 +16,14 @@ This plan focuses on two jobs:
 
 ## Progress In This Branch
 
-This branch now completes the full coverage pass for the current upstream surface:
+This branch completed the April coverage pass and now has the first May 26 refresh tranche:
 
 - added the planning bridge skills
 - added the full design and developer-experience layer
 - added release, security, health, learning, and checkpoint skills
 - added safety, browser, and utility skills
+- added the new upstream GBrain bridge and continuity skills: `setup-gbrain`, `sync-gbrain`, `context-save`, `context-restore`, `document-generate`
+- added the first GBrain memory-governance refresh: `capture`, `brain-taxonomist`, `schema-author`, `frontmatter-guard`
 - added per-skill source freshness metadata in `data/skill-map.json`
 - updated `workflow-router`, `README.md`, and `docs/compatibility-map.md` to reflect the full-surface port honestly
 
@@ -77,26 +79,36 @@ The repo now covers the full current upstream GStack surface. The remaining road
 - `cross-modal-review` and `testing` can deepen review quality and validation.
 - `workflow-router` already gives us a place to wire multi-skill orchestration such as `office-hours -> plan -> review`.
 
-## What Changed Upstream That Matters Most
+## What Changed Upstream That Matters Most In May
 
-### Existing local ports that drifted upstream
+The latest upstream direction is GStack plus GBrain together. GStack now includes bridge skills that expect a GBrain setup and sync loop, and GBrain has grown a stronger schema, capture, and frontmatter governance layer.
 
-These are the already-ported skills that changed upstream after the local pin and should be refreshed first:
+The first refresh tranche has been ported locally:
 
-- `plan-ceo-review`
-- `plan-eng-review`
-- `review`
-- `browse`
-- `qa`
-- `retro`
+- `setup-gbrain`
+- `sync-gbrain`
+- `context-save`
+- `context-restore`
+- `document-generate`
+- `capture`
+- `brain-taxonomist`
+- `schema-author`
+- `frontmatter-guard`
 
-The biggest drift is in the runtime-heavy area:
+Remaining current GStack gaps:
 
-- `browse`: `81` changed files upstream
-- `review`: `9` changed files upstream
-- `qa`: changed prompt and reporting surface
+- `benchmark-models`
+- `ios-clean`
+- `ios-design-review`
+- `ios-fix`
+- `ios-qa`
+- `ios-sync`
+- `landing-report`
+- `make-pdf`
+- `scrape`
+- `skillify`
 
-`ship` and `setup-browser-cookies` look comparatively more stable since the current pin.
+Remaining current GBrain gaps are mostly research/enrichment, orchestration, and skillpack validation: `academic-verify`, `article-enrichment`, `concept-synthesis`, `perplexity-research`, `minion-orchestrator`, `skillpack-check`, `skillpack-harvest`, `strategic-reading`, `voice-note-ingest`, and related support skills.
 
 ### Next Parity Targets
 
@@ -109,18 +121,15 @@ Now that coverage is complete, the next engineering work is:
 
 ## Enhancement Roadmap
 
-### Phase 1: Re-baseline the eight existing GStack ports
+### Phase 1: Finish latest-upstream coverage
 
-- Refresh `plan-ceo-review`, `plan-eng-review`, `review`, `browse`, `qa`, and `retro` against upstream HEAD.
-- Add per-skill freshness metadata or a reviewed-against note so the repo shows both the original pin and the last audited upstream commit.
-- Upgrade the drift tooling so it reports:
-  - changed already-ported skills
-  - newly added upstream skills
-  - shared-doc or runtime drift
-- Tighten validation so prompt references, templates, and supporting docs are checked together.
+- Port the remaining non-iOS GStack skills first: `landing-report`, `make-pdf`, `scrape`, `skillify`, and `benchmark-models`.
+- Port the highest-leverage GBrain enrichment and orchestration skills next: `article-enrichment`, `concept-synthesis`, `perplexity-research`, `minion-orchestrator`, `strategic-reading`, `skillpack-check`, and `skillpack-harvest`.
+- Decide whether the iOS/device cluster belongs in this general Codex port or should live behind explicit Apple-platform runtime guidance.
+- Keep per-skill freshness metadata on all new entries.
 
 Why this comes first:
-The current repo is strongest when it is honest about where parity exists and where it does not. Tightening the ports we already have creates a better base for everything else.
+The repo is now aligned with the upstream GStack/GBrain direction, but it is not yet complete against the May 26 upstream surface.
 
 ### Phase 2: Deepen the existing ports with the GBrain substrate
 
@@ -163,10 +172,10 @@ The next step for the newly landed skills is not more breadth, but tighter integ
 
 ## Recommended Order Of Execution
 
-1. Refresh the existing eight GStack ports and improve drift tracking.
-2. Add report and memory integration to `plan-*`, `review`, `qa`, `ship`, and `retro`.
-3. Harden `office-hours`, `autoplan`, `investigate`, and `qa-only` as a clean bridge into the planning and QA stack.
-4. Deepen the design and DX layer into a real evidence-backed product-quality loop.
+1. Port the remaining non-iOS GStack gaps: `landing-report`, `make-pdf`, `scrape`, `skillify`, and `benchmark-models`.
+2. Port the research, enrichment, and orchestration GBrain gaps.
+3. Revisit the iOS cluster with Apple-platform runtime requirements in mind.
+4. Add report and memory integration to `plan-*`, `review`, `qa`, `ship`, and `retro`.
 5. Deepen deploy, security, monitoring, and memory workflows around the GBrain substrate.
 6. Tighten safety wrappers and browser utilities around real Codex runtime behavior.
 
@@ -180,8 +189,8 @@ Do not spend the next phase chasing full parity with upstream browser packaging 
 
 ## Definition Of Done For The Next Milestone
 
-- The eight current GStack ports are reviewed against upstream HEAD and marked with freshness metadata.
+- The May 26 upstream GStack and GBrain gaps are either ported or explicitly deferred.
 - `review`, `qa`, `ship`, and `retro` produce durable artifacts through `reports/` or the local `brain/` substrate.
-- the full current upstream GStack surface exists as first-class skills and is wired into routing where the intent is clear.
+- the full current upstream GStack surface exists as first-class skills and is wired into routing where the intent is clear, or the remaining runtime-specific gaps are documented as deferred.
 - `workflow-router` knows when to invoke the new skills.
 - Repo docs clearly distinguish pinned historical parity from latest-upstream gap analysis.

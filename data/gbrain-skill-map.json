@@ -283,6 +283,54 @@
       "source_files": [
         "data-research/SKILL.md"
       ]
+    },
+    {
+      "upstream_slug": "capture",
+      "codex_slug": "capture",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Single front door for saving thoughts or short artifacts into the local brain substrate.",
+      "notes": "Maps upstream `gbrain capture` to repo-local capture and ingest helpers, with upstream CLI use only when available.",
+      "source_files": [
+        "capture/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "brain-taxonomist",
+      "codex_slug": "brain-taxonomist",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Filing gate for new local brain pages before they are written.",
+      "notes": "Adapts active schema-pack filing into the repo's local brain folders while consulting real GBrain schema metadata when available.",
+      "source_files": [
+        "brain-taxonomist/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "schema-author",
+      "codex_slug": "schema-author",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Evolve local brain schema and page-type conventions when the existing taxonomy is insufficient.",
+      "notes": "Keeps schema changes small and compatible with the file-backed local substrate while preserving an upgrade path to upstream GBrain schema packs.",
+      "source_files": [
+        "schema-author/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "frontmatter-guard",
+      "codex_slug": "frontmatter-guard",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Audit and repair local brain page frontmatter before malformed pages break sync or search.",
+      "notes": "Maps upstream frontmatter validation to read-first local checks and `brain_doctor.py`, with optional upstream CLI support when present.",
+      "source_files": [
+        "frontmatter-guard/SKILL.md"
+      ]
     }
   ]
 }

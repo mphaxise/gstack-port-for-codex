@@ -17,7 +17,12 @@ Use this table when a natural-language request could map to several skills.
 | "Show me several design options" | `design-shotgun` | `design-html` |
 | "Turn this design into code" | `design-html` | `design-review` |
 | "What do we already know about X?" | `query` | `brain-ops` |
-| "Save this thought or thesis" | `signal-detector` | `enrich` |
+| "Set up GBrain for this repo" | `setup-gbrain` | `sync-gbrain` |
+| "Refresh or re-index the brain" | `sync-gbrain` | `frontmatter-guard` |
+| "Save this thought or thesis" | `capture` | `brain-taxonomist` |
+| "Where should this brain page go?" | `brain-taxonomist` | `schema-author` |
+| "Change the brain schema or page types" | `schema-author` | `frontmatter-guard` |
+| "Validate brain frontmatter" | `frontmatter-guard` | `citation-fixer` |
 | "Save this memo, link, or source" | `idea-ingest` | `citation-fixer` |
 | "Process this meeting note or transcript" | `meeting-ingestion` | `enrich` |
 | "Process this PDF, screenshot, or transcript-like artifact" | `media-ingest` | `enrich` |
@@ -30,7 +35,9 @@ Use this table when a natural-language request could map to several skills.
 | "Test this but don't fix anything" | `qa-only` | none |
 | "Run a security audit" | `cso` | `review` |
 | "Run a repo or brain health pass" | `health` | `maintain` |
-| "Save progress so we can resume later" | `checkpoint` | `reports` |
+| "Generate missing documentation" | `document-generate` | `document-release` |
+| "Save progress so we can resume later" | `context-save` | `reports` |
+| "Resume where we left off" | `context-restore` | `query` |
 | "Produce or publish a report" | `reports` | `publish` |
 
 ## Selection Notes

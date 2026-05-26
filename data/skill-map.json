@@ -460,6 +460,66 @@
       "source_files": [
         "plan-tune/SKILL.md"
       ]
+    },
+    {
+      "upstream_slug": "setup-gbrain",
+      "codex_slug": "setup-gbrain",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Set up or verify the GBrain-style local memory substrate for this Codex port.",
+      "notes": "Adapts upstream GStack's GBrain setup flow around the existing file-backed local brain substrate, while detecting real upstream gbrain CLI availability when present.",
+      "source_files": [
+        "setup-gbrain/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "sync-gbrain",
+      "codex_slug": "sync-gbrain",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Re-index and refresh this repo's GBrain-style local memory guidance.",
+      "notes": "Maps upstream sync behavior to repo-local brain checks, search verification, and non-destructive handling of untracked brain corpus files.",
+      "source_files": [
+        "sync-gbrain/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "context-save",
+      "codex_slug": "context-save",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Save working context, decisions, git state, and next steps for future sessions.",
+      "notes": "Ports the upstream replacement for checkpoint while keeping the existing checkpoint skill as a compatibility wrapper.",
+      "source_files": [
+        "context-save/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "context-restore",
+      "codex_slug": "context-restore",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Restore saved context and orient a new Codex session before continuing work.",
+      "notes": "Adds the current upstream resume name while preserving guardrails around dirty worktrees and user-owned untracked files.",
+      "source_files": [
+        "context-restore/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "document-generate",
+      "codex_slug": "document-generate",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "summary": "Generate or refresh missing project documentation using a Diataxis-style split.",
+      "notes": "Complements document-release by creating documentation from code evidence before release-facing docs are checked.",
+      "source_files": [
+        "document-generate/SKILL.md"
+      ]
     }
   ]
 }

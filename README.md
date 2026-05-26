@@ -1,38 +1,41 @@
 # GStack Port for Codex
 
-Codex-native ports of the full current [garrytan/gstack](https://github.com/garrytan/gstack) skill surface plus a full-surface workflow port of [garrytan/gbrain](https://github.com/garrytan/gbrain).
+Codex-native ports of [garrytan/gstack](https://github.com/garrytan/gstack) plus a workflow port of [garrytan/gbrain](https://github.com/garrytan/gbrain).
 
 This repo started as a GStack compatibility layer. It now bundles GStack's coding engine and GBrain's operating layer into one Codex-native package, with explicit notes where upstream ambient behavior has been adapted into deliberate local workflows.
 
 ## What Exists Today
 
-### Full Current GStack Surface
+### GStack Surface
 
-This repo now ports the full current 38-skill upstream GStack surface. The machine-readable source of truth is `data/skill-map.json`, including mixed freshness via per-skill `source_commit` when a skill was ported from a newer upstream commit.
+This repo now tracks the latest upstream GStack direction while preserving the local Codex/GBrain adaptations. As of the `2026-05-26` refresh, `data/skill-map.json` contains 43 GStack-facing ports, including the new upstream GBrain bridge and context/doc-generation names.
 
 High-level groups:
 
 - Planning: `office-hours`, `plan-ceo-review`, `plan-eng-review`, `plan-design-review`, `plan-devex-review`, `autoplan`, `plan-tune`
 - Review and QA: `review`, `investigate`, `browse`, `qa`, `qa-only`, `design-review`, `devex-review`
 - Design creation: `design-consultation`, `design-shotgun`, `design-html`
-- Release and ops: `ship`, `document-release`, `setup-deploy`, `land-and-deploy`, `benchmark`, `canary`, `health`, `retro`
+- Release and ops: `ship`, `document-release`, `document-generate`, `setup-deploy`, `land-and-deploy`, `benchmark`, `canary`, `health`, `retro`
 - Security and safety: `cso`, `careful`, `freeze`, `guard`, `unfreeze`
-- Utilities and continuity: `open-gstack-browser`, `connect-chrome`, `pair-agent`, `setup-browser-cookies`, `codex`, `learn`, `checkpoint`, `gstack-upgrade`
+- GBrain bridge and continuity: `setup-gbrain`, `sync-gbrain`, `context-save`, `context-restore`, `checkpoint`, `learn`
+- Utilities: `open-gstack-browser`, `connect-chrome`, `pair-agent`, `setup-browser-cookies`, `codex`, `gstack-upgrade`
 
 For the adaptation boundary and parity notes, see:
 
 - `docs/compatibility-map.md`
 - `docs/gstack-enhancement-plan.md`
 
-### Full GBrain Surface Ported
+### GBrain Surface
 
-All 25 upstream GBrain skills are tracked in `data/gbrain-skill-map.json` and now have Codex ports. The lighter operational layer ports directly, while the deeper memory layer is rewritten around the local `brain/` substrate and helper scripts.
+The GBrain port is intentionally local-first: the lighter operational layer ports directly, while the deeper memory layer is rewritten around the local `brain/` substrate and helper scripts. As of the `2026-05-26` refresh, `data/gbrain-skill-map.json` tracks 29 GBrain ports, including the newer capture, taxonomy, schema, and frontmatter guard workflows.
 
 Core GBrain ports:
 
 - `briefing`
 - `brain-ops`
+- `brain-taxonomist`
 - `citation-fixer`
+- `capture`
 - `cron-scheduler`
 - `cross-modal-review`
 - `data-research`
@@ -120,6 +123,10 @@ cp -R skills/query "$CODEX_HOME/skills/"
 cp -R skills/ingest "$CODEX_HOME/skills/"
 cp -R skills/enrich "$CODEX_HOME/skills/"
 cp -R skills/brain-ops "$CODEX_HOME/skills/"
+cp -R skills/capture "$CODEX_HOME/skills/"
+cp -R skills/brain-taxonomist "$CODEX_HOME/skills/"
+cp -R skills/setup-gbrain "$CODEX_HOME/skills/"
+cp -R skills/sync-gbrain "$CODEX_HOME/skills/"
 cp -R skills/signal-detector "$CODEX_HOME/skills/"
 cp -R skills/cron-scheduler "$CODEX_HOME/skills/"
 cp -R skills/testing "$CODEX_HOME/skills/"
@@ -133,6 +140,9 @@ Examples:
 - Use `$investigate` before speculative debugging changes.
 - Use `$qa-only` when you want a report without code changes.
 - Use `$query` to search the local brain corpus.
+- Use `$setup-gbrain` and `$sync-gbrain` to verify or refresh the local brain substrate.
+- Use `$capture` when the user says to remember or save a thought.
+- Use `$brain-taxonomist`, `$schema-author`, and `$frontmatter-guard` to keep local brain pages filed and structured cleanly.
 - Use `$ingest`, `$idea-ingest`, or `$meeting-ingestion` to turn files into durable brain pages.
 - Use `$brain-ops` before outside research when local memory should shape the answer.
 - Use `$signal-detector` to capture the user's own phrasing into `brain/originals/` or `brain/ideas/`.
@@ -151,17 +161,23 @@ python3 scripts/print_status.py
 
 ## Upstream Sources
 
-- GStack source pin: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`
-- GBrain source pin: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`
+- GStack source pin: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`; latest refreshed entries use `cf50443b63e461a7c0796857f69d572781acab8e`.
+- GBrain source pin: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; latest refreshed entries use `32f8be96c2409b8ccd35b7835692fd56b640f5c4`.
 
 ## Most Adapted GBrain Ports
 
 These are ported, but their upstream ambient/runtime behavior is intentionally rewritten around local files and explicit invocation:
 
 - `brain-ops`
+- `capture`
+- `brain-taxonomist`
+- `schema-author`
+- `frontmatter-guard`
 - `signal-detector`
 - `idea-ingest`
 - `media-ingest`
 - `meeting-ingestion`
 - `citation-fixer`
 - `webhook-transforms`
+- `frontmatter-guard`
+- `schema-author`
