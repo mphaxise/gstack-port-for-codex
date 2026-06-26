@@ -471,9 +471,9 @@
       "codex_slug": "minion-orchestrator",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
       "summary": "Coordinate background jobs, shell tasks, and subagent-style work.",
-      "notes": "Ports minion orchestration into bounded Codex job planning and status collection.",
+      "notes": "Ports minion orchestration into bounded Codex job planning and status collection; refreshed in the June 26 runtime deepening pass.",
       "source_files": [
         "minion-orchestrator/SKILL.md"
       ]

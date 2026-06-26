@@ -50,3 +50,9 @@ Needs another pass before claiming full parity:
 - upstream GStack browser daemon, first-run activation scripts, telemetry, and Claude TUI skill-discovery harnesses
 - upstream GBrain database-backed sync, minions, schema-pack migration machinery, and SkillOpt runtime
 - any MCP-backed GBrain operations that require a live upstream service or credentials
+
+## Deeper Runtime Pass
+
+The follow-up runtime pass is recorded in `docs/upstream-runtime-deepening-pass.md`.
+
+Result: the port should not vendor upstream runtime stacks wholesale. Browser, GBrain database, MCP, minion, schema-pack, and SkillOpt runtimes stay optional integrations. The publishable work is stronger adapter guidance, explicit approval gates, private-corpus ignores, and validation.

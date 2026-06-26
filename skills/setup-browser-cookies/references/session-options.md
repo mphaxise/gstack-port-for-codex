@@ -11,6 +11,8 @@ Best when:
 - the environment can safely read browser profiles
 - the user wants parity with their real browser session
 
+Do not install upstream GStack browser import machinery as an implicit side effect. Treat importer availability as a current-host capability.
+
 ## 2. Cookie JSON Import
 
 Import an exported cookie jar if the browser tooling supports it.
@@ -45,4 +47,3 @@ Confirm success by checking:
 - authenticated page access
 - presence of expected session state
 - domain-level cookie counts or session metadata, never cookie values
-

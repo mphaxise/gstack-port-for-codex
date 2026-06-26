@@ -85,10 +85,11 @@
       "status": "ported",
       "port_kind": "runtime-aware",
       "summary": "Browser-driven QA and exploration workflow.",
-      "notes": "Workflow ported fully; runtime parity depends on available Codex or repo-local browser tooling.",
+      "notes": "Workflow ported fully; runtime parity depends on available Codex or repo-local browser tooling; refreshed in the June 26 runtime deepening pass.",
       "source_files": [
         "browse/SKILL.md"
-      ]
+      ],
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a"
     },
     {
       "upstream_slug": "investigate",
@@ -135,10 +136,11 @@
       "status": "ported",
       "port_kind": "runtime-aware",
       "summary": "Browser session and cookie import workflow.",
-      "notes": "Preserves the authenticated-session workflow with explicit fallback options.",
+      "notes": "Preserves the authenticated-session workflow with explicit fallback options; refreshed in the June 26 runtime deepening pass.",
       "source_files": [
         "setup-browser-cookies/SKILL.md"
-      ]
+      ],
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a"
     },
     {
       "upstream_slug": "retro",
@@ -432,9 +434,9 @@
       "codex_slug": "open-gstack-browser",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
       "summary": "Visible-browser launch workflow.",
-      "notes": "Uses the best available browser runtime for a headed session and stays explicit about runtime limitations.",
+      "notes": "Uses the best available browser runtime for a headed session and stays explicit about runtime limitations; refreshed in the June 26 runtime deepening pass.",
       "source_files": [
         "open-gstack-browser/SKILL.md"
       ]

@@ -21,4 +21,4 @@ This port is adapted from `garrytan/gstack` at commit `2aa745cb0e4331d683e727ec7
 - Never print raw cookie values.
 - Prefer domain counts, session summaries, or successful page access as proof.
 - If secure browser extraction is unavailable, fall back to cookie JSON import, manual login, or app-supported test-session seeding.
-
+- Do not add upstream cookie-extraction daemons or profile readers to this repo without a separate security review.

@@ -59,3 +59,5 @@ In other words, `ported` here means workflow parity with explicit runtime bounda
 - Add adapter scripts for cookie import or session seeding when the host environment supports them safely.
 - Add example integrations for Playwright- or browser-based Codex environments.
 - Add a dedicated install smoke command if Codex exposes a stable local skill-discovery CLI.
+
+See `docs/upstream-runtime-deepening-pass.md` for the June 26 decision not to vendor upstream daemons, databases, telemetry, or worker runtimes into this runtime-decoupled Codex port.

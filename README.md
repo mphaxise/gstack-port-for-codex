@@ -155,6 +155,7 @@ That means:
 - `docs/gbrain-resolver.md`
 - `docs/codex-brain-substrate.md`
 - `docs/codex-host-refresh-audit.md`
+- `docs/upstream-runtime-deepening-pass.md`
 - `docs/praneet-extension-layer.md`
 - `data/gbrain-skill-map.json`
 - `data/praneet-skill-map.json`
