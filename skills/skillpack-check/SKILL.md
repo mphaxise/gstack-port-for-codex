@@ -11,16 +11,20 @@ Use this skill when the user asks whether the installed skillpack is healthy.
 
 1. Run repository validation.
 2. Run unit tests.
-3. Check registry coverage against upstream snapshots when available:
+3. Check the installed Codex version and, when the check is part of portwork or an install refresh, refresh the current official Codex manual:
+   - `codex --version`
+   - `node /Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`
+4. Check registry coverage against upstream snapshots when available:
    - `python3 scripts/check_upstream_drift.py`
    - `python3 scripts/check_upstream_drift.py --map gbrain`
-4. Check local installed symlinks under `$CODEX_HOME/skills` or `~/.codex/skills`.
-5. Run `brain_doctor.py` when the local brain substrate is in scope.
-6. Run `brain_citations.py --verbose` when citation quality is in scope.
-7. Report pass/fail with exact gaps.
+5. Check local installed symlinks under `$CODEX_HOME/skills` or `~/.codex/skills`.
+6. Run `brain_doctor.py` when the local brain substrate is in scope.
+7. Run `brain_citations.py --verbose` when citation quality is in scope.
+8. Report pass/fail with exact gaps, separating repo health, local install health, upstream parity, and Codex-doc freshness.
 
 ## Guardrails
 
 - Do not say healthy if local install or registry validation failed.
 - Do not mutate files during a check.
 - Separate repo health from upstream parity.
+- Do not treat memories as the source of truth for Codex host behavior; use current docs when host behavior matters.

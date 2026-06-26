@@ -12,10 +12,14 @@ This port is adapted from `garrytan/gstack` at commit `11de390be1be6849eb9a15f91
 ## Workflow
 
 1. Identify whether the request is about the repo, the local skill install, or both.
-2. Refresh upstream refs for both `garrytan/gstack` and `garrytan/gbrain` when parity is in scope.
-3. Port upstream changes into Codex-native skill files instead of copying Claude-specific preambles.
-4. Reinstall or re-link local skills if needed.
-5. Run validation and summarize what changed.
+2. Check the installed Codex version and refresh the current official Codex manual before deciding whether a fallback is still needed:
+   - `codex --version`
+   - `node /Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`
+3. Read the manual sections relevant to the port, usually skills, plugins, MCP, `AGENTS.md`, sandboxing and approvals, hooks, memories, automations, browser behavior, and local/cloud environments.
+4. Refresh upstream refs for both `garrytan/gstack` and `garrytan/gbrain` when parity is in scope.
+5. Port upstream changes into Codex-native skill files instead of copying Claude-specific preambles.
+6. Reinstall or re-link local skills if needed.
+7. Run validation and summarize what changed, including the Codex version and any documentation-driven decisions.
 
 ## Codex Host Audit
 
@@ -27,8 +31,11 @@ When upstream changed since the last port, explicitly decide which parts are:
 
 Prefer current Codex install behavior over older Claude Code fallbacks when Codex has a direct equivalent. Keep fallbacks only for host-variable runtimes such as browser automation, upstream `gbrain` CLI availability, and remote credentials.
 
+Record Codex documentation refresh results in `docs/codex-documentation-refresh.md` or the specific runtime/audit doc changed by the upgrade.
+
 ## Guardrails
 
 - Do not claim an upgrade succeeded without revalidating the install.
 - Be explicit about what was updated and what was left alone.
 - Do not move baseline source pins forward if only a subset of upstream changes was ported; use per-skill `source_commit` metadata instead.
+- Do not rely on remembered Codex behavior when the current docs can be checked during the port.

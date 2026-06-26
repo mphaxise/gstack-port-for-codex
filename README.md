@@ -155,6 +155,7 @@ That means:
 - `docs/gbrain-resolver.md`
 - `docs/codex-brain-substrate.md`
 - `docs/codex-host-refresh-audit.md`
+- `docs/codex-documentation-refresh.md`
 - `docs/upstream-runtime-deepening-pass.md`
 - `docs/praneet-extension-layer.md`
 - `data/gbrain-skill-map.json`
@@ -225,6 +226,13 @@ python3 scripts/validate_repo.py
 python3 -m unittest discover -s tests
 python3 scripts/brain_doctor.py
 python3 scripts/print_status.py
+```
+
+For GStack/GBrain portwork or install refreshes, also check the installed Codex version and current official Codex manual before deciding whether older fallbacks still belong:
+
+```bash
+codex --version
+node /Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs
 ```
 
 ## Upstream Sources
