@@ -12,6 +12,10 @@ Map the upstream browse concepts to the best available Codex action.
 | `cookies`, `storage` | inspect session/browser state | use browser tooling or repo-local debug helpers if available |
 | `diff` | compare environments or before/after state | use snapshots, screenshots, or text diffs depending on the tools available |
 
+## Tool Preference
+
+Use current Codex host tools before upstream GStack command names. Translate upstream commands into intent, not literal shell invocations.
+
 ## Evidence Standard
 
 For any meaningful bug report or QA result, try to capture:
@@ -21,4 +25,3 @@ For any meaningful bug report or QA result, try to capture:
 - resulting state
 - screenshot or equivalent evidence
 - any runtime errors seen
-

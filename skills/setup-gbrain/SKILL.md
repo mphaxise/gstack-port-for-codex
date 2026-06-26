@@ -19,10 +19,14 @@ This is a Codex-native adaptation of upstream GStack's `setup-gbrain`. Upstream 
    - run `command -v gbrain`
    - if present, report `gbrain --version` or equivalent status
    - if absent, do not fake CLI support; state that the local file-backed substrate is active
-3. Initialize missing local folders only when they are expected by the repo and safe to create.
-4. Summarize:
+3. Check the current Codex install surface:
+   - verify repo-owned skills are visible under `$CODEX_HOME/skills` or `~/.codex/skills`
+   - prefer symlinks back to this checkout when the user wants live local updates
+4. Initialize missing local folders only when they are expected by the repo and safe to create.
+5. Summarize:
    - local substrate status
    - upstream CLI/MCP status
+   - Codex skill install status
    - recommended next step, usually `sync-gbrain` or `capture`
 
 ## Guardrails
@@ -31,3 +35,4 @@ This is a Codex-native adaptation of upstream GStack's `setup-gbrain`. Upstream 
 - Do not install global tools unless the user explicitly asked for installation.
 - Do not claim full upstream GBrain parity when only the local substrate is active.
 - Treat untracked `brain/` content as user data.
+- Use `gbrain-advisor` for read-only setup advice and `gbrain-upgrade` for upstream CLI upgrades.

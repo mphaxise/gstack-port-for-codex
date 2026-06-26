@@ -20,6 +20,12 @@ The important product distinction is:
 | `browse` | `runtime-aware` | Workflow, command intent, evidence standards, fallback strategy | Actual browser automation, DOM interaction, persistent session implementation |
 | `qa` | `runtime-aware` | Modes, issue taxonomy, report template, branch-scoped QA flow | Browser execution, screenshot capture, local app interaction |
 | `setup-browser-cookies` | `runtime-aware` | Session setup flow, fallback options, safety notes | Cookie extraction/import tooling, browser-profile access, secure credential handling |
+| `gstack` | `workflow-adapted` | Root skill router, Codex-native dispatch guidance | Upstream Claude shell preamble, telemetry, and first-run activation are intentionally omitted |
+| `diagram` | `workflow-adapted` | Diagram workflow and editable-source guidance | Upstream bundled Excalidraw/rendering helpers are optional, not assumed |
+| `spec` | `workflow-adapted` | Issue/spec workflow and acceptance-criteria structure | Upstream spawned Claude Code agent/worktree behavior requires explicit user request |
+| `gbrain-advisor` | `workflow-adapted` | Local brain health checkup and optional CLI probes | Upstream advisor CLI/MCP is optional |
+| `schema-unify` | `workflow-adapted` | Read-only taxonomy inventory and migration plan | Upstream protected database migration handlers require explicit local approval |
+| `skill-optimizer` | `workflow-adapted` | Benchmark-first skill tuning workflow | Upstream SkillOpt runtime/model costs are optional and require approval |
 
 ## Adoption Guidance
 
@@ -52,3 +58,6 @@ In other words, `ported` here means workflow parity with explicit runtime bounda
 - Add a concrete Codex-native browser runtime shim if one becomes stable enough to package.
 - Add adapter scripts for cookie import or session seeding when the host environment supports them safely.
 - Add example integrations for Playwright- or browser-based Codex environments.
+- Add a dedicated install smoke command if Codex exposes a stable local skill-discovery CLI.
+
+See `docs/upstream-runtime-deepening-pass.md` for the June 26 decision not to vendor upstream daemons, databases, telemetry, or worker runtimes into this runtime-decoupled Codex port.

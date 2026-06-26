@@ -2,7 +2,7 @@
 
 ## Summary
 
-This file is the parity map for the full upstream GBrain surface at source pin `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This file is the parity map for the GBrain surface ported into this repo. The conservative baseline source pin is `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; the latest checked upstream commit is `814258dda67945ffec9457a1e73980e947b7e462`.
 
 ## Port Kinds
 
@@ -23,6 +23,9 @@ This file is the parity map for the full upstream GBrain surface at source pin `
 | `daily-task-manager` | ported | workflow-adapted | Uses repo-local or user-selected task files. |
 | `daily-task-prep` | ported | workflow-adapted | Uses calendar plus task context. |
 | `enrich` | ported | workflow-adapted | Uses the local `brain/` corpus for file-backed page enrichment. |
+| `gbrain-advisor` | ported | workflow-adapted | Runs repo-local health checks first, then optional upstream CLI advisor checks when available. |
+| `gbrain-upgrade` | ported | workflow-adapted | Hardcoded, approval-gated upstream CLI upgrade flow with local validation. |
+| `idea-lineage` | ported | workflow-adapted | Traces one idea through local Markdown brain pages with cited evidence and gaps. |
 | `idea-ingest` | ported | workflow-adapted | Uses local-file ingest, raw preservation, and explicit entity updates. |
 | `ingest` | ported | workflow-adapted | Uses the local `brain/` corpus for file-backed ingestion. |
 | `maintain` | ported | workflow-adapted | Uses repo/package checks, report files, and targeted audits instead of gbrain health APIs. |
@@ -33,13 +36,15 @@ This file is the parity map for the full upstream GBrain surface at source pin `
 | `query` | ported | workflow-adapted | Uses deterministic search and page reads over the local `brain/` corpus. |
 | `repo-architecture` | ported | native | Advises where new GBrain-port files belong in this repo. |
 | `reports` | ported | workflow-adapted | Uses timestamped report files. |
+| `schema-unify` | ported | workflow-adapted | Plans schema/type consolidation with dry-run inventory before any migration. |
 | `setup` | ported | workflow-adapted | Sets up the Codex package direction, registries, and local substrate expectations. |
 | `signal-detector` | ported | workflow-adapted | Rewritten as explicit signal capture instead of an always-on sidecar. |
 | `skill-creator` | ported | workflow-adapted | Maintains skill quality and registry updates. |
+| `skill-optimizer` | ported | workflow-adapted | Uses benchmark-first local validation instead of automatic external optimizer mutation. |
 | `soul-audit` | ported | workflow-adapted | Writes identity and cadence files locally rather than into a brain repo. |
 | `testing` | ported | native | Validates the growing skill surface. |
 | `webhook-transforms` | ported | workflow-adapted | Uses offline event replay and dead-letter handling instead of a live webhook service. |
 
 ## Takeaway
 
-The full GBrain surface is now ported into this repo. The main compatibility boundary is semantic rather than binary: upstream ambient/runtime behavior becomes explicit Codex workflow when that is the smallest honest equivalent.
+The GBrain workflow surface represented here is ported into this repo. The main compatibility boundary is semantic rather than binary: upstream ambient/runtime behavior becomes explicit Codex workflow when that is the smallest honest equivalent. Upstream database, MCP, minion, schema-pack, and optimizer runtimes remain optional integrations rather than bundled guarantees.

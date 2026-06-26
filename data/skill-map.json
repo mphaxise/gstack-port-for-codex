@@ -3,7 +3,9 @@
     "name": "gstack",
     "repo": "https://github.com/garrytan/gstack",
     "license": "MIT",
-    "commit": "2aa745cb0e4331d683e727ec77385d04cdbb45a2"
+    "commit": "2aa745cb0e4331d683e727ec77385d04cdbb45a2",
+    "latest_checked_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+    "latest_checked_at": "2026-06-26"
   },
   "ported_at": "2026-04-18",
   "skills": [
@@ -83,10 +85,11 @@
       "status": "ported",
       "port_kind": "runtime-aware",
       "summary": "Browser-driven QA and exploration workflow.",
-      "notes": "Workflow ported fully; runtime parity depends on available Codex or repo-local browser tooling.",
+      "notes": "Workflow ported fully; runtime parity depends on available Codex or repo-local browser tooling; refreshed in the June 26 runtime deepening pass.",
       "source_files": [
         "browse/SKILL.md"
-      ]
+      ],
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a"
     },
     {
       "upstream_slug": "investigate",
@@ -133,10 +136,11 @@
       "status": "ported",
       "port_kind": "runtime-aware",
       "summary": "Browser session and cookie import workflow.",
-      "notes": "Preserves the authenticated-session workflow with explicit fallback options.",
+      "notes": "Preserves the authenticated-session workflow with explicit fallback options; refreshed in the June 26 runtime deepening pass.",
       "source_files": [
         "setup-browser-cookies/SKILL.md"
-      ]
+      ],
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a"
     },
     {
       "upstream_slug": "retro",
@@ -394,9 +398,9 @@
       "codex_slug": "gstack-upgrade",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
       "summary": "Repo and local-skill update workflow for this Codex port package.",
-      "notes": "Refreshes the checkout or local install, then revalidates so upgrades are explicit and trustworthy.",
+      "notes": "Refreshes the checkout or local install, then revalidates so upgrades are explicit and trustworthy; refreshed for the June 26 Codex host audit.",
       "source_files": [
         "gstack-upgrade/SKILL.md"
       ]
@@ -430,9 +434,9 @@
       "codex_slug": "open-gstack-browser",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
       "summary": "Visible-browser launch workflow.",
-      "notes": "Uses the best available browser runtime for a headed session and stays explicit about runtime limitations.",
+      "notes": "Uses the best available browser runtime for a headed session and stays explicit about runtime limitations; refreshed in the June 26 runtime deepening pass.",
       "source_files": [
         "open-gstack-browser/SKILL.md"
       ]
@@ -466,9 +470,9 @@
       "codex_slug": "setup-gbrain",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
       "summary": "Set up or verify the GBrain-style local memory substrate for this Codex port.",
-      "notes": "Adapts upstream GStack's GBrain setup flow around the existing file-backed local brain substrate, while detecting real upstream gbrain CLI availability when present.",
+      "notes": "Adapts upstream GStack's GBrain setup flow around the existing file-backed local brain substrate, while detecting real upstream gbrain CLI availability when present; refreshed for the June 26 Codex host audit.",
       "source_files": [
         "setup-gbrain/SKILL.md"
       ]
@@ -478,9 +482,9 @@
       "codex_slug": "sync-gbrain",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
       "summary": "Re-index and refresh this repo's GBrain-style local memory guidance.",
-      "notes": "Maps upstream sync behavior to repo-local brain checks, search verification, and non-destructive handling of untracked brain corpus files.",
+      "notes": "Maps upstream sync behavior to repo-local brain checks, search verification, and non-destructive handling of untracked brain corpus files; refreshed for the June 26 Codex host audit.",
       "source_files": [
         "sync-gbrain/SKILL.md"
       ]
@@ -639,6 +643,42 @@
       "notes": "Combines upstream GStack scrape codification with the GBrain meta-skill pattern for this repo.",
       "source_files": [
         "skillify/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "gstack",
+      "codex_slug": "gstack",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "summary": "Root router for the GStack skill suite adapted to Codex skill dispatch.",
+      "notes": "Ports the upstream root router intent while dropping Claude-specific preambles, telemetry, and skill path checks.",
+      "source_files": [
+        "gstack/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "diagram",
+      "codex_slug": "diagram",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "summary": "Diagram generation workflow for architecture, flows, and editable diagram sources.",
+      "notes": "Adapts the upstream Excalidraw/Mermaid artifact workflow to Codex-first Mermaid and optional local artifact generation.",
+      "source_files": [
+        "diagram/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "spec",
+      "codex_slug": "spec",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "summary": "Spec and issue-writing workflow for turning vague intent into executable implementation briefs.",
+      "notes": "Ports the upstream spec flow without Claude plan-mode or automatic spawned-agent assumptions.",
+      "source_files": [
+        "spec/SKILL.md"
       ]
     }
   ]

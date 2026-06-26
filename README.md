@@ -8,13 +8,13 @@ This repo started as a GStack compatibility layer. It now bundles GStack's codin
 
 ### GStack Surface
 
-This repo now tracks the latest upstream GStack direction while preserving the local Codex/GBrain adaptations. As of the `2026-05-26` refresh, `data/skill-map.json` contains all 52 current upstream GStack skills plus the legacy local `checkpoint` compatibility skill.
+This repo tracks the upstream GStack direction while preserving the local Codex/GBrain adaptations. As of the `2026-06-26` refresh, `data/skill-map.json` contains 56 ported GStack entries: the prior 52-skill surface, the legacy local `checkpoint` compatibility skill, and the latest upstream router/`diagram`/`spec` additions ported into Codex-native form.
 
 High-level groups:
 
-- Planning: `office-hours`, `plan-ceo-review`, `plan-eng-review`, `plan-design-review`, `plan-devex-review`, `autoplan`, `plan-tune`
+- Router and planning: `gstack`, `office-hours`, `spec`, `plan-ceo-review`, `plan-eng-review`, `plan-design-review`, `plan-devex-review`, `autoplan`, `plan-tune`
 - Review and QA: `review`, `investigate`, `browse`, `qa`, `qa-only`, `design-review`, `devex-review`, `scrape`
-- Design creation: `design-consultation`, `design-shotgun`, `design-html`
+- Design creation: `design-consultation`, `design-shotgun`, `design-html`, `diagram`
 - Release and ops: `ship`, `document-release`, `document-generate`, `setup-deploy`, `land-and-deploy`, `benchmark`, `benchmark-models`, `canary`, `health`, `retro`, `landing-report`, `make-pdf`
 - Security and safety: `cso`, `careful`, `freeze`, `guard`, `unfreeze`
 - GBrain bridge and continuity: `setup-gbrain`, `sync-gbrain`, `context-save`, `context-restore`, `checkpoint`, `learn`
@@ -28,7 +28,7 @@ For the adaptation boundary and parity notes, see:
 
 ### GBrain Surface
 
-The GBrain port is intentionally local-first: the lighter operational layer ports directly, while the deeper memory layer is rewritten around the local `brain/` substrate and helper scripts. As of the `2026-05-26` refresh, `data/gbrain-skill-map.json` tracks all 48 current upstream GBrain skills.
+The GBrain port is intentionally local-first: the lighter operational layer ports directly, while the deeper memory layer is rewritten around the local `brain/` substrate and helper scripts. As of the `2026-06-26` refresh, `data/gbrain-skill-map.json` tracks 53 ported GBrain skills, including the latest advisor, upgrade, lineage, schema-unification, and skill-optimization workflows adapted for Codex.
 
 Core GBrain ports:
 
@@ -54,6 +54,9 @@ Core GBrain ports:
 - `enrich`
 - `frontmatter-guard`
 - `functional-area-resolver`
+- `gbrain-advisor`
+- `gbrain-upgrade`
+- `idea-lineage`
 - `idea-ingest`
 - `ingest`
 - `install`
@@ -68,9 +71,11 @@ Core GBrain ports:
 - `repo-architecture`
 - `reports`
 - `schema-author`
+- `schema-unify`
 - `setup`
 - `signal-detector`
 - `skill-creator`
+- `skill-optimizer`
 - `skillify`
 - `skillpack-check`
 - `skillpack-harvest`
@@ -149,6 +154,8 @@ That means:
 - `docs/gbrain-compatibility-map.md`
 - `docs/gbrain-resolver.md`
 - `docs/codex-brain-substrate.md`
+- `docs/codex-host-refresh-audit.md`
+- `docs/upstream-runtime-deepening-pass.md`
 - `docs/praneet-extension-layer.md`
 - `data/gbrain-skill-map.json`
 - `data/praneet-skill-map.json`
@@ -222,8 +229,10 @@ python3 scripts/print_status.py
 
 ## Upstream Sources
 
-- GStack source pin: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`; latest refreshed entries use `cf50443b63e461a7c0796857f69d572781acab8e`.
-- GBrain source pin: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; latest refreshed entries use `32f8be96c2409b8ccd35b7835692fd56b640f5c4`.
+- GStack baseline source pin: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`; May refresh entries use `cf50443b63e461a7c0796857f69d572781acab8e`; June 26 router/diagram/spec entries use `11de390be1be6849eb9a15f91ff4922dd16c589a`.
+- GBrain baseline source pin: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; May refresh entries use `32f8be96c2409b8ccd35b7835692fd56b640f5c4`; June 26 advisor/upgrade/lineage/schema/optimizer entries use `814258dda67945ffec9457a1e73980e947b7e462`.
+
+The baseline pins stay intentionally conservative so `scripts/check_upstream_drift.py` continues to reveal upstream runtime drift instead of claiming full parity after a partial Codex-native refresh.
 
 ## Most Adapted GBrain Ports
 

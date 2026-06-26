@@ -7,11 +7,11 @@ description: Browser QA and dogfooding workflow for Codex. Use when a user needs
 
 Use this skill when the task requires browser-based verification instead of static code reading.
 
-This port is adapted from `garrytan/gstack` at commit `2aa745cb0e4331d683e727ec77385d04cdbb45a2`.
+This port is adapted from `garrytan/gstack` at commit `11de390be1be6849eb9a15f91ff4922dd16c589a`.
 
 ## Important Adaptation
 
-This repo ports the browse workflow, not the upstream Playwright binary itself. Before testing, read `references/runtime-strategy.md` and choose the best browser path available in the current Codex environment.
+This repo ports the browse workflow, not the upstream browser daemon, CDP bridge, telemetry, or Playwright binary itself. Before testing, read `references/runtime-strategy.md` and choose the best browser path available in the current Codex environment.
 
 ## Core Jobs
 
@@ -33,4 +33,4 @@ This repo ports the browse workflow, not the upstream Playwright binary itself. 
 - Never claim browser automation happened if you only performed HTTP or static checks.
 - If authenticated access is required, coordinate with `setup-browser-cookies` or manual login steps.
 - Report what was tested, what was blocked, and what remains unverified.
-
+- Do not vendor upstream GStack browser runtime pieces into this repo during a QA task.
