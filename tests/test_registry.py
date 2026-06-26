@@ -82,10 +82,13 @@ class RegistryTests(unittest.TestCase):
         skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")
         ported = [skill["codex_slug"] for skill in skill_map["skills"] if skill["status"] == "ported"]
 
-        self.assertEqual(len(ported), 53)
+        self.assertEqual(len(ported), 56)
         for slug in (
+            "gstack",
             "office-hours",
             "autoplan",
+            "diagram",
+            "spec",
             "setup-gbrain",
             "sync-gbrain",
             "context-save",
@@ -111,10 +114,15 @@ class RegistryTests(unittest.TestCase):
         skill_map = load_skill_map(REPO_ROOT / "data" / "gbrain-skill-map.json")
         ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
 
-        self.assertEqual(len(skill_map["skills"]), 48)
-        self.assertEqual(len(ported), 48)
+        self.assertEqual(len(skill_map["skills"]), 53)
+        self.assertEqual(len(ported), 53)
         for slug in (
             "capture",
+            "gbrain-advisor",
+            "gbrain-upgrade",
+            "idea-lineage",
+            "schema-unify",
+            "skill-optimizer",
             "brain-taxonomist",
             "schema-author",
             "frontmatter-guard",

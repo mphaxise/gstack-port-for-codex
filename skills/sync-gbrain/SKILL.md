@@ -21,7 +21,8 @@ This is the Codex adaptation of upstream GStack's `sync-gbrain`. It prefers the 
    - update tracked docs or skill registries only when the task explicitly requires it
    - leave untracked `brain/` pages alone unless the user asked to capture new knowledge
 4. If the upstream `gbrain` CLI exists, use read-only status commands first, then summarize any stronger sync path it offers.
-5. End with a verdict:
+5. If schema cleanup is requested, route to `schema-unify` before any bulk retyping or migration.
+6. End with a verdict:
    - `local brain active`
    - `upstream gbrain available` or `upstream gbrain absent`
    - `actions taken`
@@ -32,3 +33,4 @@ This is the Codex adaptation of upstream GStack's `sync-gbrain`. It prefers the 
 - Do not bulk rewrite the `brain/` corpus during a sync.
 - Do not silently convert file-backed pages into a different store.
 - Do not treat upstream GBrain availability as required for the local Codex port to work.
+- Do not treat generated `brain/.raw` or `brain/sources` pages as publishable repo changes unless the user explicitly promotes them.

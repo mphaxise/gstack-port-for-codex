@@ -139,7 +139,7 @@ def classify_changed_paths(
         matched_slug: str | None = None
         for skill in skill_map["skills"]:
             slug = skill["upstream_slug"]
-            if path.startswith(f"{slug}/"):
+            if path.startswith(f"{slug}/") or path.startswith(f"skills/{slug}/"):
                 matched_slug = slug
                 skill_paths[slug].append(path)
                 break

@@ -3,7 +3,9 @@
     "name": "gbrain",
     "repo": "https://github.com/garrytan/gbrain",
     "license": "MIT",
-    "commit": "b7e3005b5b3f1b54082f9c5990482ebf81a4a807"
+    "commit": "b7e3005b5b3f1b54082f9c5990482ebf81a4a807",
+    "latest_checked_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+    "latest_checked_at": "2026-06-26"
   },
   "ported_at": "2026-04-16",
   "skills": [
@@ -457,9 +459,9 @@
       "codex_slug": "install",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
       "summary": "Install or verify the local GBrain-style skill surface for Codex.",
-      "notes": "Adapts upstream install to idempotent local symlink verification without replacing non-repo skills.",
+      "notes": "Adapts upstream install to idempotent local symlink verification without replacing non-repo skills; refreshed for the June 26 Codex install and drift-check pass.",
       "source_files": [
         "install/SKILL.md"
       ]
@@ -505,9 +507,9 @@
       "codex_slug": "skillpack-check",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
       "summary": "Health report for the combined local GStack and GBrain skillpack.",
-      "notes": "Ports skillpack doctor behavior to repo validation, tests, upstream coverage, local installs, and brain health checks.",
+      "notes": "Ports skillpack doctor behavior to repo validation, tests, upstream coverage, local installs, and brain health checks; refreshed for the June 26 Codex install and drift-check pass.",
       "source_files": [
         "skillpack-check/SKILL.md"
       ]
@@ -558,6 +560,66 @@
       "notes": "Ports voice note routing into capture, taxonomy, and local brain conventions without paraphrasing preserved text.",
       "source_files": [
         "voice-note-ingest/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "gbrain-advisor",
+      "codex_slug": "gbrain-advisor",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Read-only brain health advisor for high-leverage setup, drift, migration, and citation findings.",
+      "notes": "Maps upstream advisor behavior to repo-local checks first, then optional upstream gbrain CLI read-only checks.",
+      "source_files": [
+        "gbrain-advisor/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "gbrain-upgrade",
+      "codex_slug": "gbrain-upgrade",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Safe upstream gbrain CLI upgrade workflow with hardcoded commands and local validation.",
+      "notes": "Keeps upgrade markers non-executable and separates upstream CLI upgrades from this repo local substrate.",
+      "source_files": [
+        "gbrain-upgrade/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "idea-lineage",
+      "codex_slug": "idea-lineage",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Single-idea evolution tracing across the local brain corpus with evidence gaps and reversals.",
+      "notes": "Adapts upstream graph/search tools to deterministic local brain_search and direct Markdown page reads.",
+      "source_files": [
+        "idea-lineage/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "schema-unify",
+      "codex_slug": "schema-unify",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Schema and page-type unification planning for local Markdown brains or upstream gbrain schema packs.",
+      "notes": "Ports the canonical-taxonomy migration playbook as an audit-first Codex workflow with explicit approval gates.",
+      "source_files": [
+        "schema-unify/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "skill-optimizer",
+      "codex_slug": "skill-optimizer",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Validation-gated skill tuning workflow grounded in benchmarks and held-out examples.",
+      "notes": "Adapts upstream SkillOpt into Codex-native benchmark-first editing without automatic external optimizer calls.",
+      "source_files": [
+        "skill-optimizer/SKILL.md"
       ]
     }
   ]

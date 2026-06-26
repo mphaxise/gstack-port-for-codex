@@ -2,12 +2,12 @@
 
 ## Snapshot
 
-- Reviewed on `2026-05-26`.
+- Reviewed on `2026-06-26`.
 - Local pinned upstream commit: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`.
-- Latest upstream GStack commit reviewed: `cf50443b63e461a7c0796857f69d572781acab8e`.
-- Latest upstream GBrain commit reviewed: `32f8be96c2409b8ccd35b7835692fd56b640f5c4`.
-- Current local GStack ports: `52 / 52` current upstream GStack skills are represented under current upstream names, plus the legacy `checkpoint` compatibility skill.
-- Current local GBrain layer: `48 / 48` current upstream GBrain skills are represented, plus `workflow-router` and the local `brain/` helper scripts.
+- Latest upstream GStack commit reviewed: `11de390be1be6849eb9a15f91ff4922dd16c589a`.
+- Latest upstream GBrain commit reviewed: `814258dda67945ffec9457a1e73980e947b7e462`.
+- Current local GStack ports: `56` GStack entries are represented, including the root `gstack` router, `diagram`, `spec`, and the legacy `checkpoint` compatibility skill.
+- Current local GBrain layer: `53` GBrain skills are represented, plus `workflow-router` and the local `brain/` helper scripts.
 - Current Praneet extension layer: `7` hand-port enhanced skills add design leadership, responsible design, social ethics, founder judgment, research synthesis, and outcome memory without changing upstream parity accounting.
 
 This plan focuses on two jobs:
@@ -30,6 +30,9 @@ This branch completed the April coverage pass and now has the first May 26 refre
 - added per-skill source freshness metadata in the registries
 - added Praneet-specific hand-port enhancements: `responsible-design-review`, `accessibility-review`, `research-synthesis`, `startup-memo`, `market-map`, `design-leadership-review`, `outcome-memory`
 - updated `workflow-router`, `README.md`, and `docs/compatibility-map.md` to reflect the full-surface port honestly
+- added the June 26 upstream refresh: `gstack`, `diagram`, `spec`, `gbrain-advisor`, `gbrain-upgrade`, `idea-lineage`, `schema-unify`, and `skill-optimizer`
+- added `docs/codex-host-refresh-audit.md` to document which Claude Code fallbacks are now obsolete in the Codex port and which runtime boundaries remain
+- expanded `scripts/check_upstream_drift.py` so drift can be checked against both GStack and GBrain maps
 
 ## Skills Used To Build This Plan
 
@@ -99,7 +102,7 @@ The first refresh tranche has been ported locally:
 - `schema-author`
 - `frontmatter-guard`
 
-No current upstream GStack or GBrain skill names are missing after this refresh. The remaining work is depth: improving runtime fidelity, drift tooling, docs, and integration quality.
+No current upstream GStack or GBrain workflow names selected for the Codex port are missing after this refresh. The remaining work is depth: improving runtime fidelity, drift tooling, docs, and integration quality. Upstream database, MCP, browser-daemon, telemetry, and Claude TUI harness behavior are intentionally not claimed as bundled parity.
 
 The Praneet extension layer is intentionally not counted as upstream parity. It is the local leadership layer: design ethics, accessibility, market judgment, design-executive decision records, and outcome memory.
 
@@ -185,6 +188,6 @@ Do not spend the next phase chasing full parity with upstream browser packaging 
 
 - The May 26 upstream GStack and GBrain skill-name surfaces are fully represented locally.
 - `review`, `qa`, `ship`, and `retro` produce durable artifacts through `reports/` or the local `brain/` substrate.
-- the full current upstream GStack surface exists as first-class skills and is wired into routing where the intent is clear, or the remaining runtime-specific gaps are documented as deferred.
+- the current Codex-portable GStack surface exists as first-class skills and is wired into routing where the intent is clear, or the remaining runtime-specific gaps are documented as deferred.
 - `workflow-router` knows when to invoke the new skills.
 - Repo docs clearly distinguish pinned historical parity from latest-upstream gap analysis.

@@ -26,6 +26,7 @@ class UpstreamDriftTests(unittest.TestCase):
             "skills": [
                 {"upstream_slug": "review"},
                 {"upstream_slug": "browse"},
+                {"upstream_slug": "query"},
             ],
         }
 
@@ -38,6 +39,7 @@ class UpstreamDriftTests(unittest.TestCase):
             [
                 "review/SKILL.md",
                 "browse/src/cli.ts",
+                "skills/query/SKILL.md",
                 "README.md",
                 "scripts/skill-check.ts",
                 "misc/unknown.txt",
@@ -47,6 +49,7 @@ class UpstreamDriftTests(unittest.TestCase):
 
         self.assertEqual(classified["skills"]["review"], ["review/SKILL.md"])
         self.assertEqual(classified["skills"]["browse"], ["browse/src/cli.ts"])
+        self.assertEqual(classified["skills"]["query"], ["skills/query/SKILL.md"])
         self.assertEqual(classified["shared"], ["README.md", "scripts/skill-check.ts"])
         self.assertEqual(classified["unmatched"], ["misc/unknown.txt"])
 

@@ -29,20 +29,24 @@
 | `soul-audit` | ported | workflow-adapted | Portable as a file-generating identity and cadence workflow. |
 | `webhook-transforms` | ported | workflow-adapted | Uses offline JSON payload replay plus dead-letter handling rather than a live endpoint. |
 | `data-research` | ported | workflow-adapted | Portable as a research-to-tracker workflow using files, reports, and connectors. |
+| `gbrain-advisor` | ported | workflow-adapted | Read-only local brain checkup plus optional upstream CLI advisor checks. |
+| `gbrain-upgrade` | ported | workflow-adapted | Safe upstream CLI upgrade flow with hardcoded commands and local validation. |
+| `idea-lineage` | ported | workflow-adapted | Single-idea evolution tracing over the local Markdown brain corpus. |
+| `schema-unify` | ported | workflow-adapted | Audit-first schema and page-type unification planning for local or upstream GBrain stores. |
+| `skill-optimizer` | ported | workflow-adapted | Benchmark-first skill improvement workflow without automatic external optimization calls. |
 
 ## Ported In This Pass
 
-- `brain-ops`
-- `signal-detector`
-- `idea-ingest`
-- `media-ingest`
-- `meeting-ingestion`
-- `citation-fixer`
-- `webhook-transforms`
+- `gbrain-advisor`
+- `gbrain-upgrade`
+- `idea-lineage`
+- `schema-unify`
+- `skill-optimizer`
 
 ## Full-Port Takeaway
 
-The upstream GBrain surface is now fully represented and fully ported in this repo. The main distinction is no longer `ported` versus `blocked`; it is direct Codex fit versus workflow adaptation:
+The upstream GBrain surface represented in this repo is fully ported as a Codex workflow layer. The main distinction is no longer `ported` versus `blocked`; it is direct Codex fit versus workflow adaptation:
 
 - direct operational or package-fit skills stay close to upstream intent
 - memory-heavy and runtime-heavy skills are rewritten around local files, explicit invocation, and deterministic helper scripts
+- upstream database, MCP, minion, schema-pack, and optimizer runtimes remain optional integrations rather than bundled guarantees

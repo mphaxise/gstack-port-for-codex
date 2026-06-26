@@ -16,6 +16,7 @@ REQUIRED_DOCS = (
     Path("docs/gbrain-compatibility-map.md"),
     Path("docs/gbrain-resolver.md"),
     Path("docs/codex-brain-substrate.md"),
+    Path("docs/codex-host-refresh-audit.md"),
     Path("docs/adoption-examples.md"),
     Path("docs/compatibility-map.md"),
     Path("docs/runtime-compatibility.md"),

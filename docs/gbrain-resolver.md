@@ -16,6 +16,9 @@ This is the Codex-facing resolver view for the GBrain layer in this repo. It mir
 | turn transcript or meeting-note files into structured meeting memory | `skills/meeting-ingestion/SKILL.md` |
 | audit or normalize citations in brain pages | `skills/citation-fixer/SKILL.md` |
 | replay a webhook-style JSON payload into the local brain | `skills/webhook-transforms/SKILL.md` |
+| trace how one idea evolved through the brain | `skills/idea-lineage/SKILL.md` |
+| inspect brain setup health and next best fixes | `skills/gbrain-advisor/SKILL.md` |
+| clean up or migrate page types and schema packs | `skills/schema-unify/SKILL.md` |
 
 ## Operational
 
@@ -33,11 +36,13 @@ This is the Codex-facing resolver view for the GBrain layer in this repo. It mir
 | save or load recurring reports | `skills/reports/SKILL.md` |
 | set up the package or define its substrate expectations | `skills/setup/SKILL.md` |
 | identity, cadence, or operating-profile setup | `skills/soul-audit/SKILL.md` |
+| update or verify the upstream gbrain CLI | `skills/gbrain-upgrade/SKILL.md` |
 
 ## Meta
 
 | Trigger | Skill |
 | --- | --- |
 | create a new GBrain-style skill | `skills/skill-creator/SKILL.md` |
+| tune a skill against benchmarks or examples | `skills/skill-optimizer/SKILL.md` |
 | validate the skill surface | `skills/testing/SKILL.md` |
 | where new files or future ports should live | `skills/repo-architecture/SKILL.md` |

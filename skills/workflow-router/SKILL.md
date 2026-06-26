@@ -21,11 +21,15 @@ Read `references/intent-map.md` before routing if the match is not obvious.
    - do not stop at the first matching skill
 2. Classify the request by intent:
    - planning
+   - spec or issue creation
+   - diagramming
    - engineering design
    - brain lookup
    - signal capture
    - brain setup or sync
    - brain taxonomy or schema
+   - idea lineage
+   - skill optimization
    - source or meeting ingest
    - research or enrichment
    - responsible design or accessibility
@@ -55,6 +59,7 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If one specific skill clearly fits, use that skill and skip extra routing overhead.
 - If the user asks for founder-style or scope pressure-testing, use `plan-ceo-review`.
 - If the user is still brainstorming, validating whether to build something, or shaping a pre-plan idea, use `office-hours`.
+- If the user asks to spec something out, file an issue, or write a ticket, use `spec`.
 - If the user wants the planning stack run in one pass, use `autoplan`.
 - If the product direction is chosen and architecture or execution rigor is needed, use `plan-eng-review`.
 - If the user wants pre-implementation design critique, use `plan-design-review`.
@@ -67,12 +72,16 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants a stronger design system or visual direction, use `design-consultation`.
 - If the user wants multiple design directions, use `design-shotgun`.
 - If the user wants a design turned into code, use `design-html`.
+- If the user wants an architecture diagram, flowchart, or visual map, use `diagram`.
 - If the user wants a real onboarding or docs audit for developers, use `devex-review`.
 - If the user wants memory-grounded answers, use `query` or `brain-ops`.
-- If the user wants to set up or refresh GBrain, use `setup-gbrain` or `sync-gbrain`.
+- If the user wants to trace how an idea evolved, use `idea-lineage`.
+- If the user wants to set up, refresh, or check GBrain health, use `setup-gbrain`, `sync-gbrain`, or `gbrain-advisor`.
+- If the user wants to update upstream GBrain, use `gbrain-upgrade`.
 - If the user wants something saved into the brain, use `capture`, then `brain-taxonomist` if the filing target is unclear.
 - If the user wants a specialized ingest, use `signal-detector`, `ingest`, `idea-ingest`, `media-ingest`, or `meeting-ingestion` based on the artifact.
 - If the user wants to change where brain pages belong, use `schema-author` after `brain-taxonomist`.
+- If the user wants to consolidate brain page types or migrate schema packs, use `schema-unify`.
 - If the user wants current research, academic verification, article enrichment, strategic reading, or concept synthesis, use `perplexity-research`, `academic-verify`, `article-enrichment`, `strategic-reading`, or `concept-synthesis`.
 - If the user wants research distilled into decision-ready design or product insight, use `research-synthesis`.
 - If the user wants startup, founder, product-market, or investment-style judgment, use `startup-memo`.
@@ -80,6 +89,7 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants archive, book, voice-note, or PDF brain processing, use `archive-crawler`, `book-mirror`, `voice-note-ingest`, or `brain-pdf`.
 - If the user wants a work-session organization pass, use `eiirp`.
 - If the user wants to learn from whether a prior plan or review worked, use `outcome-memory`.
+- If the user wants to optimize or tune an existing skill, use `skill-optimizer`.
 - If the user wants skillpack health or post-restart validation, use `skillpack-check` or `smoke-test`.
 - If the user wants recurring work, use `cron-scheduler`.
 - If the user is debugging or asking why something broke, use `investigate`.
@@ -95,7 +105,8 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants report-only QA, use `qa-only`.
 - If the user wants a security audit, use `cso`.
 - If the user wants to save or resume working state, use `context-save` or `context-restore`; use `checkpoint` only for legacy compatibility.
-- If the user wants repo or corpus health, use `health`, `maintain`, or `testing`.
+- If the user wants general GStack routing, use `gstack`.
+- If the user wants repo or corpus health, use `health`, `maintain`, `testing`, or `gbrain-advisor`.
 
 ## Guardrails
 
