@@ -1,6 +1,7 @@
 # Codex Host Refresh Audit
 
 Date: 2026-06-26
+Installed Codex checked during follow-up: `codex-cli 0.142.2`
 
 This audit covers the June 26 refresh against current upstream GStack and GBrain plus the local Codex install. The goal is to preserve upstream workflow intent while removing Claude Code assumptions that no longer belong in this Codex port.
 
@@ -56,3 +57,9 @@ Needs another pass before claiming full parity:
 The follow-up runtime pass is recorded in `docs/upstream-runtime-deepening-pass.md`.
 
 Result: the port should not vendor upstream runtime stacks wholesale. Browser, GBrain database, MCP, minion, schema-pack, and SkillOpt runtimes stay optional integrations. The publishable work is stronger adapter guidance, explicit approval gates, private-corpus ignores, and validation.
+
+## Official Codex Documentation Follow-Up
+
+The follow-up documentation check is recorded in `docs/codex-documentation-refresh.md`.
+
+Key impact: future GStack/GBrain portwork should refresh the current official Codex manual and installed Codex version before preserving older compatibility fallbacks. The current docs make `AGENTS.md` the durable project instruction surface, confirm symlinked skill installs are supported, and position plugins as the future distribution unit for reusable skills plus optional apps, MCP servers, and hooks.

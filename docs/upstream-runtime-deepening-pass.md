@@ -1,6 +1,7 @@
 # Upstream Runtime Deepening Pass
 
 Date: 2026-06-26
+Installed Codex checked during follow-up: `codex-cli 0.142.2`
 
 This pass covers the runtime-heavy upstream areas that were intentionally left out of the first clean Codex-port refresh.
 
@@ -101,3 +102,4 @@ Upstream SkillOpt is not bundled. This port keeps `skill-optimizer` benchmark-fi
 - Add a stable Codex browser smoke command if Codex exposes one.
 - Add a local install-discovery command if Codex exposes one.
 - Add optional adapters for upstream `gbrain doctor --json` and `gbrain advisor --json` once a real CLI is installed.
+- Consider plugin packaging once the port should distribute skills together with apps, MCP server defaults, or lifecycle hooks.
