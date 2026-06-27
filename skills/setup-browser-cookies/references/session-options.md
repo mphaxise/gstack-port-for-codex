@@ -2,43 +2,53 @@
 
 Choose the best available option in this order:
 
-## 1. Browser Importer
+## 1. Chrome Extension / Signed-In Browser State
 
-Use a repo-local or host-provided browser cookie importer if one exists.
-
-Best when:
-
-- the environment can safely read browser profiles
-- the user wants parity with their real browser session
-
-Do not install upstream GStack browser import machinery as an implicit side effect. Treat importer availability as a current-host capability.
-
-## 2. Cookie JSON Import
-
-Import an exported cookie jar if the browser tooling supports it.
+Use the Codex Chrome extension / `@Chrome` when the task needs the user's real signed-in browser state.
 
 Best when:
 
-- the user already has a cookie export
-- browser-profile access is not available
+- the site requires an existing login
+- browser extensions, profile state, existing tabs, or real account context matter
+- the user is present to approve the website/action prompts
 
-## 3. Manual Login In Automation Session
+Do not use Chrome profile state for local/public unauthenticated QA when the in-app Browser is enough.
 
-Log in directly in the test browser session.
+## 2. Manual Login In Browser Session
+
+Log in directly in the selected browser session.
 
 Best when:
 
-- the site has normal sign-in flows
-- the user can provide credentials or test-user access
+- the site has a normal sign-in flow
+- the user can provide credentials, OAuth approval, or test-user access
+- the session can be verified without exposing secrets
 
-## 4. App-Specific Session Seeding
+## 3. App-Specific Session Seeding
 
 Use app-supported test helpers, dev login routes, or seeded sessions when they exist.
 
 Best when:
 
 - the repo has safe local-only auth shortcuts
-- browser-level import is unavailable
+- the test is against a local development server
+- browser-level login would be noisy or brittle
+
+## 4. Cookie JSON Import
+
+Import a user-provided exported cookie jar only when the browser tooling supports it and safer options are unavailable.
+
+Best when:
+
+- the user already has a cookie export
+- Chrome extension state and manual login are not viable
+- the values can be handled without printing or committing them
+
+## 5. Browser Importer Or Profile Reader
+
+Use a repo-local or host-provided browser cookie importer only if one already exists and the user explicitly accepts the security tradeoff.
+
+Do not install upstream GStack browser import machinery as an implicit side effect. Treat importer availability as a current-host capability.
 
 ## Verification
 
