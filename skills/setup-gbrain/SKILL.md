@@ -1,6 +1,6 @@
 ---
 name: setup-gbrain
-description: Set up or verify the GBrain-style local memory substrate for this Codex port without replacing the repo's existing local brain conventions.
+description: Set up or verify the local GBrain-style brain substrate, Codex skill links, optional upstream gbrain CLI/MCP, and worktree/local-environment expectations for this port.
 ---
 
 # Setup GBrain
@@ -22,11 +22,16 @@ This is a Codex-native adaptation of upstream GStack's `setup-gbrain`. Upstream 
 3. Check the current Codex install surface:
    - verify repo-owned skills are visible under `$CODEX_HOME/skills` or `~/.codex/skills`
    - prefer symlinks back to this checkout when the user wants live local updates
-4. Initialize missing local folders only when they are expected by the repo and safe to create.
-5. Summarize:
+4. Check worktree/local-environment expectations when Codex app worktrees or automations are in scope:
+   - note that ignored private brain folders are not copied into worktrees unless intentionally included
+   - do not add private brain corpus paths to `.worktreeinclude`
+   - use tracked setup docs or local environment actions for reproducible setup steps
+5. Initialize missing local folders only when they are expected by the repo and safe to create.
+6. Summarize:
    - local substrate status
    - upstream CLI/MCP status
    - Codex skill install status
+   - local-vs-worktree caveats when relevant
    - recommended next step, usually `sync-gbrain` or `capture`
 
 ## Guardrails

@@ -1,6 +1,6 @@
 ---
 name: skillpack-check
-description: Produce a health report for the local combined GStack and GBrain skillpack.
+description: Health check for the local GStack/GBrain skillpack: repo validation, tests, Codex docs freshness, upstream drift, symlink install, brain doctor, and citations.
 ---
 
 # Skillpack Check

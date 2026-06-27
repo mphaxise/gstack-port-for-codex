@@ -1,6 +1,6 @@
 ---
 name: workflow-router
-description: Natural-language router for this repo's GStack, GBrain, and Praneet extension skills. Use when the user asks naturally and Codex should generously consider relevant skills, then critically choose the smallest useful set.
+description: Natural-language router for GStack, GBrain, browser QA, automations, memory, design, review, ship, and Praneet extension skills; choose the smallest useful skill set.
 ---
 
 # Workflow Router

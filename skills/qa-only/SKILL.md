@@ -1,6 +1,6 @@
 ---
 name: qa-only
-description: Report-only QA workflow for Codex. Use when the user wants a structured QA pass with evidence but does not want any code changes.
+description: Report-only QA workflow for Codex using Browser, Chrome, Computer Use, or repo-local tests when no code changes should be made.
 ---
 
 # QA Only
@@ -18,7 +18,7 @@ This skill shares the same browser and evidence strategy as `qa` and `browse`, b
 
 ## Workflow
 
-1. Choose a browser/runtime path using the `browse` skill guidance.
+1. Choose a browser/runtime path using the `browse` skill guidance, including `@Browser`, `@Chrome`, Computer Use, or repo-local test tooling as appropriate.
 2. Identify the target URL, route set, or diff-aware scope.
 3. Test the changed or requested surface first.
 4. Use the QA issue taxonomy while exploring.

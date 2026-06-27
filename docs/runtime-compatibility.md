@@ -17,9 +17,9 @@ The important product distinction is:
 
 | Skill | Port type | What is included | What depends on host tooling |
 | --- | --- | --- | --- |
-| `browse` | `runtime-aware` | Workflow, command intent, evidence standards, fallback strategy | Actual browser automation, DOM interaction, persistent session implementation |
+| `browse` | `runtime-aware` | Workflow, command intent, evidence standards, Codex Browser/Chrome/Computer Use fallback strategy | Browser plugin availability, Chrome extension setup, Developer mode approval, repo-local browser tooling |
 | `qa` | `runtime-aware` | Modes, issue taxonomy, report template, branch-scoped QA flow | Browser execution, screenshot capture, local app interaction |
-| `setup-browser-cookies` | `runtime-aware` | Session setup flow, fallback options, safety notes | Cookie extraction/import tooling, browser-profile access, secure credential handling |
+| `setup-browser-cookies` | `runtime-aware` | Auth/session decision flow, safety notes, verification rules | Chrome extension setup, user login/test-user access, app session seeding, exceptional cookie import |
 | `gstack` | `workflow-adapted` | Root skill router, Codex-native dispatch guidance | Upstream Claude shell preamble, telemetry, and first-run activation are intentionally omitted |
 | `diagram` | `workflow-adapted` | Diagram workflow and editable-source guidance | Upstream bundled Excalidraw/rendering helpers are optional, not assumed |
 | `spec` | `workflow-adapted` | Issue/spec workflow and acceptance-criteria structure | Upstream spawned Claude Code agent/worktree behavior requires explicit user request |
@@ -37,10 +37,12 @@ The important product distinction is:
 
 When porting a runtime-heavy gstack skill into Codex, use this execution order:
 
-1. Prefer repo-local or team-local browser tooling if it already exists.
-2. Prefer host-provided Codex/browser capabilities when available.
-3. Fall back to screenshots, HTTP checks, and explicit limitations when full automation is not available.
-4. Never pretend full parity exists when the runtime is missing.
+1. Prefer Codex in-app Browser / `@Browser` for local dev servers, file-backed previews, and public unauthenticated pages.
+2. Prefer Codex Chrome / `@Chrome` when signed-in browser state, extensions, existing tabs, or Chrome-profile context matter.
+3. Prefer Computer Use for desktop GUI flows that Browser/Chrome or structured integrations cannot cover.
+4. Prefer repo-local Playwright, Cypress, or app-specific browser helpers only when the target repo already owns the scripts, fixtures, and dependencies.
+5. Fall back to screenshots, HTTP checks, and explicit limitations when full automation is not available.
+6. Never pretend full parity exists when the runtime is missing.
 
 ## What Counts As "Ported" Here
 
@@ -55,9 +57,8 @@ In other words, `ported` here means workflow parity with explicit runtime bounda
 
 ## Follow-On Work
 
-- Add a concrete Codex-native browser runtime shim if one becomes stable enough to package.
-- Add adapter scripts for cookie import or session seeding when the host environment supports them safely.
-- Add example integrations for Playwright- or browser-based Codex environments.
+- Add example integrations for Browser, Chrome, Computer Use, and repo-local Playwright/Cypress paths.
+- Add adapter scripts for app-supported session seeding when the target repo supports them safely.
 - Add a dedicated install smoke command if Codex exposes a stable local skill-discovery CLI.
 
 See `docs/upstream-runtime-deepening-pass.md` for the June 26 decision not to vendor upstream daemons, databases, telemetry, or worker runtimes into this runtime-decoupled Codex port.

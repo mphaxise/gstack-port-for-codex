@@ -2,6 +2,7 @@
 
 Date: 2026-06-26
 Installed Codex checked during follow-up: `codex-cli 0.142.2`
+Runtime surface follow-up: 2026-06-27 with `codex-cli 0.142.3`
 
 This pass covers the runtime-heavy upstream areas that were intentionally left out of the first clean Codex-port refresh.
 
@@ -25,15 +26,19 @@ Upstream GStack now carries a substantial browser daemon and CDP/security/runtim
 
 Codex order of preference:
 
-1. Host-provided browser or Chrome tools.
-2. Repo-local Playwright or app-specific browser helpers when the target repo already has them.
-3. Screenshots, HTTP checks, logs, or manual browser handoff with explicit limitations.
+1. In-app Browser / `@Browser` for local dev servers, file-backed previews, and public unauthenticated pages.
+2. Chrome extension / `@Chrome` for signed-in browser state, browser extensions, existing tabs, or Chrome-profile context.
+3. Computer Use for desktop GUI flows that Browser/Chrome cannot cover.
+4. Repo-local Playwright or app-specific browser helpers when the target repo already has scripts, fixtures, and dependencies.
+5. Screenshots, HTTP checks, logs, or manual browser handoff with explicit limitations.
 
 Changes made in this pass:
 
 - strengthened `browse` runtime guidance
 - strengthened `open-gstack-browser` headed-browser guidance
 - kept `setup-browser-cookies` as a safe session strategy, not a cookie extractor implementation
+- clarified Chrome/session use as a signed-in-state path, not a generic browser default
+- aligned minion/pair-agent guidance with explicit Codex subagents and inherited sandbox/approval behavior
 
 ### First-Run Activation
 
@@ -77,6 +82,8 @@ MCP-backed GBrain operations remain optional. Do not claim availability unless t
 
 Upstream minions are durable workers. This port keeps `minion-orchestrator` as bounded job coordination over available Codex tools, shell sessions, and explicit artifacts.
 
+Codex subagents are a direct fit for explicitly requested parallel exploration, tests, triage, and summarization, but they are not an always-on minion runtime. They inherit the current sandbox and approval policy, and the port should avoid parallel write-heavy jobs unless file ownership is clear.
+
 ### Schema Packs
 
 Upstream schema-pack migration is powerful but mutating. This port keeps `schema-unify` audit-first, with explicit approval before any protected upstream handler or local bulk migration.
@@ -103,3 +110,4 @@ Upstream SkillOpt is not bundled. This port keeps `skill-optimizer` benchmark-fi
 - Add a local install-discovery command if Codex exposes one.
 - Add optional adapters for upstream `gbrain doctor --json` and `gbrain advisor --json` once a real CLI is installed.
 - Consider plugin packaging once the port should distribute skills together with apps, MCP server defaults, or lifecycle hooks.
+- Consider `.codex` local environment actions for repeatable worktree setup when this repo needs app-level run/test buttons.

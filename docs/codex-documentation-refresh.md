@@ -4,6 +4,8 @@ Date: 2026-06-26
 Installed Codex: `codex-cli 0.142.2`
 Source: official Codex manual fetched with `/Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`
 
+Runtime surface follow-up: 2026-06-27 with `codex-cli 0.142.3`; the official manual helper refreshed the local manual again before updating browser, automation, subagent, and runtime-compatibility guidance.
+
 This note records the one-time Codex documentation refresh requested during the June 26 GStack/GBrain port work and turns it into a repeatable gate for future porting.
 
 ## Sections Checked
@@ -16,6 +18,7 @@ This note records the one-time Codex documentation refresh requested during the 
 - Sandbox and approvals: workspace-write plus on-request approval remains the appropriate default shape for local port work; wider access should be explicit.
 - Hooks: hooks are available but require trust review; they are not a replacement for checked-in port guidance.
 - Memories: memories are a helpful recall layer, but required rules belong in `AGENTS.md` or checked-in documentation.
+- Runtime surface follow-up: Browser, Chrome extension, Computer Use, worktrees, local environments, and subagents were rechecked before the deeper runtime pass.
 
 ## Port Decisions
 
@@ -24,6 +27,8 @@ This note records the one-time Codex documentation refresh requested during the 
 - Add `AGENTS.md` as the persistent project instruction surface for future portwork.
 - Continue to prefer current Codex host features over Claude Code fallbacks. Keep fallbacks only for host-variable browser tooling, upstream `gbrain` CLI presence, remote credentials, optional MCP servers, and private local brain artifacts.
 - Treat memories as non-authoritative for port rules. Durable port instructions should live in `AGENTS.md`, skills, and docs.
+- Prefer the documented Browser/Chrome/Computer Use ladder over generic "browser tooling" language in runtime-aware skills.
+- Treat Codex subagents as explicit, bounded parallel-agent workflows, not as ambient or durable upstream GBrain minions.
 
 ## Future Port Checklist
 

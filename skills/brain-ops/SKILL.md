@@ -1,6 +1,6 @@
 ---
 name: brain-ops
-description: GBrain-inspired brain-first operating loop for Codex. Use when a task should search, update, or cross-link the local brain before outside research or after new signal arrives.
+description: Brain-first local memory workflow for Codex. Use to search, update, cite, or cross-link the local brain before outside research or after new user signal.
 ---
 
 # Brain Ops

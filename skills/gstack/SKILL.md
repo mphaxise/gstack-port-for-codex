@@ -1,6 +1,6 @@
 ---
 name: gstack
-description: Route broad GStack requests to the right Codex-native skill in this port package.
+description: Route broad GStack requests to Codex-native planning, review, QA, browser, debugging, shipping, diagram, spec, and GBrain setup skills in this port.
 ---
 
 # GStack
