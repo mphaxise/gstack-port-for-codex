@@ -6,6 +6,8 @@ from pathlib import Path
 
 ALLOWED_STATUSES = {"ported", "planned", "blocked"}
 ALLOWED_PORT_KINDS = {"native", "workflow-adapted", "runtime-aware", "hand-port-enhanced"}
+ALLOWED_CAPABILITY_STATUSES = {"integrated", "external", "tracked", "deferred", "rejected"}
+ALLOWED_INTEGRATION_MODES = {"codex-adapted", "external-runtime", "tracking-only"}
 REQUIRED_DOCS = (
     Path("docs/idea-strategy.md"),
     Path("docs/product-strategy.md"),
@@ -23,12 +25,15 @@ REQUIRED_DOCS = (
     Path("docs/compatibility-map.md"),
     Path("docs/runtime-compatibility.md"),
     Path("docs/upstream-parity-2026-07-16.md"),
+    Path("docs/impeccable-compatibility-map.md"),
+    Path("docs/impeccable-adoption-report-2026-07-16.md"),
 )
 SKILL_MAP_FILES = (
     Path("data/skill-map.json"),
     Path("data/gbrain-skill-map.json"),
     Path("data/praneet-skill-map.json"),
 )
+CAPABILITY_MAP_FILES = (Path("data/impeccable-capability-map.json"),)
 
 
 def load_skill_map(path: Path) -> dict:
@@ -40,6 +45,14 @@ def skill_source_commit(skill_map: dict, skill: dict) -> str:
         skill.get("source_commit")
         or skill_map["source"].get("skill_parity_commit")
         or skill_map["source"]["commit"]
+    )
+
+
+def capability_source_commit(capability_map: dict, capability: dict) -> str:
+    return str(
+        capability.get("source_commit")
+        or capability_map["source"].get("capability_parity_commit")
+        or capability_map["source"]["commit"]
     )
 
 
@@ -145,6 +158,80 @@ def validate_skill_map(data: dict) -> list[str]:
     return errors
 
 
+def validate_capability_map(data: dict) -> list[str]:
+    errors: list[str] = []
+
+    source = data.get("source")
+    if not isinstance(source, dict):
+        errors.append("Missing top-level source object in a capability map file.")
+    else:
+        for key in ("name", "repo", "license", "commit"):
+            if not source.get(key):
+                errors.append(f"Missing source.{key} in a capability map file.")
+        parity_commit = source.get("capability_parity_commit")
+        if parity_commit is not None and (
+            not isinstance(parity_commit, str) or len(parity_commit.strip()) < 7
+        ):
+            errors.append(
+                f"Invalid source.capability_parity_commit {parity_commit!r}; "
+                "expected a git commit SHA string."
+            )
+
+    capabilities = data.get("capabilities")
+    if not isinstance(capabilities, list) or not capabilities:
+        errors.append("Each capability map file must include a non-empty capabilities list.")
+        return errors
+
+    seen_ids: set[str] = set()
+    for index, capability in enumerate(capabilities, start=1):
+        if not isinstance(capability, dict):
+            errors.append(f"Capability entry #{index} is not an object.")
+            continue
+
+        capability_id = capability.get("id")
+        status = capability.get("status")
+        integration_mode = capability.get("integration_mode")
+        upstream_paths = capability.get("upstream_paths")
+        local_targets = capability.get("local_targets")
+
+        if not capability_id:
+            errors.append(f"Capability entry #{index} is missing id.")
+        elif capability_id in seen_ids:
+            errors.append(f"Duplicate capability id: {capability_id}.")
+        else:
+            seen_ids.add(capability_id)
+
+        if status not in ALLOWED_CAPABILITY_STATUSES:
+            errors.append(
+                f"Capability entry #{index} has invalid status {status!r}; "
+                f"expected one of {sorted(ALLOWED_CAPABILITY_STATUSES)}."
+            )
+        if integration_mode not in ALLOWED_INTEGRATION_MODES:
+            errors.append(
+                f"Capability entry #{index} has invalid integration_mode {integration_mode!r}; "
+                f"expected one of {sorted(ALLOWED_INTEGRATION_MODES)}."
+            )
+        if not capability.get("summary"):
+            errors.append(f"Capability entry #{index} is missing summary.")
+        if not capability.get("notes"):
+            errors.append(f"Capability entry #{index} is missing notes.")
+        if not isinstance(upstream_paths, list) or not upstream_paths:
+            errors.append(f"Capability entry #{index} needs at least one upstream_paths entry.")
+        if not isinstance(local_targets, list):
+            errors.append(f"Capability entry #{index} needs a local_targets list.")
+
+        source_commit = capability.get("source_commit")
+        if source_commit is not None and (
+            not isinstance(source_commit, str) or len(source_commit.strip()) < 7
+        ):
+            errors.append(
+                f"Capability entry #{index} has invalid source_commit {source_commit!r}; "
+                "expected a git commit SHA string."
+            )
+
+    return errors
+
+
 def validate_repo(repo_root: Path) -> list[str]:
     errors: list[str] = []
 
@@ -189,6 +276,22 @@ def validate_repo(repo_root: Path) -> list[str]:
                 if not source_path.exists():
                     errors.append(f"Missing ported skill source file: skills/{source_file}.")
 
+    for capability_map_rel in CAPABILITY_MAP_FILES:
+        capability_map_path = repo_root / capability_map_rel
+        if not capability_map_path.exists():
+            errors.append(f"Missing {capability_map_rel}.")
+            continue
+
+        capability_map = load_skill_map(capability_map_path)
+        errors.extend(validate_capability_map(capability_map))
+        for capability in capability_map.get("capabilities", []):
+            for local_target in capability.get("local_targets", []):
+                if not (repo_root / local_target).exists():
+                    errors.append(
+                        f"Capability {capability.get('id')!r} references missing local target: "
+                        f"{local_target}."
+                    )
+
     return errors
 
 
@@ -225,6 +328,41 @@ def format_status_table(data: dict) -> str:
         )
 
     header = render(("Upstream", "Codex", "Status", "Port kind", "Source", "Summary"))
+    divider = render(tuple("-" * width for width in widths))
+    body = "\n".join(render(row) for row in rows)
+    return "\n".join((header, divider, body))
+
+
+def format_capability_status_table(data: dict) -> str:
+    rows = [
+        (
+            capability["id"],
+            capability["status"],
+            capability["integration_mode"],
+            short_commit(capability_source_commit(data, capability)),
+            capability["summary"],
+        )
+        for capability in data["capabilities"]
+    ]
+
+    widths = [len("Capability"), len("Status"), len("Mode"), len("Source"), len("Summary")]
+    for capability_id, status, mode, source, summary in rows:
+        widths[0] = max(widths[0], len(capability_id))
+        widths[1] = max(widths[1], len(status))
+        widths[2] = max(widths[2], len(mode))
+        widths[3] = max(widths[3], len(source))
+        widths[4] = max(widths[4], len(summary))
+
+    def render(row: tuple[str, str, str, str, str]) -> str:
+        return (
+            f"{row[0]:<{widths[0]}}  "
+            f"{row[1]:<{widths[1]}}  "
+            f"{row[2]:<{widths[2]}}  "
+            f"{row[3]:<{widths[3]}}  "
+            f"{row[4]:<{widths[4]}}"
+        )
+
+    header = render(("Capability", "Status", "Mode", "Source", "Summary"))
     divider = render(tuple("-" * width for width in widths))
     body = "\n".join(render(row) for row in rows)
     return "\n".join((header, divider, body))

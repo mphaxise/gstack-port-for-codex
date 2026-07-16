@@ -9,11 +9,13 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from gstack_port_for_codex.registry import (  # noqa: E402
+    format_capability_status_table,
     extract_frontmatter_keys,
     format_status_table,
     load_skill_map,
     skill_source_commit,
     validate_repo,
+    validate_capability_map,
     validate_skill_map,
 )
 
@@ -80,6 +82,33 @@ class RegistryTests(unittest.TestCase):
 
     def test_validate_repo_passes_for_current_checkout(self) -> None:
         self.assertEqual(validate_repo(REPO_ROOT), [])
+
+    def test_impeccable_capability_map_is_valid_and_complete(self) -> None:
+        capability_map = load_skill_map(REPO_ROOT / "data" / "impeccable-capability-map.json")
+
+        self.assertEqual(validate_capability_map(capability_map), [])
+        self.assertEqual(capability_map["source"]["name"], "impeccable")
+        self.assertEqual(len(capability_map["capabilities"]), 27)
+        capability_ids = {capability["id"] for capability in capability_map["capabilities"]}
+        for capability_id in (
+            "core-guidance",
+            "craft",
+            "init",
+            "critique",
+            "audit",
+            "live",
+            "detector-and-hooks",
+            "behavior-tests",
+        ):
+            self.assertIn(capability_id, capability_ids)
+
+    def test_capability_status_table_reports_integration_mode(self) -> None:
+        capability_map = load_skill_map(REPO_ROOT / "data" / "impeccable-capability-map.json")
+        table = format_capability_status_table(capability_map)
+
+        self.assertIn("core-guidance", table)
+        self.assertIn("codex-adapted", table)
+        self.assertIn("external-runtime", table)
 
     def test_status_table_mentions_reference_port(self) -> None:
         skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")

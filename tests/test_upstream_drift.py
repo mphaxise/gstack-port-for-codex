@@ -75,6 +75,43 @@ class UpstreamDriftTests(unittest.TestCase):
         self.assertEqual(classified["shared"], ["README.md", "scripts/skill-check.ts"])
         self.assertEqual(classified["unmatched"], ["misc/unknown.txt"])
 
+    def test_classify_changed_paths_supports_explicit_capability_paths(self) -> None:
+        capability_map = {
+            "source": {"repo": "https://github.com/pbakaus/impeccable", "commit": "abc123"},
+            "capabilities": [
+                {
+                    "id": "critique",
+                    "upstream_paths": ["skill/reference/critique.md"],
+                },
+                {
+                    "id": "live",
+                    "upstream_paths": ["skill/reference/live.md", "skill/scripts/live*"],
+                },
+                {
+                    "id": "detector",
+                    "upstream_paths": ["cli/engine/"],
+                },
+            ],
+        }
+
+        classified = classify_changed_paths(
+            [
+                "skill/reference/critique.md",
+                "skill/scripts/live-server.mjs",
+                "cli/engine/registry/antipatterns.mjs",
+                "site/pages/index.astro",
+            ],
+            capability_map,
+        )
+
+        self.assertEqual(classified["skills"]["critique"], ["skill/reference/critique.md"])
+        self.assertEqual(classified["skills"]["live"], ["skill/scripts/live-server.mjs"])
+        self.assertEqual(
+            classified["skills"]["detector"],
+            ["cli/engine/registry/antipatterns.mjs"],
+        )
+        self.assertEqual(classified["unmatched"], ["site/pages/index.astro"])
+
     def test_classify_skill_changes_uses_each_skill_source_commit(self) -> None:
         self.skill_map["skills"][1]["source_commit"] = "newer-browse"
         changes, sources = classify_skill_changes_by_source(

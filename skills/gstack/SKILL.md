@@ -15,6 +15,7 @@ This port is adapted from `garrytan/gstack` at commit `11de390be1be6849eb9a15f91
 - Implementation plan review: `plan-eng-review`
 - Founder or strategy review: `plan-ceo-review`
 - Design plan review: `plan-design-review`
+- Project-aware design execution and quality gates: `design-quality`
 - Developer-experience plan review: `plan-devex-review`
 - Code review before landing: `review`
 - QA or verification: `qa` or `qa-only`
@@ -27,6 +28,7 @@ This port is adapted from `garrytan/gstack` at commit `11de390be1be6849eb9a15f91
 - Issue or implementation brief: `spec`
 - GBrain setup or sync: `setup-gbrain`, `sync-gbrain`, or `gbrain-advisor`
 - Skillpack upgrade: `gstack-upgrade`
+- Impeccable capability drift: `gstack-upgrade` with the `impeccable` map
 
 ## Codex Adaptation
 

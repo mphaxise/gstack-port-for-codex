@@ -68,6 +68,7 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants CDO-level design governance, critique culture, design principles, or stakeholder design alignment, use `design-leadership-review`.
 - If the user wants pre-implementation developer-experience critique, use `plan-devex-review`.
 - If the user wants live visual polish or a design audit, use `design-review`.
+- If interface work needs shared context, deterministic checks, browser evidence, or an Impeccable runtime fallback, use `design-quality`.
 - If the user wants iOS app QA, bug fixing, design review, debug bridge refresh, or bridge cleanup, use `ios-qa`, `ios-fix`, `ios-design-review`, `ios-sync`, or `ios-clean`.
 - If the user wants a stronger design system or visual direction, use `design-consultation`.
 - If the user wants multiple design directions, use `design-shotgun`.
@@ -78,6 +79,7 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants to trace how an idea evolved, use `idea-lineage`.
 - If the user wants to set up, refresh, or check GBrain health, use `setup-gbrain`, `sync-gbrain`, or `gbrain-advisor`.
 - If the user wants to update upstream GBrain, use `gbrain-upgrade`.
+- If the user wants Impeccable drift or adoption status, use `gstack-upgrade` with the Impeccable capability map.
 - If the user wants something saved into the brain, use `capture`, then `brain-taxonomist` if the filing target is unclear.
 - If the user wants a specialized ingest, use `signal-detector`, `ingest`, `idea-ingest`, `media-ingest`, or `meeting-ingestion` based on the artifact.
 - If the user wants to change where brain pages belong, use `schema-author` after `brain-taxonomist`.
