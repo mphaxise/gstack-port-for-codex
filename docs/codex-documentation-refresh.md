@@ -63,3 +63,15 @@ This note records the one-time Codex documentation refresh requested during the 
 Installed Codex: `codex-cli 0.144.0`. The official Codex manual helper completed successfully and reported its local manual current. The audit rechecked the documented `AGENTS.md`, skills, plugins, MCP, sandbox/approval, hooks, memories, automations, browser, and local/cloud-environment guidance.
 
 The upstream-drift report now evaluates each skill against its own `source_commit` or the map's full-surface `skill_parity_commit`, while retaining the map-level pin for broad upstream-runtime visibility. This preserves the conservative baseline without falsely reporting files from before a later skill refresh as new skill drift. The full GStack and GBrain workflow surfaces were audited through `a325940` and `5008b28` respectively. No upstream browser-daemon code was ported because Codex's documented Browser, Chrome, and Computer Use surfaces remain the intended runtime boundary.
+
+## 2026-07-16 Impeccable Integration
+
+Installed Codex: `codex-cli 0.144.0`. The official manual helper refreshed successfully after the sandboxed DNS attempt failed. The review covered project skills, project hooks, hook trust, plugins, and worktree-backed scheduled tasks.
+
+Resulting decisions:
+
+- `skills/design-quality/` is the Codex-native orchestration and fallback layer.
+- Impeccable's detector, project hooks, browser server, and live source-rewrite runtime remain optional external capabilities.
+- Project hooks require explicit installation and `/hooks` trust review.
+- The recurring Impeccable drift check runs against the local project so it can include ignored local-brain health. It remains report-only and reports three states separately: upstream movement, local review, and local adoption.
+- The upstream map classifies explicit source paths because Impeccable uses one source skill plus references and runtime modules instead of one directory per command.

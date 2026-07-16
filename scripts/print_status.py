@@ -7,7 +7,11 @@ import sys
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from gstack_port_for_codex.registry import format_status_table, load_skill_map  # noqa: E402
+from gstack_port_for_codex.registry import (  # noqa: E402
+    format_capability_status_table,
+    format_status_table,
+    load_skill_map,
+)
 
 
 SKILL_MAPS = (
@@ -32,6 +36,19 @@ def main() -> int:
                 )
             )
         )
+
+    impeccable_map = load_skill_map(REPO_ROOT / "data" / "impeccable-capability-map.json")
+    impeccable_source = impeccable_map["source"]
+    sections.append(
+        "\n".join(
+            (
+                "Impeccable Integration",
+                f"Baseline source: {impeccable_source['name']} @ {impeccable_source['commit']}",
+                "Per-capability freshness appears in the Source column.",
+                format_capability_status_table(impeccable_map),
+            )
+        )
+    )
 
     print("\n\n".join(sections))
     return 0

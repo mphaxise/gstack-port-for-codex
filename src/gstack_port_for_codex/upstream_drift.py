@@ -10,7 +10,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
-from gstack_port_for_codex.registry import skill_source_commit
+from gstack_port_for_codex.registry import capability_source_commit, skill_source_commit
 
 
 SHARED_UPSTREAM_FILES = {
@@ -130,18 +130,16 @@ def classify_changed_paths(
     changed_paths: list[str],
     skill_map: dict[str, Any],
 ) -> dict[str, Any]:
-    skill_paths = {
-        skill["upstream_slug"]: []
-        for skill in skill_map["skills"]
-    }
+    entries = _map_entries(skill_map)
+    skill_paths = {_entry_id(entry): [] for entry in entries}
     shared_paths: list[str] = []
     unmatched_paths: list[str] = []
 
     for path in changed_paths:
         matched_slug: str | None = None
-        for skill in skill_map["skills"]:
-            slug = skill["upstream_slug"]
-            if path.startswith(f"{slug}/") or path.startswith(f"skills/{slug}/"):
+        for entry in entries:
+            slug = _entry_id(entry)
+            if _path_matches_entry(path, entry):
                 matched_slug = slug
                 skill_paths[slug].append(path)
                 break
@@ -161,6 +159,38 @@ def classify_changed_paths(
     }
 
 
+def _map_entries(upstream_map: dict[str, Any]) -> list[dict[str, Any]]:
+    if "capabilities" in upstream_map:
+        return upstream_map["capabilities"]
+    return upstream_map["skills"]
+
+
+def _entry_id(entry: dict[str, Any]) -> str:
+    return str(entry.get("id") or entry["upstream_slug"])
+
+
+def _entry_source_commit(upstream_map: dict[str, Any], entry: dict[str, Any]) -> str:
+    if "capabilities" in upstream_map:
+        return capability_source_commit(upstream_map, entry)
+    return skill_source_commit(upstream_map, entry)
+
+
+def _path_matches_entry(path: str, entry: dict[str, Any]) -> bool:
+    explicit_paths = entry.get("upstream_paths")
+    if explicit_paths:
+        for configured_path in explicit_paths:
+            if configured_path.endswith("*") and path.startswith(configured_path[:-1]):
+                return True
+            if configured_path.endswith("/") and path.startswith(configured_path):
+                return True
+            if path == configured_path:
+                return True
+        return False
+
+    slug = entry["upstream_slug"]
+    return path.startswith(f"{slug}/") or path.startswith(f"skills/{slug}/")
+
+
 def classify_skill_changes_by_source(
     skill_map: dict[str, Any],
     compares_by_source: dict[str, dict[str, Any]],
@@ -174,9 +204,9 @@ def classify_skill_changes_by_source(
     changes: dict[str, list[str]] = {}
     sources: dict[str, str] = {}
 
-    for skill in skill_map["skills"]:
-        slug = skill["upstream_slug"]
-        source_commit = skill_source_commit(skill_map, skill)
+    for skill in _map_entries(skill_map):
+        slug = _entry_id(skill)
+        source_commit = _entry_source_commit(skill_map, skill)
         changed_paths = [
             file["filename"]
             for file in compares_by_source[source_commit].get("files", [])
@@ -184,7 +214,7 @@ def classify_skill_changes_by_source(
         matched = sorted(
             path
             for path in changed_paths
-            if path.startswith(f"{slug}/") or path.startswith(f"skills/{slug}/")
+            if _path_matches_entry(path, skill)
         )
         if matched:
             changes[slug] = matched
@@ -237,7 +267,7 @@ def check_upstream_drift(skill_map: dict[str, Any], token: str | None = None) ->
     )
     compares_by_source = {skill_map["source"]["commit"]: compare_data}
     for source_commit in {
-        skill_source_commit(skill_map, skill) for skill in skill_map["skills"]
+        _entry_source_commit(skill_map, skill) for skill in _map_entries(skill_map)
     }:
         if source_commit not in compares_by_source:
             compares_by_source[source_commit] = fetch_compare(
@@ -294,7 +324,7 @@ def format_drift_report(report: dict[str, Any]) -> str:
 
     if report["skill_changes"]:
         lines.append("")
-        lines.append("Impacted skill paths:")
+        lines.append("Impacted upstream items:")
         for slug, paths in report["skill_changes"].items():
             source_commit = report.get("skill_change_sources", {}).get(slug)
             source_suffix = f" since {source_commit[:7]}" if source_commit else ""

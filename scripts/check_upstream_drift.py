@@ -26,7 +26,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--map",
-        choices=("gstack", "gbrain", "praneet"),
+        choices=("gstack", "gbrain", "praneet", "impeccable"),
         default="gstack",
         help="Skill map to check. Defaults to gstack.",
     )
@@ -41,6 +41,7 @@ def main() -> int:
         "gstack": REPO_ROOT / "data" / "skill-map.json",
         "gbrain": REPO_ROOT / "data" / "gbrain-skill-map.json",
         "praneet": REPO_ROOT / "data" / "praneet-skill-map.json",
+        "impeccable": REPO_ROOT / "data" / "impeccable-capability-map.json",
     }
     skill_map = load_skill_map(map_paths[args.map])
 

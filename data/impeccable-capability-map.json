@@ -1,0 +1,258 @@
+{
+  "map_kind": "capability",
+  "source": {
+    "name": "impeccable",
+    "repo": "https://github.com/pbakaus/impeccable",
+    "license": "Apache-2.0",
+    "commit": "8259c28209b92792005cec14dad573df39f68eaf",
+    "latest_checked_commit": "8259c28209b92792005cec14dad573df39f68eaf",
+    "latest_checked_at": "2026-07-16",
+    "capability_parity_commit": "8259c28209b92792005cec14dad573df39f68eaf"
+  },
+  "reviewed_at": "2026-07-16",
+  "capabilities": [
+    {
+      "id": "core-guidance",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Project-aware frontend design quality rules and anti-pattern guidance.",
+      "notes": "Adapted into design-quality and the existing design skills while preserving local accessibility, evidence, and responsible-design authority.",
+      "upstream_paths": ["skill/SKILL.src.md"],
+      "local_targets": ["skills/design-quality/SKILL.md", "skills/design-quality/references/quality-gates.md"]
+    },
+    {
+      "id": "craft",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Shape and build an interface through production verification.",
+      "notes": "Split across design-consultation, design-html, and the shared design-quality gate.",
+      "upstream_paths": ["skill/reference/craft.md"],
+      "local_targets": ["skills/design-consultation/SKILL.md", "skills/design-html/SKILL.md", "skills/design-quality/SKILL.md"]
+    },
+    {
+      "id": "shape",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Define interface intent and constraints before implementation.",
+      "notes": "Adapted into design-consultation and plan-design-review without importing Impeccable's interaction transport.",
+      "upstream_paths": ["skill/reference/shape.md"],
+      "local_targets": ["skills/design-consultation/SKILL.md", "skills/plan-design-review/SKILL.md"]
+    },
+    {
+      "id": "init",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Capture durable product and design context.",
+      "notes": "The local bridge uses PRODUCT.md and DESIGN.md as optional project sources of truth and accepts existing equivalent docs.",
+      "upstream_paths": ["skill/reference/init.md", "PRODUCT.md"],
+      "local_targets": ["skills/design-quality/references/project-context.md", "skills/design-consultation/SKILL.md"]
+    },
+    {
+      "id": "document",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Document tokens, components, principles, and exceptions in DESIGN.md.",
+      "notes": "Adopted as a concise schema with narrative and machine-readable evidence boundaries.",
+      "upstream_paths": ["skill/reference/document.md", "DESIGN.md"],
+      "local_targets": ["skills/design-quality/references/project-context.md", "skills/design-consultation/SKILL.md"]
+    },
+    {
+      "id": "extract",
+      "status": "deferred",
+      "integration_mode": "tracking-only",
+      "summary": "Extract reusable tokens and components from an existing interface.",
+      "notes": "Tracked for a later implementation tranche because safe component migration needs framework-specific tests.",
+      "upstream_paths": ["skill/reference/extract.md"],
+      "local_targets": []
+    },
+    {
+      "id": "critique",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Combine visual judgment, deterministic evidence, severity, and persisted follow-through.",
+      "notes": "Adapted into a two-pass critique contract that uses independent subagents only when the user authorizes them.",
+      "upstream_paths": ["skill/reference/critique.md"],
+      "local_targets": ["skills/design-quality/references/critique-contract.md", "skills/design-review/SKILL.md"]
+    },
+    {
+      "id": "audit",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Run technical UI checks across accessibility, responsiveness, performance, and anti-patterns.",
+      "notes": "The bridge uses the Impeccable detector when installed and reports a clear manual fallback when unavailable.",
+      "upstream_paths": ["skill/reference/audit.md", "skill/reference/audit.native.md"],
+      "local_targets": ["skills/design-quality/references/quality-gates.md", "skills/design-review/SKILL.md", "skills/accessibility-review/SKILL.md"]
+    },
+    {
+      "id": "polish",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Apply a final design-system and shipping-readiness pass.",
+      "notes": "Integrated into design-review and design-html close-out instead of adding a duplicate local command.",
+      "upstream_paths": ["skill/reference/polish.md"],
+      "local_targets": ["skills/design-review/SKILL.md", "skills/design-html/SKILL.md"]
+    },
+    {
+      "id": "bolder",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Amplify a visually safe or bland interface.",
+      "notes": "Use the upstream command when installed; local design-shotgun remains the broader direction-exploration fallback.",
+      "upstream_paths": ["skill/reference/bolder.md"],
+      "local_targets": ["skills/design-shotgun/SKILL.md"]
+    },
+    {
+      "id": "quieter",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Reduce visual aggression and overstimulation.",
+      "notes": "Use the upstream command when installed; local design-review handles prioritized fallback recommendations.",
+      "upstream_paths": ["skill/reference/quieter.md"],
+      "local_targets": ["skills/design-review/SKILL.md"]
+    },
+    {
+      "id": "distill",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Remove unnecessary interface complexity.",
+      "notes": "Tracked as an upstream execution command with plan-design-review as the local planning fallback.",
+      "upstream_paths": ["skill/reference/distill.md"],
+      "local_targets": ["skills/plan-design-review/SKILL.md"]
+    },
+    {
+      "id": "harden",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Verify overflow, errors, internationalization, accessibility resilience, and edge cases.",
+      "notes": "Integrated into the shared quality gate, design-html, accessibility-review, and QA routing.",
+      "upstream_paths": ["skill/reference/harden.md"],
+      "local_targets": ["skills/design-quality/references/quality-gates.md", "skills/design-html/SKILL.md", "skills/accessibility-review/SKILL.md"]
+    },
+    {
+      "id": "onboard",
+      "status": "tracked",
+      "integration_mode": "tracking-only",
+      "summary": "Design first-run, feature-discovery, help, and empty-state experiences.",
+      "notes": "Current local coverage is distributed across plan-design-review and design-review; a dedicated command remains unadopted.",
+      "upstream_paths": ["skill/reference/onboard.md"],
+      "local_targets": ["skills/plan-design-review/SKILL.md", "skills/design-review/SKILL.md"]
+    },
+    {
+      "id": "animate",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Add purposeful, accessible motion.",
+      "notes": "Use upstream for specialized execution; local quality gates enforce reduced motion and content visibility.",
+      "upstream_paths": ["skill/reference/animate.md"],
+      "local_targets": ["skills/design-quality/references/quality-gates.md"]
+    },
+    {
+      "id": "colorize",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Introduce a deliberate and accessible color strategy.",
+      "notes": "Use upstream for specialized execution; local design-consultation owns overall system direction.",
+      "upstream_paths": ["skill/reference/colorize.md"],
+      "local_targets": ["skills/design-consultation/SKILL.md"]
+    },
+    {
+      "id": "typeset",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Improve typography hierarchy and readability.",
+      "notes": "Use upstream for specialized execution; local review and quality gates preserve typography checks.",
+      "upstream_paths": ["skill/reference/typeset.md"],
+      "local_targets": ["skills/design-review/SKILL.md", "skills/design-quality/references/quality-gates.md"]
+    },
+    {
+      "id": "layout",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Improve spacing, rhythm, composition, and hierarchy.",
+      "notes": "Use upstream for specialized execution; local design-review remains the general fallback.",
+      "upstream_paths": ["skill/reference/layout.md"],
+      "local_targets": ["skills/design-review/SKILL.md"]
+    },
+    {
+      "id": "delight",
+      "status": "tracked",
+      "integration_mode": "tracking-only",
+      "summary": "Add context-appropriate personality and memorable details.",
+      "notes": "Tracked for future evaluation because delight choices need product evidence and responsible-design checks.",
+      "upstream_paths": ["skill/reference/delight.md"],
+      "local_targets": ["skills/design-shotgun/SKILL.md", "skills/responsible-design-review/SKILL.md"]
+    },
+    {
+      "id": "overdrive",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Create technically ambitious visual effects with progressive enhancement.",
+      "notes": "Kept upstream because its runtime and performance surface is specialized and fast-moving.",
+      "upstream_paths": ["skill/reference/overdrive.md"],
+      "local_targets": ["skills/design-quality/references/quality-gates.md"]
+    },
+    {
+      "id": "clarify",
+      "status": "tracked",
+      "integration_mode": "tracking-only",
+      "summary": "Improve interface labels, errors, instructions, and recovery copy.",
+      "notes": "Editorial guard and design review provide partial local coverage; a dedicated UX-writing workflow remains unadopted.",
+      "upstream_paths": ["skill/reference/clarify.md"],
+      "local_targets": ["skills/design-review/SKILL.md"]
+    },
+    {
+      "id": "adapt",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Adapt interfaces across viewport, input, orientation, and native platform constraints.",
+      "notes": "Integrated into design-html, accessibility-review, iOS design review, and the shared quality gate.",
+      "upstream_paths": ["skill/reference/adapt.md", "skill/reference/adapt.native.md", "skill/reference/ios.md", "skill/reference/android.md"],
+      "local_targets": ["skills/design-html/SKILL.md", "skills/accessibility-review/SKILL.md", "skills/ios-design-review/SKILL.md"]
+    },
+    {
+      "id": "optimize",
+      "status": "tracked",
+      "integration_mode": "tracking-only",
+      "summary": "Diagnose and improve frontend performance.",
+      "notes": "QA and design-html cover verification; a design-specific performance command remains upstream.",
+      "upstream_paths": ["skill/reference/optimize.md"],
+      "local_targets": ["skills/design-html/SKILL.md", "skills/qa/SKILL.md"]
+    },
+    {
+      "id": "live",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Select browser elements, generate variants, steer, accept, and write to source.",
+      "notes": "The local skills may invoke this capability when Impeccable is installed. The browser server and source-rewrite runtime remain upstream.",
+      "upstream_paths": ["skill/reference/live.md", "skill/scripts/live*"],
+      "local_targets": ["skills/design-quality/references/impeccable-runtime.md", "skills/design-shotgun/SKILL.md"]
+    },
+    {
+      "id": "detector-and-hooks",
+      "status": "external",
+      "integration_mode": "external-runtime",
+      "summary": "Run deterministic UI checks manually, in CI, or after edits.",
+      "notes": "The detector and provider-native hooks remain Apache-licensed upstream runtime. Local skills define optional invocation and fallback behavior.",
+      "upstream_paths": ["skill/reference/hooks.md", "cli/engine/", ".codex/hooks.json", ".github/hooks/impeccable.json"],
+      "local_targets": ["skills/design-quality/references/impeccable-runtime.md", "skills/design-review/SKILL.md", "skills/design-html/SKILL.md"]
+    },
+    {
+      "id": "provider-build",
+      "status": "tracked",
+      "integration_mode": "tracking-only",
+      "summary": "Compile one source skill into provider-specific packages.",
+      "notes": "Tracked as product architecture. This Codex-native port has no current need to vendor the multi-provider build system.",
+      "upstream_paths": ["scripts/build.js", "scripts/lib/", "docs/HARNESSES.md"],
+      "local_targets": ["docs/impeccable-compatibility-map.md"]
+    },
+    {
+      "id": "behavior-tests",
+      "status": "integrated",
+      "integration_mode": "codex-adapted",
+      "summary": "Test registry, routing, context loading, path classification, and fallback behavior.",
+      "notes": "The local package adopts deterministic conformance tests now; model-backed skill behavior tests remain a later tranche.",
+      "upstream_paths": ["tests/skill-behavior/", "tests/", ".github/workflows/ci.yml"],
+      "local_targets": ["tests/test_registry.py", "tests/test_upstream_drift.py", "tests/test_design_quality.py"]
+    }
+  ]
+}
