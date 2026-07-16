@@ -7,7 +7,7 @@ description: GBrain-inspired migration workflow for Codex. Use when importing no
 
 Use this skill when the user wants to move content from another note or wiki system into a Codex-friendly layout.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Workflow
 
@@ -25,6 +25,10 @@ This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c599
 3. Test on a small sample first.
 4. Verify the sample by reading it back from the target structure.
 5. Only then migrate the broader set.
+
+## Current Upstream Coverage
+
+Support Obsidian, Notion, CSV, and generic Markdown imports through a source-specific mapping plan. Preserve originals, migrate a representative sample first, verify field and link fidelity, then run the full import with a reconciliation report.
 
 ## Guardrails
 

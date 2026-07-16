@@ -7,7 +7,7 @@ description: Brain-first local memory workflow for Codex. Use to search, update,
 
 Use this skill when the user wants memory-grounded work and the local `brain/` corpus should influence the response or capture new context.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -30,6 +30,10 @@ Upstream GBrain treats brain ops as an ambient behavior layer. In this repo, the
    - add backlinks for referenced people, companies, meetings, or concepts
    - keep inline `[Source: ...]` citations on any new fact
 4. Answer or continue the task using the retrieved context.
+
+## Current Upstream Coverage
+
+Enforce the brain-first loop on inbound and outbound work: read relevant context, enrich or write durable signals, update structured relationships, then answer from refreshed context. Every new durable page must backlink to its source or parent context; cross-source answers must identify which source supports each claim.
 
 ## Guardrails
 

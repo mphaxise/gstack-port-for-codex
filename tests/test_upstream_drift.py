@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from unittest.mock import patch
 import sys
 import unittest
 
@@ -11,7 +12,9 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from gstack_port_for_codex.upstream_drift import (  # noqa: E402
     build_drift_report,
     classify_changed_paths,
+    classify_skill_changes_by_source,
     format_drift_report,
+    github_token_from_env,
     parse_github_repo,
 )
 
@@ -34,6 +37,25 @@ class UpstreamDriftTests(unittest.TestCase):
         owner, repo = parse_github_repo("https://github.com/garrytan/gstack.git")
         self.assertEqual((owner, repo), ("garrytan", "gstack"))
 
+    @patch.dict("os.environ", {"GITHUB_TOKEN": "env-token"}, clear=True)
+    def test_github_token_prefers_environment(self) -> None:
+        self.assertEqual(github_token_from_env(), "env-token")
+
+    @patch.dict("os.environ", {}, clear=True)
+    @patch("gstack_port_for_codex.upstream_drift.shutil.which", return_value="/usr/bin/gh")
+    @patch("gstack_port_for_codex.upstream_drift.subprocess.run")
+    def test_github_token_falls_back_to_authenticated_gh(self, run, _which) -> None:
+        run.return_value.returncode = 0
+        run.return_value.stdout = "gh-token\n"
+
+        self.assertEqual(github_token_from_env(), "gh-token")
+        run.assert_called_once_with(
+            ["gh", "auth", "token"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
     def test_classify_changed_paths_groups_skill_and_shared_paths(self) -> None:
         classified = classify_changed_paths(
             [
@@ -52,6 +74,24 @@ class UpstreamDriftTests(unittest.TestCase):
         self.assertEqual(classified["skills"]["query"], ["skills/query/SKILL.md"])
         self.assertEqual(classified["shared"], ["README.md", "scripts/skill-check.ts"])
         self.assertEqual(classified["unmatched"], ["misc/unknown.txt"])
+
+    def test_classify_skill_changes_uses_each_skill_source_commit(self) -> None:
+        self.skill_map["skills"][1]["source_commit"] = "newer-browse"
+        changes, sources = classify_skill_changes_by_source(
+            self.skill_map,
+            {
+                "abc123": {"files": [{"filename": "browse/src/old.ts"}]},
+                "newer-browse": {
+                    "files": [
+                        {"filename": "browse/src/current.ts"},
+                        {"filename": "review/SKILL.md"},
+                    ]
+                },
+            },
+        )
+
+        self.assertEqual(changes, {"browse": ["browse/src/current.ts"]})
+        self.assertEqual(sources, {"browse": "newer-browse"})
 
     def test_format_drift_report_handles_no_drift(self) -> None:
         report = build_drift_report(

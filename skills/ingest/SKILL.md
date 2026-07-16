@@ -7,7 +7,7 @@ description: GBrain-inspired local-brain ingest for Codex. Use when turning note
 
 Use this skill when the user wants to save material into the local `brain/` corpus.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -28,6 +28,13 @@ Upstream GBrain writes into a separate brain system. In this repo, ingestion mea
    - compiled truth
    - timeline evidence
 4. Preserve citations or source notes inline when possible.
+
+## Current Upstream Coverage
+
+- Detect notable people, organizations, concepts, ideas, and decisions in every source, including the user's original thinking.
+- Preserve the raw source or a durable source pointer before synthesis.
+- Route articles, audio/video transcripts, PDFs, screenshots, meetings, and social posts through format-aware extraction.
+- Test one representative artifact before bulk ingest and require citations on factual claims.
 
 ## Guardrails
 

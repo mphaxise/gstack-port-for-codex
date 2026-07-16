@@ -1,5 +1,10 @@
 # Codex Documentation Refresh
 
+Latest verification: 2026-07-06
+Installed Codex: `codex-cli 0.142.5`
+Documentation access: the local manual helper failed to refresh the official manual on 2026-07-06 because `developers.openai.com` could not be resolved from this run. The most recent successful cached refresh remains the 2026-07-02 fetch via `/Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`.
+Resulting port decision: no new runtime-surface changes were required for this weekly repo-health pass. With live docs unavailable, the pass relied on the installed Codex version plus the repo's existing checked-in Codex refresh notes and runtime docs; those still match the current local workflow boundaries for automations, approvals, skills, MCP, memories, and local/browser behavior.
+
 Date: 2026-06-26
 Installed Codex: `codex-cli 0.142.2`
 Source: official Codex manual fetched with `/Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`
@@ -52,3 +57,9 @@ This note records the one-time Codex documentation refresh requested during the 
 - Sandboxing: https://developers.openai.com/codex/concepts/sandboxing
 - Hooks: https://developers.openai.com/codex/hooks
 - Memories: https://developers.openai.com/codex/memories
+
+## 2026-07-16 Upstream Drift Audit
+
+Installed Codex: `codex-cli 0.144.0`. The official Codex manual helper completed successfully and reported its local manual current. The audit rechecked the documented `AGENTS.md`, skills, plugins, MCP, sandbox/approval, hooks, memories, automations, browser, and local/cloud-environment guidance.
+
+The upstream-drift report now evaluates each skill against its own `source_commit` or the map's full-surface `skill_parity_commit`, while retaining the map-level pin for broad upstream-runtime visibility. This preserves the conservative baseline without falsely reporting files from before a later skill refresh as new skill drift. The full GStack and GBrain workflow surfaces were audited through `a325940` and `5008b28` respectively. No upstream browser-daemon code was ported because Codex's documented Browser, Chrome, and Computer Use surfaces remain the intended runtime boundary.

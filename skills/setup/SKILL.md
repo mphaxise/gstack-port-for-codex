@@ -7,7 +7,7 @@ description: GBrain-inspired setup for Codex. Use when establishing the local pa
 
 Use this skill when the user wants to initialize or normalize the Codex-side GBrain package setup.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Workflow
 
@@ -19,6 +19,10 @@ This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c599
    - future memory-substrate placeholders
 3. Create only the minimal durable structure needed.
 4. Verify the package still validates after setup changes.
+
+## Current Upstream Coverage
+
+Choose the topology explicitly: one local brain, a cross-machine thin client, or split engines per worktree. Prefer the repo's file-backed substrate by default; when the real GBrain runtime is requested and available, support Supabase, bring-your-own Postgres, live sync, health verification, and a brain-first lookup policy without silently changing storage engines.
 
 ## Guardrails
 

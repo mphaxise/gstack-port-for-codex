@@ -7,7 +7,7 @@ description: Codex automation scheduling for recurring work, thread heartbeats, 
 
 Use this skill when the user wants recurring agent work, reminders, a recurring follow-up, or help deciding how a Codex automation should run.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -57,6 +57,8 @@ Before scheduling anything, read:
   - the automation may edit files
   - the user has active local work in the checkout
   - the run should produce a reviewable branch or isolated artifact
+
+For recurring brain work, prefer one multi-source sync surface over competing per-source jobs. Every recurring task must be idempotent or document its deduplication key, state file, and retry behavior.
 
 ## Guardrails
 

@@ -11,7 +11,7 @@ Use this skill when a message contains durable signal:
 - an observation in the user's own words
 - a person, company, or concept worth linking into the local brain
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -30,6 +30,10 @@ Upstream GBrain fires on every inbound message as an always-on sidecar. In this 
    - `concepts` for reusable frameworks
 4. Add explicit entity backlinks only when the category is clear.
 5. Stay quiet unless the user asked for the capture summary.
+
+## Current Upstream Coverage
+
+Prioritize original ideas and observations, then detect secondary entity signals. Preserve the user's exact wording separately from interpretation, attach source context and timestamp, and avoid converting casual mentions into durable claims.
 
 ## Guardrails
 

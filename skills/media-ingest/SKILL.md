@@ -12,7 +12,7 @@ Use this skill when the user provides a text-bearing media artifact that Codex c
 - screenshot OCR output
 - repo notes or architecture captures
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -30,6 +30,10 @@ Useful helpers:
 3. File the resulting page by primary subject, not by media format.
 4. Add explicit people or company backlinks when the mentions matter.
 5. If the result is still only a raw capture, follow with `enrich`.
+
+## Current Upstream Coverage
+
+Identify the media format, preserve the raw source, create a structured page with summary and time/page-addressable highlights, propagate mentioned people and organizations, then validate links and citations before sync.
 
 ## Guardrails
 

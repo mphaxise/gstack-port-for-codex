@@ -4,8 +4,9 @@
     "repo": "https://github.com/garrytan/gstack",
     "license": "MIT",
     "commit": "2aa745cb0e4331d683e727ec77385d04cdbb45a2",
-    "latest_checked_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
-    "latest_checked_at": "2026-06-26"
+    "latest_checked_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+    "latest_checked_at": "2026-07-16",
+    "skill_parity_commit": "a3259400a366593e0c909dd9ac3e59752efd2488"
   },
   "ported_at": "2026-04-18",
   "skills": [
@@ -14,7 +15,7 @@
       "codex_slug": "office-hours",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Product and project framing workflow for ideas before plan review.",
       "notes": "Adapts YC-style office-hours questioning into a concise Codex-native discovery workflow with startup and builder modes.",
       "source_files": [
@@ -48,7 +49,7 @@
       "codex_slug": "autoplan",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Automatic planning pipeline over the current Codex port surface.",
       "notes": "Runs office-hours when needed, then consolidates CEO and engineering review while calling out missing design and DX coverage explicitly.",
       "source_files": [
@@ -89,14 +90,14 @@
       "source_files": [
         "browse/SKILL.md"
       ],
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a"
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488"
     },
     {
       "upstream_slug": "investigate",
       "codex_slug": "investigate",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Root-cause-first debugging workflow.",
       "notes": "Ports the upstream investigate discipline into a Codex-native investigate-analyze-hypothesize-implement loop with a no-blind-fixes guardrail.",
       "source_files": [
@@ -121,7 +122,7 @@
       "codex_slug": "qa-only",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Report-only QA workflow with no code changes.",
       "notes": "Reuses the QA taxonomy and report structure while explicitly forbidding code edits or opportunistic fixes.",
       "source_files": [
@@ -140,7 +141,7 @@
       "source_files": [
         "setup-browser-cookies/SKILL.md"
       ],
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a"
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488"
     },
     {
       "upstream_slug": "retro",
@@ -158,7 +159,7 @@
       "codex_slug": "plan-design-review",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Pre-implementation design review for planned user-facing work.",
       "notes": "Adapts the upstream design-plan critique into a concise Codex workflow that improves hierarchy, flow, and interaction quality before implementation.",
       "source_files": [
@@ -170,7 +171,7 @@
       "codex_slug": "plan-devex-review",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Pre-implementation developer-experience review for developer-facing plans.",
       "notes": "Ports the upstream DevEx planning lens into a Codex workflow around onboarding, time-to-value, and friction reduction.",
       "source_files": [
@@ -182,7 +183,7 @@
       "codex_slug": "design-review",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Live design audit and polish workflow for implemented UI.",
       "notes": "Uses the best available evidence path to find visual or interaction issues, then fixes them or reports them explicitly.",
       "source_files": [
@@ -194,7 +195,7 @@
       "codex_slug": "devex-review",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Live developer-experience audit for docs, setup, and onboarding.",
       "notes": "Adapts the upstream DX audit into a Codex workflow that measures real onboarding friction and evidence-backed setup problems.",
       "source_files": [
@@ -206,7 +207,7 @@
       "codex_slug": "design-consultation",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Design-system and visual-direction consultation workflow.",
       "notes": "Ports upstream design-system direction setting into a Codex-native process for defining aesthetic, typography, color, spacing, and motion.",
       "source_files": [
@@ -218,7 +219,7 @@
       "codex_slug": "design-shotgun",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Rapid multi-variant design exploration workflow.",
       "notes": "Creates several distinct design directions and iterates on taste feedback without pretending minor color swaps are real exploration.",
       "source_files": [
@@ -230,7 +231,7 @@
       "codex_slug": "design-html",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Design-to-implementation workflow for real UI code.",
       "notes": "Turns an approved design direction into framework-native UI while staying responsive, content-aware, and production-minded.",
       "source_files": [
@@ -242,7 +243,7 @@
       "codex_slug": "document-release",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Post-ship documentation sync workflow.",
       "notes": "Updates only the docs affected by shipped changes and can save a durable release artifact through the reports pattern.",
       "source_files": [
@@ -254,7 +255,7 @@
       "codex_slug": "setup-deploy",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Deployment-configuration capture for later automated release work.",
       "notes": "Makes the repo's production URL, deploy path, and health checks explicit before land-and-deploy runs.",
       "source_files": [
@@ -266,7 +267,7 @@
       "codex_slug": "land-and-deploy",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Merge-and-verify release workflow through production checks.",
       "notes": "Adapts landing and deploy verification into a Codex workflow that stops on failed CI, bad deploys, or unverified production health.",
       "source_files": [
@@ -278,7 +279,7 @@
       "codex_slug": "benchmark",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Performance baseline and regression workflow.",
       "notes": "Captures the best available load-time and resource-size signals and can save comparable benchmark reports over time.",
       "source_files": [
@@ -290,7 +291,7 @@
       "codex_slug": "canary",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Post-deploy live monitoring workflow.",
       "notes": "Watches the most important live signals after deployment and can hand recurring checks off to cron-scheduler.",
       "source_files": [
@@ -302,7 +303,7 @@
       "codex_slug": "cso",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Security audit workflow with concrete exploit-oriented findings.",
       "notes": "Ports the upstream CSO role into a Codex-native audit over trust boundaries, secret handling, supply chain, and deploy risk.",
       "source_files": [
@@ -314,7 +315,7 @@
       "codex_slug": "health",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Codebase health-check workflow across real repo signals.",
       "notes": "Reuses testing and maintenance patterns to summarize the most important repo health signals without fake precision.",
       "source_files": [
@@ -326,7 +327,7 @@
       "codex_slug": "learn",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Project-learning management workflow.",
       "notes": "Keeps reusable project lessons in the repo's durable brain, reporting, and signal-capture patterns instead of a separate opaque memory layer.",
       "source_files": [
@@ -338,7 +339,7 @@
       "codex_slug": "checkpoint",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Save-and-resume workflow for durable working-state checkpoints.",
       "notes": "Uses timestamped reports or equivalent durable artifacts to capture branch state, open questions, and next actions for clean resumption.",
       "source_files": [
@@ -350,7 +351,7 @@
       "codex_slug": "careful",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Destructive-action guardrail workflow.",
       "notes": "Warns before risky actions and pushes the user toward reversible changes wherever possible.",
       "source_files": [
@@ -362,7 +363,7 @@
       "codex_slug": "freeze",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Edit-scope boundary workflow for focused changes.",
       "notes": "Keeps edits inside an explicit path boundary until the user widens it or invokes unfreeze.",
       "source_files": [
@@ -374,7 +375,7 @@
       "codex_slug": "guard",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Combined safety and scope-boundary workflow.",
       "notes": "Applies the destructive-action discipline from careful together with the edit boundary from freeze.",
       "source_files": [
@@ -386,7 +387,7 @@
       "codex_slug": "unfreeze",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Boundary-clearing workflow after freeze.",
       "notes": "Clears or widens the prior edit boundary explicitly so the current scope is no longer ambiguous.",
       "source_files": [
@@ -398,7 +399,7 @@
       "codex_slug": "gstack-upgrade",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Repo and local-skill update workflow for this Codex port package.",
       "notes": "Refreshes the checkout or local install, then revalidates so upgrades are explicit and trustworthy; refreshed for the June 26 Codex host audit.",
       "source_files": [
@@ -410,7 +411,7 @@
       "codex_slug": "codex",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Independent second-opinion workflow.",
       "notes": "Provides review, challenge, and consult modes as a deliberate second-pass analysis pattern inside the Codex environment.",
       "source_files": [
@@ -422,7 +423,7 @@
       "codex_slug": "pair-agent",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Multi-agent collaboration workflow for paired execution.",
       "notes": "Adapts shared-browser and paired-agent coordination into a Codex-native ownership and runtime-coordination workflow.",
       "source_files": [
@@ -434,7 +435,7 @@
       "codex_slug": "open-gstack-browser",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Visible-browser launch workflow.",
       "notes": "Uses the best available browser runtime for a headed session and stays explicit about runtime limitations; refreshed in the June 26 runtime deepening pass.",
       "source_files": [
@@ -446,7 +447,7 @@
       "codex_slug": "connect-chrome",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Compatibility wrapper for visible browser attachment.",
       "notes": "Treats connect-chrome requests as open-gstack-browser requests while staying honest about the actual runtime path available in Codex.",
       "source_files": [
@@ -458,7 +459,7 @@
       "codex_slug": "plan-tune",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Planning-preference tuning workflow.",
       "notes": "Captures recurring planning preferences around questions, explanation style, and scope choices as durable notes for future planning runs.",
       "source_files": [
@@ -470,7 +471,7 @@
       "codex_slug": "setup-gbrain",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Set up or verify the GBrain-style local memory substrate for this Codex port.",
       "notes": "Adapts upstream GStack's GBrain setup flow around the existing file-backed local brain substrate, while detecting real upstream gbrain CLI availability when present; refreshed for the June 26 Codex host audit.",
       "source_files": [
@@ -482,7 +483,7 @@
       "codex_slug": "sync-gbrain",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Re-index and refresh this repo's GBrain-style local memory guidance.",
       "notes": "Maps upstream sync behavior to repo-local brain checks, search verification, and non-destructive handling of untracked brain corpus files; refreshed for the June 26 Codex host audit.",
       "source_files": [
@@ -494,7 +495,7 @@
       "codex_slug": "context-save",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Save working context, decisions, git state, and next steps for future sessions.",
       "notes": "Ports the upstream replacement for checkpoint while keeping the existing checkpoint skill as a compatibility wrapper.",
       "source_files": [
@@ -506,7 +507,7 @@
       "codex_slug": "context-restore",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Restore saved context and orient a new Codex session before continuing work.",
       "notes": "Adds the current upstream resume name while preserving guardrails around dirty worktrees and user-owned untracked files.",
       "source_files": [
@@ -518,7 +519,7 @@
       "codex_slug": "document-generate",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Generate or refresh missing project documentation using a Diataxis-style split.",
       "notes": "Complements document-release by creating documentation from code evidence before release-facing docs are checked.",
       "source_files": [
@@ -530,7 +531,7 @@
       "codex_slug": "benchmark-models",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Cross-model benchmark workflow for prompts, skills, and tasks.",
       "notes": "Adapts upstream model comparison to whichever model CLIs or Codex paths are actually available locally, with no invented metrics.",
       "source_files": [
@@ -542,7 +543,7 @@
       "codex_slug": "ios-clean",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Remove GStack iOS debug bridge artifacts from an iOS app.",
       "notes": "Ports the cleanup workflow with explicit guardrails around generated bridge files versus app-owned code.",
       "source_files": [
@@ -554,7 +555,7 @@
       "codex_slug": "ios-design-review",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Visual design audit workflow for iOS apps.",
       "notes": "Adapts real-device upstream review to available simulator or device evidence and Apple-platform tooling.",
       "source_files": [
@@ -566,7 +567,7 @@
       "codex_slug": "ios-fix",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Evidence-first iOS bug fixing workflow.",
       "notes": "Ports the find-fix-verify loop while requiring reproducible evidence and available Apple build tooling.",
       "source_files": [
@@ -578,7 +579,7 @@
       "codex_slug": "ios-qa",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Structured QA workflow for iOS apps.",
       "notes": "Adapts live-device QA to Codex, XcodeBuildMCP, simulator, or device capabilities and distinguishes actual coverage.",
       "source_files": [
@@ -590,7 +591,7 @@
       "codex_slug": "ios-sync",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Refresh GStack iOS debug bridge artifacts.",
       "notes": "Ports bridge regeneration with careful boundaries around generated debug files and production app code.",
       "source_files": [
@@ -602,7 +603,7 @@
       "codex_slug": "landing-report",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Read-only landing queue and release slot report.",
       "notes": "Adapts workspace-aware landing status into a non-mutating Codex report over local git and available GitHub state.",
       "source_files": [
@@ -614,7 +615,7 @@
       "codex_slug": "make-pdf",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Convert markdown or brain pages into polished PDFs.",
       "notes": "Uses upstream make-pdf when installed and otherwise routes through available local document tooling without mutating source markdown.",
       "source_files": [
@@ -626,7 +627,7 @@
       "codex_slug": "scrape",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Read-only structured data extraction from web pages.",
       "notes": "Ports the prototype-first scrape workflow into Codex browser/web tooling, with skillify handoff for repeated flows.",
       "source_files": [
@@ -638,7 +639,7 @@
       "codex_slug": "skillify",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "cf50443b63e461a7c0796857f69d572781acab8e",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Codify a proven workflow or scrape into a durable skill.",
       "notes": "Combines upstream GStack scrape codification with the GBrain meta-skill pattern for this repo.",
       "source_files": [
@@ -650,7 +651,7 @@
       "codex_slug": "gstack",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Root router for the GStack skill suite adapted to Codex skill dispatch.",
       "notes": "Ports the upstream root router intent while dropping Claude-specific preambles, telemetry, and skill path checks.",
       "source_files": [
@@ -662,7 +663,7 @@
       "codex_slug": "diagram",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Diagram generation workflow for architecture, flows, and editable diagram sources.",
       "notes": "Adapts the upstream Excalidraw/Mermaid artifact workflow to Codex-first Mermaid and optional local artifact generation.",
       "source_files": [
@@ -674,7 +675,7 @@
       "codex_slug": "spec",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "11de390be1be6849eb9a15f91ff4922dd16c589a",
+      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
       "summary": "Spec and issue-writing workflow for turning vague intent into executable implementation briefs.",
       "notes": "Ports the upstream spec flow without Claude plan-mode or automatic spawned-agent assumptions.",
       "source_files": [
