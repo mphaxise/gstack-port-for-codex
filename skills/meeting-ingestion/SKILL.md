@@ -7,7 +7,7 @@ description: GBrain-inspired meeting ingestion for Codex. Use when transcript or
 
 Use this skill when the user wants a transcript or meeting-note file turned into structured memory under `brain/meetings/`.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -22,6 +22,10 @@ Upstream GBrain treats attendee enrichment as part of a broader live memory subs
 3. Create the meeting page with summary, actions, and preserved raw transcript.
 4. Update attendee and company pages with timeline references and backlinks.
 5. Follow with `enrich` if the meeting surfaced deeper entity changes.
+
+## Current Upstream Coverage
+
+Extract decisions, action items, discussion notes, attendees, organizations, and dated timeline events. Attendee enrichment and entity propagation are required when supported by the transcript; do not infer commitments or ownership the meeting did not establish.
 
 ## Guardrails
 

@@ -10,6 +10,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
+from gstack_port_for_codex.registry import skill_source_commit
+
 
 SHARED_UPSTREAM_FILES = {
     "ARCHITECTURE.md",
@@ -159,11 +161,45 @@ def classify_changed_paths(
     }
 
 
+def classify_skill_changes_by_source(
+    skill_map: dict[str, Any],
+    compares_by_source: dict[str, dict[str, Any]],
+) -> tuple[dict[str, list[str]], dict[str, str]]:
+    """Return skill-local changes using each skill's own port source commit.
+
+    The map-level baseline remains useful for reporting broad upstream runtime
+    drift. It is not, however, a truthful freshness boundary for skills that
+    were refreshed from a newer upstream commit.
+    """
+    changes: dict[str, list[str]] = {}
+    sources: dict[str, str] = {}
+
+    for skill in skill_map["skills"]:
+        slug = skill["upstream_slug"]
+        source_commit = skill_source_commit(skill_map, skill)
+        changed_paths = [
+            file["filename"]
+            for file in compares_by_source[source_commit].get("files", [])
+        ]
+        matched = sorted(
+            path
+            for path in changed_paths
+            if path.startswith(f"{slug}/") or path.startswith(f"skills/{slug}/")
+        )
+        if matched:
+            changes[slug] = matched
+            sources[slug] = source_commit
+
+    return changes, sources
+
+
 def build_drift_report(
     skill_map: dict[str, Any],
     repo_metadata: dict[str, Any],
     branch_head: dict[str, Any],
     compare_data: dict[str, Any],
+    skill_changes: dict[str, list[str]] | None = None,
+    skill_change_sources: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     changed_paths = [file["filename"] for file in compare_data.get("files", [])]
     classified = classify_changed_paths(changed_paths, skill_map)
@@ -180,7 +216,8 @@ def build_drift_report(
         "behind_by": compare_data["behind_by"],
         "total_commits": compare_data["total_commits"],
         "changed_files_count": len(changed_paths),
-        "skill_changes": classified["skills"],
+        "skill_changes": skill_changes if skill_changes is not None else classified["skills"],
+        "skill_change_sources": skill_change_sources or {},
         "shared_changes": classified["shared"],
         "unmatched_changes": classified["unmatched"],
     }
@@ -198,7 +235,31 @@ def check_upstream_drift(skill_map: dict[str, Any], token: str | None = None) ->
         default_branch,
         token=token,
     )
-    return build_drift_report(skill_map, repo_metadata, branch_head, compare_data)
+    compares_by_source = {skill_map["source"]["commit"]: compare_data}
+    for source_commit in {
+        skill_source_commit(skill_map, skill) for skill in skill_map["skills"]
+    }:
+        if source_commit not in compares_by_source:
+            compares_by_source[source_commit] = fetch_compare(
+                owner,
+                repo,
+                source_commit,
+                default_branch,
+                token=token,
+            )
+
+    skill_changes, skill_change_sources = classify_skill_changes_by_source(
+        skill_map,
+        compares_by_source,
+    )
+    return build_drift_report(
+        skill_map,
+        repo_metadata,
+        branch_head,
+        compare_data,
+        skill_changes=skill_changes,
+        skill_change_sources=skill_change_sources,
+    )
 
 
 def _summarize_paths(paths: list[str], limit: int = 3) -> list[str]:
@@ -235,7 +296,9 @@ def format_drift_report(report: dict[str, Any]) -> str:
         lines.append("")
         lines.append("Impacted skill paths:")
         for slug, paths in report["skill_changes"].items():
-            lines.append(f"- {slug} ({len(paths)} files)")
+            source_commit = report.get("skill_change_sources", {}).get(slug)
+            source_suffix = f" since {source_commit[:7]}" if source_commit else ""
+            lines.append(f"- {slug} ({len(paths)} files{source_suffix})")
             for path in _summarize_paths(paths):
                 lines.append(f"  - {path}")
 
@@ -259,4 +322,17 @@ def report_as_json(report: dict[str, Any]) -> str:
 
 
 def github_token_from_env() -> str | None:
-    return os.environ.get("GITHUB_TOKEN")
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        return token
+
+    if not shutil.which("gh"):
+        return None
+
+    completed = subprocess.run(
+        ["gh", "auth", "token"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return completed.stdout.strip() or None if completed.returncode == 0 else None

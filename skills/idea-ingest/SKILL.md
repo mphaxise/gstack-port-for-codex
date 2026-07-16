@@ -7,7 +7,7 @@ description: GBrain-inspired source and idea ingest for Codex. Use when the user
 
 Use this skill when the user wants to save a source, article, memo, quote set, or other text-bearing artifact into the local `brain/` corpus.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -29,6 +29,10 @@ Primary helper:
 4. If the author matters, create or update their people page.
 5. Add explicit related entities when confidence is high.
 6. Follow with `enrich` if the ingest needs deeper synthesis.
+
+## Current Upstream Coverage
+
+Separate source context, concise summary, key claims/data, analysis, and open questions. Preserve uncertainty and provenance instead of smoothing an early idea into a finished thesis.
 
 ## Guardrails
 

@@ -22,6 +22,7 @@ REQUIRED_DOCS = (
     Path("docs/adoption-examples.md"),
     Path("docs/compatibility-map.md"),
     Path("docs/runtime-compatibility.md"),
+    Path("docs/upstream-parity-2026-07-16.md"),
 )
 SKILL_MAP_FILES = (
     Path("data/skill-map.json"),
@@ -35,7 +36,11 @@ def load_skill_map(path: Path) -> dict:
 
 
 def skill_source_commit(skill_map: dict, skill: dict) -> str:
-    return str(skill.get("source_commit") or skill_map["source"]["commit"])
+    return str(
+        skill.get("source_commit")
+        or skill_map["source"].get("skill_parity_commit")
+        or skill_map["source"]["commit"]
+    )
 
 
 def short_commit(commit: str) -> str:
@@ -70,6 +75,14 @@ def validate_skill_map(data: dict) -> list[str]:
         for key in ("name", "repo", "license", "commit"):
             if not source.get(key):
                 errors.append(f"Missing source.{key} in a skill map file.")
+        parity_commit = source.get("skill_parity_commit")
+        if parity_commit is not None and (
+            not isinstance(parity_commit, str) or len(parity_commit.strip()) < 7
+        ):
+            errors.append(
+                f"Invalid source.skill_parity_commit {parity_commit!r}; "
+                "expected a git commit SHA string."
+            )
 
     skills = data.get("skills")
     if not isinstance(skills, list) or not skills:

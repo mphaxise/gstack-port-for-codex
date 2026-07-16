@@ -12,7 +12,7 @@ This repository started as a port of [GStack](https://github.com/garrytan/gstack
 
 ## What changed from upstream
 
-This is not a line-for-line copy.
+This is not a line-for-line copy. The `2026-07-16` full-surface audit confirms that all 54 current upstream GStack skills and all 53 current upstream GBrain skills are represented; the GStack registry also retains the local `gstack` router and legacy `checkpoint` compatibility skill.
 
 - **Codex-native skills:** upstream commands were rewritten as focused `SKILL.md` workflows with Codex-oriented invocation and outputs.
 - **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies are labeled instead of being treated as universal capabilities.
@@ -109,3 +109,8 @@ Current Codex behavior is checked against the official Codex manual before compa
 - [garrytan/gstack](https://github.com/garrytan/gstack)
 - [garrytan/gbrain](https://github.com/garrytan/gbrain)
 - MIT license; see [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE)
+
+- GStack conservative runtime baseline: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`; skill-workflow parity was audited at `a3259400a366593e0c909dd9ac3e59752efd2488` on July 16.
+- GBrain conservative runtime baseline: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; skill-workflow parity was audited at `5008b287e47bf791132eedfebf66bdef11e9398c` on July 16.
+
+The baseline pins stay intentionally conservative so `scripts/check_upstream_drift.py` continues to reveal broad upstream runtime drift. Per-skill freshness uses each skill's `source_commit` or the map's `skill_parity_commit`, so old runtime churn is not misreported as new skill drift. See the [July 16 parity audit](docs/upstream-parity-2026-07-16.md) for the exact workflow and runtime boundary.

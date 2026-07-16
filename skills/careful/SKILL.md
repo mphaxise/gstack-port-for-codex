@@ -7,7 +7,13 @@ description: Destructive-action guardrail for Codex. Use when the user wants ext
 
 Use this skill when the work touches destructive commands, production systems, or changes that are hard to undo.
 
-This port is adapted from `garrytan/gstack` at commit `4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045`.
+This port is adapted from `garrytan/gstack` at commit `a3259400a366593e0c909dd9ac3e59752efd2488`.
+
+## Protected Actions
+
+Treat deletion, force-pushes, history rewrites, production mutations, credential changes, destructive database operations, and bulk replacement of user-authored files as protected actions. Inspect first, state the exact blast radius, and require an explicit user decision when the action is irreversible or materially broader than the request.
+
+Safe read-only inspection, creation of new reversible artifacts, and narrowly scoped edits inside the authorized workspace do not need an extra confirmation merely because they use a shell command.
 
 ## Workflow
 

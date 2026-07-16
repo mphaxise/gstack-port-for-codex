@@ -7,7 +7,7 @@ description: GBrain-inspired local-brain query for Codex. Use when answering que
 
 Use this skill when the user wants an answer grounded in the local `brain/` corpus.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -23,6 +23,10 @@ Upstream GBrain uses hybrid database-backed search. In this repo, the local brai
 2. Read the top relevant brain pages.
 3. Synthesize only from what those pages actually say.
 4. If nothing relevant exists, say the local brain does not yet contain the answer.
+
+## Current Upstream Coverage
+
+Use source precedence explicitly: primary/raw sources, structured brain pages, then synthesized concept pages. Traverse backlinks and related entities when direct keyword hits are incomplete, state search-quality gaps, and stay within the user's requested detail budget.
 
 ## Guardrails
 

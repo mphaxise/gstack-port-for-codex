@@ -2,7 +2,7 @@
 
 ## Summary
 
-This file is the parity map for the GBrain surface ported into this repo. The conservative baseline source pin is `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; the latest checked upstream commit is `814258dda67945ffec9457a1e73980e947b7e462`.
+This file is the parity map for the GBrain surface ported into this repo. The conservative baseline source pin is `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; all 53 upstream skill directories were audited through `5008b287e47bf791132eedfebf66bdef11e9398c` on 2026-07-16.
 
 ## Port Kinds
 

@@ -7,7 +7,7 @@ description: GBrain-inspired daily briefing for Codex. Use when the user wants a
 
 Use this skill when the user wants a daily briefing, morning prep summary, or an integrated view of meetings, active threads, and near-term priorities.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -29,6 +29,10 @@ Upstream GBrain assumes a brain repo with searchable people, company, and timeli
    - recent changes relevant to today
 4. Cite the source of each concrete claim when possible.
 5. Flag missing context explicitly instead of inventing it.
+
+## Current Upstream Coverage
+
+Load brain context before meetings, email replies, and daily briefings; backlink newly surfaced people, organizations, decisions, and open threads; and cite the brain or external source behind each material claim.
 
 ## Guardrails
 

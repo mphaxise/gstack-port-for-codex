@@ -2,9 +2,9 @@
 
 Baseline upstream source: `garrytan/gstack@2aa745cb0e4331d683e727ec77385d04cdbb45a2`
 
-Latest checked upstream source: `garrytan/gstack@11de390be1be6849eb9a15f91ff4922dd16c589a`
+Latest checked upstream source: `garrytan/gstack@a3259400a366593e0c909dd9ac3e59752efd2488`
 
-Some newer ports record a per-skill `source_commit` in `data/skill-map.json` when they were adapted from a later upstream commit.
+The July 16 audit records full skill-workflow parity through `skill_parity_commit`; explicit per-skill `source_commit` values override that boundary when needed.
 
 This map tracks full upstream coverage, but the right way to read it is by adoption tier as well as by status.
 
@@ -25,7 +25,7 @@ This map tracks full upstream coverage, but the right way to read it is by adopt
 
 ## Upstream To Codex Status
 
-`data/skill-map.json` is now the machine-readable registry for the current Codex port surface: 56 ported GStack entries, including the June 26 upstream router/diagram/spec additions.
+`data/skill-map.json` is the machine-readable registry for the current Codex port surface: all 54 current upstream skills plus the local `gstack` router and `checkpoint` compatibility entry.
 
 ### Stable Core
 

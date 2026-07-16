@@ -7,7 +7,7 @@ description: GBrain-inspired maintenance for Codex. Use when the user wants a he
 
 Use this skill when the user wants a maintenance pass over the repo, docs, trackers, or saved reports.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -34,6 +34,10 @@ Upstream GBrain runs health checks against a brain database, backlinks, and cita
    - uncategorized or duplicated reports
 4. Fix what is safe and explicit.
 5. Save or summarize a maintenance report when helpful.
+
+## Current Upstream Coverage
+
+Audit stale pages, orphans, dead links, missing backlinks, filing violations, citation debt, tag consistency, graph density, embedding freshness when applicable, schema health, storage health, and unresolved threads. Support a manual pass and an autonomous target-score loop, but never bulk-fix private brain content without a scoped plan and validation rerun.
 
 ## Guardrails
 

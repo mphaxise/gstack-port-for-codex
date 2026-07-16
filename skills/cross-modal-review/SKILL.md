@@ -7,7 +7,7 @@ description: GBrain-inspired second-pass review for Codex. Use when the user wan
 
 Use this skill when the user wants a second-pass review of a draft, decision, or artifact before finalizing it.
 
-This port is adapted from `garrytan/gbrain` at commit `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`.
+This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Important Adaptation
 
@@ -27,6 +27,10 @@ Upstream GBrain assumes an explicit second-model routing chain. In Codex, the eq
    - contract fit
    - clarity
 4. Report agreement and disagreement explicitly.
+
+## Current Upstream Coverage
+
+Invoke the second modality only when it adds independent evidence or adversarial value. Support standard artifact review, code-review handoff, and explicit challenge mode; route refusals or unavailable model paths honestly and preserve the user-sovereignty rule for every recommendation.
 
 ## Guardrails
 
