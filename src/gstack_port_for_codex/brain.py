@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from html import unescape
 from pathlib import Path
+import hashlib
 import json
 import os
 import re
@@ -72,6 +73,8 @@ COMMON_ENTITY_STOP_WORDS = {
     "We",
     "When",
 }
+SYNC_MANAGED_KIND = "mutable-source-v1"
+SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 @dataclass(frozen=True)
@@ -101,6 +104,15 @@ class CitationIssue:
     line_number: int
     issue: str
     line: str
+
+
+@dataclass(frozen=True)
+class SourceSyncResult:
+    path: Path
+    source_path: Path
+    status: str
+    version: int
+    source_sha256: str
 
 
 def slugify(text: str) -> str:
@@ -565,3 +577,202 @@ def rewrite_citation_markup(path: Path) -> int:
 
 def default_today() -> str:
     return datetime.now().date().isoformat()
+
+
+def _validate_sync_date(value: str) -> str:
+    try:
+        return date.fromisoformat(value).isoformat()
+    except ValueError as exc:
+        raise ValueError(f"Sync date must use YYYY-MM-DD: {value}") from exc
+
+
+def _decode_frontmatter_string(value: str | None, field_name: str) -> str:
+    if value is None:
+        raise ValueError(f"Managed source projection is missing {field_name} metadata.")
+    try:
+        decoded = json.loads(value)
+    except json.JSONDecodeError:
+        decoded = value
+    if not isinstance(decoded, str) or not decoded.strip():
+        raise ValueError(f"Managed source projection has invalid {field_name} metadata.")
+    return decoded
+
+
+def _parse_source_version(value: str | None) -> int:
+    if value is None:
+        raise ValueError("Managed source projection is missing source_version metadata.")
+    try:
+        version = int(value)
+    except ValueError as exc:
+        raise ValueError("Managed source projection has invalid source_version metadata.") from exc
+    if version < 1:
+        raise ValueError("Managed source projection has invalid source_version metadata.")
+    return version
+
+
+def _quote_source_projection(source_text: str) -> str:
+    return "\n".join(f"> {line}" if line else ">" for line in source_text.rstrip("\n").splitlines())
+
+
+def _render_source_projection(
+    *,
+    title: str,
+    page_type: str,
+    tags: list[str],
+    source_path: Path,
+    source_sha256: str,
+    source_version: int,
+    first_synced: str,
+    last_changed: str,
+    supersedes_sha256: str | None,
+    source_text: str,
+    timeline_entries: list[str],
+) -> str:
+    tag_text = ", ".join(tags)
+    path_text = json.dumps(str(source_path), ensure_ascii=False)
+    supersedes_text = supersedes_sha256 or "none"
+    citation = f"[Source: synchronized local file, {last_changed}]"
+    compiled_truth = "\n".join(
+        (
+            f"**Source path:** {path_text} {citation}",
+            f"**Current SHA-256:** `{source_sha256}` {citation}",
+            f"**Source version:** {source_version} {citation}",
+            f"**First synchronized:** {first_synced} {citation}",
+            f"**Last changed:** {last_changed} {citation}",
+            f"**Supersedes SHA-256:** `{supersedes_text}` {citation}",
+            "",
+            "## Current Source Projection",
+            "",
+            _quote_source_projection(source_text),
+        )
+    )
+    timeline_text = "\n".join(timeline_entries)
+    return (
+        "---\n"
+        f"title: {title}\n"
+        f"type: {page_type}\n"
+        f"tags: [{tag_text}]\n"
+        f"sync_managed: {json.dumps(SYNC_MANAGED_KIND)}\n"
+        f"source_path: {path_text}\n"
+        f"source_sha256: {source_sha256}\n"
+        f"source_version: {source_version}\n"
+        f"first_synced: {first_synced}\n"
+        f"last_changed: {last_changed}\n"
+        f"supersedes_sha256: {supersedes_text}\n"
+        "---\n\n"
+        f"{compiled_truth.strip()}\n\n"
+        "---\n\n"
+        f"{timeline_text.strip()}\n"
+    )
+
+
+def sync_source_projection(
+    brain_root: Path,
+    input_path: Path,
+    *,
+    title: str | None = None,
+    category: str = "sources",
+    sync_date: str | None = None,
+    tags: list[str] | None = None,
+) -> SourceSyncResult:
+    """Synchronize one mutable UTF-8 source into a managed local brain page.
+
+    The current compiled truth is replaced when the source hash changes while
+    the source-version timeline is retained. An unchanged source is a byte-for-
+    byte no-op. Managed pages refuse a different source path or an unmanaged
+    existing page so a title collision cannot silently overwrite local memory.
+    """
+
+    requested_path = Path(input_path).expanduser()
+    try:
+        source_path = requested_path.resolve(strict=True)
+    except FileNotFoundError as exc:
+        raise FileNotFoundError(f"Source file does not exist: {requested_path}") from exc
+    if not source_path.is_file():
+        raise ValueError(f"Source path is not a regular file: {source_path}")
+
+    source_bytes = source_path.read_bytes()
+    try:
+        source_text = source_bytes.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise ValueError(f"Source file is not valid UTF-8: {source_path}") from exc
+    if not source_text.strip():
+        raise ValueError(f"Source file is empty: {source_path}")
+
+    normalized_category = normalize_category(category)
+    sync_day = _validate_sync_date(sync_date or default_today())
+    page_title = title.strip() if title is not None else source_path.stem.replace("-", " ").replace("_", " ").title()
+    if not page_title:
+        raise ValueError("Source projection title must not be empty.")
+
+    ensure_brain_root(brain_root)
+    page_path = make_page_path(brain_root, normalized_category, page_title)
+    source_sha256 = hashlib.sha256(source_bytes).hexdigest()
+    projection_tags = merge_tags(["synced-source"], tags or [])
+
+    if not page_path.exists():
+        timeline_entries = [
+            f"- {sync_day}: Synchronized version 1 from {json.dumps(str(source_path), ensure_ascii=False)} "
+            f"at SHA-256 `{source_sha256}`. [Source: synchronized local file, {sync_day}]"
+        ]
+        rendered = _render_source_projection(
+            title=page_title,
+            page_type=page_type_for_category(normalized_category),
+            tags=projection_tags,
+            source_path=source_path,
+            source_sha256=source_sha256,
+            source_version=1,
+            first_synced=sync_day,
+            last_changed=sync_day,
+            supersedes_sha256=None,
+            source_text=source_text,
+            timeline_entries=timeline_entries,
+        )
+        page_path.write_text(rendered, encoding="utf-8")
+        return SourceSyncResult(page_path, source_path, "created", 1, source_sha256)
+
+    page = parse_brain_page(page_path)
+    if "sync_managed" not in page.frontmatter:
+        raise ValueError(f"Refusing to overwrite unmanaged brain page: {page_path}")
+    managed_kind = _decode_frontmatter_string(page.frontmatter.get("sync_managed"), "sync_managed")
+    if managed_kind != SYNC_MANAGED_KIND:
+        raise ValueError(f"Refusing to overwrite unmanaged brain page: {page_path}")
+
+    existing_source_path = _decode_frontmatter_string(page.frontmatter.get("source_path"), "source_path")
+    if existing_source_path != str(source_path):
+        raise ValueError(
+            f"Managed brain page already belongs to a different source: {existing_source_path}. "
+            "Choose a distinct --title."
+        )
+
+    existing_sha256 = page.frontmatter.get("source_sha256", "")
+    if not SHA256_RE.fullmatch(existing_sha256):
+        raise ValueError("Managed source projection has invalid source_sha256 metadata.")
+    existing_version = _parse_source_version(page.frontmatter.get("source_version"))
+    if existing_sha256 == source_sha256:
+        return SourceSyncResult(page_path, source_path, "no-op", existing_version, source_sha256)
+
+    first_synced = page.frontmatter.get("first_synced", "")
+    _validate_sync_date(first_synced)
+    new_version = existing_version + 1
+    timeline_entries = split_timeline_entries(page.timeline)
+    timeline_entries.append(
+        f"- {sync_day}: Synchronized version {new_version} from {json.dumps(str(source_path), ensure_ascii=False)}; "
+        f"superseded version {existing_version} (`{existing_sha256}`) with `{source_sha256}`. "
+        f"[Source: synchronized local file, {sync_day}]"
+    )
+    rendered = _render_source_projection(
+        title=page.title,
+        page_type=page.page_type,
+        tags=merge_tags(parse_tags(page.frontmatter.get("tags")), projection_tags),
+        source_path=source_path,
+        source_sha256=source_sha256,
+        source_version=new_version,
+        first_synced=first_synced,
+        last_changed=sync_day,
+        supersedes_sha256=existing_sha256,
+        source_text=source_text,
+        timeline_entries=timeline_entries,
+    )
+    page_path.write_text(rendered, encoding="utf-8")
+    return SourceSyncResult(page_path, source_path, "updated", new_version, source_sha256)
