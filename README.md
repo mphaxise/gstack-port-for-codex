@@ -16,7 +16,7 @@ This is not a line-for-line copy.
 
 - **Codex-native skills:** upstream commands were rewritten as focused `SKILL.md` workflows with Codex-oriented invocation and outputs.
 - **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies are labeled instead of being treated as universal capabilities.
-- **Local GBrain substrate:** ambient memory behavior was adapted into explicit Markdown-backed capture, search, linking, ingestion, citation, and health-check tools.
+- **Local GBrain substrate:** ambient memory behavior was adapted into explicit Markdown-backed capture, search, linking, ingestion, synchronization, citation, and health-check tools.
 - **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request; users do not need to memorize the catalog.
 - **Validation and drift tracking:** machine-readable registries, tests, health checks, and upstream-drift tooling keep the port inspectable as both upstream projects evolve.
 
@@ -66,6 +66,16 @@ Other useful entry points:
 - [`brain-ops`](skills/brain-ops/SKILL.md) — use local memory before outside research or new conclusions
 - [`office-hours`](skills/office-hours/SKILL.md) — pressure-test an idea before implementation planning
 - [`design-leadership-review`](skills/design-leadership-review/SKILL.md) — review whether the organization is making the right design decision
+
+## Mutable sources and privacy
+
+GBrain’s local substrate can synchronize a changing authoritative file—such as a living strategy, identity, or operating document—without publishing its contents:
+
+```bash
+python3 scripts/brain_sync_source.py path/to/source.md --title "Source title"
+```
+
+When the source changes, the managed projection replaces its current compiled truth while retaining version, hash, and supersession provenance. An unchanged source is a byte-for-byte no-op. Generated brain content is ignored by Git by default; only the public [`brain/README.md`](brain/README.md) contract is tracked.
 
 ## Honest boundaries
 
