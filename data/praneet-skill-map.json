@@ -1,0 +1,88 @@
+{
+  "source": {
+    "name": "praneet-gstack-codex-extension",
+    "repo": "https://github.com/mphaxise/gstack-port-for-codex",
+    "license": "MIT",
+    "commit": "f98b141"
+  },
+  "ported_at": "2026-05-26",
+  "skills": [
+    {
+      "upstream_slug": "praneet-responsible-design-review",
+      "codex_slug": "responsible-design-review",
+      "status": "ported",
+      "port_kind": "hand-port-enhanced",
+      "summary": "Human-impact review for autonomy, consent, dark patterns, vulnerable users, fairness, and data dignity.",
+      "notes": "Praneet-specific hand-port enhancement that combines GStack design review, GBrain memory, and a design leadership lens around responsible product decisions.",
+      "source_files": [
+        "responsible-design-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "praneet-accessibility-review",
+      "codex_slug": "accessibility-review",
+      "status": "ported",
+      "port_kind": "hand-port-enhanced",
+      "summary": "Accessibility review workflow for WCAG, assistive technology, cognitive load, motion, language, and inclusive interaction quality.",
+      "notes": "Praneet-specific hand-port enhancement that makes accessibility first-class instead of a shallow subcheck inside visual QA.",
+      "source_files": [
+        "accessibility-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "praneet-research-synthesis",
+      "codex_slug": "research-synthesis",
+      "status": "ported",
+      "port_kind": "hand-port-enhanced",
+      "summary": "Design-research synthesis with evidence grading, participant bias, quotes-to-insights traceability, and unknowns.",
+      "notes": "Praneet-specific hand-port enhancement that deepens GBrain research skills with design research and responsible evidence practices.",
+      "source_files": [
+        "research-synthesis/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "praneet-startup-memo",
+      "codex_slug": "startup-memo",
+      "status": "ported",
+      "port_kind": "hand-port-enhanced",
+      "summary": "Founder and startup judgment memo for market, product, distribution, traction, risks, ethics, and next diligence questions.",
+      "notes": "Praneet-specific hand-port enhancement that adds VC-style judgment while requiring responsible design and user-impact checks.",
+      "source_files": [
+        "startup-memo/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "praneet-market-map",
+      "codex_slug": "market-map",
+      "status": "ported",
+      "port_kind": "hand-port-enhanced",
+      "summary": "Market map workflow for category structure, incumbents, wedges, buyer segments, timing, and social impact.",
+      "notes": "Praneet-specific hand-port enhancement that combines founder strategy with research synthesis and ethical market framing.",
+      "source_files": [
+        "market-map/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "praneet-design-leadership-review",
+      "codex_slug": "design-leadership-review",
+      "status": "ported",
+      "port_kind": "hand-port-enhanced",
+      "summary": "CDO-level review for principles, quality bar, critique cadence, organizational implications, and stakeholder alignment.",
+      "notes": "Praneet-specific hand-port enhancement for executive design leadership, decision records, and durable design governance.",
+      "source_files": [
+        "design-leadership-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "praneet-outcome-memory",
+      "codex_slug": "outcome-memory",
+      "status": "ported",
+      "port_kind": "hand-port-enhanced",
+      "summary": "Outcome-learning loop that records whether prior recommendations worked, failed, or need revised judgment.",
+      "notes": "Praneet-specific hand-port enhancement that closes the loop between plans, decisions, ships, ethics reviews, and future memory-grounded judgment.",
+      "source_files": [
+        "outcome-memory/SKILL.md"
+      ]
+    }
+  ]
+}

@@ -2,67 +2,76 @@
 
 ## Source Context
 
-- Title: `GStack port for Codex`
-- Source: `Manual backlog (user idea, captured 2026-03-14)`
-- Review date: `2026-03-14`
-- Priority: `12`
+- Title: `Gbrain Port for Codex`
+- Source: `Manual backlog (user idea, captured 2026-04-16)`
+- Review date: `2026-04-16`
+- Priority: `9`
 - Impact / Effort / Momentum: `5 / 2 / 5`
 - Idea link: `https://github.com/mphaxise/gstack-port-for-codex`
 
-## Extracted Rationale
-
-The source idea is straightforward: take the useful workflow system from gstack, port it into Codex's skill conventions, and make the result reusable in public. The leverage comes from not inventing a new workflow language from scratch; instead, it converts an already opinionated operating model into a format Codex users can actually adopt. That initial idea has now matured into a compatibility layer with explicit parity classes rather than a single reference port.
-
 ## Problem Statement
 
-Useful prompt-operating systems often become trapped inside one coding agent's conventions. gstack is strong and opinionated, but its slash-command model and Claude-specific mechanics are not directly reusable in Codex. Without a port, teams either lose the workflow entirely or re-implement it ad hoc from memory.
+The repo already ports GStack's coding workflows into Codex, but GBrain adds the broader operating-system layer: identity, recurring jobs, reporting, task management, ingestion, enrichment, maintenance, and knowledge workflows around the coding core.
+
+If we only import isolated pieces, we lose the architecture of the whole system. The repo needs to represent the full GBrain surface and provide honest local equivalents for the runtime-heavy parts.
 
 ## Target Users
 
-- Codex power users who want sharper operating modes than a single generic assistant persona
-- Teams migrating from Claude-centric workflows to Codex
-- Open-source contributors who want a clean, documented starting point for maintaining and extending the port
+- Codex users who want both coding and operating-system workflows in one package
+- maintainers who want a full upstream map instead of one-off imports
+- teams standardizing agent behavior around planning, reporting, automation, and memory-adjacent work
+
+## What Already Exists
+
+- full GStack port with eight upstream skills already adapted
+- strategy docs, registry validation, and public README structure
+- full-surface GBrain registry and compatibility docs
+- a local `brain/` substrate plus helper scripts
 
 ## Scope
 
-### Public V0
+### Current Phase
 
-- Pin a real upstream gstack commit
-- Publish a compatibility map for the full upstream skill surface
-- Ship all eight current ports with explicit parity types
-- Add lightweight validation so future maintenance follows a consistent structure
-- Include adoption examples that show the difference between stable and runtime-aware usage
+- represent the full 25-skill GBrain surface in the repo
+- port every GBrain skill with the smallest honest Codex equivalent
+- add compatibility and resolver docs so the whole system is legible
+- keep runtime differences explicit rather than hidden
 
 ### Later
 
-- Deepen runtime parity for browser- and session-heavy skills
-- Add import tooling for faster upstream-to-Codex translation
-- Add richer regression tests and example integrations for each port type
-
-## Risks And Assumptions
-
-- Assumption: explicit compatibility boundaries are more trustworthy than claiming seamless parity.
-- Assumption: `plan-ceo-review` remains the best anchor example because it is self-contained and broadly useful.
-- Risk: browser-heavy skills such as `browse` and `setup-browser-cookies` will need a separate Codex tool strategy.
-- Risk: Codex skill expectations may evolve, so the port format should stay simple and documented.
+- deeper runtime-aware support for ambient capture and live event intake
+- richer substrate decisions if the local file-backed brain reaches its ceiling
+- stronger conformance and adoption tooling
 
 ## Architecture And Tech Choices
 
-- Markdown-first docs for human readability
-- JSON skill registry for machine-readable mapping and validation
-- Python stdlib scripts for zero-dependency checks
-- One skill folder per port, with references for progressive disclosure
+- keep the repo as the combined GStack + GBrain Codex package
+- use `data/skill-map.json` for GStack and `data/gbrain-skill-map.json` for GBrain
+- add compatibility and resolver docs rather than pretending unresolved runtime differences do not exist
+- continue using Markdown skills plus lightweight Python validation and helper scripts
 
-## Public Launch Goal
+## Risks And Assumptions
 
-Ship a public repo that makes the adaptation easy to understand: what is ready for immediate adoption, what depends on host runtime support, and how contributors should preserve the pattern over time.
+- Assumption: the right product goal is a full-surface GBrain port, not a narrow sidecar.
+- Assumption: explicit workflow adaptation is more useful than leaving valuable skills in a permanent blocked bucket.
+- Risk: the repo becomes confusing unless parity and dependency boundaries stay explicit.
+- Risk: some runtime-heavy GBrain semantics may still want a second architecture pass later.
 
-## Near-Term Outcome
+## 60-90 Minute First Milestone
 
-Public repo with a solid README, aligned strategy docs, full-surface compatibility map, adoption examples, and enough automation to prevent the repo from turning into drift-prone notes.
+- map the full upstream GBrain surface
+- remove the collaboration/co-production bias from the planning skill that was narrowing scope
+- port the first tranche of GBrain skills
+- publish compatibility and resolver docs for the full surface
 
-## Notes
+## End-Of-Day Outcome
 
-Source note carried forward from the backlog:
+- the repo clearly targets a full GBrain port
+- the full upstream surface is tracked in the registry
+- a meaningful local substrate and a full-surface Codex port are in place
 
-> Project goal: take GStack skills for cloud code configuration, port to Codex skills conventions, and open source it for reuse.
+## Not In Scope
+
+- shipping the entire upstream backend stack in one session
+- hiding unresolved runtime differences behind false parity claims
+- splitting this work into a separate repo before the unified package direction is validated

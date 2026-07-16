@@ -22,7 +22,13 @@ from gstack_port_for_codex.upstream_drift import (  # noqa: E402
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Check drift between the pinned upstream gstack commit and upstream default branch.",
+        description="Check drift between a pinned upstream source commit and the upstream default branch.",
+    )
+    parser.add_argument(
+        "--map",
+        choices=("gstack", "gbrain", "praneet"),
+        default="gstack",
+        help="Skill map to check. Defaults to gstack.",
     )
     parser.add_argument(
         "--json",
@@ -31,7 +37,12 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")
+    map_paths = {
+        "gstack": REPO_ROOT / "data" / "skill-map.json",
+        "gbrain": REPO_ROOT / "data" / "gbrain-skill-map.json",
+        "praneet": REPO_ROOT / "data" / "praneet-skill-map.json",
+    }
+    skill_map = load_skill_map(map_paths[args.map])
 
     try:
         report = check_upstream_drift(skill_map, token=github_token_from_env())

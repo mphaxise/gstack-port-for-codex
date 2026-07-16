@@ -1,133 +1,111 @@
-# GStack Port for Codex
+# GStack Port for Codex — Extended
 
-**A practical adaptation of high-rigor product-development workflows for Codex—with the runtime differences made explicit.**
+**Codex-native versions of Garry Tan’s GStack and GBrain, plus a separate Praneet extension layer for design leadership, responsible product judgment, research rigor, and outcome learning.**
 
-I built this project to answer a deceptively simple question: what does it take to move a thoughtful agent workflow from one coding environment to another without pretending the two environments are interchangeable?
+This repository started as a port of [GStack](https://github.com/garrytan/gstack). It now has three distinct layers, tracked separately so their provenance stays clear.
 
-The result is a reusable set of Codex-native skills for planning, review, shipping, retrospectives, browser work, QA, and session setup. It is also a case study in product translation: preserving the intent of [garrytan/gstack](https://github.com/garrytan/gstack) while redesigning the interaction model, tool assumptions, and safety boundaries for Codex.
+| Layer | What it contributes | Current registry |
+| --- | --- | ---: |
+| **GStack** | Planning, design, review, debugging, QA, release, and engineering workflows | [56 ports](data/skill-map.json) |
+| **GBrain** | Capture, research, ingestion, daily operations, local memory, and knowledge maintenance | [53 ports](data/gbrain-skill-map.json) |
+| **Praneet extensions** | Responsible design, accessibility, research synthesis, design leadership, market judgment, and outcome learning | [7 extensions](data/praneet-skill-map.json) |
 
-## At a glance
+## What changed from upstream
 
-| | |
-| --- | --- |
-| **Problem** | Workflow ports often copy prompts while hiding meaningful differences in tools, runtime behavior, and human oversight. |
-| **What is here** | Working skills, compatibility maps, adoption examples, validation scripts, and explicit runtime boundaries. |
-| **Useful for** | Codex users adopting stronger workflows, builders translating agent systems, and product or design leaders studying how operating practices become usable tools. |
-| **Current status** | A stable core is ready to try; browser- and runtime-dependent workflows remain explicitly experimental. |
+This is not a line-for-line copy.
 
-```mermaid
-flowchart LR
-    A["Upstream gstack workflow"] --> B["Inspect intent, tools, and interaction model"]
-    B --> C{"Codex compatibility"}
-    C --> D["Native"]
-    C --> E["Workflow-adapted"]
-    C --> F["Runtime-aware"]
-    D --> G["Stable core"]
-    E --> G
-    F --> H["Host-dependent layer"]
-```
+- **Codex-native skills:** upstream commands were rewritten as focused `SKILL.md` workflows with Codex-oriented invocation and outputs.
+- **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies are labeled instead of being treated as universal capabilities.
+- **Local GBrain substrate:** ambient memory behavior was adapted into explicit Markdown-backed capture, search, linking, ingestion, synchronization, citation, and health-check tools.
+- **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request; users do not need to memorize the catalog.
+- **Validation and drift tracking:** machine-readable registries, tests, health checks, and upstream-drift tooling keep the port inspectable as both upstream projects evolve.
 
-*The port is a translation system, not a file copy: each workflow is classified by what Codex can support honestly.*
+See the [GStack compatibility map](docs/compatibility-map.md), [GBrain adaptation memo](docs/gbrain-adaptation-memo.md), and [runtime compatibility notes](docs/runtime-compatibility.md) for the detailed boundaries.
 
-## Choose your path
+## What is distinctly mine
 
-- **Use the stable workflow:** begin with [`plan-ceo-review`](skills/plan-ceo-review/SKILL.md) or [`review`](skills/review/SKILL.md), then follow the quick start below.
-- **See how the workflows behave:** read the [adoption examples](docs/adoption-examples.md).
-- **Evaluate the translation decisions:** inspect the [compatibility map](docs/compatibility-map.md).
-- **Understand the limitations:** read the [runtime compatibility notes](docs/runtime-compatibility.md) before adopting browser or QA skills.
+The Praneet layer is not a cosmetic persona. It changes what the system checks and how it makes recommendations.
 
-## Start here
+- [`responsible-design-review`](skills/responsible-design-review/SKILL.md) checks autonomy, consent, dark patterns, fairness, vulnerable users, and data dignity.
+- [`accessibility-review`](skills/accessibility-review/SKILL.md) makes accessibility a first-class quality bar rather than a small visual-QA check.
+- [`research-synthesis`](skills/research-synthesis/SKILL.md) grades evidence, checks bias, preserves quote-to-insight traceability, and names what remains unknown.
+- [`design-leadership-review`](skills/design-leadership-review/SKILL.md) adds a CDO-level lens for quality bars, critique, organizational implications, alignment, and durable decision records.
+- [`startup-memo`](skills/startup-memo/SKILL.md) and [`market-map`](skills/market-map/SKILL.md) combine founder judgment with user impact, ethics, and social consequences.
+- [`outcome-memory`](skills/outcome-memory/SKILL.md) compares recommendations with real results so future judgment can improve instead of repeating the same assumptions.
 
-For the fastest path to value, begin with one stable-core skill such as `plan-ceo-review` or `review`.
+The router also uses a chief-of-staff selection pattern: consider the skills that could add leverage, then deliberately pare them down to the smallest useful set. That favors judgment over process for its own sake.
+
+## Try it
+
+Copy only the skills you want into your Codex skills directory:
 
 ```bash
 mkdir -p "$CODEX_HOME/skills"
-cp -R skills/plan-ceo-review "$CODEX_HOME/skills/"
-cp -R skills/review "$CODEX_HOME/skills/"
+cp -R skills/workflow-router "$CODEX_HOME/skills/"
+cp -R skills/responsible-design-review "$CODEX_HOME/skills/"
+cp -R skills/research-synthesis "$CODEX_HOME/skills/"
 ```
 
-Then invoke the skill directly in a Codex session:
+Then ask naturally:
 
 ```text
-/plan-ceo-review
-Review our rollout plan for preview deployments before we start coding.
+Review this feature for user agency, accessibility, and unintended harm.
 ```
 
 ```text
-Use $review on this branch and look for blocking issues.
+Synthesize these interviews, grade the evidence, and separate participant voice from interpretation.
 ```
 
-Add `plan-eng-review`, `ship`, and `retro` for a fuller workflow set. Add `browse`, `qa`, and `setup-browser-cookies` only after reviewing [`docs/runtime-compatibility.md`](docs/runtime-compatibility.md).
+```text
+Choose the smallest useful workflow for taking this feature from plan review through QA.
+```
 
-## Current coverage
+Other useful entry points:
 
-### Stable core
+- [`gstack`](skills/gstack/SKILL.md) — route across the engineering and product-development surface
+- [`brain-ops`](skills/brain-ops/SKILL.md) — use local memory before outside research or new conclusions
+- [`office-hours`](skills/office-hours/SKILL.md) — pressure-test an idea before implementation planning
+- [`design-leadership-review`](skills/design-leadership-review/SKILL.md) — review whether the organization is making the right design decision
 
-- `plan-ceo-review`: founder-style plan review
-- `plan-eng-review`: engineering execution review
-- `review`: pre-landing PR review
-- `ship`: release workflow orchestration
-- `retro`: engineering retrospective workflow
+## Mutable sources and privacy
 
-### Experimental runtime-aware layer
+GBrain’s local substrate can synchronize a changing authoritative file—such as a living strategy, identity, or operating document—without publishing its contents:
 
-- `browse`: browser QA and dogfooding workflow port
-- `qa`: structured QA workflow with issue taxonomy and report template
-- `setup-browser-cookies`: authenticated-session setup workflow
+```bash
+python3 scripts/brain_sync_source.py path/to/source.md --title "Source title"
+```
 
-## Why I built this
+When the source changes, the managed projection replaces its current compiled truth while retaining version, hash, and supersession provenance. An unchanged source is a byte-for-byte no-op. Generated brain content is ignored by Git by default; only the public [`brain/README.md`](brain/README.md) contract is tracked.
 
-I was interested in the design problem behind the port, not only the file conversion. A useful workflow encodes judgment: when an agent should proceed, what evidence it should gather, when a person should review the work, and what a trustworthy handoff looks like.
+## Honest boundaries
 
-The resulting product shape is a public compatibility layer with explicit parity classes:
-
-- **Native:** direct Codex-friendly prompt workflows with minimal behavioral translation
-- **Workflow-adapted:** the same operating intent, reshaped around Codex conventions and outputs
-- **Runtime-aware:** a ported workflow whose execution still depends on browser, session, or host tooling
-
-That framing lets users adopt stable skills immediately while understanding what extra tooling the runtime-heavy skills require.
-
-For me, this is also a broader experiment in making expert operating practices legible and reusable. The strongest agent workflows should not obscure their assumptions; they should help people understand where automation is reliable, where context matters, and where human judgment remains decisive.
-
-## Translation principles
-
-- Replace slash-command assumptions with skill discovery by name and description.
-- Remove or rewrite Claude-only tool declarations.
-- Split large monolithic prompts into concise `SKILL.md` files plus targeted references.
-- Adapt interactive questioning to Codex’s ask-only-when-necessary collaboration style.
-- Keep update checks and install-time shell behavior out of the skill unless essential.
-- State runtime limitations rather than implying unsupported parity.
+- `native` means the workflow maps cleanly to Codex.
+- `workflow-adapted` means the operating intent is preserved but the interaction or runtime model changed.
+- `runtime-aware` means the skill still depends on available browser, session, automation, device, credential, or host tooling.
+- The repository includes a file-backed brain substrate and helper scripts; it does not publish a user’s private local brain corpus.
+- Registry pins are conservative snapshots. Run the drift checker before claiming current upstream parity.
 
 ## Repository map
 
-- [`docs/compatibility-map.md`](docs/compatibility-map.md): upstream-to-Codex map for the full surface
-- [`docs/runtime-compatibility.md`](docs/runtime-compatibility.md): browser and runtime boundaries
-- [`docs/adoption-examples.md`](docs/adoption-examples.md): stable-skill and runtime-aware examples
-- [`data/skill-map.json`](data/skill-map.json): machine-readable port registry pinned to an upstream commit
-- [`scripts/check_upstream_drift.py`](scripts/check_upstream_drift.py): compare the pinned upstream commit against current upstream `main`
-- [`scripts/validate_repo.py`](scripts/validate_repo.py): repository health checks
-- [`scripts/print_status.py`](scripts/print_status.py): terminal-friendly port status
-- [`tests/`](tests/): regression checks for the registry and validator
+- [`skills/`](skills/) — GStack, GBrain, and Praneet workflow definitions
+- [`data/`](data/) — separate provenance and compatibility registries
+- [`docs/`](docs/) — adaptation decisions, compatibility maps, and runtime audits
+- [`scripts/`](scripts/) — validation, drift, status, and local-brain helpers
+- [`brain/README.md`](brain/README.md) — local brain structure and operating contract
 
-## Validation
+## Validate the package
 
 ```bash
-python3 scripts/check_upstream_drift.py
 python3 scripts/validate_repo.py
-python3 scripts/print_status.py
 python3 -m unittest discover -s tests
+python3 scripts/print_status.py
+python3 scripts/brain_doctor.py
 ```
 
-## Upstream source
+Current Codex behavior is checked against the official Codex manual before compatibility or runtime guidance is updated. See [`AGENTS.md`](AGENTS.md) and the [documentation refresh log](docs/codex-documentation-refresh.md).
 
-- Upstream repository: [garrytan/gstack](https://github.com/garrytan/gstack)
-- Upstream license: MIT
-- Pinned upstream commit: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`
+## Upstream and attribution
 
-Attribution details live in `NOTICE`.
-
-## Roadmap
-
-- Deepen runtime parity for `browse`, `qa`, and `setup-browser-cookies`.
-- Improve upstream-drift tooling so future changes can be triaged faster.
-- Add contributor automation for new skill ports and validation.
+- [garrytan/gstack](https://github.com/garrytan/gstack)
+- [garrytan/gbrain](https://github.com/garrytan/gbrain)
+- MIT license; see [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE)
