@@ -1,10 +1,26 @@
 # GStack Port for Codex
 
-**A reusable migration kit for bringing high-rigor coding workflows into Codex without overstating runtime parity.**
+**A practical adaptation of high-rigor product-development workflows for Codex—with the runtime differences made explicit.**
 
-This repository ports the full [garrytan/gstack](https://github.com/garrytan/gstack) skill surface into Codex-native workflows for planning, review, shipping, retrospectives, browser work, QA, and session setup.
+I built this project to answer a deceptively simple question: what does it take to move a thoughtful agent workflow from one coding environment to another without pretending the two environments are interchangeable?
 
-The product challenge is not simple file conversion. Claude-style slash commands and Codex skills have different invocation models, tool assumptions, and collaboration patterns. This project makes those differences explicit through compatibility classes, runtime boundaries, validation tooling, and practical adoption examples.
+The result is a reusable set of Codex-native skills for planning, review, shipping, retrospectives, browser work, QA, and session setup. It is also a case study in product translation: preserving the intent of [garrytan/gstack](https://github.com/garrytan/gstack) while redesigning the interaction model, tool assumptions, and safety boundaries for Codex.
+
+## At a glance
+
+| | |
+| --- | --- |
+| **Problem** | Workflow ports often copy prompts while hiding meaningful differences in tools, runtime behavior, and human oversight. |
+| **What is here** | Working skills, compatibility maps, adoption examples, validation scripts, and explicit runtime boundaries. |
+| **Useful for** | Codex users adopting stronger workflows, builders translating agent systems, and product or design leaders studying how operating practices become usable tools. |
+| **Current status** | A stable core is ready to try; browser- and runtime-dependent workflows remain explicitly experimental. |
+
+## Choose your path
+
+- **Use the stable workflow:** begin with [`plan-ceo-review`](skills/plan-ceo-review/SKILL.md) or [`review`](skills/review/SKILL.md), then follow the quick start below.
+- **See how the workflows behave:** read the [adoption examples](docs/adoption-examples.md).
+- **Evaluate the translation decisions:** inspect the [compatibility map](docs/compatibility-map.md).
+- **Understand the limitations:** read the [runtime compatibility notes](docs/runtime-compatibility.md) before adopting browser or QA skills.
 
 ## Start here
 
@@ -45,9 +61,9 @@ Add `plan-eng-review`, `ship`, and `retro` for a fuller workflow set. Add `brows
 - `qa`: structured QA workflow with issue taxonomy and report template
 - `setup-browser-cookies`: authenticated-session setup workflow
 
-## Why this exists
+## Why I built this
 
-This project began as an experiment in translating a rigorous Claude-oriented coding workflow into reusable, Codex-native skills without pretending every capability had identical host support.
+I was interested in the design problem behind the port, not only the file conversion. A useful workflow encodes judgment: when an agent should proceed, what evidence it should gather, when a person should review the work, and what a trustworthy handoff looks like.
 
 The resulting product shape is a public compatibility layer with explicit parity classes:
 
@@ -56,6 +72,8 @@ The resulting product shape is a public compatibility layer with explicit parity
 - **Runtime-aware:** a ported workflow whose execution still depends on browser, session, or host tooling
 
 That framing lets users adopt stable skills immediately while understanding what extra tooling the runtime-heavy skills require.
+
+For me, this is also a broader experiment in making expert operating practices legible and reusable. The strongest agent workflows should not obscure their assumptions; they should help people understand where automation is reliable, where context matters, and where human judgment remains decisive.
 
 ## Translation principles
 
