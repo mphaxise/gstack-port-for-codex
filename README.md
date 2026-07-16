@@ -15,6 +15,20 @@ The result is a reusable set of Codex-native skills for planning, review, shippi
 | **Useful for** | Codex users adopting stronger workflows, builders translating agent systems, and product or design leaders studying how operating practices become usable tools. |
 | **Current status** | A stable core is ready to try; browser- and runtime-dependent workflows remain explicitly experimental. |
 
+```mermaid
+flowchart LR
+    A["Upstream gstack workflow"] --> B["Inspect intent, tools, and interaction model"]
+    B --> C{"Codex compatibility"}
+    C --> D["Native"]
+    C --> E["Workflow-adapted"]
+    C --> F["Runtime-aware"]
+    D --> G["Stable core"]
+    E --> G
+    F --> H["Host-dependent layer"]
+```
+
+*The port is a translation system, not a file copy: each workflow is classified by what Codex can support honestly.*
+
 ## Choose your path
 
 - **Use the stable workflow:** begin with [`plan-ceo-review`](skills/plan-ceo-review/SKILL.md) or [`review`](skills/review/SKILL.md), then follow the quick start below.
