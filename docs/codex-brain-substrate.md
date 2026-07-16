@@ -46,6 +46,11 @@ Each page uses frontmatter plus a compiled-truth-and-timeline split.
   - audit and normalize citation markup
 - `python3 scripts/brain_ingest_source.py <file> ...`
   - ingest a local source file and preserve the raw artifact
+- `python3 scripts/brain_sync_source.py <file> ...`
+  - synchronize a mutable UTF-8 source by replacing current compiled truth,
+    retaining cited hash/version/supersession history, and doing nothing when
+    the source hash is unchanged; the canonical resolved source path is its
+    stable identity key, and `--json` exposes machine-readable status
 - `python3 scripts/brain_ingest_meeting.py <file> ...`
   - turn a transcript or meeting-note file into a structured meeting page
 - `python3 scripts/brain_transform_event.py payload.json --event-type auto`
@@ -68,3 +73,7 @@ It does not provide:
 - autonomous background write loops
 
 It is the minimum honest substrate needed to make the memory-oriented GBrain ports real in this repo.
+
+Generated brain pages, raw captures, dead letters, and future local categories
+are ignored by default. `brain/README.md` is the only tracked file under the
+brain root.

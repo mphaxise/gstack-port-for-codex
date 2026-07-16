@@ -126,6 +126,7 @@ To make the memory-oriented skills honest instead of aspirational, the repo incl
 - `python3 scripts/brain_link.py --from-ref ... --to-ref ... --context "..."`
 - `python3 scripts/brain_citations.py --fix --verbose`
 - `python3 scripts/brain_ingest_source.py <file> --title ...`
+- `python3 scripts/brain_sync_source.py <file> --title ...`
 - `python3 scripts/brain_ingest_meeting.py <file> --title ... --date ...`
 - `python3 scripts/brain_transform_event.py payload.json --event-type auto`
 - `python3 scripts/brain_capture_signal.py --text "..." --mode original`
