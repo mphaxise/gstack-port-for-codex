@@ -1,5 +1,27 @@
 # Adoption Examples
 
+## Example 0: Natural-Language Routing
+
+Use this when you do not want to remember skill names and just want the repo to choose the right workflow.
+
+### User request
+
+```text
+Can you save this meeting note into the brain, link the people involved, and tell me what still looks thin?
+```
+
+### Expected Codex behavior
+
+1. Detect that the user did not name a skill and load `workflow-router`.
+2. Route to `meeting-ingestion` as the primary skill.
+3. Optionally follow with `enrich` if the created pages still look thin.
+4. Tell the user briefly which skill path was chosen.
+
+### Why this matters
+
+- The user should not have to memorize `meeting-ingestion`, `signal-detector`, `brain-ops`, or any other exact name.
+- The router makes the skillpack feel like a working operating system instead of a bag of commands.
+
 These examples show the intended difference between the stable core and the runtime-aware layer.
 
 ## Example 1: Stable Core With `plan-ceo-review`
@@ -51,8 +73,49 @@ Use $qa on this feature branch and give me a diff-aware report for the settings 
 - The report must say what was tested, what evidence was collected, and what remained unverified.
 - The skill should never claim full parity with upstream gstack if browser execution was unavailable.
 
+## Example 3: Starter Brain Backfill
+
+Use this when you want to pressure-test the new GBrain layer against real material instead of just validating the package structure.
+
+### User request
+
+```text
+Seed the local brain with a small real corpus and prove that query, signal capture, meeting ingestion, and source ingest all work together.
+```
+
+### Recommended first tranche
+
+1. Ingest 5-10 real artifacts:
+   - one meeting note or transcript
+   - one memo, article, or research note
+   - one report or status update
+   - one idea note in the user's own phrasing
+   - one webhook-style JSON payload
+2. Run the helpers:
+   - `python3 scripts/brain_ingest_meeting.py ...`
+   - `python3 scripts/brain_ingest_source.py ...`
+   - `python3 scripts/brain_capture_signal.py ...`
+   - `python3 scripts/brain_transform_event.py ...`
+   - `python3 scripts/brain_citations.py --fix --verbose`
+3. Verify the outputs:
+   - `python3 scripts/brain_search.py "<query>"`
+   - `python3 scripts/brain_doctor.py`
+4. Write one short demo walkthrough showing:
+   - what was ingested
+   - which pages were created or updated
+   - which backlinks and citations were added
+   - what still felt awkward
+
+### Why this should be next
+
+- It turns the current port from package parity into lived usage.
+- It will surface the real rough edges in the ingest and memory workflow faster than more abstract planning.
+- It gives future contributors a concrete example corpus and validation story.
+
 ## Adoption Guidance
 
+- Start with natural-language requests if you do not want to memorize skill names; `workflow-router` should infer the right path.
 - Adopt the stable core first if your goal is immediate team-wide reuse.
 - Add the runtime-aware skills when your Codex environment already has browser or session tooling, or when explicit limitations are acceptable.
 - Use `docs/runtime-compatibility.md` alongside these examples when deciding whether a runtime-aware skill is ready for your environment.
+- For this repo specifically, the highest-value next tranche is the starter-brain backfill above.

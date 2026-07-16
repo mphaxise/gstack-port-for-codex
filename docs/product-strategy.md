@@ -2,87 +2,77 @@
 
 ## Product Thesis
 
-`gstack-port-for-codex` should make it easy to adopt high-rigor coding workflows in Codex without reverse-engineering Claude-specific prompt packs. The product is a compatibility layer: opinionated skills, explicit parity classes, clear migration notes, and lightweight tooling that make future ports faster and safer.
+`gstack-port-for-codex` should be a unified Codex package for both upstream systems:
+
+- GStack for coding workflows
+- GBrain for operating-system and memory-adjacent workflows
+
+The goal is not a tiny GBrain sampler. The goal is a full-surface Codex port with explicit adaptation notes and the smallest honest substrate needed to support the memory layer.
 
 ## Problem Statement
 
-Power users want reliable operating modes such as founder-style planning, engineering review, PR review, QA, and shipping workflows. Those modes already exist in gstack, but not in a Codex-ready form. The remaining challenge is not raw coverage; it is making the adaptation trustworthy enough that users know what they can adopt immediately and what still depends on host runtime support.
+GStack covers coding rigor. GBrain covers the surrounding operating model: recurring jobs, daily briefing, task management, maintenance, ingestion, enrichment, reporting, and identity. Codex users who want the whole operating system should not have to stitch those layers together by hand.
 
 ## Target Users
 
-- Solo builders who want a reusable operating system for Codex
-- Teams standardizing how they plan, review, and ship with AI coding agents
-- Contributors who want a documented path for maintaining parity as upstream and Codex diverge
+- solo builders running Codex as a daily operator
+- teams that want the coding and ops layers in one repo
+- contributors extending the port without reverse-engineering upstream intent
 
 ## User Jobs To Be Done
 
-- "Show me which gstack skills I can adopt in Codex today without extra runtime work."
-- "Tell me honestly which ports depend on browser or session tooling in my host environment."
-- "Help me port or maintain an upstream gstack skill without guessing what needs to change."
-- "Make sure new ports stay structurally consistent."
+- "Give me the full upstream skill surface, not just the coding core."
+- "Show me how the deeper GBrain workflows map into Codex."
+- "Give me a usable local substrate for the memory-oriented workflows."
+- "Keep the port package coherent as new skills land."
 
-## Current Product Scope
+## Scope
 
-### Stable Core
+### Current Phase
 
-- `plan-ceo-review`
-- `plan-eng-review`
-- `review`
-- `ship`
-- `retro`
+- full-surface GBrain registry and compatibility map
+- resolver-level framing for the GBrain layer
+- full GBrain skill ports
+- a local `brain/` substrate for the memory-oriented workflows
+- validation strong enough to keep the package coherent as the surface expands
 
-### Experimental Runtime-Aware Layer
+### Later
 
-- `browse`
-- `qa`
-- `setup-browser-cookies`
-
-### Included In The Public Repo
-
-- Compatibility README and strategy docs that explain the adaptation model
-- Full upstream-to-Codex coverage map
-- All eight skill ports, classified by parity type
-- Runtime compatibility notes and adoption examples
-- Minimal validation and tests for structural consistency
-
-### Explicitly Not Yet Included
-
-- A bundled browser runtime replacement for upstream gstack
-- Cookie extraction or import tooling built into this repo
-- Auto-sync against upstream changes
-- Packaging or installer automation
+- higher-fidelity runtime support for background signal capture or live event intake
+- stronger ingest ergonomics and richer conformance checks
+- a larger substrate decision if the local file-backed brain stops being enough
 
 ## Architecture And Tech Choices
 
-- Keep the repo language-agnostic, with Python only for validation utilities
-- Prefer plain Markdown and JSON over a heavy framework
-- Use a stable source pin so each port can cite exactly what it adapted from
-- Design each skill as concise `SKILL.md` plus references, aligned with Codex skill guidance
-- Use parity classes to separate direct prompt portability from host-dependent runtime portability
+- one repo, two upstream sources
+- one registry per upstream source
+- Markdown skill ports as the primary deliverable
+- explicit parity categories:
+  - `ported`
+  - `planned`
+  - `blocked`
+- a file-backed local brain before any larger backend recreation
 
 ## Risks And Assumptions
 
-- Assumption: trust comes from explicit scope boundaries, not just saying every skill is ported.
-- Risk: users may over-read `ported` as `full runtime parity` unless the README and examples stay clear.
-- Risk: some upstream prompts are intentionally verbose, so ports need thoughtful condensation instead of naive copying.
-- Risk: users may expect slash-command parity; the docs need to be explicit about Codex-native invocation.
+- Assumption: unified packaging is more valuable than splitting GBrain into a separate Codex repo too early.
+- Assumption: a resolver and compatibility map are required once the GBrain surface is represented.
+- Risk: users may over-read the local substrate as full GBrain parity unless the compatibility docs are honest.
+- Risk: some higher-fidelity runtime semantics still depend on infrastructure this repo does not yet ship.
 
-## Public Launch Goal
+## 60-90 Minute First Milestone
 
-Ship a repo that a new Codex user can understand in a few minutes: adopt the stable core immediately, evaluate the runtime-aware layer honestly, and contribute future maintenance without reverse-engineering the adaptation model.
+- add full-surface GBrain tracking
+- port the first workflow tranche
+- add a minimal local substrate for the memory skills
 
-## Near-Term Outcome
+## End-Of-Day Outcome
 
-Anyone visiting the public repo should understand:
+- a repo that reads as "GStack core plus full-surface GBrain Codex port"
+- a usable local brain layer for the memory-adjacent skills
+- a clear articulation of where runtime-identical parity still differs
 
-- which skills are ready for immediate adoption
-- which skills depend on host browser or session tooling
-- how the adaptation works
-- where future parity work is still needed
+## Not In Scope
 
-## Success Signals
-
-- A new adopter can identify the stable core in under two minutes.
-- A runtime-aware user can tell whether their environment is sufficient before attempting QA or browser work.
-- A reference skill is usable without reading the upstream repo first.
-- The validator catches obvious structural regressions before review.
+- claiming live ambient, webhook, or daemon parity before it exists
+- reducing the repo back to a GStack-only package

@@ -1,6 +1,10 @@
 # Compatibility Map
 
-Pinned upstream source: `garrytan/gstack@2aa745cb0e4331d683e727ec77385d04cdbb45a2`
+Baseline upstream source: `garrytan/gstack@2aa745cb0e4331d683e727ec77385d04cdbb45a2`
+
+Latest checked upstream source: `garrytan/gstack@11de390be1be6849eb9a15f91ff4922dd16c589a`
+
+Some newer ports record a per-skill `source_commit` in `data/skill-map.json` when they were adapted from a later upstream commit.
 
 This map tracks full upstream coverage, but the right way to read it is by adoption tier as well as by status.
 
@@ -15,22 +19,31 @@ This map tracks full upstream coverage, but the right way to read it is by adopt
 
 - Preserve the workflow intent and operating posture.
 - Translate invocation from slash commands to Codex skill discovery.
-- Remove Claude-specific update checks and runtime-only metadata.
+- Remove Claude-specific update checks, telemetry, plan-mode shell preambles, and runtime-only metadata.
 - Favor concise `SKILL.md` files plus references over giant single-file prompts.
 - Keep a machine-readable registry in sync with this table.
 
 ## Upstream To Codex Status
 
-| Upstream gstack skill | Codex skill target | Status | Port kind | Notes |
-| --- | --- | --- | --- | --- |
-| `plan-ceo-review` | `plan-ceo-review` | ported | `native` | Stable-core planning skill with Codex-friendly references and questioning rules. |
-| `plan-eng-review` | `plan-eng-review` | ported | `native` | Stable-core engineering review with scope-mode handling and explicit output structure. |
-| `review` | `review` | ported | `workflow-adapted` | Stable-core PR review preserving two-pass analysis and optional Greptile triage. |
-| `ship` | `ship` | ported | `workflow-adapted` | Stable-core release workflow with conditional versioning and changelog behavior. |
-| `browse` | `browse` | ported | `runtime-aware` | Experimental runtime-aware workflow; host browser/tooling determines execution depth. |
-| `qa` | `qa` | ported | `runtime-aware` | Experimental runtime-aware QA flow; runtime depends on available browser tools. |
-| `setup-browser-cookies` | `setup-browser-cookies` | ported | `runtime-aware` | Experimental runtime-aware session setup with Codex-native fallback strategies. |
-| `retro` | `retro` | ported | `workflow-adapted` | Stable-core retrospective workflow with history and compare guidance. |
+`data/skill-map.json` is now the machine-readable registry for the current Codex port surface: 56 ported GStack entries, including the June 26 upstream router/diagram/spec additions.
+
+### Stable Core
+
+- Routing and planning: `gstack`, `office-hours`, `spec`, `plan-ceo-review`, `plan-eng-review`, `plan-design-review`, `plan-devex-review`, `autoplan`, `plan-tune`
+- Review and execution: `review`, `investigate`, `ship`, `document-release`, `setup-deploy`, `land-and-deploy`, `health`, `retro`
+- Security and continuity: `cso`, `learn`, `checkpoint`, `codex`, `careful`, `freeze`, `guard`, `unfreeze`, `gstack-upgrade`
+- Design creation and direction: `design-consultation`, `design-shotgun`, `design-html`, `diagram`
+
+### Runtime-Aware Layer
+
+- Browser and QA: `browse`, `qa`, `qa-only`, `setup-browser-cookies`, `benchmark`, `canary`, `design-review`, `devex-review`
+- Browser utilities and coordination: `open-gstack-browser`, `connect-chrome`, `pair-agent`
+
+### Reading The Registry
+
+- `status = ported` means the workflow is represented in Codex form.
+- `port_kind = runtime-aware` means the workflow depends on host browser, deploy, or runtime capabilities for full depth.
+- `source_commit` on a skill means that skill was ported or refreshed against a newer upstream commit than the baseline pin.
 
 ## Adaptation Notes
 

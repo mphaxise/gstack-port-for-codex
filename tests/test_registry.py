@@ -76,12 +76,83 @@ class RegistryTests(unittest.TestCase):
         self.assertIn("plan-ceo-review", table)
         self.assertIn("ported", table)
         self.assertIn("runtime-aware", table)
+        self.assertIn("Source", table)
 
-    def test_all_upstream_skills_are_now_ported(self) -> None:
+    def test_current_gstack_ports_count(self) -> None:
         skill_map = load_skill_map(REPO_ROOT / "data" / "skill-map.json")
+        ported = [skill["codex_slug"] for skill in skill_map["skills"] if skill["status"] == "ported"]
+
+        self.assertEqual(len(ported), 56)
+        for slug in (
+            "gstack",
+            "office-hours",
+            "autoplan",
+            "diagram",
+            "spec",
+            "setup-gbrain",
+            "sync-gbrain",
+            "context-save",
+            "context-restore",
+            "document-generate",
+            "benchmark-models",
+            "ios-qa",
+            "landing-report",
+            "make-pdf",
+            "scrape",
+            "skillify",
+            "plan-design-review",
+            "devex-review",
+            "document-release",
+            "cso",
+            "open-gstack-browser",
+            "connect-chrome",
+            "plan-tune",
+        ):
+            self.assertIn(slug, ported)
+
+    def test_current_gbrain_surface_is_ported(self) -> None:
+        skill_map = load_skill_map(REPO_ROOT / "data" / "gbrain-skill-map.json")
         ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
 
-        self.assertEqual(len(ported), 8)
+        self.assertEqual(len(skill_map["skills"]), 53)
+        self.assertEqual(len(ported), 53)
+        for slug in (
+            "capture",
+            "gbrain-advisor",
+            "gbrain-upgrade",
+            "idea-lineage",
+            "schema-unify",
+            "skill-optimizer",
+            "brain-taxonomist",
+            "schema-author",
+            "frontmatter-guard",
+            "article-enrichment",
+            "concept-synthesis",
+            "perplexity-research",
+            "minion-orchestrator",
+            "skillpack-check",
+            "voice-note-ingest",
+        ):
+            self.assertIn(slug, [skill["codex_slug"] for skill in ported])
+
+    def test_praneet_extension_layer_is_registered(self) -> None:
+        skill_map = load_skill_map(REPO_ROOT / "data" / "praneet-skill-map.json")
+        ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
+
+        self.assertEqual(len(ported), 7)
+        self.assertEqual(
+            sorted(skill["codex_slug"] for skill in ported),
+            [
+                "accessibility-review",
+                "design-leadership-review",
+                "market-map",
+                "outcome-memory",
+                "research-synthesis",
+                "responsible-design-review",
+                "startup-memo",
+            ],
+        )
+        self.assertTrue(all(skill["port_kind"] == "hand-port-enhanced" for skill in ported))
 
 
 if __name__ == "__main__":

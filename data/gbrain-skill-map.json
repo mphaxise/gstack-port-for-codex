@@ -1,0 +1,626 @@
+{
+  "source": {
+    "name": "gbrain",
+    "repo": "https://github.com/garrytan/gbrain",
+    "license": "MIT",
+    "commit": "b7e3005b5b3f1b54082f9c5990482ebf81a4a807",
+    "latest_checked_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+    "latest_checked_at": "2026-06-26"
+  },
+  "ported_at": "2026-04-16",
+  "skills": [
+    {
+      "upstream_slug": "ingest",
+      "codex_slug": "ingest",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Content ingestion into the local Codex brain corpus.",
+      "notes": "Adapted into file-backed page creation and updates under `brain/` with category-based routing and explicit source handling.",
+      "source_files": [
+        "ingest/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "query",
+      "codex_slug": "query",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Brain-grounded question answering over the local Codex brain substrate.",
+      "notes": "Adapted into file-backed search and page reads using the local `brain/` corpus plus deterministic helper scripts.",
+      "source_files": [
+        "query/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "maintain",
+      "codex_slug": "maintain",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Brain-health and consistency maintenance workflow.",
+      "notes": "Adapted into package-health and corpus-health maintenance using repo checks, targeted audits, and timestamped maintenance reports.",
+      "source_files": [
+        "maintain/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "enrich",
+      "codex_slug": "enrich",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Entity enrichment workflow over the local Codex brain corpus.",
+      "notes": "Adapted into file-backed page improvement with compiled-truth updates, timeline additions, and explicit citations.",
+      "source_files": [
+        "enrich/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "briefing",
+      "codex_slug": "briefing",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Daily briefing workflow using Codex connectors, local notes, and explicit source handling.",
+      "notes": "Maps GBrain page lookups into Codex calendar, Gmail, local files, and explicit coverage-gap notes.",
+      "source_files": [
+        "briefing/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "migrate",
+      "codex_slug": "migrate",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Migration workflow for importing external note or wiki systems into a future Codex memory target.",
+      "notes": "Adapted into a sample-first migration and verification workflow for Codex-side files or a future substrate.",
+      "source_files": [
+        "migrate/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "setup",
+      "codex_slug": "setup",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Setup workflow for a future Codex-side GBrain substrate.",
+      "notes": "Adapted into package setup, file conventions, and substrate-preparation guidance for Codex.",
+      "source_files": [
+        "setup/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "publish",
+      "codex_slug": "publish",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Publishing workflow for shareable GBrain-derived outputs.",
+      "notes": "Adapted into a file-based publishing and sharing workflow for reports, memos, and exported pages.",
+      "source_files": [
+        "publish/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "signal-detector",
+      "codex_slug": "signal-detector",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Explicit signal capture workflow for ideas and entity mentions.",
+      "notes": "Adapted from always-on sidecar behavior into a deliberate local-brain capture flow backed by `scripts/brain_capture_signal.py`.",
+      "source_files": [
+        "signal-detector/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "brain-ops",
+      "codex_slug": "brain-ops",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Brain-first read-enrich-write operating loop.",
+      "notes": "Adapted into an explicit workflow over the local `brain/` corpus using search, write, backlink, and citation helpers.",
+      "source_files": [
+        "brain-ops/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "idea-ingest",
+      "codex_slug": "idea-ingest",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Link and idea ingestion with entity cross-linking.",
+      "notes": "Adapted into local-file ingest with preserved raw artifacts, author page updates, and explicit related-entity propagation.",
+      "source_files": [
+        "idea-ingest/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "media-ingest",
+      "codex_slug": "media-ingest",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Media ingestion workflow for PDFs, transcripts, screenshots, and repo notes.",
+      "notes": "Adapted into text-bearing media ingest for artifacts already readable by Codex, with raw preservation and follow-on enrichment.",
+      "source_files": [
+        "media-ingest/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "meeting-ingestion",
+      "codex_slug": "meeting-ingestion",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Meeting transcript ingestion workflow with propagation to attendees and companies.",
+      "notes": "Adapted into file-backed meeting-page creation plus attendee and company backlink propagation via `scripts/brain_ingest_meeting.py`.",
+      "source_files": [
+        "meeting-ingestion/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "citation-fixer",
+      "codex_slug": "citation-fixer",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Citation audit and repair workflow for the local brain corpus.",
+      "notes": "Adapted into deterministic citation auditing and markup normalization via `scripts/brain_citations.py`.",
+      "source_files": [
+        "citation-fixer/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "repo-architecture",
+      "codex_slug": "repo-architecture",
+      "status": "ported",
+      "port_kind": "native",
+      "summary": "Repo-filing rules for where future GBrain port artifacts belong in this package.",
+      "notes": "Adapts upstream brain filing into package-architecture guidance for this repo.",
+      "source_files": [
+        "repo-architecture/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "skill-creator",
+      "codex_slug": "skill-creator",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Structured skill-authoring workflow for expanding the GBrain port cleanly.",
+      "notes": "Updates the registry and docs instead of the upstream manifest-plus-resolver pair.",
+      "source_files": [
+        "skill-creator/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "daily-task-manager",
+      "codex_slug": "daily-task-manager",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Task lifecycle workflow for a repo-local or user-selected task file.",
+      "notes": "Maps brain task pages into a simpler Codex-side task tracker.",
+      "source_files": [
+        "daily-task-manager/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "daily-task-prep",
+      "codex_slug": "daily-task-prep",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Morning-prep workflow using calendar, tasks, and open-thread context.",
+      "notes": "Uses Codex connectors and local task state rather than GBrain page queries.",
+      "source_files": [
+        "daily-task-prep/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "cross-modal-review",
+      "codex_slug": "cross-modal-review",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Secondary-review and quality-gate workflow for complex outputs.",
+      "notes": "Adapted into a second-pass review workflow using Codex-native review patterns and explicit disagreement reporting.",
+      "source_files": [
+        "cross-modal-review/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "cron-scheduler",
+      "codex_slug": "cron-scheduler",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Codex-native automation scheduling guidance for recurring work, heartbeats, and cron automations.",
+      "notes": "Preserves thin prompts, staggering, quiet-hours thinking, and idempotent recurring work while mapping raw cron into Codex automation primitives.",
+      "source_files": [
+        "cron-scheduler/SKILL.md",
+        "cron-scheduler/references/automation-patterns.md",
+        "cron-scheduler/references/quiet-hours.md"
+      ]
+    },
+    {
+      "upstream_slug": "reports",
+      "codex_slug": "reports",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Timestamped local report workflow with stable categories and latest-report lookup.",
+      "notes": "Adapts page-based report storage into file-based report storage inside or alongside the repo.",
+      "source_files": [
+        "reports/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "testing",
+      "codex_slug": "testing",
+      "status": "ported",
+      "port_kind": "native",
+      "summary": "Skill-conformance workflow for validating the growing combined GStack and GBrain surface.",
+      "notes": "Maps upstream conformance checks onto this repo's registries, docs, and validation scripts.",
+      "source_files": [
+        "testing/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "soul-audit",
+      "codex_slug": "soul-audit",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Identity and operating-cadence audit workflow.",
+      "notes": "Adapted into a file-generating workflow for local identity, user, access, and cadence documents.",
+      "source_files": [
+        "soul-audit/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "webhook-transforms",
+      "codex_slug": "webhook-transforms",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "External event to brain-signal transformation workflow.",
+      "notes": "Adapted into offline JSON payload replay, transform, and dead-letter handling through `scripts/brain_transform_event.py`.",
+      "source_files": [
+        "webhook-transforms/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "data-research",
+      "codex_slug": "data-research",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "summary": "Structured research workflow for tracked data extraction and reporting.",
+      "notes": "Adapted into a research-to-tracker workflow using files, reports, connectors, and explicit source archives.",
+      "source_files": [
+        "data-research/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "capture",
+      "codex_slug": "capture",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Single front door for saving thoughts or short artifacts into the local brain substrate.",
+      "notes": "Maps upstream `gbrain capture` to repo-local capture and ingest helpers, with upstream CLI use only when available.",
+      "source_files": [
+        "capture/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "brain-taxonomist",
+      "codex_slug": "brain-taxonomist",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Filing gate for new local brain pages before they are written.",
+      "notes": "Adapts active schema-pack filing into the repo's local brain folders while consulting real GBrain schema metadata when available.",
+      "source_files": [
+        "brain-taxonomist/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "schema-author",
+      "codex_slug": "schema-author",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Evolve local brain schema and page-type conventions when the existing taxonomy is insufficient.",
+      "notes": "Keeps schema changes small and compatible with the file-backed local substrate while preserving an upgrade path to upstream GBrain schema packs.",
+      "source_files": [
+        "schema-author/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "frontmatter-guard",
+      "codex_slug": "frontmatter-guard",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Audit and repair local brain page frontmatter before malformed pages break sync or search.",
+      "notes": "Maps upstream frontmatter validation to read-first local checks and `brain_doctor.py`, with optional upstream CLI support when present.",
+      "source_files": [
+        "frontmatter-guard/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "academic-verify",
+      "codex_slug": "academic-verify",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Verify academic claims and citations against primary evidence.",
+      "notes": "Adapts upstream research verification to browse-first citation work with explicit verdicts and copyright-safe quoting.",
+      "source_files": [
+        "academic-verify/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "archive-crawler",
+      "codex_slug": "archive-crawler",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Triage personal archives for high-value brain material.",
+      "notes": "Ports archive discovery as sample-first, privacy-preserving local triage before any ingest occurs.",
+      "source_files": [
+        "archive-crawler/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "article-enrichment",
+      "codex_slug": "article-enrichment",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Turn raw article dumps into structured brain pages.",
+      "notes": "Adapts article enrichment to local brain pages, citations, short quotes, and cross-linking.",
+      "source_files": [
+        "article-enrichment/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "ask-user",
+      "codex_slug": "ask-user",
+      "status": "ported",
+      "port_kind": "native",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Reusable explicit user decision gate.",
+      "notes": "Ports the upstream decision-gating pattern into a concise Codex-native skill.",
+      "source_files": [
+        "ask-user/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "book-mirror",
+      "codex_slug": "book-mirror",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Map a book chapter by chapter onto local brain context.",
+      "notes": "Adapts personalized book reading while preserving copyright limits and requiring local brain evidence for user-specific claims.",
+      "source_files": [
+        "book-mirror/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "brain-pdf",
+      "codex_slug": "brain-pdf",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Export a brain page as a PDF through make-pdf.",
+      "notes": "Ports PDF generation for brain pages while keeping markdown as source of truth.",
+      "source_files": [
+        "brain-pdf/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "cold-start",
+      "codex_slug": "cold-start",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Bootstrap a new local brain from highest-value first sources.",
+      "notes": "Adapts upstream day-one setup into local-first sample ingestion and smoke checks.",
+      "source_files": [
+        "cold-start/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "concept-synthesis",
+      "codex_slug": "concept-synthesis",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Deduplicate and synthesize overlapping concept pages.",
+      "notes": "Ports concept-tier synthesis while preserving provenance and requiring explicit approval before rewrites.",
+      "source_files": [
+        "concept-synthesis/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "eiirp",
+      "codex_slug": "eiirp",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Organize all outputs from a work session into their right places.",
+      "notes": "Adapts Everything In Its Right Place to repo artifacts, reports, and the local brain substrate.",
+      "source_files": [
+        "eiirp/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "functional-area-resolver",
+      "codex_slug": "functional-area-resolver",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Compress granular routing files into functional-area dispatch rules.",
+      "notes": "Ports resolver compaction while preserving safety and discoverability.",
+      "source_files": [
+        "functional-area-resolver/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "install",
+      "codex_slug": "install",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Install or verify the local GBrain-style skill surface for Codex.",
+      "notes": "Adapts upstream install to idempotent local symlink verification without replacing non-repo skills; refreshed for the June 26 Codex install and drift-check pass.",
+      "source_files": [
+        "install/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "minion-orchestrator",
+      "codex_slug": "minion-orchestrator",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Coordinate background jobs, shell tasks, and subagent-style work.",
+      "notes": "Ports minion orchestration into bounded Codex job planning and status collection; refreshed in the June 26 runtime deepening pass.",
+      "source_files": [
+        "minion-orchestrator/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "perplexity-research",
+      "codex_slug": "perplexity-research",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Brain-augmented current web research with citations.",
+      "notes": "Adapts Perplexity-style research to local brain search plus browser-backed source citation.",
+      "source_files": [
+        "perplexity-research/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "skillify",
+      "codex_slug": "skillify",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Meta skill for turning proven workflows into tested skills.",
+      "notes": "Shares the local skillify implementation with GStack while preserving the GBrain skill authoring lens.",
+      "source_files": [
+        "skillify/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "skillpack-check",
+      "codex_slug": "skillpack-check",
+      "status": "ported",
+      "port_kind": "native",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Health report for the combined local GStack and GBrain skillpack.",
+      "notes": "Ports skillpack doctor behavior to repo validation, tests, upstream coverage, local installs, and brain health checks; refreshed for the June 26 Codex install and drift-check pass.",
+      "source_files": [
+        "skillpack-check/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "skillpack-harvest",
+      "codex_slug": "skillpack-harvest",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Harvest a proven external skill into this repo safely.",
+      "notes": "Ports skill harvesting with privacy review, provenance, routing, and validation steps.",
+      "source_files": [
+        "skillpack-harvest/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "smoke-test",
+      "codex_slug": "smoke-test",
+      "status": "ported",
+      "port_kind": "native",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Post-restart smoke tests for the local skillpack and brain substrate.",
+      "notes": "Ports smoke testing to validation, unit tests, brain doctor, and local install checks.",
+      "source_files": [
+        "smoke-test/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "strategic-reading",
+      "codex_slug": "strategic-reading",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Read a source through the lens of a strategic problem.",
+      "notes": "Adapts applied reading to local brain context and source-grounded strategic synthesis.",
+      "source_files": [
+        "strategic-reading/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "voice-note-ingest",
+      "codex_slug": "voice-note-ingest",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "32f8be96c2409b8ccd35b7835692fd56b640f5c4",
+      "summary": "Ingest voice-note transcripts with exact phrasing preservation.",
+      "notes": "Ports voice note routing into capture, taxonomy, and local brain conventions without paraphrasing preserved text.",
+      "source_files": [
+        "voice-note-ingest/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "gbrain-advisor",
+      "codex_slug": "gbrain-advisor",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Read-only brain health advisor for high-leverage setup, drift, migration, and citation findings.",
+      "notes": "Maps upstream advisor behavior to repo-local checks first, then optional upstream gbrain CLI read-only checks.",
+      "source_files": [
+        "gbrain-advisor/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "gbrain-upgrade",
+      "codex_slug": "gbrain-upgrade",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Safe upstream gbrain CLI upgrade workflow with hardcoded commands and local validation.",
+      "notes": "Keeps upgrade markers non-executable and separates upstream CLI upgrades from this repo local substrate.",
+      "source_files": [
+        "gbrain-upgrade/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "idea-lineage",
+      "codex_slug": "idea-lineage",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Single-idea evolution tracing across the local brain corpus with evidence gaps and reversals.",
+      "notes": "Adapts upstream graph/search tools to deterministic local brain_search and direct Markdown page reads.",
+      "source_files": [
+        "idea-lineage/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "schema-unify",
+      "codex_slug": "schema-unify",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Schema and page-type unification planning for local Markdown brains or upstream gbrain schema packs.",
+      "notes": "Ports the canonical-taxonomy migration playbook as an audit-first Codex workflow with explicit approval gates.",
+      "source_files": [
+        "schema-unify/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "skill-optimizer",
+      "codex_slug": "skill-optimizer",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "814258dda67945ffec9457a1e73980e947b7e462",
+      "summary": "Validation-gated skill tuning workflow grounded in benchmarks and held-out examples.",
+      "notes": "Adapts upstream SkillOpt into Codex-native benchmark-first editing without automatic external optimizer calls.",
+      "source_files": [
+        "skill-optimizer/SKILL.md"
+      ]
+    }
+  ]
+}
