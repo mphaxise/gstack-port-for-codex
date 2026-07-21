@@ -35,3 +35,9 @@ The historical map pins remain conservative to measure broad runtime drift. `ski
 - do not publish private generated `brain/` corpus state as package source
 
 These are explicit adaptation boundaries, not unreported parity gaps.
+
+## July 21 follow-up review
+
+- GStack remained at the July 16 workflow-parity commit `a325940`; no new GStack skill change required adoption.
+- GBrain was reviewed through `3cc34c9`. The new commits cover upstream CLI, database, sync, provider, search, worker, and release infrastructure. The file-backed local brain substrate and Codex workflow surface require no new adoption from that runtime work.
+- Impeccable was reviewed through `4d849eb`. The Codex bridge now documents current project-scoped hook configuration, narrow confirmed exceptions, post-edit feedback, and live-session recovery. Its detector engine, hook scripts, browser server, and source-rewrite runtime remain upstream.

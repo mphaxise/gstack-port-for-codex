@@ -2,7 +2,7 @@
 
 ## Current boundary
 
-The complete Impeccable design surface is tracked at `pbakaus/impeccable@8259c28209b92792005cec14dad573df39f68eaf`, observed July 16, 2026. The machine-readable source is [`data/impeccable-capability-map.json`](../data/impeccable-capability-map.json).
+The complete Impeccable design surface is reviewed through `pbakaus/impeccable@4d849eb75f216109ea7053ed21530a11fafcc786`, observed July 21, 2026. The conservative baseline remains `8259c28209b92792005cec14dad573df39f68eaf`. The machine-readable source is [`data/impeccable-capability-map.json`](../data/impeccable-capability-map.json).
 
 The integration combines three modes:
 
@@ -64,6 +64,10 @@ Every review reports three independent states:
 3. **Local adoption:** local skills, tests, or docs changed and their source boundary advanced.
 
 The repository-level baseline advances only after the complete mapped surface is reviewed. Partial refreshes use per-capability `source_commit` values.
+
+## July 21 review
+
+The reviewed delta covered detector configuration, project hooks, live-session recovery, template support, and provider-generated packaging. The local port adopted concise guidance for project-scoped hook configuration, narrow confirmed exceptions, Codex post-edit feedback, and foreground live-session recovery. The detector engine, hook scripts, browser server, session journal, provider packages, and source-rewrite implementation remain external runtime capabilities.
 
 ## Triage rules
 

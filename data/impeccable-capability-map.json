@@ -5,11 +5,11 @@
     "repo": "https://github.com/pbakaus/impeccable",
     "license": "Apache-2.0",
     "commit": "8259c28209b92792005cec14dad573df39f68eaf",
-    "latest_checked_commit": "8259c28209b92792005cec14dad573df39f68eaf",
-    "latest_checked_at": "2026-07-16",
-    "capability_parity_commit": "8259c28209b92792005cec14dad573df39f68eaf"
+    "latest_checked_commit": "4d849eb75f216109ea7053ed21530a11fafcc786",
+    "latest_checked_at": "2026-07-21",
+    "capability_parity_commit": "4d849eb75f216109ea7053ed21530a11fafcc786"
   },
-  "reviewed_at": "2026-07-16",
+  "reviewed_at": "2026-07-21",
   "capabilities": [
     {
       "id": "core-guidance",

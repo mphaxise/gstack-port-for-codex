@@ -7,7 +7,7 @@ description: Check and apply upstream gbrain upgrades safely, while keeping the 
 
 Use this skill when the user asks to update, upgrade, or verify upstream GBrain availability.
 
-This port is adapted from `garrytan/gbrain` at commit `814258dda67945ffec9457a1e73980e947b7e462`.
+This port's current GBrain workflow-parity boundary is `garrytan/gbrain@5008b287e47bf791132eedfebf66bdef11e9398c`.
 
 ## Workflow
 

@@ -1,5 +1,10 @@
 # Codex Documentation Refresh
 
+Latest verification: 2026-07-21
+Installed Codex: `codex-cli 0.144.0`
+Documentation access: the local manual helper could not resolve `developers.openai.com` during this port refresh. The last successful local manual review remains the July 16 refresh recorded below.
+Resulting port decision: retain the documented Codex skill, approval, hook-trust, Browser, Chrome, Computer Use, automation, memory, and local-runtime boundaries. The GStack review required no update. GBrain's new upstream runtime work remains outside the file-backed port. The Impeccable bridge adopted only current guidance for project-scoped hooks and live-session recovery.
+
 Latest verification: 2026-07-06
 Installed Codex: `codex-cli 0.142.5`
 Documentation access: the local manual helper failed to refresh the official manual on 2026-07-06 because `developers.openai.com` could not be resolved from this run. The most recent successful cached refresh remains the 2026-07-02 fetch via `/Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`.
