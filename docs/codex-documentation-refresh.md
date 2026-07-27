@@ -1,5 +1,14 @@
 # Codex Documentation Refresh
 
+Latest verification: 2026-07-27
+Installed Codex: `codex-cli 0.144.0`
+Documentation access: the official Codex manual helper refreshed successfully.
+Resulting port decision: package prescriptive OpenCode orchestration as a
+reusable skill, keep repository conventions in `AGENTS.md`, and install the
+skill through the existing symlink pattern. Codex retains architecture and
+final verification; external OpenCode sessions remain bounded implementation
+workers with explicit model and cost evidence.
+
 Latest verification: 2026-07-06
 Installed Codex: `codex-cli 0.142.5`
 Documentation access: the local manual helper failed to refresh the official manual on 2026-07-06 because `developers.openai.com` could not be resolved from this run. The most recent successful cached refresh remains the 2026-07-02 fetch via `/Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`.

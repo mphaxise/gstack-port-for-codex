@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prescriptive OpenCode Delegation"
+  short_description: "Delegate exact file tasks to bounded OpenCode agents"
+  default_prompt: "Use $prescriptive-opencode-delegation to plan this implementation, commission bounded OpenCode agents, and verify the assembled result."
