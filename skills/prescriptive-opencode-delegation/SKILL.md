@@ -1,6 +1,6 @@
 ---
 name: prescriptive-opencode-delegation
-description: Plan and orchestrate implementation through tightly bounded OpenCode agents while Codex retains architecture, file contracts, exception handling, assembly, and final verification. Use for coding or design-implementation tasks that can be split into non-overlapping files or modules, especially when the user requests OpenCode delegation, cheaper external coding agents, detailed agent commissions, or a Codex-orchestrated multi-agent build.
+description: Plan and orchestrate implementation through tightly bounded, task-matched OpenCode agents while Codex retains architecture, file contracts, exception handling, assembly, and final verification. Use for coding or design-implementation tasks that can be split into non-overlapping files or modules, especially when the user requests OpenCode delegation, best-suited external coding models, detailed agent commissions, or a Codex-orchestrated multi-agent build.
 ---
 
 # Prescriptive OpenCode Delegation
@@ -40,16 +40,22 @@ unless the task contract specifies a tighter bound.
 ## Route models
 
 Read [model-routing.md](references/model-routing.md) before starting delegated
-runs. Default to `nvidia/openai/gpt-oss-120b` with medium reasoning.
+runs. Classify each assignment by work type, then select its strongest
+cost-compatible primary from the routing table. Use
+`nvidia/openai/gpt-oss-120b` with medium reasoning as the general coding
+default. Use task-specific primaries for visual CSS, compact markup, broad
+refactors, and data-heavy code. For a novel, repeated work type with no reliable
+evidence, run the bounded model canary defined in the routing reference.
 
-Use one task-matched free OpenCode fallback for quota, rate-limit, transient
-provider, 5xx, timeout, or missing-first-token failures. Use the installed local
-Ollama model after that free tier. Preserve the original commission, target
-files, and acceptance criteria across retries.
+Choose the free fallback before launching the primary. Use that fallback for
+quota, rate-limit, transient provider, 5xx, timeout, or missing-first-token
+failures. Use the installed local Ollama model after the free tier. Preserve the
+original commission, target files, and acceptance criteria across retries.
 
 Never use a Codex/OpenAI-billed delegated model. The `openai` segment in the
 NVIDIA-hosted GPT-OSS identifier describes the model family; verify the active
-provider and stored cost before reporting.
+provider and stored cost before reporting. Ask for a cost allowance before
+selecting a route with a known nonzero provider charge.
 
 ## Write executable commissions
 
