@@ -23,10 +23,13 @@ This port is adapted from `garrytan/gstack` at commit `4d2c8d94d00cc4f4f3d4c2631
 4. Read the project's applicable prevention entries. Name the UX and visual
    invariants the implementation must preserve, the consequential journey
    states it must cover, and known issue families it must not repeat.
-5. Define the evidence that will classify recurrence as `clear`, `clear with new
+5. Add one or two counterexamples describing how the experience must fail
+   safely. Identify adjacent surfaces sharing the affected component, token,
+   navigation rule, or state model.
+6. Define the evidence that will classify recurrence as `clear`, `clear with new
    prevention`, `blocked`, or `unknown`.
-6. Rate the weak points plainly and describe what a stronger version would look like.
-7. Rewrite or refine the plan so the next implementation step is design-aware, not just technically valid.
+7. Rate the weak points plainly and describe what a stronger version would look like.
+8. Rewrite or refine the plan so the next implementation step is design-aware, not just technically valid.
 
 ## Guardrails
 
@@ -44,4 +47,5 @@ Always include:
 - revised design direction
 - specific risks to avoid during implementation
 - named invariants and known recurrence risks
+- counterexamples and adjacent surfaces
 - next 1-3 actions

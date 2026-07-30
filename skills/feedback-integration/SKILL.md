@@ -31,6 +31,15 @@ Read `references/feedback-loop-template.md` when creating a feedback batch or ha
 3. Freeze a baseline package before editing. Include only the source map, relevant diff or artifact, applicable requirements, and current receipts.
 4. Apply one coherent correction pass. Avoid opportunistic cleanup and unrelated improvements.
 
+Before editing a user-facing slice, run a compact mistake preflight:
+
+- applicable prior prevention entries and recurring issue families
+- named product, UX, visual, accessibility, privacy, and service invariants
+- one or two counterexamples describing how the experience must fail safely
+- consequential journey states and adjacent surfaces sharing the affected
+  component, token, navigation rule, or state model
+- evidence that will detect recurrence before acceptance
+
 ## Prevent Recurrence
 
 For every material bug or UX issue, add one compact prevention entry to the
@@ -65,6 +74,24 @@ Use these escalation rules:
 Keep discovery separate. Recurrence review checks known patterns; a fresh-eyes
 discovery pass looks for new problems.
 
+Route every material discovery into the project's single canonical backlog or
+feedback record. Record its reproduction, affected journey and states, severity,
+evidence confidence, issue family, owner or decision gate, acceptance method,
+and prevention status. Classify it as:
+
+- `block current slice`
+- `next correction slice`
+- `scheduled backlog`
+- `product decision`
+- `observe`
+- `closed`
+
+Acceptance may continue with a deferred discovery only when its classification,
+evidence, owner or decision gate, and non-blocking rationale are explicit. Link
+related findings to one canonical issue family. Close an issue only after its
+correction is verified and prevention is added or explicitly judged
+unnecessary.
+
 ## Verify In Tiers
 
 Run the narrowest sufficient sequence, expanding only when the prior tier passes or exposes a wider dependency:
@@ -88,6 +115,18 @@ Repeat a tier only when an input changed, a failure needs diagnosis, or new evid
 - Reuse a receipt only when its recorded inputs still match. Mark it `invalidated` or `unknown` otherwise.
 - Save a compact checkpoint after the slice. Include the updated source map, receipt status, remaining feedback, and the next action.
 - Recommend a fresh task when the active packet or reset rules in `context-save` say continuation is no longer efficient. Do not create one unless the user asks.
+
+At a milestone closeout, review prevention effectiveness:
+
+- which safeguards caught later issues
+- which were bypassed, noisy, or ineffective
+- which rules remain project-local
+- which patterns meet the evidence threshold for reusable guidance
+- which obsolete rules should be removed
+
+When useful, record project-local escape counts by detection stage: planning,
+implementation checks, acceptance QA, discovery, and post-acceptance. Use the
+counts to improve gates, never as a quality target or performance score.
 
 ## Guardrails
 

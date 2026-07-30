@@ -37,6 +37,11 @@ run a distinct UX recurrence pass against the frozen package. Check the named
 journey and state invariants plus known issue families. Keep this separate from
 a fresh-eyes discovery pass, which looks for new problems.
 
+Confirm that the plan included applicable prior prevention entries, named
+invariants, counterexamples, and adjacent surfaces. Route every material new
+discovery into the project's single canonical backlog or feedback record with
+an explicit classification and acceptance impact.
+
 ## Corrections And Receipts
 
 - After a correction, rerun only panels and checks whose recorded inputs or risk surface changed.

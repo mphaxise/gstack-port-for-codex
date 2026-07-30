@@ -60,6 +60,13 @@ Build, test, or accessibility success does not replace visual and interaction
 evidence. Read the project's prevention entries and record one UX recurrence
 result: `clear`, `clear with new prevention`, `blocked`, or `unknown`.
 
+For a shared component, token, navigation rule, or state model defect, inspect
+the adjacent surfaces named by the frozen package once. Route every material new
+discovery to the project's canonical backlog or feedback record. Include its
+classification, evidence confidence, owner or decision gate, acceptance method,
+and prevention status. A deferred discovery needs an explicit non-blocking
+rationale before the current slice can be accepted.
+
 ## Record Receipts
 
 For each check, record:

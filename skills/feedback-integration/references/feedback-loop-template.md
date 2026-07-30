@@ -18,6 +18,10 @@ Authority and stop gates:
 ### Correction Slice
 - Allowlist:
 - Acceptance criteria:
+- Applicable prior prevention entries:
+- Named invariants:
+- Counterexamples:
+- Adjacent surfaces:
 - Invalidated receipts:
 - Reusable receipts:
 
@@ -38,12 +42,29 @@ Authority and stop gates:
 - Recurrence status: first / recurring / reusable-pattern candidate
 - UX recurrence result: clear / clear with new prevention / blocked / unknown
 
+### Discovery Routing
+- Discovery:
+- Classification: block current slice / next correction slice / scheduled backlog / product decision / observe / closed
+- Severity and confidence:
+- Canonical issue family:
+- Owner or decision gate:
+- Acceptance method:
+- Non-blocking rationale:
+
 ### Closeout
 - Observed:
 - Reported:
 - Unknown:
 - Remaining feedback:
 - Next action:
+
+### Milestone Prevention Review
+- Effective safeguards:
+- Bypassed, noisy, or ineffective safeguards:
+- Project-local rules:
+- Reusable-guidance candidates:
+- Rules to remove:
+- Optional escape counts by detection stage:
 ```
 
 Omit empty optional sections. Keep the batch short enough to serve as a handoff without rereading the full task history.

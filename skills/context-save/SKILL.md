@@ -24,6 +24,8 @@ Keep the packet at or below 1,500 words after removing repetition. Include:
 9. compact slice telemetry
 10. unresolved material bugs or UX issues, applicable prevention entries,
     recurrence status, and evidence or receipt invalidation triggers
+11. material discoveries with backlog classification, owner or decision gate,
+    acceptance method, and non-blocking rationale when deferred
 
 Do not reconstruct a complete chronology. Preserve only information required to continue safely.
 
