@@ -22,6 +22,8 @@ Keep the packet at or below 1,500 words after removing repetition. Include:
 7. receipts: check or review, covered inputs, direct fingerprint or hash when available, result, and status
 8. remaining work, blockers, unknowns, and the single next action
 9. compact slice telemetry
+10. unresolved material bugs or UX issues, applicable prevention entries,
+    recurrence status, and evidence or receipt invalidation triggers
 
 Do not reconstruct a complete chronology. Preserve only information required to continue safely.
 
@@ -32,6 +34,9 @@ Use one of these statuses:
 - `reusable`: the covered inputs and risk surface are unchanged
 - `invalidated`: a covered input, requirement, environment, or risk surface changed
 - `unknown`: the evidence does not establish whether reuse is safe
+
+A receipt is `invalidated` when a newly discovered recurrence changes its
+covered UX, visual, accessibility, privacy, safety, or service invariant.
 
 Record hashes, build identifiers, token counts, and timings only when a tool or artifact reports them directly. Never invent a fingerprint.
 

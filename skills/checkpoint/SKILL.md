@@ -13,6 +13,8 @@ This port is adapted from `garrytan/gstack` at commit `4d2c8d94d00cc4f4f3d4c2631
 
 1. Use `context-save` when capturing current work.
 2. Produce its compact active packet, source map, receipt classifications, slice telemetry, and reset recommendation.
+   Include unresolved material bugs, applicable UX prevention entries,
+   recurrence status, and receipt invalidation triggers.
 3. Use `context-restore` when resuming from that packet.
 4. Prefer one canonical checkpoint over scattered status narration.
 

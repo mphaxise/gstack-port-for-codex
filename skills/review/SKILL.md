@@ -32,11 +32,21 @@ This port is adapted from `garrytan/gstack` at commit `2aa745cb0e4331d683e727ec7
 5. Keep the controlling agent responsible for edits, builds, runtime or Simulator control, Git, and connected services.
 6. If GitHub CLI and Greptile comments are available, optionally apply `references/greptile-triage.md`.
 
+For a user-facing change, read the project's applicable prevention entries and
+run a distinct UX recurrence pass against the frozen package. Check the named
+journey and state invariants plus known issue families. Keep this separate from
+a fresh-eyes discovery pass, which looks for new problems.
+
 ## Corrections And Receipts
 
 - After a correction, rerun only panels and checks whose recorded inputs or risk surface changed.
 - Reuse an unaffected receipt only when its base, head, evidence, requirements, and environment still match.
 - Run one consolidated review after all required corrections are stable.
+- For every corrected material issue, ask which safeguard would have caught it
+  before acceptance. Replay the smallest reproduction against that safeguard.
+- Record the UX recurrence result as `clear`, `clear with new prevention`,
+  `blocked`, or `unknown`. A known recurrence without verified prevention blocks
+  acceptance.
 - Avoid duplicate panels, full-history forks, and repeated full-diff reads without changed evidence.
 
 ## Output Rules

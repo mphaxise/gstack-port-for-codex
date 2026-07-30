@@ -46,6 +46,20 @@ Cover applicable paths:
 
 Use the same screen, state, device, viewport, and data when comparing visual evidence.
 
+For user-facing changes, also check applicable known recurrence families:
+
+- hierarchy, discoverability, and primary versus utility action priority
+- clipping, safe areas, overlays, spacing, and control geometry
+- semantic color and destructive-action meaning
+- maximum supported Dynamic Type, content reflow, and target size
+- permission timing, denial, restriction, and recovery
+- interruption, cancellation, return, and state restoration
+
+Compare normal and maximum supported text sizes using the same state and data.
+Build, test, or accessibility success does not replace visual and interaction
+evidence. Read the project's prevention entries and record one UX recurrence
+result: `clear`, `clear with new prevention`, `blocked`, or `unknown`.
+
 ## Record Receipts
 
 For each check, record:
@@ -56,6 +70,10 @@ For each check, record:
 - observed result
 - evidence location
 - `reusable`, `invalidated`, or `unknown` status
+
+For each material bug found and corrected, preserve its smallest reproduction,
+intended invariant, escape reason when known, fix evidence, and prevention.
+Verify that the prevention catches the original reproduction before acceptance.
 
 Reuse a receipt only while every covered input remains unchanged. After a correction, rerun affected checks and one required consolidated pass; do not repeat unrelated flows.
 

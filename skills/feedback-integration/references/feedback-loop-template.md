@@ -27,6 +27,17 @@ Authority and stop gates:
 - Consolidated:
 - Build or runtime:
 
+### Prevention
+- Symptom and reproduction:
+- Intended invariant:
+- Introduction or escape point:
+- Affected journeys, states, screens, or platforms:
+- Fix evidence:
+- Prevention added:
+- Original issue caught by prevention: yes / no / unknown
+- Recurrence status: first / recurring / reusable-pattern candidate
+- UX recurrence result: clear / clear with new prevention / blocked / unknown
+
 ### Closeout
 - Observed:
 - Reported:

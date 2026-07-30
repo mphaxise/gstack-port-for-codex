@@ -1,6 +1,6 @@
 ---
 name: feedback-integration
-description: Integrate iterative user or reviewer feedback into active work while preserving unrelated work. Use for corrections, preferences, acceptance notes, or review findings during implementation or QA that need triage, batching, verification, and a checkpoint.
+description: Integrate iterative user or reviewer feedback into active work while preserving unrelated work. Use for corrections, preferences, acceptance notes, bugs, UX recurrence findings, or review feedback that need triage, prevention, verification, and a checkpoint.
 ---
 
 # Feedback Integration
@@ -31,6 +31,40 @@ Read `references/feedback-loop-template.md` when creating a feedback batch or ha
 3. Freeze a baseline package before editing. Include only the source map, relevant diff or artifact, applicable requirements, and current receipts.
 4. Apply one coherent correction pass. Avoid opportunistic cleanup and unrelated improvements.
 
+## Prevent Recurrence
+
+For every material bug or UX issue, add one compact prevention entry to the
+existing project feedback or decision record:
+
+- symptom and smallest reliable reproduction
+- intended product, UX, visual, accessibility, privacy, or service invariant
+- introduction point when known
+- why existing planning, implementation, tests, or review missed it
+- affected journeys, states, screens, and platforms
+- fix evidence
+- strongest prevention added
+
+Prefer prevention in this order: deterministic test, invariant with evidence
+gate, reusable fixture or harness, project acceptance rule, then reusable skill
+guidance. Verify that the prevention would have caught the original issue before
+acceptance.
+
+Before closing a user-facing slice, check prior project prevention entries for
+the same issue family. Include action hierarchy, discoverability, clipping,
+geometry, semantic color, text scaling, permission timing and recovery,
+interruption, navigation continuity, and state restoration when applicable.
+
+Use these escalation rules:
+
+- first ordinary occurrence: project-local prevention
+- second similar occurrence: mark recurring and inspect related surfaces
+- third accepted occurrence: propose reusable skill guidance
+- critical safety, privacy, accessibility, commerce, destructive-action, or
+  data-integrity issue: add the appropriate gate immediately
+
+Keep discovery separate. Recurrence review checks known patterns; a fresh-eyes
+discovery pass looks for new problems.
+
 ## Verify In Tiers
 
 Run the narrowest sufficient sequence, expanding only when the prior tier passes or exposes a wider dependency:
@@ -46,6 +80,10 @@ Repeat a tier only when an input changed, a failure needs diagnosis, or new evid
 
 - Give every reviewer the same frozen package.
 - Use only panels whose concerns are affected by the correction.
+- For a user-facing slice, require one UX recurrence result: `clear`, `clear with
+  new prevention`, `blocked`, or `unknown`.
+- Block acceptance when a known issue recurs without verified prevention or when
+  evidence is insufficient to classify a material recurrence risk.
 - Keep reviewers read-only. The controlling agent owns edits, builds, Simulator or browser control, Git, and connected-service actions.
 - Reuse a receipt only when its recorded inputs still match. Mark it `invalidated` or `unknown` otherwise.
 - Save a compact checkpoint after the slice. Include the updated source map, receipt status, remaining feedback, and the next action.

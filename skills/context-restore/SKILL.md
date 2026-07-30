@@ -33,6 +33,8 @@ Restore work from the latest relevant active packet when the user asks to resume
    - reusable evidence
    - remaining work
    - single next action
+   - unresolved prevention entries and known recurrence families applicable to
+     the next slice
 
 ## Decide Whether To Continue
 
@@ -41,6 +43,10 @@ Restore work from the latest relevant active packet when the user asks to resume
 - Do not create or hand off to a new task unless the user explicitly asks.
 
 Before implementation, state any material stale or unknown receipt and the verification tier needed to refresh it.
+
+Before accepting a resumed user-facing slice, recheck its frozen package against
+applicable prevention entries. Do not reuse acceptance evidence when a known
+recurrence changed the covered invariant.
 
 ## Guardrails
 

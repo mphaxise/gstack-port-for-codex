@@ -5,7 +5,8 @@ description: CDO-level review of design principles, quality bar, critique cadenc
 
 # Design Leadership Review
 
-Use this skill when the question is not just "is the design good?" but "is the organization making the right design decision?"
+Use this skill when the organization needs to decide whether its design
+direction, quality bar, and decision process are sound.
 
 This is a Praneet-specific hand-port enhancement. It adds a Chief Design Officer lens to the existing GStack design and GBrain reporting surface.
 
@@ -31,6 +32,7 @@ This is a Praneet-specific hand-port enhancement. It adds a Chief Design Officer
    - accessibility evidence
    - responsible design risks
    - engineering constraints
+   - recurring UX issue families, prevention entries, and verified safeguards
 4. Produce an executive recommendation:
    - decision
    - rationale
@@ -38,6 +40,12 @@ This is a Praneet-specific hand-port enhancement. It adds a Chief Design Officer
    - what to revisit later
    - how the decision should be recorded
 5. Save durable outputs through `reports`, `capture`, or `outcome-memory`.
+
+For a repeated UX issue, decide whether it remains project-local, requires
+inspection of related surfaces, or has enough accepted evidence to become
+reusable skill guidance. Promote an ordinary pattern after three accepted
+occurrences. Promote a critical safety, privacy, accessibility, commerce,
+destructive-action, or data-integrity gate immediately.
 
 ## Guardrails
 
