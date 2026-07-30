@@ -24,18 +24,32 @@ This port is adapted from `garrytan/gstack` at commit `2aa745cb0e4331d683e727ec7
 ## Review
 
 1. Read the full frozen diff once.
-2. Review in two passes:
+2. Name the review mode before assigning a reviewer:
+   - `acceptance`: determine whether the frozen package satisfies named criteria
+   - `risk`: challenge assumptions, seek counterexamples, and find plausible
+     failure paths across safety, privacy, data, authorization, and trust
+     boundaries
+   - `fresh-eyes discovery`: exercise the user journey without the
+     implementation narrative and look for new interaction or comprehension
+     failures
+3. Review risk in two passes:
    - critical: safety, concurrency, data integrity, authorization, and trust boundaries
    - informational: consistency, tests, frontend behavior, prompt drift, and maintenance risks
-3. Use additional review panels only when they own materially distinct risk surfaces.
-4. Give every panel the same frozen package and explicit read-only authority.
-5. Keep the controlling agent responsible for edits, builds, runtime or Simulator control, Git, and connected services.
-6. If GitHub CLI and Greptile comments are available, optionally apply `references/greptile-triage.md`.
+4. Use additional review panels only when they own materially distinct risk surfaces.
+5. Give every panel the same frozen package, the smallest context needed for its
+   mode, and explicit read-only authority. For fresh-eyes discovery, provide the
+   outcome contract, runnable artifact, states, and safety boundaries; withhold
+   implementation rationale and prior reviewer conclusions.
+6. Keep the controlling agent responsible for edits, builds, runtime or Simulator control, Git, and connected services.
+7. If GitHub CLI and Greptile comments are available, optionally apply `references/greptile-triage.md`.
 
 For a user-facing change, read the project's applicable prevention entries and
 run a distinct UX recurrence pass against the frozen package. Check the named
 journey and state invariants plus known issue families. Keep this separate from
-a fresh-eyes discovery pass, which looks for new problems.
+a fresh-eyes discovery pass, which looks for new problems by exercising the
+complete journey, including repeat entry, interruption, denial, cancellation,
+and return when applicable. A reviewer should challenge any prerequisite or
+status screen that gives the user no resolving action.
 
 Confirm that the plan included applicable prior prevention entries, named
 invariants, counterexamples, and adjacent surfaces. Route every material new

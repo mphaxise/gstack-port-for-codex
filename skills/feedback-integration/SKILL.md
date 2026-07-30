@@ -38,6 +38,8 @@ Before editing a user-facing slice, run a compact mistake preflight:
 - one or two counterexamples describing how the experience must fail safely
 - consequential journey states and adjacent surfaces sharing the affected
   component, token, navigation rule, or state model
+- prerequisite, permission, or readiness UI: every visible gate must offer a
+  safe resolving action; keep non-actionable checks silent
 - evidence that will detect recurrence before acceptance
 
 ## Prevent Recurrence
@@ -72,7 +74,15 @@ Use these escalation rules:
   data-integrity issue: add the appropriate gate immediately
 
 Keep discovery separate. Recurrence review checks known patterns; a fresh-eyes
-discovery pass looks for new problems.
+discovery pass looks for new problems. Give the discovery reviewer fresh,
+bounded context without implementation rationale or prior reviewer conclusions.
+Exercise the complete sequence rather than one screen: entry, primary action,
+repeat use, denial or failure, interruption, cancellation, and return when
+applicable.
+
+When a finding changes shared authorization, permission, navigation, or service
+state, inspect each named adjacent surface once. Do not accept a local fix while
+the same state transition creates redundant gates or dead ends elsewhere.
 
 Route every material discovery into the project's single canonical backlog or
 feedback record. Record its reproduction, affected journey and states, severity,

@@ -30,6 +30,8 @@ Restore work from the latest relevant active packet when the user asks to resume
    - active goal and slice
    - authority and stop gates
    - accepted decisions
+   - independently frozen presentation, interaction, connected-service, and
+     production layers
    - reusable evidence
    - remaining work
    - single next action
@@ -47,6 +49,10 @@ Before implementation, state any material stale or unknown receipt and the verif
 Before accepting a resumed user-facing slice, recheck its frozen package against
 applicable prevention entries. Do not reuse acceptance evidence when a known
 recurrence changed the covered invariant.
+
+Treat each frozen product layer independently. A presentation receipt cannot
+establish interaction, connected-service, backend, production, or release
+acceptance.
 
 ## Guardrails
 

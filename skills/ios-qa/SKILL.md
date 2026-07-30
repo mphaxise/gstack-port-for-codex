@@ -46,6 +46,13 @@ Cover applicable paths:
 
 Use the same screen, state, device, viewport, and data when comparing visual evidence.
 
+For a user-facing journey, exercise the complete sequence at least once on the
+stable build: entry, primary action, repeat use, denial or failure, interruption,
+cancellation, and return when applicable. Treat isolated-screen approval as
+presentation evidence only. Challenge any visible prerequisite or readiness
+screen that offers no safe resolving action, and check that valid authorization
+does not cause redundant prompts or gates on adjacent surfaces.
+
 For user-facing changes, also check applicable known recurrence families:
 
 - hierarchy, discoverability, and primary versus utility action priority
@@ -72,6 +79,7 @@ rationale before the current slice can be accepted.
 For each check, record:
 
 - frozen-package identity
+- evidence layer: presentation, interaction, connected service, or production
 - device and environment
 - covered flow or risk surface
 - observed result

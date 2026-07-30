@@ -26,8 +26,16 @@ Keep the packet at or below 1,500 words after removing repetition. Include:
     recurrence status, and evidence or receipt invalidation triggers
 11. material discoveries with backlog classification, owner or decision gate,
     acceptance method, and non-blocking rationale when deferred
+12. independently frozen product layers, when applicable:
+    - presentation and visual state
+    - interaction behavior
+    - connected service or backend behavior
+    - production or release acceptance
 
 Do not reconstruct a complete chronology. Preserve only information required to continue safely.
+
+Never promote one frozen layer to another. Record each layer as `accepted`,
+`provisional`, `blocked`, or `unknown`, with the exact receipt that supports it.
 
 ## Classify Receipts
 

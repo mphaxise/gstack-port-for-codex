@@ -22,6 +22,8 @@ Authority and stop gates:
 - Named invariants:
 - Counterexamples:
 - Adjacent surfaces:
+- Full journey and repeat-use sequence:
+- Visible gates and their resolving actions:
 - Invalidated receipts:
 - Reusable receipts:
 
@@ -44,6 +46,7 @@ Authority and stop gates:
 
 ### Discovery Routing
 - Discovery:
+- Review mode: acceptance / risk / fresh-eyes discovery
 - Classification: block current slice / next correction slice / scheduled backlog / product decision / observe / closed
 - Severity and confidence:
 - Canonical issue family:

@@ -47,6 +47,12 @@ Review the full diff against `origin/main` and use this checklist.
 - heavy inline styles in shared render paths
 - repeated expensive lookups in views
 - clear interactive regressions or broken empty states
+- prerequisite or readiness screens that expose internal checks without giving
+  the user a resolving action
+- repeated prompts or gates after valid authorization or state has already been
+  established
+- isolated-screen evidence that does not cover entry, action, interruption, and
+  return as one journey
 
 ## Suppressions
 
@@ -56,4 +62,3 @@ Do not flag:
 - speculative comments about "maybe tighter tests" when coverage is already sufficient
 - style-only concerns with no reliability impact
 - anything already fixed in the diff you are reviewing
-

@@ -30,7 +30,29 @@ Interrupt active work only for a safety, privacy, data-loss, production, or bloc
 
 Give distinct reviewers the same frozen package and read-only authority. The controlling agent owns mutations, builds, runtime control, Git, and connected services.
 
+Name each review mode. Acceptance checks named criteria. Risk review
+adversarially seeks counterexamples and plausible failure paths. Fresh-eyes
+discovery receives a runnable package and bounded outcome context without the
+implementation narrative, then exercises the complete journey and repeat-use
+sequence. A clean result in one mode does not substitute for another.
+
 After a correction, rerun only the checks and panels whose inputs changed. Finish with the required consolidated suite and one build or runtime pass after the package stabilizes. Expand coverage whenever the risk surface or product contract requires it.
+
+Freeze presentation, interaction, connected-service behavior, and production
+acceptance independently. Never promote a receipt across those layers.
+
+## Keep Monitors Separate
+
+Give each monitor one charter: delivery integrity, token and context efficiency,
+or liveness and restart control. Keep monitors read-only unless their authority
+explicitly permits a state change.
+
+Use incremental snapshots and a retained cursor. Maintain a deduplicated finding
+ledger, suppress routine status and handled findings, and send
+non-interrupting guidance only for a specific material deviation or reversible,
+quality-preserving adjustment. The controlling task decides whether and how to
+act. Do not combine monitor conclusions or infer causality across charters
+without direct evidence.
 
 ## Reset At Meaningful Boundaries
 
