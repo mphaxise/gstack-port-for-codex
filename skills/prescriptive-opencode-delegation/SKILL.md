@@ -1,6 +1,6 @@
 ---
 name: prescriptive-opencode-delegation
-description: Plan and orchestrate implementation through tightly bounded, task-matched OpenCode agents while Codex retains architecture, file contracts, exception handling, assembly, and final verification. Use for coding or design-implementation tasks that can be split into non-overlapping files or modules, especially when the user requests OpenCode delegation, best-suited external coding models, detailed agent commissions, or a Codex-orchestrated multi-agent build.
+description: Qualify, plan, and orchestrate substantial implementation through tightly bounded, task-matched OpenCode agents while Codex retains architecture, privacy, file contracts, exception handling, assembly, and final verification. Use when coding or design implementation contains at least three meaningful non-overlapping units with stable interfaces and deterministic checks, or when the user explicitly requests OpenCode delegation, detailed agent commissions, or a Codex-orchestrated external build.
 ---
 
 # Prescriptive OpenCode Delegation
@@ -11,10 +11,16 @@ instructions, ownership, privacy boundary, and test contract.
 
 ## Decide whether delegation fits
 
-Delegate when the implementation has at least two independent files or modules,
-stable interface contracts, and deterministic assembly checks. Work directly
-when the change is tiny, tightly coupled, security-sensitive, or cheaper to
-implement than to specify.
+Delegate automatically only when the implementation has at least three
+meaningful independent units, stable interface contracts, deterministic
+assembly checks, an approved provider boundary, and projected direct Codex
+token savings of at least 40% after one correction and final verification.
+Three tiny edits do not satisfy the size gate.
+
+Treat one substantial isolated module as an evidence-only trial until that task
+shape reaches functional parity and 40% delivered savings. Work directly when
+the change is small, tightly coupled, security-sensitive, architecture-heavy,
+or cheaper to implement than to specify.
 
 Keep planning, architecture, cross-file interfaces, acceptance criteria,
 assembly, deployment, and final verification with Codex. Give agents
@@ -25,8 +31,8 @@ implementation authority only inside their assigned boundaries.
 1. Inspect the live repository, applicable `AGENTS.md`, relevant source, tests,
    branch, upstream, and dirty state.
 2. Name the owning repository and preserve unrelated changes.
-3. Define the finished behavior, fixed evaluator, correction limit, and
-   publication boundary.
+3. Define the finished behavior, fixed evaluator, comparable direct baseline,
+   40% savings projection, correction limit, and publication boundary.
 4. Create an isolated worktree or candidate directory when parallel writes
    could collide with user work.
 5. Draw the file and interface map before starting any agent.
@@ -40,17 +46,20 @@ unless the task contract specifies a tighter bound.
 ## Route models
 
 Read [model-routing.md](references/model-routing.md) before starting delegated
-runs. Classify each assignment by work type, then select its strongest
-cost-compatible primary from the routing table. Use
-`nvidia/openai/gpt-oss-120b` with medium reasoning as the general coding
-default. Use task-specific primaries for visual CSS, compact markup, broad
-refactors, and data-heavy code. For a novel, repeated work type with no reliable
-evidence, run the bounded model canary defined in the routing reference.
+runs. Classify each assignment by work type, then select the strongest
+cost-compatible model with comparable passing evidence. Treat
+`nvidia/openai/gpt-oss-120b` with medium reasoning as a qualification route
+until one accepted run for that task class simultaneously reaches full
+functional parity and 40% delivered direct-Codex-token savings. Treat other
+NVIDIA models as qualification candidates until the routing reference records
+comparable passing evidence.
 
 Choose the free fallback before launching the primary. Use that fallback for
 quota, rate-limit, transient provider, 5xx, timeout, or missing-first-token
-failures. Use the installed local Ollama model after the free tier. Preserve the
-original commission, target files, and acceptance criteria across retries.
+failures. Treat the first free-model use in a task class as an isolated canary.
+Use local Ollama only when that exact task class has passed qualification.
+Preserve the original commission, target files, and acceptance criteria across
+retries. Return the task to Codex when no qualified fallback remains.
 
 Never use a Codex/OpenAI-billed delegated model. The `openai` segment in the
 NVIDIA-hosted GPT-OSS identifier describes the model family; verify the active
@@ -137,6 +146,19 @@ Keep Codex and OpenCode counters separate. Report:
 - output quality using a fixed rubric
 - read and write boundary findings
 - final repository, commit, deployment, and remaining limits
+
+Record the accepted outcome in the user's authorized private operating
+workspace when a durable delegation-health ledger exists. Keep raw prompts,
+private source, credentials, and hidden reasoning out of the record.
+
+For a monthly health review, inspect the five most recent accepted commissions.
+Report `insufficient sample` when fewer than three exist. Continue automatic
+routing for a task class only while functional parity is 100%, safety violations
+are zero, correction rate is at most 10%, and delivered direct Codex token
+savings remain at least 40%. Do not launch a benchmark during the health review.
+Recommend a focused benchmark and pause the affected automatic route when a
+threshold or rerun trigger fails. An insufficient sample preserves the prior
+route state and cannot promote a qualification route to automatic use.
 
 Create a goal only when the user explicitly requests one. When comparing
 workflows, freeze the implementation window after final verification and before

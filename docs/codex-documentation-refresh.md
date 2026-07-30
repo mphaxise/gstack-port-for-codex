@@ -1,5 +1,18 @@
 # Codex Documentation Refresh
 
+Latest verification: 2026-07-30
+Installed Codex: `codex-cli 0.144.0`
+Documentation access: the official Codex manual helper refreshed successfully.
+Resulting port decision: the current manual confirms symlinked skill folders,
+repository instruction discovery through `AGENTS.md`, and standalone local
+scheduled tasks. The live OpenCode and Ollama inventories still expose the
+routed NVIDIA, free, and local model identifiers. Require three meaningful
+independent units, deterministic checks, and at least 40% projected and
+delivered direct-Codex-token savings. Keep GPT-OSS 120B, other NVIDIA models,
+free fallbacks, and local models in qualification-only status until one
+accepted run for the task class simultaneously clears functional parity and the
+delivered-savings gate.
+
 Latest verification: 2026-07-27
 Installed Codex: `codex-cli 0.144.0`
 Documentation access: the official Codex manual helper refreshed successfully.

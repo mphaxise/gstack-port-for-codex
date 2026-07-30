@@ -12,20 +12,31 @@ nonzero charge.
 
 ## Primary selection
 
-| Assignment | Primary | Effort | Free fallback |
+| Assignment | Primary | Effort | Free fallback | Status |
 | --- | --- | --- | --- |
-| Application code, JavaScript, TypeScript, APIs, tests, bug fixes | `nvidia/openai/gpt-oss-120b` | medium | `opencode/north-mini-code-free` |
-| Visual CSS, responsive layout, design-system implementation | `nvidia/z-ai/glm-5.2` | high | `opencode/mimo-v2.5-free` |
-| Compact semantic HTML or schema-constrained markup | `nvidia/stepfun-ai/step-3.7-flash` | minimal | `opencode/ling-3.0-flash-free` |
-| Broad refactor or reasoning-heavy repository integration | `opencode/nemotron-3-ultra-free` | high | `opencode/north-mini-code-free` |
-| Algorithmic or data-heavy code | `opencode/deepseek-v4-flash-free` | medium | `opencode/north-mini-code-free` |
+| Three or more meaningful independent implementation units | `nvidia/openai/gpt-oss-120b` | medium | `opencode/north-mini-code-free` | Qualification-only |
+| Compact schema batch | `nvidia/stepfun-ai/step-3.7-flash` | minimal | `opencode/ling-3.0-flash-free` | Evidence-only |
+| Visual CSS or responsive layout | `nvidia/z-ai/glm-5.2` | high | matching configured `opencode/*-free` model | Qualification required |
+| Broad refactor or reasoning-heavy integration | strongest available task-suited NVIDIA model | medium or high | `opencode/north-mini-code-free` | Qualification required |
+| Algorithmic or data-heavy code | strongest available task-suited NVIDIA model | medium | `opencode/north-mini-code-free` | Qualification required |
 
-Use GPT-OSS medium when an assignment spans several categories or lacks reliable
-task-specific evidence.
+Use GPT-OSS medium only for an isolated qualification trial when the whole task
+clears the three-unit, stable-interface, deterministic-check, privacy, and 40%
+projected-savings gates. The measured implementation evidence currently splits
+the durable gates: one run delivered 98/100 quality with 84.0% direct-token
+savings, while another reached full functional parity with 35.1% savings. Keep
+the route experimental until one accepted run for the task class simultaneously
+reaches full functional parity and 40% delivered savings.
 
-`nvidia/nvidia/nemotron-3-ultra-550b-a55b` remains an opt-in primary for broad
-reasoning work. A prior session recorded a nonzero provider cost, so require an
-explicit cost allowance before selecting it.
+GLM 5.2, Mistral Nemotron, Nemotron 3 Super, and Nemotron 3 Ultra have no
+automatic task class. Step 3.7 Flash still needs a third passing qualification
+and a real batch that clears the 40% delivered-savings gate. Require an
+explicit cost allowance before any route with a known nonzero provider charge.
+
+The live model inventory on 2026-07-30 still exposed GPT-OSS 120B, GLM 5.2,
+Step 3.7 Flash, Mistral Nemotron, Nemotron 3 Super, Nemotron 3 Ultra, the named
+free fallbacks, and local Qwen 3.5 9B. Catalog presence establishes availability
+for qualification and does not establish an automatic route.
 
 ## Bounded model canary
 
@@ -44,16 +55,24 @@ the implementation it is meant to optimize.
 ## Fallback chain
 
 1. Run the task-matched primary.
-2. Retry once with the preselected free fallback after a qualifying provider
-   failure.
-3. Retry once with the exact installed Ollama model.
+2. Retry once with the preselected matching free fallback after a qualifying
+   provider failure. Use an isolated canary when that fallback lacks comparable
+   task evidence.
+3. Retry once with the exact installed Ollama model only when that model has
+   passed the same task-class qualification.
+4. Return the task to Codex when no qualified fallback remains.
 
 Keep the same commission, files, acceptance criteria, and correction budget
 across tiers.
 
-As observed on 2026-07-27, the local inventory contains
+As observed again on 2026-07-30, the local inventory contains
 `ollama/qwen3.5:9b`. The requested Qwen Coder 3.5B model is absent. Re-run
 `opencode models` and `ollama list` before relying on this snapshot.
+
+The July 28 qualification found that `ollama/qwen3.5:9b` failed exact extraction
+and a resumed correction. It remains disabled for autonomous coding, testing,
+mapping, review, and extraction until a model, runtime, or prompt-wrapper
+upgrade passes a fresh read-only qualification.
 
 ## Routing cautions
 
@@ -65,6 +84,8 @@ As observed on 2026-07-27, the local inventory contains
   failures. The installed local Qwen model exhibited both.
 - Use the evaluator and repository tests to judge output. Agent completion text
   cannot establish success.
+- Treat a model catalog entry as availability evidence. Require task evidence
+  before adding it to an automatic route.
 
 ## Failure signals
 
