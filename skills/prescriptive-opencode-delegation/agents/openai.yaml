@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prescriptive OpenCode Delegation"
+  short_description: "Qualify and route substantial work to bounded OpenCode agents"
+  default_prompt: "Use $prescriptive-opencode-delegation to check the three-unit and 40% savings gates, choose or qualify a cost-compatible OpenCode model, commission bounded implementation agents, and verify the assembled result."

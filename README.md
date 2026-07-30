@@ -8,7 +8,7 @@ This repository started as a port of [GStack](https://github.com/garrytan/gstack
 | --- | --- | ---: |
 | **GStack** | Planning, design, review, debugging, QA, release, and engineering workflows | [56 ports](data/skill-map.json) |
 | **GBrain** | Capture, research, ingestion, daily operations, local memory, and knowledge maintenance | [53 ports](data/gbrain-skill-map.json) |
-| **Praneet extensions** | Responsible design, accessibility, research synthesis, design leadership, market judgment, and outcome learning | [7 extensions](data/praneet-skill-map.json) |
+| **Praneet extensions** | Responsible design, accessibility, research synthesis, design leadership, market judgment, outcome learning, and bounded external delegation | [8 extensions](data/praneet-skill-map.json) |
 | **Impeccable integration** | Project-aware design quality, optional deterministic checks, critique evidence, and external live-mode routing | [capability map](data/impeccable-capability-map.json) |
 
 ## What changed from upstream
@@ -34,6 +34,7 @@ The Praneet layer is not a cosmetic persona. It changes what the system checks a
 - [`design-leadership-review`](skills/design-leadership-review/SKILL.md) adds a CDO-level lens for quality bars, critique, organizational implications, alignment, and durable decision records.
 - [`startup-memo`](skills/startup-memo/SKILL.md) and [`market-map`](skills/market-map/SKILL.md) combine founder judgment with user impact, ethics, and social consequences.
 - [`outcome-memory`](skills/outcome-memory/SKILL.md) compares recommendations with real results so future judgment can improve instead of repeating the same assumptions.
+- [`prescriptive-opencode-delegation`](skills/prescriptive-opencode-delegation/SKILL.md) qualifies substantial external implementation, freezes file and interface contracts, and keeps final verification and repository actions with Codex.
 
 The router also uses a chief-of-staff selection pattern: consider the skills that could add leverage, then deliberately pare them down to the smallest useful set. That favors judgment over process for its own sake.
 
@@ -46,6 +47,7 @@ mkdir -p "$CODEX_HOME/skills"
 cp -R skills/workflow-router "$CODEX_HOME/skills/"
 cp -R skills/responsible-design-review "$CODEX_HOME/skills/"
 cp -R skills/research-synthesis "$CODEX_HOME/skills/"
+cp -R skills/prescriptive-opencode-delegation "$CODEX_HOME/skills/"
 ```
 
 Then ask naturally:
@@ -69,6 +71,7 @@ Other useful entry points:
 - [`office-hours`](skills/office-hours/SKILL.md) — pressure-test an idea before implementation planning
 - [`design-leadership-review`](skills/design-leadership-review/SKILL.md) — review whether the organization is making the right design decision
 - [`design-quality`](skills/design-quality/SKILL.md) — apply project context, design gates, optional Impeccable checks, and evidence-aware fallbacks
+- [`prescriptive-opencode-delegation`](skills/prescriptive-opencode-delegation/SKILL.md) — qualify and orchestrate bounded external implementation
 
 ## Mutable sources and privacy
 
