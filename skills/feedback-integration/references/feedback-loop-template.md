@@ -43,6 +43,11 @@ Authority and stop gates:
 - Original issue caught by prevention: yes / no / unknown
 - Recurrence status: first / recurring / reusable-pattern candidate
 - UX recurrence result: clear / clear with new prevention / blocked / unknown
+- Skill-enhancement issue:
+- Detection owner:
+- Implementation owner:
+- Enhancement state and next review date:
+- Completion evidence:
 
 ### Discovery Routing
 - Discovery:
@@ -66,6 +71,7 @@ Authority and stop gates:
 - Bypassed, noisy, or ineffective safeguards:
 - Project-local rules:
 - Reusable-guidance candidates:
+- Open skill-enhancement issues:
 - Rules to remove:
 - Optional escape counts by detection stage:
 ```

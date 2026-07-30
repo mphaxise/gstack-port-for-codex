@@ -98,6 +98,7 @@ When the source changes, the managed projection replaces its current compiled tr
 - [`data/`](data/) — separate provenance and compatibility registries
 - [`docs/`](docs/) — adaptation decisions, compatibility maps, and runtime audits
 - [`docs/token-efficient-project-operations.md`](docs/token-efficient-project-operations.md) — lifecycle guidance for compact context, feedback, review, and verification
+- [`docs/skill-enhancement-lifecycle.md`](docs/skill-enhancement-lifecycle.md) — evidence thresholds, ownership, states, and completion gates for reusable skill improvements
 - [`scripts/`](scripts/) — validation, drift, status, and local-brain helpers
 - [`brain/README.md`](brain/README.md) — local brain structure and operating contract
 

@@ -54,6 +54,19 @@ quality-preserving adjustment. The controlling task decides whether and how to
 act. Do not combine monitor conclusions or infer causality across charters
 without direct evidence.
 
+## Complete Reusable Skill Enhancements
+
+Project prevention ledgers own local findings and recurrence evidence. Promote a
+pattern into this repository when it meets the `feedback-integration` threshold
+or requires an immediate critical gate. Track one invariant through candidate,
+acceptance, implementation, validation, and release in a canonical issue.
+
+Follow the
+[skill-enhancement lifecycle](skill-enhancement-lifecycle.md). A released
+enhancement includes validated skill changes, a replay of the generalized
+original reproduction, one counterexample, current documentation, and a remote
+commit or pull request.
+
 ## Reset At Meaningful Boundaries
 
 Recommend a fresh task when direct evidence shows repeated oversized inputs, multiple compactions in one slice, a new risk class, a materially new outcome after acceptance, a second material correction, or an active packet that cannot stay within 1,500 words.

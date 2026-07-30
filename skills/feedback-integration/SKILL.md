@@ -134,6 +134,15 @@ At a milestone closeout, review prevention effectiveness:
 - which patterns meet the evidence threshold for reusable guidance
 - which obsolete rules should be removed
 
+For every reusable-guidance candidate, create or update one canonical
+skill-enhancement issue when the user authorizes the external write. Follow
+`docs/skill-enhancement-lifecycle.md`. Keep raw evidence in the source project
+and put only generalized, privacy-safe evidence in a public tooling repository.
+Record the issue link, owner, state, next review date, and completion evidence in
+the project prevention ledger. An unpromoted candidate remains open project
+work; a released enhancement requires the remote commit or pull request and
+verified prevention replay.
+
 When useful, record project-local escape counts by detection stage: planning,
 implementation checks, acceptance QA, discovery, and post-acceptance. Use the
 counts to improve gates, never as a quality target or performance score.
