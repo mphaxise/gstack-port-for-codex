@@ -1,35 +1,55 @@
 ---
 name: review
-description: Pre-landing PR review for Codex. Use when the user asks for a code review or wants structural issues found before a branch lands.
+description: Review a branch or change package before landing, using one frozen evidence package, focused risk panels, reusable receipts, and findings-first output.
 ---
 
 # Review
 
-Use this skill to review the current branch against `origin/main` and find bugs or risks that tests often miss.
+Find bugs and material risks before a change lands.
 
 This port is adapted from `garrytan/gstack` at commit `2aa745cb0e4331d683e727ec77385d04cdbb45a2`.
 
-## Workflow
+## Prepare One Frozen Package
 
-1. Confirm the current branch is not `main` and a real diff exists against `origin/main`.
+1. Confirm the current branch is not `main` and a real diff exists against the intended base.
 2. Read `references/checklist.md`.
-3. Review the full diff in two passes:
-   - critical: safety, concurrency, trust boundaries
-   - informational: consistency, tests, frontend, prompt drift, maintenance risks
-4. If GitHub CLI and Greptile comments are available, optionally apply `references/greptile-triage.md`.
-5. Report findings with the most severe issues first.
+3. Freeze one package containing:
+   - base and head revisions
+   - full diff
+   - applicable instructions and acceptance criteria
+   - changed-file allowlist
+   - tests, builds, screenshots, or other direct evidence already produced
+4. Record direct fingerprints or hashes when available. Do not modify the package during a review pass.
+
+## Review
+
+1. Read the full frozen diff once.
+2. Review in two passes:
+   - critical: safety, concurrency, data integrity, authorization, and trust boundaries
+   - informational: consistency, tests, frontend behavior, prompt drift, and maintenance risks
+3. Use additional review panels only when they own materially distinct risk surfaces.
+4. Give every panel the same frozen package and explicit read-only authority.
+5. Keep the controlling agent responsible for edits, builds, runtime or Simulator control, Git, and connected services.
+6. If GitHub CLI and Greptile comments are available, optionally apply `references/greptile-triage.md`.
+
+## Corrections And Receipts
+
+- After a correction, rerun only panels and checks whose recorded inputs or risk surface changed.
+- Reuse an unaffected receipt only when its base, head, evidence, requirements, and environment still match.
+- Run one consolidated review after all required corrections are stable.
+- Avoid duplicate panels, full-history forks, and repeated full-diff reads without changed evidence.
 
 ## Output Rules
 
-- Findings come first.
-- Each finding should include file and line references when possible.
-- Distinguish blocking issues from non-blocking issues.
-- If there are no issues, say so explicitly.
+- Put findings first, ordered by severity.
+- Include file and line references when possible.
+- Distinguish blocking from non-blocking findings.
+- For each clean panel, record its scope and frozen-package identity as a receipt.
+- If no issues remain, say so explicitly and name any unverified or invalidated evidence.
 
 ## Guardrails
 
-- Do not modify code unless the user explicitly asks for fixes.
-- Read the full diff before flagging an issue.
+- Keep review read-only unless the user explicitly asks for fixes.
 - Skip stylistic nitpicks unless they create real risk.
-- Prefer terse, concrete findings over long summaries.
-
+- Never reuse a receipt after its covered inputs change.
+- Do not reduce required security, privacy, accessibility, test, build, or acceptance coverage to save tokens.

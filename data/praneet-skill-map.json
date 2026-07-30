@@ -83,6 +83,19 @@
       "source_files": [
         "outcome-memory/SKILL.md"
       ]
+    },
+    {
+      "upstream_slug": "praneet-feedback-integration",
+      "codex_slug": "feedback-integration",
+      "status": "ported",
+      "port_kind": "hand-port-enhanced",
+      "summary": "Iterative feedback workflow with coherent correction slices, frozen evidence, tiered verification, and receipt reuse.",
+      "notes": "Praneet-specific hand-port enhancement derived from long-running project retrospectives. It integrates feedback without disrupting unrelated work or weakening required quality gates.",
+      "source_files": [
+        "feedback-integration/SKILL.md",
+        "feedback-integration/agents/openai.yaml",
+        "feedback-integration/references/feedback-loop-template.md"
+      ]
     }
   ]
 }

@@ -8,17 +8,17 @@ This repository started as a port of [GStack](https://github.com/garrytan/gstack
 | --- | --- | ---: |
 | **GStack** | Planning, design, review, debugging, QA, release, and engineering workflows | [56 ports](data/skill-map.json) |
 | **GBrain** | Capture, research, ingestion, daily operations, local memory, and knowledge maintenance | [53 ports](data/gbrain-skill-map.json) |
-| **Praneet extensions** | Responsible design, accessibility, research synthesis, design leadership, market judgment, and outcome learning | [7 extensions](data/praneet-skill-map.json) |
+| **Praneet extensions** | Responsible design, accessibility, research synthesis, design leadership, market judgment, outcome learning, and feedback integration | [8 extensions](data/praneet-skill-map.json) |
 | **Impeccable integration** | Project-aware design quality, optional deterministic checks, critique evidence, and external live-mode routing | [capability map](data/impeccable-capability-map.json) |
 
 ## What changed from upstream
 
-This is not a line-for-line copy. The `2026-07-16` full-surface audit confirms that all 54 current upstream GStack skills and all 53 current upstream GBrain skills are represented; the GStack registry also retains the local `gstack` router and legacy `checkpoint` compatibility skill.
+This repository is a Codex-native adaptation. The `2026-07-16` full-surface audit confirms that all 54 current upstream GStack skills and all 53 current upstream GBrain skills are represented; the GStack registry also retains the local `gstack` router and legacy `checkpoint` compatibility skill.
 
 - **Codex-native skills:** upstream commands were rewritten as focused `SKILL.md` workflows with Codex-oriented invocation and outputs.
-- **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies are labeled instead of being treated as universal capabilities.
+- **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies are labeled by availability and scope.
 - **Local GBrain substrate:** ambient memory behavior was adapted into explicit Markdown-backed capture, search, linking, ingestion, synchronization, citation, and health-check tools.
-- **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request; users do not need to memorize the catalog.
+- **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request so users can ask naturally.
 - **Validation and drift tracking:** machine-readable registries, tests, health checks, and upstream-drift tooling keep the port inspectable as the tracked upstream sources evolve.
 - **Tracked design runtime:** selected [Impeccable](https://github.com/pbakaus/impeccable) guidance is adapted into a concise Codex bridge. Its Apache-2.0 detector, hooks, and live browser runtime remain optional upstream capabilities.
 
@@ -26,16 +26,17 @@ See the [GStack compatibility map](docs/compatibility-map.md), [GBrain adaptatio
 
 ## What is distinctly mine
 
-The Praneet layer is not a cosmetic persona. It changes what the system checks and how it makes recommendations.
+The Praneet layer changes what the system checks and how it makes recommendations.
 
 - [`responsible-design-review`](skills/responsible-design-review/SKILL.md) checks autonomy, consent, dark patterns, fairness, vulnerable users, and data dignity.
-- [`accessibility-review`](skills/accessibility-review/SKILL.md) makes accessibility a first-class quality bar rather than a small visual-QA check.
+- [`accessibility-review`](skills/accessibility-review/SKILL.md) makes accessibility a first-class quality bar across visual QA.
 - [`research-synthesis`](skills/research-synthesis/SKILL.md) grades evidence, checks bias, preserves quote-to-insight traceability, and names what remains unknown.
 - [`design-leadership-review`](skills/design-leadership-review/SKILL.md) adds a CDO-level lens for quality bars, critique, organizational implications, alignment, and durable decision records.
 - [`startup-memo`](skills/startup-memo/SKILL.md) and [`market-map`](skills/market-map/SKILL.md) combine founder judgment with user impact, ethics, and social consequences.
-- [`outcome-memory`](skills/outcome-memory/SKILL.md) compares recommendations with real results so future judgment can improve instead of repeating the same assumptions.
+- [`outcome-memory`](skills/outcome-memory/SKILL.md) compares recommendations with real results so future judgment incorporates prior evidence.
+- [`feedback-integration`](skills/feedback-integration/SKILL.md) batches iterative feedback into focused correction slices with frozen evidence and tiered verification.
 
-The router also uses a chief-of-staff selection pattern: consider the skills that could add leverage, then deliberately pare them down to the smallest useful set. That favors judgment over process for its own sake.
+The router also uses a chief-of-staff selection pattern: consider the skills that could materially improve the outcome, then deliberately pare them down to the smallest useful set. That favors judgment over process for its own sake.
 
 ## Try it
 
@@ -46,6 +47,7 @@ mkdir -p "$CODEX_HOME/skills"
 cp -R skills/workflow-router "$CODEX_HOME/skills/"
 cp -R skills/responsible-design-review "$CODEX_HOME/skills/"
 cp -R skills/research-synthesis "$CODEX_HOME/skills/"
+cp -R skills/feedback-integration "$CODEX_HOME/skills/"
 ```
 
 Then ask naturally:
@@ -69,10 +71,11 @@ Other useful entry points:
 - [`office-hours`](skills/office-hours/SKILL.md) — pressure-test an idea before implementation planning
 - [`design-leadership-review`](skills/design-leadership-review/SKILL.md) — review whether the organization is making the right design decision
 - [`design-quality`](skills/design-quality/SKILL.md) — apply project context, design gates, optional Impeccable checks, and evidence-aware fallbacks
+- [`feedback-integration`](skills/feedback-integration/SKILL.md) — integrate corrections while keeping unaffected work closed
 
 ## Mutable sources and privacy
 
-GBrain’s local substrate can synchronize a changing authoritative file—such as a living strategy, identity, or operating document—without publishing its contents:
+GBrain’s local substrate can synchronize a changing authoritative file—such as a living strategy, identity, or operating document—inside its private local boundary:
 
 ```bash
 python3 scripts/brain_sync_source.py path/to/source.md --title "Source title"
@@ -86,7 +89,7 @@ When the source changes, the managed projection replaces its current compiled tr
 - `workflow-adapted` means the operating intent is preserved but the interaction or runtime model changed.
 - `runtime-aware` means the skill still depends on available browser, session, automation, device, credential, or host tooling.
 - Impeccable `external-runtime` capabilities stay upstream and run only when already installed in the target project.
-- The repository includes a file-backed brain substrate and helper scripts; it does not publish a user’s private local brain corpus.
+- The repository includes a file-backed brain substrate and helper scripts. A user’s private brain corpus stays local.
 - Registry pins are conservative snapshots. Run the drift checker before claiming current upstream parity.
 
 ## Repository map
@@ -94,6 +97,7 @@ When the source changes, the managed projection replaces its current compiled tr
 - [`skills/`](skills/) — GStack, GBrain, and Praneet workflow definitions
 - [`data/`](data/) — separate provenance and compatibility registries
 - [`docs/`](docs/) — adaptation decisions, compatibility maps, and runtime audits
+- [`docs/token-efficient-project-operations.md`](docs/token-efficient-project-operations.md) — lifecycle guidance for compact context, feedback, review, and verification
 - [`scripts/`](scripts/) — validation, drift, status, and local-brain helpers
 - [`brain/README.md`](brain/README.md) — local brain structure and operating contract
 
@@ -120,4 +124,4 @@ Current Codex behavior is checked against the official Codex manual before compa
 - GBrain conservative runtime baseline: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; skill-workflow parity was audited at `5008b287e47bf791132eedfebf66bdef11e9398c` on July 16.
 - Impeccable capability baseline: `8259c28209b92792005cec14dad573df39f68eaf`; the complete command, detector, hook, live-mode, provider, and behavior-test surface was classified on July 16.
 
-The baseline pins stay intentionally conservative so `scripts/check_upstream_drift.py` continues to reveal broad upstream runtime drift. Per-skill freshness uses each skill's `source_commit` or the map's `skill_parity_commit`, so old runtime churn is not misreported as new skill drift. See the [July 16 parity audit](docs/upstream-parity-2026-07-16.md) for the exact workflow and runtime boundary.
+The baseline pins stay intentionally conservative so `scripts/check_upstream_drift.py` continues to reveal broad upstream runtime drift. Per-skill freshness uses each skill's `source_commit` or the map's `skill_parity_commit`, which separates earlier runtime churn from later skill drift. See the [July 16 parity audit](docs/upstream-parity-2026-07-16.md) for the exact workflow and runtime boundary.

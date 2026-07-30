@@ -180,12 +180,13 @@ class RegistryTests(unittest.TestCase):
         skill_map = load_skill_map(REPO_ROOT / "data" / "praneet-skill-map.json")
         ported = [skill for skill in skill_map["skills"] if skill["status"] == "ported"]
 
-        self.assertEqual(len(ported), 7)
+        self.assertEqual(len(ported), 8)
         self.assertEqual(
             sorted(skill["codex_slug"] for skill in ported),
             [
                 "accessibility-review",
                 "design-leadership-review",
+                "feedback-integration",
                 "market-map",
                 "outcome-memory",
                 "research-synthesis",

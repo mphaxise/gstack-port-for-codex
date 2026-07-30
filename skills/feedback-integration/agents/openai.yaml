@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feedback Integration"
+  short_description: "Batch and verify iterative feedback"
+  default_prompt: "Use $feedback-integration to batch this feedback into a focused, verifiable correction slice."

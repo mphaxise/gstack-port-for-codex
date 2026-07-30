@@ -1,5 +1,10 @@
 # Codex Documentation Refresh
 
+Latest verification: 2026-07-29
+Installed Codex: `codex-cli 0.144.0`
+Documentation access: the official Codex manual refreshed successfully with `/Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`.
+Resulting port decision: keep the new feedback workflow as a focused instruction-first skill, retain concise activation descriptions for progressive disclosure, include optional `agents/openai.yaml` metadata, and continue using symlinked local skill folders. Codex detects skill changes automatically; restart Codex when an updated skill fails to appear.
+
 Latest verification: 2026-07-06
 Installed Codex: `codex-cli 0.142.5`
 Documentation access: the local manual helper failed to refresh the official manual on 2026-07-06 because `developers.openai.com` could not be resolved from this run. The most recent successful cached refresh remains the 2026-07-02 fetch via `/Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`.
@@ -23,19 +28,19 @@ This note records the one-time Codex documentation refresh requested during the 
 - Plugins: plugins are the distribution unit for reusable skills, apps, and MCP servers.
 - Automations: automations can invoke skills, run in local projects or worktrees, and inherit sandbox behavior.
 - Sandbox and approvals: workspace-write plus on-request approval remains the appropriate default shape for local port work; wider access should be explicit.
-- Hooks: hooks are available but require trust review; they are not a replacement for checked-in port guidance.
+- Hooks: hooks are available and require trust review; checked-in port guidance remains authoritative.
 - Memories: memories are a helpful recall layer, but required rules belong in `AGENTS.md` or checked-in documentation.
 - Runtime surface follow-up: Browser, Chrome extension, Computer Use, worktrees, local environments, and subagents were rechecked before the deeper runtime pass.
 
 ## Port Decisions
 
 - Keep authoring in this repo's `skills/` tree and local installation through symlinks under `~/.codex/skills`; this remains valid because Codex supports symlinked skill folders.
-- Do not replace the current local install with a plugin yet. The docs confirm plugins are the right future distribution shape when the package should bundle skills, apps, MCP configuration, or lifecycle hooks for other users.
+- Keep the current local install. Plugins become the distribution shape when the package bundles skills, apps, MCP configuration, or lifecycle hooks for other users.
 - Add `AGENTS.md` as the persistent project instruction surface for future portwork.
 - Continue to prefer current Codex host features over Claude Code fallbacks. Keep fallbacks only for host-variable browser tooling, upstream `gbrain` CLI presence, remote credentials, optional MCP servers, and private local brain artifacts.
 - Treat memories as non-authoritative for port rules. Durable port instructions should live in `AGENTS.md`, skills, and docs.
 - Prefer the documented Browser/Chrome/Computer Use ladder over generic "browser tooling" language in runtime-aware skills.
-- Treat Codex subagents as explicit, bounded parallel-agent workflows, not as ambient or durable upstream GBrain minions.
+- Treat Codex subagents as explicit, bounded parallel-agent workflows. Durable upstream GBrain minion behavior remains outside this port.
 
 ## Future Port Checklist
 
@@ -62,7 +67,7 @@ This note records the one-time Codex documentation refresh requested during the 
 
 Installed Codex: `codex-cli 0.144.0`. The official Codex manual helper completed successfully and reported its local manual current. The audit rechecked the documented `AGENTS.md`, skills, plugins, MCP, sandbox/approval, hooks, memories, automations, browser, and local/cloud-environment guidance.
 
-The upstream-drift report now evaluates each skill against its own `source_commit` or the map's full-surface `skill_parity_commit`, while retaining the map-level pin for broad upstream-runtime visibility. This preserves the conservative baseline without falsely reporting files from before a later skill refresh as new skill drift. The full GStack and GBrain workflow surfaces were audited through `a325940` and `5008b28` respectively. No upstream browser-daemon code was ported because Codex's documented Browser, Chrome, and Computer Use surfaces remain the intended runtime boundary.
+The upstream-drift report now evaluates each skill against its own `source_commit` or the map's full-surface `skill_parity_commit`, while retaining the map-level pin for broad upstream-runtime visibility. This preserves the conservative baseline and separates earlier files from later skill drift. The full GStack and GBrain workflow surfaces were audited through `a325940` and `5008b28` respectively. Codex's documented Browser, Chrome, and Computer Use surfaces remain the runtime boundary, and the upstream browser-daemon code stays upstream.
 
 ## 2026-07-16 Impeccable Integration
 
@@ -74,4 +79,4 @@ Resulting decisions:
 - Impeccable's detector, project hooks, browser server, and live source-rewrite runtime remain optional external capabilities.
 - Project hooks require explicit installation and `/hooks` trust review.
 - The recurring Impeccable drift check runs against the local project so it can include ignored local-brain health. It remains report-only and reports three states separately: upstream movement, local review, and local adoption.
-- The upstream map classifies explicit source paths because Impeccable uses one source skill plus references and runtime modules instead of one directory per command.
+- The upstream map classifies explicit source paths because Impeccable organizes one source skill with references and runtime modules across its command surface.

@@ -1,27 +1,24 @@
 ---
 name: checkpoint
-description: Save-and-resume workflow for Codex. Use when work context should be captured so the same repo or thread can be resumed cleanly later.
+description: Legacy save-and-resume compatibility workflow. Use when a user asks for a checkpoint; route the save through context-save and the resume through context-restore.
 ---
 
 # Checkpoint
 
-Use this skill when the user is about to switch context, stop for the day, or wants a reliable resume point.
+Preserve compatibility with requests that use the older `checkpoint` name.
 
 This port is adapted from `garrytan/gstack` at commit `4d2c8d94d00cc4f4f3d4c26316a4f939ceedc045`.
 
 ## Workflow
 
-1. Capture the current working state:
-   - branch
-   - goal
-   - what changed
-   - open questions
-   - next actions
-2. Save the checkpoint in a durable form, preferably using the `reports` pattern.
-3. When resuming, load the latest relevant checkpoint and continue from that state instead of reconstructing it from memory.
+1. Use `context-save` when capturing current work.
+2. Produce its compact active packet, source map, receipt classifications, slice telemetry, and reset recommendation.
+3. Use `context-restore` when resuming from that packet.
+4. Prefer one canonical checkpoint over scattered status narration.
 
 ## Guardrails
 
-- Keep checkpoints concise and action-oriented.
-- Prefer one durable checkpoint over scattered status notes.
-- Do not overwrite older checkpoints when a timestamped history is safer.
+- Keep the packet at or below the `context-save` limit.
+- Do not maintain a parallel checkpoint format.
+- Preserve timestamped history when replacing a checkpoint would destroy useful evidence.
+- Do not claim a saved receipt is reusable until `context-restore` validates its inputs.

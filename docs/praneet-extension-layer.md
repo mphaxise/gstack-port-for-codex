@@ -5,7 +5,7 @@ The Praneet extension layer sits on top of the upstream GStack and GBrain parity
 It is intentionally tracked separately in `data/praneet-skill-map.json` so the repo can say two true things at once:
 
 - upstream parity remains exact for Garry Tan's latest GStack and GBrain skill-name surfaces
-- Praneet's local Codex install carries additional hand-port enhancements for design leadership, responsible design, social ethics, founder judgment, and outcome memory
+- Praneet's local Codex install carries additional hand-port enhancements for design leadership, responsible design, social ethics, founder judgment, outcome memory, and efficient feedback integration
 
 ## Skills
 
@@ -16,10 +16,11 @@ It is intentionally tracked separately in `data/praneet-skill-map.json` so the r
 - `market-map`: category, competitor, wedge, buyer, timing, and social-impact mapping
 - `design-leadership-review`: CDO-level review for principles, quality bar, critique cadence, organizational implications, stakeholder alignment, and decision records
 - `outcome-memory`: learning loop that records whether prior recommendations worked, failed, or need revised judgment
+- `feedback-integration`: feedback loop that batches related corrections, preserves reusable evidence, and verifies one coherent slice at a time
 
 ## Design Leadership Lens
 
-These skills are not generic review prompts. They are meant to make the port more useful for Praneet as a design-minded operator:
+These skills make the port more useful for Praneet as a design-minded operator:
 
 - user agency matters alongside speed
 - accessibility is a first-class quality bar
@@ -27,14 +28,15 @@ These skills are not generic review prompts. They are meant to make the port mor
 - market judgment should include social consequences
 - research claims should carry confidence and source quality
 - prior recommendations should teach future judgment
+- iterative feedback should improve the active outcome while keeping unrelated work closed
 
 ## Routing
 
-`workflow-router` routes natural-language requests into these skills when the user asks about responsible design, accessibility, market judgment, research synthesis, executive design review, or whether a prior recommendation worked.
+`workflow-router` routes natural-language requests into these skills when the user asks about responsible design, accessibility, market judgment, research synthesis, executive design review, iterative corrections, or whether a prior recommendation worked.
 
 The router should use a two-step chief-of-staff selection pattern:
 
 1. Cast a generous first-pass net across all skills that might help the user's task.
-2. Critically pare the list down based on whether the task is one-time or repeated, strategic or tactical, high-stakes or low-stakes, memory-bearing or ephemeral, and whether each skill adds real leverage.
+2. Critically pare the list down based on whether the task is one-time or repeated, strategic or tactical, high-stakes or low-stakes, memory-bearing or ephemeral, and whether each skill materially improves the outcome.
 
-This lets Codex take more responsibility for skill selection without turning every request into needless process.
+This gives Codex more responsibility for skill selection while keeping the workflow proportionate to the request.

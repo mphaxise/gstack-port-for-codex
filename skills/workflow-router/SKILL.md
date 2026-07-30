@@ -5,18 +5,18 @@ description: Natural-language router for GStack, GBrain, browser QA, automations
 
 # Workflow Router
 
-Use this skill when the user speaks naturally and should not have to remember the exact skill names.
+Use this skill when the user asks naturally and expects routing from ordinary language. Exact skill names are optional.
 
 This router is repo-local. Its job is to translate a plain-English request into the smallest useful combination of installed skills.
 
-Default posture: act like the user's chief of staff for skill selection. The user is deliberately delegating more skill-picking judgment to Codex, so consider the available skill surface proactively instead of waiting for exact skill names.
+Default posture: act like the user's chief of staff for skill selection. The user is deliberately delegating more skill-picking judgment to Codex, so consider the available skill surface proactively.
 
 Read `references/intent-map.md` before routing if the match is not obvious.
 
 ## Workflow
 
 1. Cast a generous first-pass net.
-   - list every skill that could plausibly add leverage
+   - list every skill that could plausibly improve the outcome
    - include operating-context skills such as `brain-ops`, `query`, `reports`, `capture`, `outcome-memory`, or `responsible-design-review` when the task has memory, decision, ethics, or follow-up implications
    - do not stop at the first matching skill
 2. Classify the request by intent:
@@ -40,6 +40,7 @@ Read `references/intent-map.md` before routing if the match is not obvious.
    - browser QA
    - automation
    - review or ship
+   - iterative feedback
    - publishing or reporting
 3. Critically pare down the candidate list:
    - Is this a one-time task or a repeated workflow?
@@ -52,7 +53,7 @@ Read `references/intent-map.md` before routing if the match is not obvious.
    - sometimes two in sequence
    - rarely three if there is a natural pipeline
 5. Tell the user briefly which skill(s) you are using and why.
-6. Execute the chosen skill workflow instead of asking the user to reformulate the request.
+6. Execute the chosen skill workflow directly. User reformulation is unnecessary.
 
 ## Default Routing Rules
 
@@ -91,6 +92,7 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants archive, book, voice-note, or PDF brain processing, use `archive-crawler`, `book-mirror`, `voice-note-ingest`, or `brain-pdf`.
 - If the user wants a work-session organization pass, use `eiirp`.
 - If the user wants to learn from whether a prior plan or review worked, use `outcome-memory`.
+- If the user provides corrections or review findings during active work, use `feedback-integration` to triage them and form one coherent correction slice.
 - If the user wants to optimize or tune an existing skill, use `skill-optimizer`.
 - If the user wants skillpack health or post-restart validation, use `skillpack-check` or `smoke-test`.
 - If the user wants recurring work, use `cron-scheduler`.
@@ -117,4 +119,4 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - Do not overload a simple task with a parade of skills just because they are available.
 - Do not skip the first-pass candidate scan for ambiguous, strategic, repeated, or high-stakes work.
 - Do not claim a skill was used if you only borrowed the idea.
-- If no installed skill meaningfully helps, proceed normally instead of forcing a bad match.
+- If no installed skill meaningfully helps, proceed normally and skip skill routing.
