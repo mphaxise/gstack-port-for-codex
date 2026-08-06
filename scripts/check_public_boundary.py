@@ -51,8 +51,6 @@ def main() -> int:
         if not path.is_file():
             continue
         rel = path.relative_to(REPO_ROOT).as_posix()
-        if rel == "scripts/check_public_boundary.py":
-            continue
         text = path.read_text(encoding="utf-8", errors="replace")
         for marker in PRIVATE_MARKERS:
             if marker in text or marker in rel:
