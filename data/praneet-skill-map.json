@@ -83,21 +83,6 @@
       "source_files": [
         "outcome-memory/SKILL.md"
       ]
-    },
-    {
-      "upstream_slug": "praneet-prescriptive-opencode-delegation",
-      "codex_slug": "prescriptive-opencode-delegation",
-      "status": "ported",
-      "port_kind": "hand-port-enhanced",
-      "summary": "Evidence-gated orchestration for bounded external implementation with frozen contracts, qualified model routing, and independent Codex verification.",
-      "notes": "Praneet-specific hand-port enhancement that delegates only substantial, isolated work with deterministic checks, provider boundaries, and measured savings.",
-      "source_files": [
-        "prescriptive-opencode-delegation/SKILL.md",
-        "prescriptive-opencode-delegation/agents/openai.yaml",
-        "prescriptive-opencode-delegation/references/commission-template.md",
-        "prescriptive-opencode-delegation/references/model-routing.md",
-        "prescriptive-opencode-delegation/scripts/validate_commission.py"
-      ]
     }
   ]
 }

@@ -13,6 +13,9 @@ from urllib.request import Request, urlopen
 from gstack_port_for_codex.registry import capability_source_commit, skill_source_commit
 
 
+REQUEST_TIMEOUT_SECONDS = 30
+
+
 SHARED_UPSTREAM_FILES = {
     "ARCHITECTURE.md",
     "BROWSER.md",
@@ -46,14 +49,22 @@ def fetch_json_with_curl(url: str, token: str | None = None) -> dict[str, Any]:
     command = [
         "curl",
         "-fsSL",
-        "-H",
-        "Accept: application/vnd.github+json",
-        "-H",
-        "User-Agent: gstack-port-for-codex-upstream-drift",
+        "--connect-timeout",
+        str(REQUEST_TIMEOUT_SECONDS),
+        "--max-time",
+        str(REQUEST_TIMEOUT_SECONDS),
+        "--config",
+        "-",
+        "--url",
+        url,
+    ]
+    curl_config = [
+        'header = "Accept: application/vnd.github+json"',
+        'header = "User-Agent: gstack-port-for-codex-upstream-drift"',
     ]
     if token:
-        command.extend(("-H", f"Authorization: Bearer {token}"))
-    command.append(url)
+        escaped_token = token.replace("\\", "\\\\").replace('"', '\\"')
+        curl_config.append(f'header = "Authorization: Bearer {escaped_token}"')
 
     try:
         completed = subprocess.run(
@@ -61,7 +72,11 @@ def fetch_json_with_curl(url: str, token: str | None = None) -> dict[str, Any]:
             check=True,
             capture_output=True,
             text=True,
+            input="\n".join(curl_config) + "\n",
+            timeout=REQUEST_TIMEOUT_SECONDS + 5,
         )
+    except subprocess.TimeoutExpired as exc:
+        raise UpstreamDriftError("GitHub API request via curl timed out.") from exc
     except subprocess.CalledProcessError as exc:
         detail = exc.stderr.strip() or exc.stdout.strip()
         raise UpstreamDriftError(f"GitHub API request via curl failed: {detail}") from exc
@@ -96,7 +111,7 @@ def fetch_json(url: str, token: str | None = None) -> dict[str, Any]:
     request = Request(url, headers=headers)
 
     try:
-        with urlopen(request) as response:
+        with urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
             return json.load(response)
     except HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace").strip()
@@ -359,10 +374,14 @@ def github_token_from_env() -> str | None:
     if not shutil.which("gh"):
         return None
 
-    completed = subprocess.run(
-        ["gh", "auth", "token"],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+    try:
+        completed = subprocess.run(
+            ["gh", "auth", "token"],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=REQUEST_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired:
+        return None
     return completed.stdout.strip() or None if completed.returncode == 0 else None

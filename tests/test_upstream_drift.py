@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 import sys
 import unittest
@@ -13,6 +14,8 @@ from gstack_port_for_codex.upstream_drift import (  # noqa: E402
     build_drift_report,
     classify_changed_paths,
     classify_skill_changes_by_source,
+    fetch_json,
+    fetch_json_with_curl,
     format_drift_report,
     github_token_from_env,
     parse_github_repo,
@@ -54,7 +57,27 @@ class UpstreamDriftTests(unittest.TestCase):
             capture_output=True,
             text=True,
             check=False,
+            timeout=30,
         )
+
+    @patch("gstack_port_for_codex.upstream_drift.shutil.which", return_value="/usr/bin/curl")
+    @patch("gstack_port_for_codex.upstream_drift.subprocess.run")
+    def test_curl_keeps_token_out_of_process_arguments(self, run, _which) -> None:
+        run.return_value = SimpleNamespace(stdout="{}")
+
+        self.assertEqual(fetch_json_with_curl("https://example.test/api", token="secret-token"), {})
+        command = run.call_args.args[0]
+        self.assertNotIn("secret-token", command)
+        self.assertIn("Authorization: Bearer secret-token", run.call_args.kwargs["input"])
+        self.assertEqual(run.call_args.kwargs["timeout"], 35)
+
+    @patch("gstack_port_for_codex.upstream_drift.urlopen")
+    def test_urlopen_uses_request_timeout(self, urlopen) -> None:
+        response = urlopen.return_value.__enter__.return_value
+        response.read.return_value = b"{}"
+
+        self.assertEqual(fetch_json("https://example.test/api"), {})
+        self.assertEqual(urlopen.call_args.kwargs["timeout"], 30)
 
     def test_classify_changed_paths_groups_skill_and_shared_paths(self) -> None:
         classified = classify_changed_paths(
