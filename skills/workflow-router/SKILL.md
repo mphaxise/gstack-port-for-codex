@@ -1,6 +1,6 @@
 ---
 name: workflow-router
-description: Natural-language router for GStack, GBrain, browser QA, automations, memory, design, review, ship, delegation, and Praneet extension skills; choose the smallest useful skill set.
+description: Natural-language router for GStack, GBrain, browser QA, automations, memory, design, review, ship, and Praneet extension skills; choose the smallest useful skill set.
 ---
 
 # Workflow Router
@@ -37,7 +37,6 @@ Read `references/intent-map.md` before routing if the match is not obvious.
    - design leadership
    - maintenance or testing
    - iOS app work
-   - bounded external implementation
    - browser QA
    - automation
    - review or ship
@@ -93,7 +92,6 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants a work-session organization pass, use `eiirp`.
 - If the user wants to learn from whether a prior plan or review worked, use `outcome-memory`.
 - If the user wants to optimize or tune an existing skill, use `skill-optimizer`.
-- If the user explicitly requests OpenCode delegation, or substantial implementation has at least three meaningful independent units with stable interfaces and deterministic checks, use `prescriptive-opencode-delegation` to apply its privacy, qualification, and savings gates.
 - If the user wants skillpack health or post-restart validation, use `skillpack-check` or `smoke-test`.
 - If the user wants recurring work, use `cron-scheduler`.
 - If the user is debugging or asking why something broke, use `investigate`.

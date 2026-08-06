@@ -10,8 +10,10 @@ Current reference port in this repository:
 - Upstream skill: `plan-ceo-review`
 - Local Codex port: `skills/plan-ceo-review/`
 
-This repository also includes adapted workflow guidance based on the
-Apache-2.0-licensed `pbakaus/impeccable` project.
+This repository also includes adapted workflow guidance in
+`skills/design-quality/` and related compatibility documentation based on the
+Apache-2.0-licensed `pbakaus/impeccable` project. The applicable license text
+is included at `LICENSES/Apache-2.0.txt`.
 
 Upstream project:
 - Repository: https://github.com/pbakaus/impeccable

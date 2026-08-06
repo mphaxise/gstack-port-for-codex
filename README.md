@@ -8,7 +8,7 @@ This repository started as a port of [GStack](https://github.com/garrytan/gstack
 | --- | --- | ---: |
 | **GStack** | Planning, design, review, debugging, QA, release, and engineering workflows | [56 ports](data/skill-map.json) |
 | **GBrain** | Capture, research, ingestion, daily operations, local memory, and knowledge maintenance | [53 ports](data/gbrain-skill-map.json) |
-| **Praneet extensions** | Responsible design, accessibility, research synthesis, design leadership, market judgment, outcome learning, and bounded external delegation | [8 extensions](data/praneet-skill-map.json) |
+| **Praneet extensions** | Responsible design, accessibility, research synthesis, design leadership, market judgment, and outcome learning | [7 extensions](data/praneet-skill-map.json) |
 | **Impeccable integration** | Project-aware design quality, optional deterministic checks, critique evidence, and external live-mode routing | [capability map](data/impeccable-capability-map.json) |
 
 ## What changed from upstream
@@ -34,21 +34,25 @@ The Praneet layer is not a cosmetic persona. It changes what the system checks a
 - [`design-leadership-review`](skills/design-leadership-review/SKILL.md) adds a CDO-level lens for quality bars, critique, organizational implications, alignment, and durable decision records.
 - [`startup-memo`](skills/startup-memo/SKILL.md) and [`market-map`](skills/market-map/SKILL.md) combine founder judgment with user impact, ethics, and social consequences.
 - [`outcome-memory`](skills/outcome-memory/SKILL.md) compares recommendations with real results so future judgment can improve instead of repeating the same assumptions.
-- [`prescriptive-opencode-delegation`](skills/prescriptive-opencode-delegation/SKILL.md) qualifies substantial external implementation, freezes file and interface contracts, and keeps final verification and repository actions with Codex.
 
 The router also uses a chief-of-staff selection pattern: consider the skills that could add leverage, then deliberately pare them down to the smallest useful set. That favors judgment over process for its own sake.
 
 ## Try it
 
-Copy only the skills you want into your Codex skills directory:
+Install the planning and engineering workflow layer with the checked-in installer:
 
 ```bash
-mkdir -p "$CODEX_HOME/skills"
-cp -R skills/workflow-router "$CODEX_HOME/skills/"
-cp -R skills/responsible-design-review "$CODEX_HOME/skills/"
-cp -R skills/research-synthesis "$CODEX_HOME/skills/"
-cp -R skills/prescriptive-opencode-delegation "$CODEX_HOME/skills/"
+python3 scripts/install_skills.py --bundle core
 ```
+
+Install the public Praneet extensions separately when they are useful:
+
+```bash
+python3 scripts/install_skills.py --bundle extensions
+```
+
+Use `--dest PATH` to install into a project or test directory. The installer
+does not overwrite an existing skill unless `--force` is supplied.
 
 Then ask naturally:
 
@@ -71,7 +75,8 @@ Other useful entry points:
 - [`office-hours`](skills/office-hours/SKILL.md) — pressure-test an idea before implementation planning
 - [`design-leadership-review`](skills/design-leadership-review/SKILL.md) — review whether the organization is making the right design decision
 - [`design-quality`](skills/design-quality/SKILL.md) — apply project context, design gates, optional Impeccable checks, and evidence-aware fallbacks
-- [`prescriptive-opencode-delegation`](skills/prescriptive-opencode-delegation/SKILL.md) — qualify and orchestrate bounded external implementation
+
+For the full coding workflow, see the [coding workflow guide](docs/coding-workflow.md).
 
 ## Mutable sources and privacy
 
@@ -99,12 +104,18 @@ When the source changes, the managed projection replaces its current compiled tr
 - [`docs/`](docs/) — adaptation decisions, compatibility maps, and runtime audits
 - [`scripts/`](scripts/) — validation, drift, status, and local-brain helpers
 - [`brain/README.md`](brain/README.md) — local brain structure and operating contract
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) — contribution and validation contract
+- [`SECURITY.md`](SECURITY.md) — security reporting and privacy boundary
+- [`CHANGELOG.md`](CHANGELOG.md) — maintainer-facing change history
+- [`docs/release-checklist.md`](docs/release-checklist.md) — release gates
 
 ## Validate the package
 
 ```bash
 python3 scripts/validate_repo.py
 python3 -m unittest discover -s tests
+python3 scripts/smoke_install.py
+python3 scripts/check_public_boundary.py
 python3 scripts/print_status.py
 python3 scripts/brain_doctor.py
 python3 scripts/check_upstream_drift.py --map impeccable
@@ -118,6 +129,10 @@ Current Codex behavior is checked against the official Codex manual before compa
 - [garrytan/gbrain](https://github.com/garrytan/gbrain)
 - [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
 - GStack and GBrain adaptations use their MIT-licensed sources. Impeccable-derived guidance retains Apache-2.0 attribution. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
+
+The [upstream freshness record](docs/upstream-freshness-2026-08-06.md) separates
+the last reviewed source commits from the conservative baselines used by the
+drift checker.
 
 - GStack conservative runtime baseline: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`; skill-workflow parity was audited at `a3259400a366593e0c909dd9ac3e59752efd2488` on July 16.
 - GBrain conservative runtime baseline: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; skill-workflow parity was audited at `5008b287e47bf791132eedfebf66bdef11e9398c` on July 16.

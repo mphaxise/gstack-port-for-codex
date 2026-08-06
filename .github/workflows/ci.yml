@@ -7,12 +7,14 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
           python-version: "3.11"
 
@@ -21,3 +23,15 @@ jobs:
 
       - name: Run unit tests
         run: python3 -m unittest discover -s tests
+
+      - name: Check public boundary
+        run: python3 scripts/check_public_boundary.py
+
+      - name: Smoke test installer
+        run: python3 scripts/smoke_install.py
+
+      - name: Compile Python sources
+        run: python3 -m compileall -q scripts src tests
+
+      - name: Check diff formatting
+        run: git diff --check

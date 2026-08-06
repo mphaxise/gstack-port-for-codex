@@ -5,7 +5,7 @@ The Praneet extension layer sits on top of the upstream GStack and GBrain parity
 It is intentionally tracked separately in `data/praneet-skill-map.json` so the repo can say two true things at once:
 
 - upstream parity remains exact for Garry Tan's latest GStack and GBrain skill-name surfaces
-- Praneet's local Codex install carries additional hand-port enhancements for design leadership, responsible design, social ethics, founder judgment, outcome memory, and bounded external delegation
+- Praneet's public extension layer carries additional hand-port enhancements for design leadership, responsible design, social ethics, founder judgment, and outcome memory
 
 ## Skills
 
@@ -16,7 +16,6 @@ It is intentionally tracked separately in `data/praneet-skill-map.json` so the r
 - `market-map`: category, competitor, wedge, buyer, timing, and social-impact mapping
 - `design-leadership-review`: CDO-level review for principles, quality bar, critique cadence, organizational implications, stakeholder alignment, and decision records
 - `outcome-memory`: learning loop that records whether prior recommendations worked, failed, or need revised judgment
-- `prescriptive-opencode-delegation`: evidence-gated orchestration for substantial external implementation with exact file ownership, qualified model routes, and independent Codex verification
 
 ## Design Leadership Lens
 
@@ -28,11 +27,10 @@ These skills are not generic review prompts. They are meant to make the port mor
 - market judgment should include social consequences
 - research claims should carry confidence and source quality
 - prior recommendations should teach future judgment
-- external implementation should preserve privacy, exact ownership, deterministic acceptance, and measured savings
 
 ## Routing
 
-`workflow-router` routes natural-language requests into these skills when the user asks about responsible design, accessibility, market judgment, research synthesis, executive design review, outcome learning, or bounded OpenCode delegation.
+`workflow-router` routes natural-language requests into these skills when the user asks about responsible design, accessibility, market judgment, research synthesis, executive design review, or outcome learning.
 
 The router should use a two-step chief-of-staff selection pattern:
 

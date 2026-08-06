@@ -27,6 +27,20 @@ REQUIRED_DOCS = (
     Path("docs/upstream-parity-2026-07-16.md"),
     Path("docs/impeccable-compatibility-map.md"),
     Path("docs/impeccable-adoption-report-2026-07-16.md"),
+    Path("docs/coding-workflow.md"),
+    Path("docs/release-checklist.md"),
+)
+REQUIRED_PACKAGE_FILES = (
+    Path("CONTRIBUTING.md"),
+    Path("SECURITY.md"),
+    Path("CHANGELOG.md"),
+    Path("LICENSE"),
+    Path("LICENSES/Apache-2.0.txt"),
+    Path(".github/CODEOWNERS"),
+    Path(".github/workflows/ci.yml"),
+    Path("scripts/install_skills.py"),
+    Path("scripts/smoke_install.py"),
+    Path("scripts/check_public_boundary.py"),
 )
 SKILL_MAP_FILES = (
     Path("data/skill-map.json"),
@@ -238,6 +252,10 @@ def validate_repo(repo_root: Path) -> list[str]:
     for rel_path in REQUIRED_DOCS:
         if not (repo_root / rel_path).exists():
             errors.append(f"Missing required documentation file: {rel_path}.")
+
+    for rel_path in REQUIRED_PACKAGE_FILES:
+        if not (repo_root / rel_path).exists():
+            errors.append(f"Missing required package file: {rel_path}.")
 
     readme_path = repo_root / "README.md"
     if not readme_path.exists():
