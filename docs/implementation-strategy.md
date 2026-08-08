@@ -30,6 +30,7 @@ The portable core contains reusable intent, workflow, acceptance criteria, and p
 - `data/impeccable-capability-map.json`: external design-runtime capabilities
 - `data/canonical-skill-inventory.json`: deterministic identity and exact-content groups for every packaged skill
 - `data/reconciliation-alpha.json`: the first reviewed three-way reconciliation tranche
+- `data/reconciliation-beta.json`: the capture and filing resource-fidelity tranche
 - `data/reconciliation-record.schema.json`: the machine-readable reconciliation contract
 - `src/gstack_port_for_codex/registry.py`: registry and portability validation
 - `src/gstack_port_for_codex/reconciliation.py`: inventory, hashing, retention, refresh, and validation logic
@@ -57,6 +58,8 @@ Hash the source and export population, group duplicates, assign canonical identi
 Reconcile routers, upgrade workflows, skillpack checks, and one runtime-heavy skill. Run a three-way comparison across adopted source, current local state, and current upstream. Measure retention and record every intentional removal.
 
 Alpha completed steps 2 through 4 on `2026-08-08`. The deterministic inventory covers all 117 packaged skills. The representative tranche covers `gstack`, `workflow-router`, `gstack-upgrade`, `gbrain-upgrade`, `skillpack-check`, and `browse`. Repository validation checks the tracked inventory and each record's local hash. The refresh command verifies upstream hashes and retention when public source checkouts are available.
+
+Beta completed the first bounded step 5 tranche on `2026-08-08`. It retained the Codex adapter's 12-word title behavior after reviewing the current `capture` change, preserved the stable `brain-taxonomist` routing fixture, and added deterministic resource hashes and structured routing outcomes.
 
 ### 5. Expand upstream adoption
 

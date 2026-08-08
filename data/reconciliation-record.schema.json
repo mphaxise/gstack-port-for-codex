@@ -6,7 +6,7 @@
   "required": ["schema_version", "milestone", "reviewed_at", "sources", "records"],
   "properties": {
     "schema_version": {"const": 1},
-    "milestone": {"const": "alpha"},
+    "milestone": {"enum": ["alpha", "beta"]},
     "reviewed_at": {"type": "string", "format": "date"},
     "sources": {
       "type": "object",
@@ -82,6 +82,58 @@
           "companion_resources": {"type": "array", "items": {"type": "string"}},
           "validation": {"type": "array", "minItems": 1, "items": {"type": "string"}},
           "decision": {"enum": ["adopted", "local-origin", "reviewed-deferred"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "resource_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["resource_id", "source_name", "upstream_path", "local_path", "disposition", "hashes"],
+        "properties": {
+          "resource_id": {"type": "string", "pattern": "^skill:[a-z0-9-]+:[a-z0-9-]+$"},
+          "source_name": {"enum": ["gstack", "gbrain"]},
+          "upstream_path": {"type": "string"},
+          "local_path": {"type": "string", "pattern": "^skills/.+"},
+          "disposition": {"enum": ["host-adapted", "preserved", "reviewed-deferred"]},
+          "hashes": {
+            "type": "object",
+            "required": ["adopted_source_sha256", "current_upstream_sha256", "local_sha256"],
+            "properties": {
+              "adopted_source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "current_upstream_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "local_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "evaluations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "kind", "fixture_path", "fixture_sha256", "case_count", "outcomes"],
+        "properties": {
+          "name": {"type": "string"},
+          "kind": {"const": "routing-jsonl"},
+          "fixture_path": {"type": "string", "pattern": "^skills/.+\\.jsonl$"},
+          "fixture_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "case_count": {"type": "integer", "minimum": 1},
+          "outcomes": {
+            "type": "object",
+            "required": ["valid_jsonl", "nonempty_cases", "unique_intents", "expected_skills_packaged", "ambiguous_skills_packaged"],
+            "properties": {
+              "valid_jsonl": {"type": "boolean"},
+              "nonempty_cases": {"type": "boolean"},
+              "unique_intents": {"type": "boolean"},
+              "expected_skills_packaged": {"type": "boolean"},
+              "ambiguous_skills_packaged": {"type": "boolean"}
+            },
+            "additionalProperties": false
+          }
         },
         "additionalProperties": false
       }

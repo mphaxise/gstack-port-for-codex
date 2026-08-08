@@ -47,6 +47,6 @@ python3 scripts/refresh_reconciliation_manifest.py \
   --check
 ```
 
-## Next boundary
+## Beta handoff
 
-The next tranche should reconcile a small family with shared companion resources and one known upstream change. Its result should test whether the schema needs resource hashes, structured evaluator outcomes, or a more semantic retention measure before broader adoption.
+The [beta tranche](reconciliation-beta.md) reconciles the capture and filing family, reviews one known upstream change, and extends the schema with resource hashes and structured evaluator outcomes. Semantic retention remains a later option if line overlap proves insufficient for a future family.

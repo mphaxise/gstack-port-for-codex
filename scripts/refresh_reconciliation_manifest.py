@@ -15,13 +15,19 @@ from gstack_port_for_codex.reconciliation import refresh_reconciliation_manifest
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Refresh alpha reconciliation hashes and retention.")
+    parser = argparse.ArgumentParser(description="Refresh reconciliation hashes, retention, and evaluators.")
     parser.add_argument("--gstack-repo", type=Path, required=True)
     parser.add_argument("--gbrain-repo", type=Path, required=True)
+    parser.add_argument(
+        "--manifest",
+        type=Path,
+        default=Path("data/reconciliation-alpha.json"),
+        help="Manifest path relative to the repository root",
+    )
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
 
-    target = REPO_ROOT / "data" / "reconciliation-alpha.json"
+    target = args.manifest if args.manifest.is_absolute() else REPO_ROOT / args.manifest
     manifest = json.loads(target.read_text(encoding="utf-8"))
     refreshed = refresh_reconciliation_manifest(
         manifest,
@@ -31,9 +37,9 @@ def main() -> int:
     rendered = json.dumps(refreshed, indent=2) + "\n"
     if args.check:
         if target.read_text(encoding="utf-8") != rendered:
-            print("Alpha reconciliation manifest is stale.", file=sys.stderr)
+            print(f"{manifest['milestone'].title()} reconciliation manifest is stale.", file=sys.stderr)
             return 1
-        print("Alpha reconciliation manifest is current.")
+        print(f"{manifest['milestone'].title()} reconciliation manifest is current.")
         return 0
 
     target.write_text(rendered, encoding="utf-8")

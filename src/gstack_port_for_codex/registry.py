@@ -40,6 +40,7 @@ REQUIRED_DOCS = (
     Path("docs/coding-workflow.md"),
     Path("docs/release-checklist.md"),
     Path("docs/reconciliation-alpha.md"),
+    Path("docs/reconciliation-beta.md"),
 )
 REQUIRED_PACKAGE_FILES = (
     Path("CONTRIBUTING.md"),
@@ -56,6 +57,7 @@ REQUIRED_PACKAGE_FILES = (
     Path("scripts/refresh_reconciliation_manifest.py"),
     Path("data/canonical-skill-inventory.json"),
     Path("data/reconciliation-alpha.json"),
+    Path("data/reconciliation-beta.json"),
     Path("data/reconciliation-record.schema.json"),
 )
 SKILL_MAP_FILES = (
@@ -400,11 +402,13 @@ def validate_repo(repo_root: Path) -> list[str]:
                     )
 
     inventory_path = repo_root / "data" / "canonical-skill-inventory.json"
-    reconciliation_path = repo_root / "data" / "reconciliation-alpha.json"
     if inventory_path.exists():
         inventory = load_skill_map(inventory_path)
         errors.extend(validate_canonical_inventory(inventory, repo_root))
-        if reconciliation_path.exists():
+        reconciliation_paths = sorted((repo_root / "data").glob("reconciliation-*.json"))
+        for reconciliation_path in reconciliation_paths:
+            if reconciliation_path.name.endswith(".schema.json"):
+                continue
             reconciliation = load_skill_map(reconciliation_path)
             errors.extend(
                 validate_reconciliation_manifest(reconciliation, repo_root, inventory)

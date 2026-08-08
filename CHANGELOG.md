@@ -9,3 +9,5 @@
   contributor guidance, security guidance, and release gates.
 - Refresh licensing attribution and record observed upstream freshness
   separately from conservative drift-check baselines.
+- Add beta reconciliation for capture and filing, including companion-resource
+  hashes and deterministic routing-fixture outcomes.

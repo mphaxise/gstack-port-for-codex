@@ -13,13 +13,13 @@ This repository started as a port of [GStack](https://github.com/garrytan/gstack
 
 ## What changed from upstream
 
-This is not a line-for-line copy. The `2026-07-16` full-surface audit confirms that all 54 current upstream GStack skills and all 53 current upstream GBrain skills are represented; the GStack registry also retains the local `gstack` router and legacy `checkpoint` compatibility skill.
+This is an adapted port. The `2026-07-16` full-surface audit confirms that all 54 current upstream GStack skills and all 53 current upstream GBrain skills are represented; the GStack registry also retains the local `gstack` router and legacy `checkpoint` compatibility skill.
 
 - **Codex-native skills:** upstream commands were rewritten as focused `SKILL.md` workflows with Codex-oriented invocation and outputs.
 - **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies are labeled instead of being treated as universal capabilities.
 - **Local GBrain substrate:** ambient memory behavior was adapted into explicit Markdown-backed capture, search, linking, ingestion, synchronization, citation, and health-check tools.
 - **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request; users do not need to memorize the catalog.
-- **Validation and reconciliation:** the [canonical inventory](data/canonical-skill-inventory.json), [alpha reconciliation manifest](data/reconciliation-alpha.json), tests, health checks, and upstream-drift tooling keep provenance and adaptation decisions inspectable.
+- **Validation and reconciliation:** the [canonical inventory](data/canonical-skill-inventory.json), [alpha](data/reconciliation-alpha.json) and [beta](data/reconciliation-beta.json) reconciliation manifests, tests, health checks, and upstream-drift tooling keep provenance and adaptation decisions inspectable.
 - **Tracked design runtime:** selected [Impeccable](https://github.com/pbakaus/impeccable) guidance is adapted into a concise Codex bridge. Its Apache-2.0 detector, hooks, and live browser runtime remain optional upstream capabilities.
 
 See the [GStack compatibility map](docs/compatibility-map.md), [GBrain adaptation memo](docs/gbrain-adaptation-memo.md), [Impeccable compatibility map](docs/impeccable-compatibility-map.md), and [runtime compatibility notes](docs/runtime-compatibility.md) for the detailed boundaries.
@@ -29,11 +29,11 @@ See the [GStack compatibility map](docs/compatibility-map.md), [GBrain adaptatio
 The Praneet layer is not a cosmetic persona. It changes what the system checks and how it makes recommendations.
 
 - [`responsible-design-review`](skills/responsible-design-review/SKILL.md) checks autonomy, consent, dark patterns, fairness, vulnerable users, and data dignity.
-- [`accessibility-review`](skills/accessibility-review/SKILL.md) makes accessibility a first-class quality bar rather than a small visual-QA check.
+- [`accessibility-review`](skills/accessibility-review/SKILL.md) makes accessibility a first-class quality bar across assistive technology, cognitive load, motion, language, and interaction quality.
 - [`research-synthesis`](skills/research-synthesis/SKILL.md) grades evidence, checks bias, preserves quote-to-insight traceability, and names what remains unknown.
 - [`design-leadership-review`](skills/design-leadership-review/SKILL.md) adds a CDO-level lens for quality bars, critique, organizational implications, alignment, and durable decision records.
 - [`startup-memo`](skills/startup-memo/SKILL.md) and [`market-map`](skills/market-map/SKILL.md) combine founder judgment with user impact, ethics, and social consequences.
-- [`outcome-memory`](skills/outcome-memory/SKILL.md) compares recommendations with real results so future judgment can improve instead of repeating the same assumptions.
+- [`outcome-memory`](skills/outcome-memory/SKILL.md) compares recommendations with real results so future judgment can improve from measured outcomes.
 
 The router also uses a chief-of-staff selection pattern: consider the skills that could add leverage, then deliberately pare them down to the smallest useful set. That favors judgment over process for its own sake.
 
@@ -101,7 +101,8 @@ When the source changes, the managed projection replaces its current compiled tr
 
 - [`skills/`](skills/) — GStack, GBrain, and Praneet workflow definitions
 - [`data/`](data/) — separate provenance and compatibility registries
-- [`docs/reconciliation-alpha.md`](docs/reconciliation-alpha.md) — alpha manifest scope, measurements, and next boundary
+- [`docs/reconciliation-alpha.md`](docs/reconciliation-alpha.md) — alpha manifest scope, measurements, and beta handoff
+- [`docs/reconciliation-beta.md`](docs/reconciliation-beta.md) — capture and filing resource-fidelity tranche
 - [`docs/`](docs/) — adaptation decisions, compatibility maps, and runtime audits
 - [`scripts/`](scripts/) — validation, drift, status, and local-brain helpers
 - [`brain/README.md`](brain/README.md) — local brain structure and operating contract

@@ -13,6 +13,15 @@ the packaged skill set. Public documentation stays provider-neutral. Personal
 delegation policy, provider routing, and private operating controls remain
 outside this repository.
 
+Post-alpha reconciliation follow-up: the official manual was current on
+2026-08-08 with `codex-cli 0.144.0`. The skills guidance reconfirmed that a
+skill directory may carry supporting resources alongside `SKILL.md` and load
+them through progressive disclosure. The beta tranche therefore preserves and
+hashes a routing fixture beside `brain-taxonomist`, while repository validation
+checks its packaged skill targets. The import guidance also reconfirmed that
+Claude-specific permissions, tools, hooks, and personal context require review
+and stay outside the public Codex package.
+
 Previous verification: 2026-08-06
 Installed Codex: `codex-cli 0.144.0`
 Documentation access: the official Codex manual helper could not refresh on

@@ -19,6 +19,9 @@ ALLOWED_CLASSIFICATIONS = {
 }
 ALLOWED_HOST_COUPLING = {"portable", "codex-adapter", "runtime-heavy"}
 ALLOWED_DECISIONS = {"adopted", "local-origin", "reviewed-deferred"}
+ALLOWED_MILESTONES = {"alpha", "beta"}
+ALLOWED_RESOURCE_DISPOSITIONS = {"host-adapted", "preserved", "reviewed-deferred"}
+ALLOWED_EVALUATION_KINDS = {"routing-jsonl"}
 SKILL_MAP_PATHS = (
     Path("data/skill-map.json"),
     Path("data/gbrain-skill-map.json"),
@@ -149,14 +152,70 @@ def validate_canonical_inventory(inventory: dict, repo_root: Path) -> list[str]:
     return errors
 
 
-def git_blob_text(repo: Path, commit: str, path: str) -> str:
+def git_blob_bytes(repo: Path, commit: str, path: str) -> bytes:
     completed = subprocess.run(
         ["git", "-C", str(repo), "show", f"{commit}:{path}"],
         check=True,
         capture_output=True,
-        text=True,
     )
     return completed.stdout
+
+
+def git_blob_text(repo: Path, commit: str, path: str) -> str:
+    return git_blob_bytes(repo, commit, path).decode("utf-8")
+
+
+def evaluate_routing_jsonl(fixture_path: Path, repo_root: Path) -> tuple[int, dict[str, bool]]:
+    cases: list[dict] = []
+    valid_jsonl = True
+    try:
+        for line in fixture_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            case = json.loads(line)
+            if (
+                not isinstance(case, dict)
+                or not isinstance(case.get("intent"), str)
+                or not case["intent"].strip()
+                or not isinstance(case.get("expected_skill"), str)
+                or not case["expected_skill"].strip()
+                or (
+                    "ambiguous_with" in case
+                    and (
+                        not isinstance(case["ambiguous_with"], list)
+                        or not all(isinstance(item, str) and item for item in case["ambiguous_with"])
+                    )
+                )
+            ):
+                valid_jsonl = False
+            cases.append(case if isinstance(case, dict) else {})
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        valid_jsonl = False
+
+    expected_skills = [case.get("expected_skill") for case in cases]
+    ambiguous_skills: list[str] = []
+    for case in cases:
+        ambiguous_with = case.get("ambiguous_with", [])
+        if isinstance(ambiguous_with, list):
+            ambiguous_skills.extend(skill for skill in ambiguous_with if isinstance(skill, str))
+    intents = [case.get("intent") for case in cases]
+    outcomes = {
+        "valid_jsonl": valid_jsonl,
+        "nonempty_cases": bool(cases),
+        "unique_intents": valid_jsonl and len(intents) == len(set(intents)),
+        "expected_skills_packaged": valid_jsonl
+        and all((repo_root / "skills" / str(skill) / "SKILL.md").is_file() for skill in expected_skills),
+        "ambiguous_skills_packaged": valid_jsonl
+        and all((repo_root / "skills" / str(skill) / "SKILL.md").is_file() for skill in ambiguous_skills),
+    }
+    return len(cases), outcomes
+
+
+def evaluate_manifest_fixture(evaluation: dict, repo_root: Path) -> tuple[int, dict[str, bool]]:
+    kind = evaluation.get("kind")
+    if kind == "routing-jsonl":
+        return evaluate_routing_jsonl(repo_root / evaluation["fixture_path"], repo_root)
+    raise ValueError(f"Unsupported reconciliation evaluation kind: {kind!r}.")
 
 
 def refresh_reconciliation_manifest(
@@ -201,6 +260,25 @@ def refresh_reconciliation_manifest(
             local_text,
         )
 
+    for resource in refreshed.get("resource_records", []):
+        local_bytes = (repo_root / resource["local_path"]).read_bytes()
+        resource["hashes"]["local_sha256"] = sha256_bytes(local_bytes)
+        source = sources[resource["source_name"]]
+        upstream_root = upstream_roots[resource["source_name"]]
+        resource["hashes"]["adopted_source_sha256"] = sha256_bytes(
+            git_blob_bytes(upstream_root, source["adopted_commit"], resource["upstream_path"])
+        )
+        resource["hashes"]["current_upstream_sha256"] = sha256_bytes(
+            git_blob_bytes(upstream_root, source["current_commit"], resource["upstream_path"])
+        )
+
+    for evaluation in refreshed.get("evaluations", []):
+        fixture_path = repo_root / evaluation["fixture_path"]
+        evaluation["fixture_sha256"] = sha256_bytes(fixture_path.read_bytes())
+        case_count, outcomes = evaluate_manifest_fixture(evaluation, repo_root)
+        evaluation["case_count"] = case_count
+        evaluation["outcomes"] = outcomes
+
     return refreshed
 
 
@@ -212,8 +290,9 @@ def validate_reconciliation_manifest(
     errors: list[str] = []
     if manifest.get("schema_version") != 1:
         errors.append("Reconciliation manifest schema_version must be 1.")
-    if manifest.get("milestone") != "alpha":
-        errors.append("Reconciliation manifest milestone must be alpha.")
+    milestone = manifest.get("milestone")
+    if milestone not in ALLOWED_MILESTONES:
+        errors.append(f"Reconciliation manifest has invalid milestone: {milestone!r}.")
 
     inventory_ids = {entry["canonical_id"] for entry in inventory.get("entries", [])}
     sources = manifest.get("sources")
@@ -307,5 +386,78 @@ def validate_reconciliation_manifest(
 
         if not isinstance(record.get("validation"), list) or not record.get("validation"):
             errors.append(f"Reconciliation record {canonical_id} needs validation commands.")
+
+    resources = manifest.get("resource_records", [])
+    if milestone == "beta" and not resources:
+        errors.append("Beta reconciliation manifest needs resource_records.")
+    if not isinstance(resources, list):
+        errors.append("Reconciliation resource_records must be a list.")
+        resources = []
+    seen_resource_ids: set[str] = set()
+    for index, resource in enumerate(resources, start=1):
+        resource_id = resource.get("resource_id")
+        if not resource_id:
+            errors.append(f"Reconciliation resource #{index} is missing resource_id.")
+        elif resource_id in seen_resource_ids:
+            errors.append(f"Duplicate reconciliation resource: {resource_id}.")
+        else:
+            seen_resource_ids.add(resource_id)
+
+        source_name = resource.get("source_name")
+        if source_name not in sources:
+            errors.append(f"Unknown reconciliation resource source: {source_name!r}.")
+        for field in ("upstream_path", "local_path"):
+            if not resource.get(field):
+                errors.append(f"Reconciliation resource {resource_id} is missing {field}.")
+        local_path = resource.get("local_path")
+        if local_path and (repo_root / local_path).is_file():
+            local_hash = sha256_bytes((repo_root / local_path).read_bytes())
+            if resource.get("hashes", {}).get("local_sha256") != local_hash:
+                errors.append(f"Reconciliation resource hash drift for {resource_id}.")
+        else:
+            errors.append(f"Reconciliation resource {resource_id} has missing local_path.")
+
+        hashes = resource.get("hashes", {})
+        for field in ("adopted_source_sha256", "current_upstream_sha256", "local_sha256"):
+            if not SHA256_PATTERN.fullmatch(str(hashes.get(field, ""))):
+                errors.append(f"Reconciliation resource {resource_id} has invalid {field}.")
+        disposition = resource.get("disposition")
+        if disposition not in ALLOWED_RESOURCE_DISPOSITIONS:
+            errors.append(f"Reconciliation resource {resource_id} has invalid disposition.")
+        if disposition == "preserved" and hashes.get("local_sha256") != hashes.get("current_upstream_sha256"):
+            errors.append(f"Preserved reconciliation resource {resource_id} differs from current upstream.")
+
+    evaluations = manifest.get("evaluations", [])
+    if milestone == "beta" and not evaluations:
+        errors.append("Beta reconciliation manifest needs evaluations.")
+    if not isinstance(evaluations, list):
+        errors.append("Reconciliation evaluations must be a list.")
+        evaluations = []
+    seen_evaluations: set[str] = set()
+    for index, evaluation in enumerate(evaluations, start=1):
+        name = evaluation.get("name")
+        if not name:
+            errors.append(f"Reconciliation evaluation #{index} is missing name.")
+        elif name in seen_evaluations:
+            errors.append(f"Duplicate reconciliation evaluation: {name}.")
+        else:
+            seen_evaluations.add(name)
+        if evaluation.get("kind") not in ALLOWED_EVALUATION_KINDS:
+            errors.append(f"Reconciliation evaluation {name} has invalid kind.")
+            continue
+        fixture_path = evaluation.get("fixture_path")
+        if not fixture_path or not (repo_root / fixture_path).is_file():
+            errors.append(f"Reconciliation evaluation {name} has missing fixture_path.")
+            continue
+        fixture_hash = sha256_bytes((repo_root / fixture_path).read_bytes())
+        if evaluation.get("fixture_sha256") != fixture_hash:
+            errors.append(f"Reconciliation evaluation fixture hash drift for {name}.")
+        case_count, outcomes = evaluate_manifest_fixture(evaluation, repo_root)
+        if evaluation.get("case_count") != case_count:
+            errors.append(f"Reconciliation evaluation case count drift for {name}.")
+        if evaluation.get("outcomes") != outcomes:
+            errors.append(f"Reconciliation evaluation outcome drift for {name}.")
+        if not all(outcomes.values()):
+            errors.append(f"Reconciliation evaluation {name} has failing outcomes.")
 
     return errors
