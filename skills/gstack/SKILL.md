@@ -7,7 +7,8 @@ description: Route broad GStack requests to Codex-native planning, review, QA, b
 
 Use this skill when the user asks for GStack generally, asks which GStack skill fits, or gives a broad planning/review/QA/shipping/debugging request.
 
-This port is adapted from `garrytan/gstack` at commit `11de390be1be6849eb9a15f91ff4922dd16c589a`.
+This port was reconciled against `garrytan/gstack` at commit
+`a3259400a366593e0c909dd9ac3e59752efd2488`.
 
 ## Routing
 

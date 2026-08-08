@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mphaxise/gstack-port-for-codex/data/reconciliation-record.schema.json",
+  "title": "GStack and GBrain reconciliation manifest",
+  "type": "object",
+  "required": ["schema_version", "milestone", "reviewed_at", "sources", "records"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "milestone": {"const": "alpha"},
+    "reviewed_at": {"type": "string", "format": "date"},
+    "sources": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["repo", "adopted_commit", "current_commit"],
+        "properties": {
+          "repo": {"type": "string", "format": "uri"},
+          "adopted_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "current_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "canonical_id",
+          "source_name",
+          "upstream_path",
+          "local_path",
+          "classifications",
+          "host_coupling",
+          "hashes",
+          "retention",
+          "intentional_removals",
+          "companion_resources",
+          "validation",
+          "decision"
+        ],
+        "properties": {
+          "canonical_id": {"type": "string", "pattern": "^skill:[a-z0-9-]+$"},
+          "source_name": {"enum": ["gstack", "gbrain", "local"]},
+          "upstream_path": {"type": ["string", "null"]},
+          "local_path": {"type": "string", "pattern": "^skills/.+/SKILL\\.md$"},
+          "classifications": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "host_coupling": {"enum": ["portable", "codex-adapter", "runtime-heavy"]},
+          "hashes": {
+            "type": "object",
+            "required": ["adopted_source_sha256", "current_upstream_sha256", "local_sha256"],
+            "properties": {
+              "adopted_source_sha256": {"type": ["string", "null"]},
+              "current_upstream_sha256": {"type": ["string", "null"]},
+              "local_sha256": {"type": "string"}
+            },
+            "additionalProperties": false
+          },
+          "retention": {
+            "type": "object",
+            "required": ["basis", "adopted_source_percent", "current_upstream_percent"],
+            "properties": {
+              "basis": {"const": "normalized-nonblank-line-overlap"},
+              "adopted_source_percent": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+              "current_upstream_percent": {"type": ["number", "null"], "minimum": 0, "maximum": 100}
+            },
+            "additionalProperties": false
+          },
+          "intentional_removals": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["category", "reason"],
+              "properties": {
+                "category": {"type": "string"},
+                "reason": {"type": "string"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "companion_resources": {"type": "array", "items": {"type": "string"}},
+          "validation": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "decision": {"enum": ["adopted", "local-origin", "reviewed-deferred"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

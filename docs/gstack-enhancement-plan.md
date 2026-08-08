@@ -91,7 +91,7 @@ Every changed tranche must pass:
 
 ## Milestone boundary
 
-This milestone delivers guardrails, a current plan, public-boundary alignment, and a clean repository commit. It does not claim that the full 264-package audit population has been reconciled. The next implementation milestone begins with the canonical inventory and reconciliation manifest, then proves the workflow on a representative tranche before broader upstream adoption.
+The guardrail milestone established portable metadata and routing checks. The alpha milestone adds the canonical inventory, reconciliation schema, and six-skill representative tranche. The broader 264-package export population remains outside this public repository. The next milestone expands reconciliation in bounded upstream tranches after the alpha evaluator has remained stable under review.
 
 ## Definition of done for the reconciliation program
 

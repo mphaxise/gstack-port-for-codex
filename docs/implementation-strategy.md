@@ -28,7 +28,11 @@ The portable core contains reusable intent, workflow, acceptance criteria, and p
 - `data/gbrain-skill-map.json`: GBrain source and per-skill provenance
 - `data/praneet-skill-map.json`: separately tracked extensions
 - `data/impeccable-capability-map.json`: external design-runtime capabilities
+- `data/canonical-skill-inventory.json`: deterministic identity and exact-content groups for every packaged skill
+- `data/reconciliation-alpha.json`: the first reviewed three-way reconciliation tranche
+- `data/reconciliation-record.schema.json`: the machine-readable reconciliation contract
 - `src/gstack_port_for_codex/registry.py`: registry and portability validation
+- `src/gstack_port_for_codex/reconciliation.py`: inventory, hashing, retention, refresh, and validation logic
 - `scripts/check_upstream_drift.py`: upstream movement reporting
 - `skills/`: portable workflows and the current Codex adapters
 - `brain/` and `src/gstack_port_for_codex/brain.py`: local file-backed substrate
@@ -51,6 +55,8 @@ Hash the source and export population, group duplicates, assign canonical identi
 ### 4. Prove one representative tranche
 
 Reconcile routers, upgrade workflows, skillpack checks, and one runtime-heavy skill. Run a three-way comparison across adopted source, current local state, and current upstream. Measure retention and record every intentional removal.
+
+Alpha completed steps 2 through 4 on `2026-08-08`. The deterministic inventory covers all 117 packaged skills. The representative tranche covers `gstack`, `workflow-router`, `gstack-upgrade`, `gbrain-upgrade`, `skillpack-check`, and `browse`. Repository validation checks the tracked inventory and each record's local hash. The refresh command verifies upstream hashes and retention when public source checkouts are available.
 
 ### 5. Expand upstream adoption
 
@@ -77,7 +83,7 @@ Improve durable reports, browser evidence, GBrain source integrity, and optional
 - current official Codex documentation review before runtime claims
 - current Claude Code version and official Claude documentation review before Claude-specific claims
 
-## Out of scope for the current milestone
+## Out of scope for the alpha milestone
 
 - wholesale migration of Claude skills or personal context
 - full reconciliation of the audit population in one commit

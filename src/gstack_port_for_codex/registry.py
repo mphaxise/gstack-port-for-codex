@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 import re
 
+from .reconciliation import validate_canonical_inventory, validate_reconciliation_manifest
+
 
 ALLOWED_STATUSES = {"ported", "planned", "blocked"}
 ALLOWED_PORT_KINDS = {"native", "workflow-adapted", "runtime-aware", "hand-port-enhanced"}
@@ -37,6 +39,7 @@ REQUIRED_DOCS = (
     Path("docs/impeccable-adoption-report-2026-07-16.md"),
     Path("docs/coding-workflow.md"),
     Path("docs/release-checklist.md"),
+    Path("docs/reconciliation-alpha.md"),
 )
 REQUIRED_PACKAGE_FILES = (
     Path("CONTRIBUTING.md"),
@@ -49,6 +52,11 @@ REQUIRED_PACKAGE_FILES = (
     Path("scripts/install_skills.py"),
     Path("scripts/smoke_install.py"),
     Path("scripts/check_public_boundary.py"),
+    Path("scripts/build_skill_inventory.py"),
+    Path("scripts/refresh_reconciliation_manifest.py"),
+    Path("data/canonical-skill-inventory.json"),
+    Path("data/reconciliation-alpha.json"),
+    Path("data/reconciliation-record.schema.json"),
 )
 SKILL_MAP_FILES = (
     Path("data/skill-map.json"),
@@ -390,6 +398,17 @@ def validate_repo(repo_root: Path) -> list[str]:
                         f"Capability {capability.get('id')!r} references missing local target: "
                         f"{local_target}."
                     )
+
+    inventory_path = repo_root / "data" / "canonical-skill-inventory.json"
+    reconciliation_path = repo_root / "data" / "reconciliation-alpha.json"
+    if inventory_path.exists():
+        inventory = load_skill_map(inventory_path)
+        errors.extend(validate_canonical_inventory(inventory, repo_root))
+        if reconciliation_path.exists():
+            reconciliation = load_skill_map(reconciliation_path)
+            errors.extend(
+                validate_reconciliation_manifest(reconciliation, repo_root, inventory)
+            )
 
     return errors
 

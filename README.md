@@ -19,7 +19,7 @@ This is not a line-for-line copy. The `2026-07-16` full-surface audit confirms t
 - **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies are labeled instead of being treated as universal capabilities.
 - **Local GBrain substrate:** ambient memory behavior was adapted into explicit Markdown-backed capture, search, linking, ingestion, synchronization, citation, and health-check tools.
 - **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request; users do not need to memorize the catalog.
-- **Validation and drift tracking:** machine-readable registries, tests, health checks, and upstream-drift tooling keep the port inspectable as the tracked upstream sources evolve.
+- **Validation and reconciliation:** the [canonical inventory](data/canonical-skill-inventory.json), [alpha reconciliation manifest](data/reconciliation-alpha.json), tests, health checks, and upstream-drift tooling keep provenance and adaptation decisions inspectable.
 - **Tracked design runtime:** selected [Impeccable](https://github.com/pbakaus/impeccable) guidance is adapted into a concise Codex bridge. Its Apache-2.0 detector, hooks, and live browser runtime remain optional upstream capabilities.
 
 See the [GStack compatibility map](docs/compatibility-map.md), [GBrain adaptation memo](docs/gbrain-adaptation-memo.md), [Impeccable compatibility map](docs/impeccable-compatibility-map.md), and [runtime compatibility notes](docs/runtime-compatibility.md) for the detailed boundaries.
@@ -101,6 +101,7 @@ When the source changes, the managed projection replaces its current compiled tr
 
 - [`skills/`](skills/) — GStack, GBrain, and Praneet workflow definitions
 - [`data/`](data/) — separate provenance and compatibility registries
+- [`docs/reconciliation-alpha.md`](docs/reconciliation-alpha.md) — alpha manifest scope, measurements, and next boundary
 - [`docs/`](docs/) — adaptation decisions, compatibility maps, and runtime audits
 - [`scripts/`](scripts/) — validation, drift, status, and local-brain helpers
 - [`brain/README.md`](brain/README.md) — local brain structure and operating contract
@@ -114,6 +115,7 @@ When the source changes, the managed projection replaces its current compiled tr
 ```bash
 python3 scripts/validate_repo.py
 python3 -m unittest discover -s tests
+python3 scripts/build_skill_inventory.py --check
 python3 scripts/smoke_install.py
 python3 scripts/check_public_boundary.py
 python3 scripts/print_status.py
