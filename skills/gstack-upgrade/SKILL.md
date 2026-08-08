@@ -14,7 +14,7 @@ This port is adapted from `garrytan/gstack` at commit `11de390be1be6849eb9a15f91
 1. Identify whether the request is about the repo, the local skill install, or both.
 2. Check the installed Codex version and refresh the current official Codex manual before deciding whether a fallback is still needed:
    - `codex --version`
-   - `node /Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`
+   - `node "${CODEX_HOME:-$HOME/.codex}/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs"`
 3. Read the manual sections relevant to the port, usually skills, plugins, MCP, `AGENTS.md`, sandboxing and approvals, hooks, memories, automations, browser behavior, and local/cloud environments.
 4. Refresh upstream refs for both `garrytan/gstack` and `garrytan/gbrain` when parity is in scope.
 5. Port upstream changes into Codex-native skill files instead of copying Claude-specific preambles.

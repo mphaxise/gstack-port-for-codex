@@ -1,102 +1,86 @@
 # Implementation Strategy
 
-## Build Goal
+## Goal
 
-Port the full upstream GBrain skill surface into this repo alongside the existing full GStack port, while keeping the deepest runtime differences explicit.
-
-## Problem Statement
-
-The implementation challenge is not just to add another skill. It is to expand the repo from a single-upstream skillpack into a two-upstream Codex package without losing clarity, and to do it without faking a background GBrain service that does not actually exist here.
+Maintain one inspectable GStack and GBrain package with a portable skill core, explicit runtime adapters, measurable export fidelity, and conservative upstream adoption.
 
 ## Architecture
 
 ```text
-full gstack port
-      +
-full gbrain registry + compatibility docs + resolver doc
-      +
-25 Codex skill ports
-      +
-local file-based brain substrate
-      +
-explicit workflow adaptations for ambient/runtime-heavy behaviors
-      =
-unified Codex package with honest parity
+upstream sources and adopted commits
+                |
+       canonical skill inventory
+                |
+   reconciliation and removal records
+                |
+         portable skill core
+          /             \
+ Codex adapter       Claude adapter
+          \             /
+   target validation and drift reports
 ```
 
-## Core Components
+The portable core contains reusable intent, workflow, acceptance criteria, and provenance. An adapter contains only host-specific invocation, tools, permissions, or runtime behavior. Private personal context stays outside the package.
 
-- `data/skill-map.json`
-  - GStack source registry
-- `data/gbrain-skill-map.json`
-  - full GBrain source registry
-- `docs/gbrain-compatibility-map.md`
-  - full-surface parity view
-- `docs/gbrain-resolver.md`
-  - Codex-facing routing view for the GBrain layer
-- `docs/codex-brain-substrate.md`
-  - local substrate design and helper scripts
-- `brain/`
-  - file-backed local corpus for the memory-oriented skills
-- `skills/*`
-  - actual Codex ports
-- `src/gstack_port_for_codex/brain.py`
-  - deterministic helpers for the local substrate
-- `src/gstack_port_for_codex/registry.py`
-  - validation for both upstream surfaces
+## Current components
 
-## Tech Choices
+- `data/skill-map.json`: GStack source and per-skill provenance
+- `data/gbrain-skill-map.json`: GBrain source and per-skill provenance
+- `data/praneet-skill-map.json`: separately tracked extensions
+- `data/impeccable-capability-map.json`: external design-runtime capabilities
+- `src/gstack_port_for_codex/registry.py`: registry and portability validation
+- `scripts/check_upstream_drift.py`: upstream movement reporting
+- `skills/`: portable workflows and the current Codex adapters
+- `brain/` and `src/gstack_port_for_codex/brain.py`: local file-backed substrate
+- compatibility, runtime, and documentation-refresh notes under `docs/`
 
-- keep skill ports Markdown-first
-- use JSON registries for validation and status reporting
-- add deterministic helper code only where it unlocks honest applicability
-- use a local file-backed substrate before considering a larger backend recreation
+## Delivery sequence
 
-## Ported Now
+### 1. Prevent new portability regressions
 
-- all 8 upstream GStack skills
-- all 25 upstream GBrain skills
+Validate names, required metadata, authoring-machine paths, unsupported frontmatter, and routed skill targets. Resolve installed helpers from runtime context. Keep private provider and delegation policy outside the public package.
 
-The main implementation distinction is not "done versus blocked." It is:
+### 2. Introduce the reconciliation record
 
-- direct Codex fit
-- workflow adaptation around local files, helpers, connectors, and automations
+Define a small machine-readable schema for source hashes, target hashes, adopted and current upstream commits, retention, intentional removals, host coupling, companion resources, and evaluator results. Add fixtures for faithful, adapted, removed, and invalid exports.
 
-## Most Adapted Layer
+### 3. Canonicalize the inventory
 
-- `brain-ops`
-- `signal-detector`
-- `idea-ingest`
-- `media-ingest`
-- `meeting-ingestion`
-- `citation-fixer`
-- `webhook-transforms`
+Hash the source and export population, group duplicates, assign canonical identities, and connect each target to its source and adapter. Preserve user edits as a distinct class until reviewed.
 
-These are the areas where upstream ambient/runtime behavior became explicit Codex workflow.
+### 4. Prove one representative tranche
 
-## Risks And Assumptions
+Reconcile routers, upgrade workflows, skillpack checks, and one runtime-heavy skill. Run a three-way comparison across adopted source, current local state, and current upstream. Measure retention and record every intentional removal.
 
-- Risk: a large surface can drift without manifest-like artifacts.
-  - Mitigation: registry plus compatibility map plus resolver doc.
-- Risk: users may over-read the local substrate as full backend parity.
-  - Mitigation: keep the adaptation notes concrete in each skill and in the compatibility docs.
-- Risk: later higher-fidelity runtime support could want different primitives.
-  - Mitigation: keep the current helpers small, local, and replaceable.
+### 5. Expand upstream adoption
 
-## 60-90 Minute First Milestone
+Process the remaining skills in bounded tranches. Keep movement, review, and adoption separate. Update per-skill source commits only after validation establishes the adopted state.
 
-- broaden the registry to the full upstream GBrain surface
-- add compatibility and resolver docs
-- port the first workflow tranche
-- add the smallest honest substrate needed to unlock the memory layer
+### 6. Deepen runtime integrations
 
-## End-Of-Day Outcome
+Improve durable reports, browser evidence, GBrain source integrity, and optional host integrations after the canonical package is stable.
 
-- a materially larger GBrain port surface
-- a working local substrate for the memory-oriented skills
-- a credible full-surface Codex port rather than a sampler pack
+## Runtime rules
 
-## Not In Scope
+- Claude and Codex are peer runtimes selected by the operator. They exchange written handoffs when work crosses runtimes.
+- `AGENTS.md` carries Codex instructions. Claude-specific adapters use their native instruction surfaces.
+- Shared skill content stays portable; runtime adapters stay narrow and explicit.
+- Personal delegation and provider-routing policy belongs in the operator's private workspace.
 
-- bundling a full GBrain retrieval engine into this repo today
-- recreating live inbound webhook infrastructure or an always-on daemon
+## Acceptance checks
+
+- deterministic unit tests for parsers and manifest rules
+- repository-wide registry and skill portability validation
+- skill-specific script checks and fixtures
+- full skillpack health and upstream drift checks
+- exact diff and clean-worktree review before commit
+- current official Codex documentation review before runtime claims
+- current Claude Code version and official Claude documentation review before Claude-specific claims
+
+## Out of scope for the current milestone
+
+- wholesale migration of Claude skills or personal context
+- full reconciliation of the audit population in one commit
+- private provider routing and delegation policy
+- bundled parity with browser daemons, private credentials, or always-on external services
+- push, merge, release, or publication

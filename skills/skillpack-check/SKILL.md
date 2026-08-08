@@ -13,7 +13,7 @@ Use this skill when the user asks whether the installed skillpack is healthy.
 2. Run unit tests.
 3. Check the installed Codex version and, when the check is part of portwork or an install refresh, refresh the current official Codex manual:
    - `codex --version`
-   - `node /Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`
+   - `node "${CODEX_HOME:-$HOME/.codex}/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs"`
 4. Check registry coverage against upstream snapshots when available:
    - `python3 scripts/check_upstream_drift.py`
    - `python3 scripts/check_upstream_drift.py --map gbrain`

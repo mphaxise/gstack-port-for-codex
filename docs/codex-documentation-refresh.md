@@ -1,6 +1,19 @@
 # Codex Documentation Refresh
 
-Latest verification: 2026-08-06
+Latest verification: 2026-08-08
+Installed Codex: `codex-cli 0.144.0`
+Documentation access: the official Codex manual helper refreshed successfully.
+Resulting port decision: retain repository-owned skills as portable
+`SKILL.md` directories with a valid `name` and `description`, use
+`AGENTS.md` for Codex instructions, and resolve the manual helper from
+`${CODEX_HOME:-$HOME/.codex}` through a runtime-relative path. Repository
+validation now rejects non-portable `user-invocable` frontmatter,
+authoring-machine home paths, and explicit router targets that are absent from
+the packaged skill set. Public documentation stays provider-neutral. Personal
+delegation policy, provider routing, and private operating controls remain
+outside this repository.
+
+Previous verification: 2026-08-06
 Installed Codex: `codex-cli 0.144.0`
 Documentation access: the official Codex manual helper could not refresh on
 this pass because `developers.openai.com` could not be resolved. The latest
@@ -86,4 +99,4 @@ Resulting decisions:
 - Impeccable's detector, project hooks, browser server, and live source-rewrite runtime remain optional external capabilities.
 - Project hooks require explicit installation and `/hooks` trust review.
 - The recurring Impeccable drift check runs against the local project so it can include ignored local-brain health. It remains report-only and reports three states separately: upstream movement, local review, and local adoption.
-- The upstream map classifies explicit source paths because Impeccable uses one source skill plus references and runtime modules instead of one directory per command.
+- The upstream map classifies explicit source paths because Impeccable organizes commands across one source skill, references, and runtime modules.

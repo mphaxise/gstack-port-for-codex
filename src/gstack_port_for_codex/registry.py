@@ -2,12 +2,20 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 
 
 ALLOWED_STATUSES = {"ported", "planned", "blocked"}
 ALLOWED_PORT_KINDS = {"native", "workflow-adapted", "runtime-aware", "hand-port-enhanced"}
 ALLOWED_CAPABILITY_STATUSES = {"integrated", "external", "tracked", "deferred", "rejected"}
 ALLOWED_INTEGRATION_MODES = {"codex-adapted", "external-runtime", "tracking-only"}
+SKILL_NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+AUTHORING_HOME_PATTERN = re.compile(r"/(?:Users|home)/")
+BACKTICKED_SKILL_PATTERN = r"`[a-z0-9]+(?:-[a-z0-9]+)*`"
+SKILL_REFERENCE_CLUSTER_PATTERN = (
+    rf"{BACKTICKED_SKILL_PATTERN}"
+    rf"(?:\s*(?:,\s*(?:(?:or|and)\s+)?|(?:or|and)\s+){BACKTICKED_SKILL_PATTERN})*"
+)
 REQUIRED_DOCS = (
     Path("docs/idea-strategy.md"),
     Path("docs/product-strategy.md"),
@@ -90,6 +98,83 @@ def extract_frontmatter_keys(text: str) -> dict[str, str]:
         keys[key.strip()] = value.strip()
 
     return {}
+
+
+def extract_routed_skill_references(text: str) -> set[str]:
+    """Return explicit backticked skill names from routing instructions.
+
+    This deliberately ignores ordinary prose and shell commands. Router sections
+    and lines that explicitly say to use, route to, or invoke a skill are the
+    portable cross-skill contract that an exported package must preserve.
+    """
+
+    references: set[str] = set()
+    in_routing_section = False
+
+    for line in text.splitlines():
+        if line.startswith("## "):
+            in_routing_section = bool(re.search(r"\brouting\b", line, re.IGNORECASE))
+            continue
+
+        if in_routing_section:
+            routing_clause = re.split(r"\s+with\s+the\b", line, maxsplit=1, flags=re.IGNORECASE)[0]
+            candidates = re.findall(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`", routing_clause)
+        else:
+            match = re.search(
+                rf"\b(?:use|invoke)\s+({SKILL_REFERENCE_CLUSTER_PATTERN})",
+                line,
+                re.IGNORECASE,
+            )
+            if not match:
+                match = re.search(
+                    rf"\broute\b.*?\bto\s+({SKILL_REFERENCE_CLUSTER_PATTERN})",
+                    line,
+                    re.IGNORECASE,
+                )
+            candidates = (
+                re.findall(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`", match.group(1))
+                if match
+                else []
+            )
+
+        for candidate in candidates:
+            if SKILL_NAME_PATTERN.fullmatch(candidate):
+                references.add(candidate)
+
+    return references
+
+
+def validate_skill_portability(skill_md: Path, skill_names: set[str]) -> list[str]:
+    """Check the portable contract for a single reusable skill."""
+
+    errors: list[str] = []
+    text = skill_md.read_text(encoding="utf-8")
+    frontmatter = extract_frontmatter_keys(text)
+    expected_name = skill_md.parent.name
+    relative_path = skill_md.as_posix()
+
+    if frontmatter.get("name") != expected_name:
+        errors.append(
+            f"{relative_path} has name={frontmatter.get('name')!r}; expected {expected_name!r}."
+        )
+    if not frontmatter.get("description"):
+        errors.append(f"{relative_path} is missing a description frontmatter field.")
+    if not SKILL_NAME_PATTERN.fullmatch(expected_name):
+        errors.append(f"{relative_path} uses a non-portable skill name: {expected_name!r}.")
+    if "user-invocable" in frontmatter:
+        errors.append(
+            f"{relative_path} uses non-portable user-invocable frontmatter; keep exportable metadata portable."
+        )
+    if AUTHORING_HOME_PATTERN.search(text):
+        errors.append(
+            f"{relative_path} embeds an authoring-machine absolute home path; resolve it from runtime context instead."
+        )
+
+    for target in sorted(extract_routed_skill_references(text)):
+        if target not in skill_names:
+            errors.append(f"{relative_path} routes to missing skill: {target!r}.")
+
+    return errors
 
 
 def validate_skill_map(data: dict) -> list[str]:
@@ -261,6 +346,11 @@ def validate_repo(repo_root: Path) -> list[str]:
     if not readme_path.exists():
         errors.append("Missing README.md.")
 
+    skill_mds = sorted((repo_root / "skills").glob("*/SKILL.md"))
+    skill_names = {skill_md.parent.name for skill_md in skill_mds}
+    for skill_md in skill_mds:
+        errors.extend(validate_skill_portability(skill_md, skill_names))
+
     for skill_map_rel in SKILL_MAP_FILES:
         skill_map_path = repo_root / skill_map_rel
         if not skill_map_path.exists():
@@ -279,15 +369,6 @@ def validate_repo(repo_root: Path) -> list[str]:
             if not skill_md.exists():
                 errors.append(f"Ported skill is missing SKILL.md: skills/{codex_slug}/SKILL.md.")
                 continue
-
-            frontmatter = extract_frontmatter_keys(skill_md.read_text(encoding="utf-8"))
-            if frontmatter.get("name") != codex_slug:
-                errors.append(
-                    f"skills/{codex_slug}/SKILL.md has name={frontmatter.get('name')!r}; "
-                    f"expected {codex_slug!r}."
-                )
-            if not frontmatter.get("description"):
-                errors.append(f"skills/{codex_slug}/SKILL.md is missing a description frontmatter field.")
 
             for source_file in skill.get("source_files", []):
                 source_path = repo_root / "skills" / source_file
