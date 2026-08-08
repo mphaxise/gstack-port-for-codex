@@ -11,3 +11,5 @@
   separately from conservative drift-check baselines.
 - Add beta reconciliation for capture and filing, including companion-resource
   hashes and deterministic routing-fixture outcomes.
+- Integrate the alpha engineering acceptance ladder behind one tested local and
+  CI command with explicit optional upstream and GBrain checks.

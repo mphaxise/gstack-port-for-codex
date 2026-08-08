@@ -16,9 +16,9 @@ This repository started as a port of [GStack](https://github.com/garrytan/gstack
 This is an adapted port. The `2026-07-16` full-surface audit confirms that all 54 current upstream GStack skills and all 53 current upstream GBrain skills are represented; the GStack registry also retains the local `gstack` router and legacy `checkpoint` compatibility skill.
 
 - **Codex-native skills:** upstream commands were rewritten as focused `SKILL.md` workflows with Codex-oriented invocation and outputs.
-- **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies are labeled instead of being treated as universal capabilities.
+- **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies carry specific availability labels.
 - **Local GBrain substrate:** ambient memory behavior was adapted into explicit Markdown-backed capture, search, linking, ingestion, synchronization, citation, and health-check tools.
-- **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request; users do not need to memorize the catalog.
+- **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request, so users can invoke workflows without memorizing the catalog.
 - **Validation and reconciliation:** the [canonical inventory](data/canonical-skill-inventory.json), [alpha](data/reconciliation-alpha.json) and [beta](data/reconciliation-beta.json) reconciliation manifests, tests, health checks, and upstream-drift tooling keep provenance and adaptation decisions inspectable.
 - **Tracked design runtime:** selected [Impeccable](https://github.com/pbakaus/impeccable) guidance is adapted into a concise Codex bridge. Its Apache-2.0 detector, hooks, and live browser runtime remain optional upstream capabilities.
 
@@ -26,7 +26,7 @@ See the [GStack compatibility map](docs/compatibility-map.md), [GBrain adaptatio
 
 ## What is distinctly mine
 
-The Praneet layer is not a cosmetic persona. It changes what the system checks and how it makes recommendations.
+The Praneet layer changes what the system checks and how it makes recommendations.
 
 - [`responsible-design-review`](skills/responsible-design-review/SKILL.md) checks autonomy, consent, dark patterns, fairness, vulnerable users, and data dignity.
 - [`accessibility-review`](skills/accessibility-review/SKILL.md) makes accessibility a first-class quality bar across assistive technology, cognitive load, motion, language, and interaction quality.
@@ -51,8 +51,8 @@ Install the public Praneet extensions separately when they are useful:
 python3 scripts/install_skills.py --bundle extensions
 ```
 
-Use `--dest PATH` to install into a project or test directory. The installer
-does not overwrite an existing skill unless `--force` is supplied.
+Use `--dest PATH` to install into a project or test directory. The default
+preserves existing skills; `--force` replaces them.
 
 Then ask naturally:
 
@@ -80,7 +80,7 @@ For the full coding workflow, see the [coding workflow guide](docs/coding-workfl
 
 ## Mutable sources and privacy
 
-GBrain’s local substrate can synchronize a changing authoritative file—such as a living strategy, identity, or operating document—without publishing its contents:
+GBrain’s local substrate can synchronize a changing authoritative file, such as a living strategy, identity, or operating document. Generated projections stay local:
 
 ```bash
 python3 scripts/brain_sync_source.py path/to/source.md --title "Source title"
@@ -94,7 +94,7 @@ When the source changes, the managed projection replaces its current compiled tr
 - `workflow-adapted` means the operating intent is preserved but the interaction or runtime model changed.
 - `runtime-aware` means the skill still depends on available browser, session, automation, device, credential, or host tooling.
 - Impeccable `external-runtime` capabilities stay upstream and run only when already installed in the target project.
-- The repository includes a file-backed brain substrate and helper scripts; it does not publish a user’s private local brain corpus.
+- The repository includes a file-backed brain substrate and helper scripts. User brain corpora stay local.
 - Registry pins are conservative snapshots. Run the drift checker before claiming current upstream parity.
 
 ## Repository map
@@ -103,6 +103,7 @@ When the source changes, the managed projection replaces its current compiled tr
 - [`data/`](data/) — separate provenance and compatibility registries
 - [`docs/reconciliation-alpha.md`](docs/reconciliation-alpha.md) — alpha manifest scope, measurements, and beta handoff
 - [`docs/reconciliation-beta.md`](docs/reconciliation-beta.md) — capture and filing resource-fidelity tranche
+- [`docs/engineering-milestone-alpha.md`](docs/engineering-milestone-alpha.md) — integrated acceptance gate and verified result
 - [`docs/`](docs/) — adaptation decisions, compatibility maps, and runtime audits
 - [`scripts/`](scripts/) — validation, drift, status, and local-brain helpers
 - [`brain/README.md`](brain/README.md) — local brain structure and operating contract
@@ -114,15 +115,11 @@ When the source changes, the managed projection replaces its current compiled tr
 ## Validate the package
 
 ```bash
-python3 scripts/validate_repo.py
-python3 -m unittest discover -s tests
-python3 scripts/build_skill_inventory.py --check
-python3 scripts/smoke_install.py
-python3 scripts/check_public_boundary.py
-python3 scripts/print_status.py
-python3 scripts/brain_doctor.py
-python3 scripts/check_upstream_drift.py --map impeccable
+python3 scripts/check_engineering_milestone.py
+python3 scripts/check_engineering_milestone.py --upstream
 ```
+
+The first command is the local CI gate. The second adds network-backed drift checks for GStack, GBrain, the public Praneet extensions, and Impeccable. See the [engineering milestone alpha record](docs/engineering-milestone-alpha.md) for the exact acceptance surface and optional GBrain CLI behavior.
 
 Current Codex behavior is checked against the official Codex manual before compatibility or runtime guidance is updated. See [`AGENTS.md`](AGENTS.md) and the [documentation refresh log](docs/codex-documentation-refresh.md).
 

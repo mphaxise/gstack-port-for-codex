@@ -32,6 +32,8 @@ The portable core contains reusable intent, workflow, acceptance criteria, and p
 - `data/reconciliation-alpha.json`: the first reviewed three-way reconciliation tranche
 - `data/reconciliation-beta.json`: the capture and filing resource-fidelity tranche
 - `data/reconciliation-record.schema.json`: the machine-readable reconciliation contract
+- `docs/engineering-milestone-alpha.md`: the integrated acceptance record
+- `scripts/check_engineering_milestone.py`: the shared local and CI acceptance gate
 - `src/gstack_port_for_codex/registry.py`: registry and portability validation
 - `src/gstack_port_for_codex/reconciliation.py`: inventory, hashing, retention, refresh, and validation logic
 - `scripts/check_upstream_drift.py`: upstream movement reporting
@@ -78,13 +80,7 @@ Improve durable reports, browser evidence, GBrain source integrity, and optional
 
 ## Acceptance checks
 
-- deterministic unit tests for parsers and manifest rules
-- repository-wide registry and skill portability validation
-- skill-specific script checks and fixtures
-- full skillpack health and upstream drift checks
-- exact diff and clean-worktree review before commit
-- current official Codex documentation review before runtime claims
-- current Claude Code version and official Claude documentation review before Claude-specific claims
+`python3 scripts/check_engineering_milestone.py` runs the required local acceptance ladder. Use `--upstream` for network-backed drift checks. Runtime claims still require current official vendor documentation, and every commit receives an exact diff and clean-worktree review.
 
 ## Out of scope for the alpha milestone
 

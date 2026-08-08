@@ -14,7 +14,7 @@ Reviewed on `2026-08-08`.
 
 The August export review found a canonicalization and fidelity problem before it found a coverage problem. Its 264 exported packages collapsed to 155 unique content groups. Among 70 recoverable adaptations, the median retained source content was 12%, and 62 retained less than half. The review also found missing removal manifests, unresolved router targets, non-portable metadata, hard-coded home paths, and target-specific intent that could disappear during export.
 
-These findings are technical audit evidence. They do not authorize copying Claude-owned personal skills, private context, or unrelated materials into Codex.
+These findings are technical audit evidence for the public Codex tooling. Claude-owned personal skills, private context, and unrelated materials stay with their owners.
 
 ## Priorities
 
@@ -80,18 +80,14 @@ After canonicalization is stable:
 
 ## Validation ladder
 
-Every changed tranche must pass:
-
-1. unit tests for the affected parser, helper, or adapter
-2. repository registry and portability validation
-3. the relevant skill-specific checks
-4. the full skillpack check
-5. upstream drift reporting for GStack, GBrain, and tracked capability maps
-6. documentation and editorial review for changed public guidance
+Every changed tranche must pass `python3 scripts/check_engineering_milestone.py`.
+The command covers the local inventory, repository, unit, installer, public
+boundary, brain, compilation, and diff checks. Use `--upstream` for the tracked
+public drift checks. Changed public guidance also receives an editorial review.
 
 ## Milestone boundary
 
-The guardrail milestone established portable metadata and routing checks. The alpha milestone adds the canonical inventory, reconciliation schema, and six-skill representative tranche. The broader 264-package export population remains outside this public repository. The next milestone expands reconciliation in bounded upstream tranches after the alpha evaluator has remained stable under review.
+The guardrail milestone established portable metadata and routing checks. Reconciliation alpha added the canonical inventory, schema, and six-skill representative tranche. Reconciliation beta proved resource hashing and structured evaluator outcomes. Engineering milestone alpha integrates those layers behind one CI and maintainer gate. The broader 264-package export population remains outside this public repository; later work continues in bounded upstream tranches.
 
 ## Definition of done for the reconciliation program
 
@@ -100,4 +96,4 @@ The guardrail milestone established portable metadata and routing checks. The al
 - Intentional removals and material adaptations are machine-readable and reviewable.
 - Router targets, companion resources, metadata, and host coupling validate before export.
 - Current upstream changes are classified and adopted or deferred with evidence.
-- Codex and Claude adapters preserve their runtime contracts without importing private cross-runtime context.
+- Codex and Claude adapters preserve their runtime contracts while private cross-runtime context stays with its owner.

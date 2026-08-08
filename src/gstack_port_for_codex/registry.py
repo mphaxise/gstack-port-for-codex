@@ -41,6 +41,7 @@ REQUIRED_DOCS = (
     Path("docs/release-checklist.md"),
     Path("docs/reconciliation-alpha.md"),
     Path("docs/reconciliation-beta.md"),
+    Path("docs/engineering-milestone-alpha.md"),
 )
 REQUIRED_PACKAGE_FILES = (
     Path("CONTRIBUTING.md"),
@@ -55,6 +56,7 @@ REQUIRED_PACKAGE_FILES = (
     Path("scripts/check_public_boundary.py"),
     Path("scripts/build_skill_inventory.py"),
     Path("scripts/refresh_reconciliation_manifest.py"),
+    Path("scripts/check_engineering_milestone.py"),
     Path("data/canonical-skill-inventory.json"),
     Path("data/reconciliation-alpha.json"),
     Path("data/reconciliation-beta.json"),
