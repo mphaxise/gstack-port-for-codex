@@ -4,9 +4,10 @@
     "repo": "https://github.com/garrytan/gstack",
     "license": "MIT",
     "commit": "2aa745cb0e4331d683e727ec77385d04cdbb45a2",
-    "latest_checked_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
-    "latest_checked_at": "2026-07-16",
-    "skill_parity_commit": "a3259400a366593e0c909dd9ac3e59752efd2488"
+    "latest_checked_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
+    "latest_checked_at": "2026-08-08",
+    "skill_parity_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+    "skill_reviewed_commit": "94993f74012782fd94416dd44b8314f6363a13a4"
   },
   "ported_at": "2026-04-18",
   "skills": [
@@ -90,7 +91,7 @@
       "source_files": [
         "browse/SKILL.md"
       ],
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488"
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4"
     },
     {
       "upstream_slug": "investigate",
@@ -141,7 +142,7 @@
       "source_files": [
         "setup-browser-cookies/SKILL.md"
       ],
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488"
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4"
     },
     {
       "upstream_slug": "retro",
@@ -279,7 +280,7 @@
       "codex_slug": "benchmark",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Performance baseline and regression workflow.",
       "notes": "Captures the best available load-time and resource-size signals and can save comparable benchmark reports over time.",
       "source_files": [
@@ -339,7 +340,12 @@
       "codex_slug": "checkpoint",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
+      "upstream_path": "context-restore/SKILL.md",
+      "upstream_paths": [
+        "context-save/SKILL.md",
+        "context-restore/SKILL.md"
+      ],
       "summary": "Save-and-resume workflow for durable working-state checkpoints.",
       "notes": "Uses timestamped reports or equivalent durable artifacts to capture branch state, open questions, and next actions for clean resumption.",
       "source_files": [
@@ -351,7 +357,7 @@
       "codex_slug": "careful",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Destructive-action guardrail workflow.",
       "notes": "Warns before risky actions and pushes the user toward reversible changes wherever possible.",
       "source_files": [
@@ -363,7 +369,7 @@
       "codex_slug": "freeze",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Edit-scope boundary workflow for focused changes.",
       "notes": "Keeps edits inside an explicit path boundary until the user widens it or invokes unfreeze.",
       "source_files": [
@@ -375,7 +381,7 @@
       "codex_slug": "guard",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Combined safety and scope-boundary workflow.",
       "notes": "Applies the destructive-action discipline from careful together with the edit boundary from freeze.",
       "source_files": [
@@ -387,7 +393,7 @@
       "codex_slug": "unfreeze",
       "status": "ported",
       "port_kind": "native",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Boundary-clearing workflow after freeze.",
       "notes": "Clears or widens the prior edit boundary explicitly so the current scope is no longer ambiguous.",
       "source_files": [
@@ -399,7 +405,7 @@
       "codex_slug": "gstack-upgrade",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Repo and local-skill update workflow for this Codex port package.",
       "notes": "Refreshes the checkout or local install, then revalidates so upgrades are explicit and trustworthy; refreshed for the June 26 Codex host audit.",
       "source_files": [
@@ -447,7 +453,12 @@
       "codex_slug": "connect-chrome",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
+      "upstream_path": "open-gstack-browser/SKILL.md",
+      "upstream_paths": [
+        "open-gstack-browser/SKILL.md",
+        "connect-chrome"
+      ],
       "summary": "Compatibility wrapper for visible browser attachment.",
       "notes": "Treats connect-chrome requests as open-gstack-browser requests while staying honest about the actual runtime path available in Codex.",
       "source_files": [
@@ -471,7 +482,7 @@
       "codex_slug": "setup-gbrain",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Set up or verify the GBrain-style local memory substrate for this Codex port.",
       "notes": "Adapts upstream GStack's GBrain setup flow around the existing file-backed local brain substrate, while detecting real upstream gbrain CLI availability when present; refreshed for the June 26 Codex host audit.",
       "source_files": [
@@ -483,7 +494,7 @@
       "codex_slug": "sync-gbrain",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Re-index and refresh this repo's GBrain-style local memory guidance.",
       "notes": "Maps upstream sync behavior to repo-local brain checks, search verification, and non-destructive handling of untracked brain corpus files; refreshed for the June 26 Codex host audit.",
       "source_files": [
@@ -507,7 +518,7 @@
       "codex_slug": "context-restore",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Restore saved context and orient a new Codex session before continuing work.",
       "notes": "Adds the current upstream resume name while preserving guardrails around dirty worktrees and user-owned untracked files.",
       "source_files": [
@@ -531,7 +542,7 @@
       "codex_slug": "benchmark-models",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Cross-model benchmark workflow for prompts, skills, and tasks.",
       "notes": "Adapts upstream model comparison to whichever model CLIs or Codex paths are actually available locally, with no invented metrics.",
       "source_files": [
@@ -615,7 +626,7 @@
       "codex_slug": "make-pdf",
       "status": "ported",
       "port_kind": "runtime-aware",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Convert markdown or brain pages into polished PDFs.",
       "notes": "Uses upstream make-pdf when installed and otherwise routes through available local document tooling without mutating source markdown.",
       "source_files": [
@@ -651,7 +662,7 @@
       "codex_slug": "gstack",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
       "summary": "Root router for the GStack skill suite adapted to Codex skill dispatch.",
       "notes": "Ports the upstream root router intent while dropping Claude-specific preambles, telemetry, and skill path checks.",
       "source_files": [

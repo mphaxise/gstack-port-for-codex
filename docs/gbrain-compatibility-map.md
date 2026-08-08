@@ -2,7 +2,11 @@
 
 ## Summary
 
-This file is the parity map for the GBrain surface ported into this repo. The conservative baseline source pin is `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; all 53 upstream skill directories were audited through `5008b287e47bf791132eedfebf66bdef11e9398c` on 2026-07-16.
+This file is the parity map for the GBrain surface ported into this repo. The
+conservative runtime baseline is
+`b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; all 53 mapped skills were reviewed
+through `0b47afbf402a4e27a648bb9d131ce584461461ea` on 2026-08-08. Accepted source
+pins advance independently from the review boundary.
 
 ## Port Kinds
 

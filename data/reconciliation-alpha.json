@@ -29,7 +29,7 @@
       "hashes": {
         "adopted_source_sha256": "b77bab43d1db15b6019f34506a204bca9f5e9632d314b70075c26fd07b13b173",
         "current_upstream_sha256": "b77bab43d1db15b6019f34506a204bca9f5e9632d314b70075c26fd07b13b173",
-        "local_sha256": "4268dea37a0b7760314ecf2a8a620e10d2bf0d51f2c673fb4d2eef022595982e"
+        "local_sha256": "dbcbc7d8c5fcb236e8f4d2c4802b68e82e75b995bb0e79fbe1c377daa36ccdb5"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
@@ -97,7 +97,7 @@
       "hashes": {
         "adopted_source_sha256": "aa78f4af40338c0dc27f2eb6049a6eb6af23781fd88ff250d46aa3144fc2f0e4",
         "current_upstream_sha256": "aa78f4af40338c0dc27f2eb6049a6eb6af23781fd88ff250d46aa3144fc2f0e4",
-        "local_sha256": "253184142df0759d382816276f81f3ebea5679d968baa677a05817d0a02a89a5"
+        "local_sha256": "3e05017c7e55f094a036968024106c0ee8feb874ec40501f596baff7166b3a35"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
@@ -134,7 +134,7 @@
       "hashes": {
         "adopted_source_sha256": "7cd05f43027fa20d56ed651f696288f9e4814b7bdf7b396f132fde7c96dac620",
         "current_upstream_sha256": "7cd05f43027fa20d56ed651f696288f9e4814b7bdf7b396f132fde7c96dac620",
-        "local_sha256": "ac9d37ee42fb0f901251dcd75ce8abaa4ccc3ff61db985f52688bc22260bf16b"
+        "local_sha256": "42fe4db47ff08413210e847be9922b3b66806daaa17de62d718f518fdfa8275f"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
@@ -171,7 +171,7 @@
       "hashes": {
         "adopted_source_sha256": "3f347ec8b498530a662be212d05f4cd06b205bce5795c2231b6a4cecef149ea0",
         "current_upstream_sha256": "3f347ec8b498530a662be212d05f4cd06b205bce5795c2231b6a4cecef149ea0",
-        "local_sha256": "0b6e5f595d07edef16ff89d023aa4f7c019b40b6de071e2d5349187ef83b20eb"
+        "local_sha256": "deb1b4d42d92997796851496775481b0b9d48eec99b8e05d3b7ec53aca5580a7"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
@@ -208,7 +208,7 @@
       "hashes": {
         "adopted_source_sha256": "a33632d9948aa65e207fcdcf6bd6c39d46fee8a4028cafc56a472481609d106f",
         "current_upstream_sha256": "a33632d9948aa65e207fcdcf6bd6c39d46fee8a4028cafc56a472481609d106f",
-        "local_sha256": "08bd2a6250c3524e1b6323f5bc4ad80f37840a04cd41a83b98fac00df44d7f59"
+        "local_sha256": "19d7be5fb9ffe41554231c1664e01fddc2ad68d6964a2a8d15dc1507bd65da86"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",

@@ -25,6 +25,9 @@ This port is adapted from `garrytan/gbrain` at commit `814258dda67945ffec9457a1e
    - rollback path
    - validation commands
 4. Apply only after explicit approval.
+   - when an upstream protected migration handler defaults to a dry run, keep
+     preview and apply distinct and pass its explicit apply flag only after
+     approval
 5. Verify and summarize what changed.
 
 ## Codex Adaptation

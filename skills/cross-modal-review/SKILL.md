@@ -7,7 +7,7 @@ description: GBrain-inspired second-pass review for Codex. Use when the user wan
 
 Use this skill when the user wants a second-pass review of a draft, decision, or artifact before finalizing it.
 
-This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
+This port is adapted from `garrytan/gbrain` at commit `0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Important Adaptation
 

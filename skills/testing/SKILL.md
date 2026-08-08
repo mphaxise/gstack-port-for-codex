@@ -7,7 +7,7 @@ description: GBrain-inspired skill conformance checks for Codex. Use when valida
 
 Use this skill when validating that the skill package still hangs together after changes.
 
-This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
+This port is adapted from `garrytan/gbrain` at commit `0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Workflow
 
@@ -17,7 +17,10 @@ This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfeb
    - `python3 scripts/validate_repo.py`
    - `python3 -m unittest discover -s tests`
 4. If the surface changed materially, inspect `python3 scripts/print_status.py`.
-5. Report failures concretely and in priority order.
+5. When a downstream project carries a native plugin manifest, validate the
+   skill list without dropping unrelated required fields such as plugin id,
+   object configuration schema, or declared contracts.
+6. Report failures concretely and in priority order.
 
 ## Current Upstream Coverage
 

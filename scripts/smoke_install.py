@@ -12,7 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from install_skills import install_skills, resolve_skills  # noqa: E402
+from install_skills import INSTALL_RECEIPT, install_skills, resolve_skills  # noqa: E402
 from gstack_port_for_codex.registry import extract_frontmatter_keys  # noqa: E402
 
 
@@ -30,6 +30,9 @@ def main() -> int:
             frontmatter = extract_frontmatter_keys(skill_file.read_text(encoding="utf-8"))
             if frontmatter.get("name") != path.name:
                 print(f"Installer smoke test failed: invalid frontmatter in {skill_file}.")
+                return 1
+            if not (path / INSTALL_RECEIPT).is_file():
+                print(f"Installer smoke test failed: missing ownership receipt in {path}.")
                 return 1
 
         private_slug = "prescriptive" + "-opencode-" + "delegation"

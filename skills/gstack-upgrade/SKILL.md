@@ -8,7 +8,7 @@ description: Update workflow for this Codex port package. Use when the repo or l
 Use this skill when the local Codex port package should be updated, reinstalled, or checked against upstream changes.
 
 This port was reconciled against `garrytan/gstack` at commit
-`a3259400a366593e0c909dd9ac3e59752efd2488`.
+`94993f74012782fd94416dd44b8314f6363a13a4`.
 
 ## Workflow
 

@@ -135,8 +135,9 @@ class UpstreamDriftTests(unittest.TestCase):
         )
         self.assertEqual(classified["unmatched"], ["site/pages/index.astro"])
 
-    def test_classify_skill_changes_uses_each_skill_source_commit(self) -> None:
-        self.skill_map["skills"][1]["source_commit"] = "newer-browse"
+    def test_classify_skill_changes_uses_each_skill_reviewed_commit(self) -> None:
+        self.skill_map["skills"][1]["source_commit"] = "adopted-browse"
+        self.skill_map["skills"][1]["reviewed_commit"] = "newer-browse"
         changes, sources = classify_skill_changes_by_source(
             self.skill_map,
             {

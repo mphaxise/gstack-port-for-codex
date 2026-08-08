@@ -8,7 +8,7 @@ description: Check and apply upstream gbrain upgrades safely, while keeping the 
 Use this skill when the user asks to update, upgrade, or verify upstream GBrain availability.
 
 This port was reconciled against `garrytan/gbrain` at commit
-`5008b287e47bf791132eedfebf66bdef11e9398c`.
+`0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Workflow
 

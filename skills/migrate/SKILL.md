@@ -7,7 +7,7 @@ description: GBrain-inspired migration workflow for Codex. Use when importing no
 
 Use this skill when the user wants to move content from another note or wiki system into a Codex-friendly layout.
 
-This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
+This port is adapted from `garrytan/gbrain` at commit `0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Workflow
 

@@ -16,7 +16,9 @@ Use this skill when the user asks to resume, restore context, pick up where they
    - any reports, checkpoints, or brain pages related to the task
 2. Read the latest relevant saved context:
    - prefer explicit user-provided context
-   - then repo-local reports or checkpoint artifacts
+   - then the newest repo-local report or checkpoint for the current branch
+   - if the current branch has none, fall back to the newest relevant
+     cross-branch checkpoint for an intentional worktree handoff
    - then local brain search via `query` or `brain-ops`
 3. Reconstruct:
    - what was done
@@ -29,4 +31,6 @@ Use this skill when the user asks to resume, restore context, pick up where they
 
 - Do not overwrite local changes while restoring context.
 - Do not assume untracked files are disposable.
+- Do not let a newer sibling-worktree checkpoint shadow a current-branch
+  checkpoint. Keep cross-branch state as a fallback, not the first choice.
 - If saved context conflicts with current files, trust the current files and call out the mismatch.

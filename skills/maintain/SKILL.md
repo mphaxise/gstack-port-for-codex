@@ -7,7 +7,7 @@ description: GBrain-inspired maintenance for Codex. Use when the user wants a he
 
 Use this skill when the user wants a maintenance pass over the repo, docs, trackers, or saved reports.
 
-This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
+This port is adapted from `garrytan/gbrain` at commit `0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Important Adaptation
 

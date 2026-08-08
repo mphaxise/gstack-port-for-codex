@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+from collections import Counter
 import json
 from pathlib import Path
 import sys
@@ -111,6 +112,79 @@ class ReconciliationTests(unittest.TestCase):
 
         self.assertEqual(case_count, 1)
         self.assertFalse(outcomes["valid_jsonl"])
+
+    def test_complete_manifest_covers_every_owned_gstack_and_gbrain_skill(self) -> None:
+        inventory = json.loads(
+            (REPO_ROOT / "data" / "canonical-skill-inventory.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        manifest = json.loads(
+            (REPO_ROOT / "data" / "reconciliation-complete.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+        self.assertEqual(validate_reconciliation_manifest(manifest, REPO_ROOT, inventory), [])
+        self.assertEqual(len(manifest["records"]), 108)
+        self.assertEqual(len(manifest["alternate_source_records"]), 1)
+        all_records = [*manifest["records"], *manifest["alternate_source_records"]]
+        self.assertEqual(
+            Counter(record["decision"] for record in all_records),
+            {"adopted": 68, "reviewed-deferred": 41},
+        )
+        self.assertEqual(
+            Counter(record["source_name"] for record in manifest["records"]),
+            {"gstack": 55, "gbrain": 53},
+        )
+        self.assertEqual(
+            (
+                manifest["alternate_source_records"][0]["canonical_id"],
+                manifest["alternate_source_records"][0]["source_name"],
+                manifest["alternate_source_records"][0]["decision"],
+            ),
+            ("skill:skillify", "gstack", "reviewed-deferred"),
+        )
+
+    def test_complete_manifest_fails_closed_on_false_adoption_and_low_retention(self) -> None:
+        inventory = json.loads(
+            (REPO_ROOT / "data" / "canonical-skill-inventory.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        manifest = json.loads(
+            (REPO_ROOT / "data" / "reconciliation-complete.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        invalid = copy.deepcopy(manifest)
+        record = invalid["records"][0]
+        record["adopted_commit"] = "1" * 40
+        record["classifications"] = ["host-adapted"]
+        record["intentional_removals"] = []
+
+        errors = validate_reconciliation_manifest(invalid, REPO_ROOT, inventory)
+
+        self.assertTrue(any("does not pin the reviewed commit" in error for error in errors))
+        self.assertTrue(any("lacks removal evidence" in error for error in errors))
+
+    def test_complete_manifest_requires_duplicate_source_lineage(self) -> None:
+        inventory = json.loads(
+            (REPO_ROOT / "data" / "canonical-skill-inventory.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        manifest = json.loads(
+            (REPO_ROOT / "data" / "reconciliation-complete.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        invalid = copy.deepcopy(manifest)
+        invalid["alternate_source_records"] = []
+
+        errors = validate_reconciliation_manifest(invalid, REPO_ROOT, inventory)
+
+        self.assertTrue(any("missing alternate sources" in error for error in errors))
 
 
 if __name__ == "__main__":

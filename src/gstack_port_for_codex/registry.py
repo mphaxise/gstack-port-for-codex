@@ -41,6 +41,7 @@ REQUIRED_DOCS = (
     Path("docs/release-checklist.md"),
     Path("docs/reconciliation-alpha.md"),
     Path("docs/reconciliation-beta.md"),
+    Path("docs/reconciliation-complete.md"),
     Path("docs/engineering-milestone-alpha.md"),
 )
 REQUIRED_PACKAGE_FILES = (
@@ -55,11 +56,14 @@ REQUIRED_PACKAGE_FILES = (
     Path("scripts/smoke_install.py"),
     Path("scripts/check_public_boundary.py"),
     Path("scripts/build_skill_inventory.py"),
+    Path("scripts/build_complete_reconciliation.py"),
+    Path("scripts/record_skill_review.py"),
     Path("scripts/refresh_reconciliation_manifest.py"),
     Path("scripts/check_engineering_milestone.py"),
     Path("data/canonical-skill-inventory.json"),
     Path("data/reconciliation-alpha.json"),
     Path("data/reconciliation-beta.json"),
+    Path("data/reconciliation-complete.json"),
     Path("data/reconciliation-record.schema.json"),
 )
 SKILL_MAP_FILES = (
@@ -79,6 +83,21 @@ def skill_source_commit(skill_map: dict, skill: dict) -> str:
         skill.get("source_commit")
         or skill_map["source"].get("skill_parity_commit")
         or skill_map["source"]["commit"]
+    )
+
+
+def skill_reviewed_commit(skill_map: dict, skill: dict) -> str:
+    """Return the latest upstream boundary reviewed for one skill.
+
+    Adoption and review are intentionally separate. A Codex adapter may retain
+    its current implementation after a newer Claude-specific upstream change
+    has been reviewed and explicitly deferred.
+    """
+
+    return str(
+        skill.get("reviewed_commit")
+        or skill_map["source"].get("skill_reviewed_commit")
+        or skill_source_commit(skill_map, skill)
     )
 
 
@@ -207,6 +226,14 @@ def validate_skill_map(data: dict) -> list[str]:
                 f"Invalid source.skill_parity_commit {parity_commit!r}; "
                 "expected a git commit SHA string."
             )
+        reviewed_commit = source.get("skill_reviewed_commit")
+        if reviewed_commit is not None and (
+            not isinstance(reviewed_commit, str) or len(reviewed_commit.strip()) < 7
+        ):
+            errors.append(
+                f"Invalid source.skill_reviewed_commit {reviewed_commit!r}; "
+                "expected a git commit SHA string."
+            )
 
     skills = data.get("skills")
     if not isinstance(skills, list) or not skills:
@@ -228,6 +255,7 @@ def validate_skill_map(data: dict) -> list[str]:
         notes = skill.get("notes")
         source_files = skill.get("source_files")
         source_commit = skill.get("source_commit")
+        reviewed_commit = skill.get("reviewed_commit")
 
         if not upstream_slug:
             errors.append(f"Skill entry #{index} is missing upstream_slug.")
@@ -253,6 +281,12 @@ def validate_skill_map(data: dict) -> list[str]:
             if not isinstance(source_commit, str) or len(source_commit.strip()) < 7:
                 errors.append(
                     f"Skill entry #{index} has invalid source_commit {source_commit!r}; "
+                    "expected a git commit SHA string."
+                )
+        if reviewed_commit is not None:
+            if not isinstance(reviewed_commit, str) or len(reviewed_commit.strip()) < 7:
+                errors.append(
+                    f"Skill entry #{index} has invalid reviewed_commit {reviewed_commit!r}; "
                     "expected a git commit SHA string."
                 )
 

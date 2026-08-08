@@ -16,6 +16,7 @@ from gstack_port_for_codex.registry import (  # noqa: E402
     format_status_table,
     load_skill_map,
     skill_source_commit,
+    skill_reviewed_commit,
     validate_repo,
     validate_capability_map,
     validate_skill_map,
@@ -129,6 +130,22 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(
             skill_source_commit(skill_map, {"source_commit": "override456"}),
             "override456",
+        )
+
+    def test_skill_reviewed_commit_is_separate_from_adopted_source(self) -> None:
+        skill_map = {
+            "source": {
+                "commit": "baseline",
+                "skill_parity_commit": "adopted123",
+                "skill_reviewed_commit": "reviewed456",
+            },
+        }
+
+        self.assertEqual(skill_source_commit(skill_map, {}), "adopted123")
+        self.assertEqual(skill_reviewed_commit(skill_map, {}), "reviewed456")
+        self.assertEqual(
+            skill_reviewed_commit(skill_map, {"reviewed_commit": "reviewed789"}),
+            "reviewed789",
         )
 
     def test_validate_repo_passes_for_current_checkout(self) -> None:

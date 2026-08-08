@@ -10,7 +10,11 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
-from gstack_port_for_codex.registry import capability_source_commit, skill_source_commit
+from gstack_port_for_codex.registry import (
+    capability_source_commit,
+    skill_reviewed_commit,
+    skill_source_commit,
+)
 
 
 REQUEST_TIMEOUT_SECONDS = 30
@@ -190,6 +194,12 @@ def _entry_source_commit(upstream_map: dict[str, Any], entry: dict[str, Any]) ->
     return skill_source_commit(upstream_map, entry)
 
 
+def _entry_reviewed_commit(upstream_map: dict[str, Any], entry: dict[str, Any]) -> str:
+    if "capabilities" in upstream_map:
+        return capability_source_commit(upstream_map, entry)
+    return skill_reviewed_commit(upstream_map, entry)
+
+
 def _path_matches_entry(path: str, entry: dict[str, Any]) -> bool:
     explicit_paths = entry.get("upstream_paths")
     if explicit_paths:
@@ -210,18 +220,18 @@ def classify_skill_changes_by_source(
     skill_map: dict[str, Any],
     compares_by_source: dict[str, dict[str, Any]],
 ) -> tuple[dict[str, list[str]], dict[str, str]]:
-    """Return skill-local changes using each skill's own port source commit.
+    """Return skill-local changes since each skill's latest review boundary.
 
-    The map-level baseline remains useful for reporting broad upstream runtime
-    drift. It is not, however, a truthful freshness boundary for skills that
-    were refreshed from a newer upstream commit.
+    The adopted source remains the provenance boundary for local content. The
+    reviewed boundary is the freshness boundary, including explicit decisions
+    to retain a Codex adaptation after inspecting newer upstream content.
     """
     changes: dict[str, list[str]] = {}
     sources: dict[str, str] = {}
 
     for skill in _map_entries(skill_map):
         slug = _entry_id(skill)
-        source_commit = _entry_source_commit(skill_map, skill)
+        source_commit = _entry_reviewed_commit(skill_map, skill)
         changed_paths = [
             file["filename"]
             for file in compares_by_source[source_commit].get("files", [])
@@ -282,7 +292,7 @@ def check_upstream_drift(skill_map: dict[str, Any], token: str | None = None) ->
     )
     compares_by_source = {skill_map["source"]["commit"]: compare_data}
     for source_commit in {
-        _entry_source_commit(skill_map, skill) for skill in _map_entries(skill_map)
+        _entry_reviewed_commit(skill_map, skill) for skill in _map_entries(skill_map)
     }:
         if source_commit not in compares_by_source:
             compares_by_source[source_commit] = fetch_compare(

@@ -17,6 +17,9 @@ This skill covers both upstream GStack's scrape-to-browser-skill flow and GBrain
    - ordered steps
    - inputs and outputs
    - guardrails
+   - one coherent capability and trigger family; if the candidate contains
+     separately invocable intents, split it and ask which capability to codify
+     first
 2. Decide whether it belongs in:
    - `skills/`
    - a plugin or app skill
@@ -28,5 +31,7 @@ This skill covers both upstream GStack's scrape-to-browser-skill flow and GBrain
 ## Guardrails
 
 - Do not skillify a workflow that has not worked at least once.
+- Do not scaffold a skill when the workflow lacks a clear trigger, reusable
+  judgment, or a coherent single-capability boundary.
 - Keep skills short and executable.
 - Do not encode secrets, private URLs, or brittle session state.

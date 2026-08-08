@@ -7,7 +7,7 @@ description: Brain-first local memory workflow for Codex. Use to search, update,
 
 Use this skill when the user wants memory-grounded work and the local `brain/` corpus should influence the response or capture new context.
 
-This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
+This port is adapted from `garrytan/gbrain` at commit `0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Important Adaptation
 

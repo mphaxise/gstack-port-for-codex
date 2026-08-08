@@ -5,8 +5,8 @@
 Reviewed on `2026-08-08`.
 
 - The registries contain 56 GStack entries, 53 GBrain entries, and 7 public Praneet extensions.
-- GStack workflow parity was last adopted at `a3259400a366593e0c909dd9ac3e59752efd2488`; live upstream had advanced to `94993f74012782fd94416dd44b8314f6363a13a4` when this plan was refreshed.
-- GBrain workflow parity was last adopted at `5008b287e47bf791132eedfebf66bdef11e9398c`; live upstream had advanced to `0b47afbf402a4e27a648bb9d131ce584461461ea` when this plan was refreshed.
+- All mapped GStack skills were reviewed through `94993f74012782fd94416dd44b8314f6363a13a4`; accepted source pins and reviewed deferrals remain distinct.
+- All mapped GBrain skills were reviewed through `0b47afbf402a4e27a648bb9d131ce584461461ea`; accepted source pins and reviewed deferrals remain distinct.
 - Current Codex is `codex-cli 0.144.0`; current Claude Code is `2.1.224`.
 - Claude and Codex can coexist on one machine. This repository owns the portable core and Codex adapters. Runtime-specific instructions and private personal context stay with their owning runtime or private workspace.
 
@@ -87,7 +87,15 @@ public drift checks. Changed public guidance also receives an editorial review.
 
 ## Milestone boundary
 
-The guardrail milestone established portable metadata and routing checks. Reconciliation alpha added the canonical inventory, schema, and six-skill representative tranche. Reconciliation beta proved resource hashing and structured evaluator outcomes. Engineering milestone alpha integrates those layers behind one CI and maintainer gate. The broader 264-package export population remains outside this public repository; later work continues in bounded upstream tranches.
+The guardrail milestone established portable metadata and routing checks.
+Reconciliation alpha added the canonical inventory and representative tranche.
+Reconciliation beta proved resource hashing and structured evaluator outcomes.
+Engineering milestone alpha integrated those layers behind one gate. Complete
+reconciliation now covers all 108 canonical GStack and GBrain skills and 109
+mapped source lineages, with 68 accepted source pins and 41 reviewed deferrals.
+The broader 264-package
+export population remains outside this public repository and retains its own
+ownership boundary.
 
 ## Definition of done for the reconciliation program
 

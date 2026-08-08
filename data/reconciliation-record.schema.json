@@ -6,7 +6,7 @@
   "required": ["schema_version", "milestone", "reviewed_at", "sources", "records"],
   "properties": {
     "schema_version": {"const": 1},
-    "milestone": {"enum": ["alpha", "beta"]},
+    "milestone": {"enum": ["alpha", "beta", "complete"]},
     "reviewed_at": {"type": "string", "format": "date"},
     "sources": {
       "type": "object",
@@ -43,6 +43,9 @@
         "properties": {
           "canonical_id": {"type": "string", "pattern": "^skill:[a-z0-9-]+$"},
           "source_name": {"enum": ["gstack", "gbrain", "local"]},
+          "adopted_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "reviewed_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "decision_reason": {"type": "string", "minLength": 1},
           "upstream_path": {"type": ["string", "null"]},
           "local_path": {"type": "string", "pattern": "^skills/.+/SKILL\\.md$"},
           "classifications": {"type": "array", "minItems": 1, "items": {"type": "string"}},
@@ -85,6 +88,11 @@
         },
         "additionalProperties": false
       }
+    },
+    "alternate_source_records": {
+      "description": "Additional upstream lineages for one canonical packaged skill.",
+      "type": "array",
+      "items": {"type": "object"}
     },
     "resource_records": {
       "type": "array",

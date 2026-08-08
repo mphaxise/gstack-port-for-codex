@@ -13,13 +13,17 @@ This repository started as a port of [GStack](https://github.com/garrytan/gstack
 
 ## What changed from upstream
 
-This is an adapted port. The `2026-07-16` full-surface audit confirms that all 54 current upstream GStack skills and all 53 current upstream GBrain skills are represented; the GStack registry also retains the local `gstack` router and legacy `checkpoint` compatibility skill.
+This is an adapted port. The complete `2026-08-08` reconciliation covers all
+108 canonical GStack and GBrain packages and all 109 mapped source lineages
+through GStack `94993f7` and GBrain `0b47afb`. `skillify` retains both upstream
+lineages without creating a duplicate installed skill. The GStack registry also
+retains the local `gstack` router and `checkpoint` compatibility skill.
 
 - **Codex-native skills:** upstream commands were rewritten as focused `SKILL.md` workflows with Codex-oriented invocation and outputs.
 - **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies carry specific availability labels.
 - **Local GBrain substrate:** ambient memory behavior was adapted into explicit Markdown-backed capture, search, linking, ingestion, synchronization, citation, and health-check tools.
 - **Natural-language routing:** [`workflow-router`](skills/workflow-router/SKILL.md) chooses a small, useful skill set from an ordinary request, so users can invoke workflows without memorizing the catalog.
-- **Validation and reconciliation:** the [canonical inventory](data/canonical-skill-inventory.json), [alpha](data/reconciliation-alpha.json) and [beta](data/reconciliation-beta.json) reconciliation manifests, tests, health checks, and upstream-drift tooling keep provenance and adaptation decisions inspectable.
+- **Validation and reconciliation:** the [canonical inventory](data/canonical-skill-inventory.json), [alpha](data/reconciliation-alpha.json), [beta](data/reconciliation-beta.json), and [complete](data/reconciliation-complete.json) reconciliation manifests keep provenance, retention, removals, review boundaries, and adoption decisions inspectable.
 - **Tracked design runtime:** selected [Impeccable](https://github.com/pbakaus/impeccable) guidance is adapted into a concise Codex bridge. Its Apache-2.0 detector, hooks, and live browser runtime remain optional upstream capabilities.
 
 See the [GStack compatibility map](docs/compatibility-map.md), [GBrain adaptation memo](docs/gbrain-adaptation-memo.md), [Impeccable compatibility map](docs/impeccable-compatibility-map.md), and [runtime compatibility notes](docs/runtime-compatibility.md) for the detailed boundaries.
@@ -51,8 +55,11 @@ Install the public Praneet extensions separately when they are useful:
 python3 scripts/install_skills.py --bundle extensions
 ```
 
-Use `--dest PATH` to install into a project or test directory. The default
-preserves existing skills; `--force` replaces them.
+Use `--dest PATH` to install into a project or test directory. The default is
+the official Codex user-skill location, `~/.agents/skills`. Existing skills are
+preserved. `--force` updates only directories previously installed by this
+package, refuses shared symlinks and local edits, and removes only stale files
+listed in the prior ownership receipt.
 
 Then ask naturally:
 
@@ -103,6 +110,7 @@ When the source changes, the managed projection replaces its current compiled tr
 - [`data/`](data/) — separate provenance and compatibility registries
 - [`docs/reconciliation-alpha.md`](docs/reconciliation-alpha.md) — alpha manifest scope, measurements, and beta handoff
 - [`docs/reconciliation-beta.md`](docs/reconciliation-beta.md) — capture and filing resource-fidelity tranche
+- [`docs/reconciliation-complete.md`](docs/reconciliation-complete.md) — full mapped-skill review and adoption boundary
 - [`docs/engineering-milestone-alpha.md`](docs/engineering-milestone-alpha.md) — integrated acceptance gate and verified result
 - [`docs/`](docs/) — adaptation decisions, compatibility maps, and runtime audits
 - [`scripts/`](scripts/) — validation, drift, status, and local-brain helpers
@@ -130,12 +138,16 @@ Current Codex behavior is checked against the official Codex manual before compa
 - [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
 - GStack and GBrain adaptations use their MIT-licensed sources. Impeccable-derived guidance retains Apache-2.0 attribution. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
 
-The [upstream freshness record](docs/upstream-freshness-2026-08-06.md) separates
+The [upstream freshness record](docs/upstream-freshness-2026-08-08.md) separates
 the last reviewed source commits from the conservative baselines used by the
 drift checker.
 
-- GStack conservative runtime baseline: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`; skill-workflow parity was audited at `a3259400a366593e0c909dd9ac3e59752efd2488` on July 16.
-- GBrain conservative runtime baseline: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; skill-workflow parity was audited at `5008b287e47bf791132eedfebf66bdef11e9398c` on July 16.
+- GStack conservative runtime baseline: `2aa745cb0e4331d683e727ec77385d04cdbb45a2`; all mapped skills were reviewed through `94993f74012782fd94416dd44b8314f6363a13a4` on August 8.
+- GBrain conservative runtime baseline: `b7e3005b5b3f1b54082f9c5990482ebf81a4a807`; all mapped skills were reviewed through `0b47afbf402a4e27a648bb9d131ce584461461ea` on August 8.
 - Impeccable capability baseline: `8259c28209b92792005cec14dad573df39f68eaf`; the complete command, detector, hook, live-mode, provider, and behavior-test surface was classified on July 16.
 
-The baseline pins stay intentionally conservative so `scripts/check_upstream_drift.py` continues to reveal broad upstream runtime drift. Per-skill freshness uses each skill's `source_commit` or the map's `skill_parity_commit`, so old runtime churn is not misreported as new skill drift. See the [July 16 parity audit](docs/upstream-parity-2026-07-16.md) for the exact workflow and runtime boundary.
+The baseline pins stay conservative so `scripts/check_upstream_drift.py`
+continues to reveal broad runtime movement. Per-skill adoption uses
+`source_commit`; per-skill freshness uses `reviewed_commit` or the map's
+`skill_reviewed_commit`. This keeps a reviewed deferral distinct from an
+accepted source update. See the [complete reconciliation](docs/reconciliation-complete.md).

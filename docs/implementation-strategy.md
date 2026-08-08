@@ -31,6 +31,7 @@ The portable core contains reusable intent, workflow, acceptance criteria, and p
 - `data/canonical-skill-inventory.json`: deterministic identity and exact-content groups for every packaged skill
 - `data/reconciliation-alpha.json`: the first reviewed three-way reconciliation tranche
 - `data/reconciliation-beta.json`: the capture and filing resource-fidelity tranche
+- `data/reconciliation-complete.json`: 108 canonical skills and all 109 mapped source lineages
 - `data/reconciliation-record.schema.json`: the machine-readable reconciliation contract
 - `docs/engineering-milestone-alpha.md`: the integrated acceptance record
 - `scripts/check_engineering_milestone.py`: the shared local and CI acceptance gate
@@ -65,7 +66,11 @@ Beta completed the first bounded step 5 tranche on `2026-08-08`. It retained the
 
 ### 5. Expand upstream adoption
 
-Process the remaining skills in bounded tranches. Keep movement, review, and adoption separate. Update per-skill source commits only after validation establishes the adopted state.
+Complete as of 2026-08-08 for the canonically owned GStack and GBrain skill
+surface. `source_commit` records adopted content; `reviewed_commit` or
+`skill_reviewed_commit` records freshness after an accepted update or an
+evidence-backed deferral. Future upstream movement reopens only affected mapped
+skills.
 
 ### 6. Deepen runtime integrations
 
@@ -82,10 +87,13 @@ Improve durable reports, browser evidence, GBrain source integrity, and optional
 
 `python3 scripts/check_engineering_milestone.py` runs the required local acceptance ladder. Use `--upstream` for network-backed drift checks. Runtime claims still require current official vendor documentation, and every commit receives an exact diff and clean-worktree review.
 
-## Out of scope for the alpha milestone
+## Historical alpha exclusions
+
+These boundaries applied when engineering milestone alpha was accepted. The
+full mapped-skill reconciliation is now complete; the remaining exclusions
+still apply.
 
 - wholesale migration of Claude skills or personal context
-- full reconciliation of the audit population in one commit
 - private provider routing and delegation policy
 - bundled parity with browser daemons, private credentials, or always-on external services
 - push, merge, release, or publication

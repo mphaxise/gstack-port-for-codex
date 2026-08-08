@@ -13,6 +13,15 @@ the packaged skill set. Public documentation stays provider-neutral. Personal
 delegation policy, provider routing, and private operating controls remain
 outside this repository.
 
+Complete-reconciliation follow-up: the current manual identifies
+`~/.agents/skills` as the user skill location and repo-local `.agents/skills`
+as the project location. It also states that duplicate skill names are not
+merged. The package installer now defaults to `~/.agents/skills`, writes an
+ownership and file-hash receipt, and refuses to overwrite shared symlinks,
+unowned files, or local edits. The prior `~/.codex/skills` installation
+guidance is superseded; `${CODEX_HOME:-$HOME/.codex}` remains correct for the
+bundled official manual helper.
+
 Post-alpha reconciliation follow-up: the official manual was current on
 2026-08-08 with `codex-cli 0.144.0`. The skills guidance reconfirmed that a
 skill directory may carry supporting resources alongside `SKILL.md` and load
@@ -63,7 +72,9 @@ This note records the one-time Codex documentation refresh requested during the 
 
 ## Port Decisions
 
-- Keep authoring in this repo's `skills/` tree and local installation through symlinks under `~/.codex/skills`; this remains valid because Codex supports symlinked skill folders.
+- Keep authoring in this repo's `skills/` tree. Install personal copies under
+  `~/.agents/skills`, or use repo-local `.agents/skills` for project-scoped
+  discovery. Preserve existing shared symlinks and unowned directories.
 - Do not replace the current local install with a plugin yet. The docs confirm plugins are the right future distribution shape when the package should bundle skills, apps, MCP configuration, or lifecycle hooks for other users.
 - Add `AGENTS.md` as the persistent project instruction surface for future portwork.
 - Continue to prefer current Codex host features over Claude Code fallbacks. Keep fallbacks only for host-variable browser tooling, upstream `gbrain` CLI presence, remote credentials, optional MCP servers, and private local brain artifacts.
@@ -96,7 +107,12 @@ This note records the one-time Codex documentation refresh requested during the 
 
 Installed Codex: `codex-cli 0.144.0`. The official Codex manual helper completed successfully and reported its local manual current. The audit rechecked the documented `AGENTS.md`, skills, plugins, MCP, sandbox/approval, hooks, memories, automations, browser, and local/cloud-environment guidance.
 
-The upstream-drift report now evaluates each skill against its own `source_commit` or the map's full-surface `skill_parity_commit`, while retaining the map-level pin for broad upstream-runtime visibility. This preserves the conservative baseline without falsely reporting files from before a later skill refresh as new skill drift. The full GStack and GBrain workflow surfaces were audited through `a325940` and `5008b28` respectively. No upstream browser-daemon code was ported because Codex's documented Browser, Chrome, and Computer Use surfaces remain the intended runtime boundary.
+The upstream-drift report now evaluates each skill against its reviewed
+boundary while retaining `source_commit` as adopted-content provenance and the
+map-level baseline for broad runtime visibility. The complete refresh reviewed
+GStack through `94993f7` and GBrain through `0b47afb`. No upstream browser
+daemon was ported because Codex's documented Browser, Chrome, and Computer Use
+surfaces remain the runtime boundary.
 
 ## 2026-07-16 Impeccable Integration
 

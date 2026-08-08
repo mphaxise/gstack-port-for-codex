@@ -19,9 +19,12 @@ This port is adapted from `garrytan/gstack` at commit `4d2c8d94d00cc4f4f3d4c2631
    - next actions
 2. Save the checkpoint in a durable form, preferably using the `reports` pattern.
 3. When resuming, load the latest relevant checkpoint and continue from that state instead of reconstructing it from memory.
+   - prefer the newest checkpoint for the current branch
+   - use `context-restore` for cross-branch fallback and worktree handoff
 
 ## Guardrails
 
 - Keep checkpoints concise and action-oriented.
 - Prefer one durable checkpoint over scattered status notes.
 - Do not overwrite older checkpoints when a timestamped history is safer.
+- Do not let a newer sibling-worktree checkpoint shadow a current-branch save.

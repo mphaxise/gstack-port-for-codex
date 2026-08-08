@@ -19,9 +19,13 @@ This is a Codex-native adaptation of upstream GStack's `setup-gbrain`. Upstream 
    - run `command -v gbrain`
    - if present, report `gbrain --version` or equivalent status
    - if absent, do not fake CLI support; state that the local file-backed substrate is active
+   - if configuration identifies a remote MCP thin client, treat the missing
+     local engine as intentional; verify configuration without claiming the
+     remote service is reachable until a real query succeeds
 3. Check the current Codex install surface:
-   - verify repo-owned skills are visible under `$CODEX_HOME/skills` or `~/.codex/skills`
-   - prefer symlinks back to this checkout when the user wants live local updates
+   - verify repo-owned skills are visible under the documented user surface at `~/.agents/skills`
+   - preserve shared symlinks and user-owned directories; install only missing
+     skills or update copies with this package's ownership receipt
 4. Check worktree/local-environment expectations when Codex app worktrees or automations are in scope:
    - note that ignored private brain folders are not copied into worktrees unless intentionally included
    - do not add private brain corpus paths to `.worktreeinclude`
@@ -39,5 +43,6 @@ This is a Codex-native adaptation of upstream GStack's `setup-gbrain`. Upstream 
 - Do not overwrite existing `brain/` pages.
 - Do not install global tools unless the user explicitly asked for installation.
 - Do not claim full upstream GBrain parity when only the local substrate is active.
+- Do not diagnose a configured remote thin client as a broken local database.
 - Treat untracked `brain/` content as user data.
 - Use `gbrain-advisor` for read-only setup advice and `gbrain-upgrade` for upstream CLI upgrades.

@@ -19,7 +19,7 @@ ALLOWED_CLASSIFICATIONS = {
 }
 ALLOWED_HOST_COUPLING = {"portable", "codex-adapter", "runtime-heavy"}
 ALLOWED_DECISIONS = {"adopted", "local-origin", "reviewed-deferred"}
-ALLOWED_MILESTONES = {"alpha", "beta"}
+ALLOWED_MILESTONES = {"alpha", "beta", "complete"}
 ALLOWED_RESOURCE_DISPOSITIONS = {"host-adapted", "preserved", "reviewed-deferred"}
 ALLOWED_EVALUATION_KINDS = {"routing-jsonl"}
 SKILL_MAP_PATHS = (
@@ -53,31 +53,223 @@ def normalized_line_retention(source: str, target: str) -> float:
     return round(retained * 100 / sum(source_lines.values()), 2)
 
 
+def _complete_upstream_path(source_name: str, source_slug: str) -> str:
+    if source_name == "gstack":
+        return "SKILL.md" if source_slug == "gstack" else f"{source_slug}/SKILL.md"
+    if source_name == "gbrain":
+        return f"skills/{source_slug}/SKILL.md"
+    raise ValueError(f"Unsupported complete-reconciliation source: {source_name!r}")
+
+
+def _build_complete_record(
+    entry: dict,
+    repo_root: Path,
+    upstream_roots: dict[str, Path],
+) -> dict:
+    source_name = entry["source_name"]
+    source_slug = entry["source_slug"]
+    upstream_path = entry.get("source_path") or _complete_upstream_path(
+        source_name, source_slug
+    )
+    adopted_commit = entry["adopted_commit"]
+    reviewed_commit = entry["reviewed_commit"]
+    local_path = entry["local_path"]
+    local_text = (repo_root / local_path).read_text(encoding="utf-8")
+    adopted_text = git_blob_text(
+        upstream_roots[source_name], adopted_commit, upstream_path
+    )
+    reviewed_text = git_blob_text(
+        upstream_roots[source_name], reviewed_commit, upstream_path
+    )
+    preserved = local_text == reviewed_text
+    decision = "adopted" if adopted_commit == reviewed_commit else "reviewed-deferred"
+    adaptation_notes = entry.get("adaptation_notes", "")
+    if preserved:
+        classifications = ["preserved"]
+        removals: list[dict[str, str]] = []
+    else:
+        classifications = ["host-adapted", "condensed", "intentionally-removed"]
+        removals = [
+            {
+                "category": "runtime-specific-invocation",
+                "reason": (
+                    "Host-specific tool declarations, slash-command setup, hooks, and "
+                    "environment paths stay outside the portable Codex skill."
+                ),
+            },
+            {
+                "category": "expanded-source-prose",
+                "reason": (
+                    "The Codex adapter condenses repeated preambles and implementation "
+                    "detail while retaining reusable intent, workflow, and guardrails. "
+                    f"Registry evidence: {adaptation_notes}"
+                ),
+            },
+        ]
+        if source_name == "gbrain" and source_slug == "skillify":
+            removals.append(
+                {
+                    "category": "provider-model-defaults",
+                    "reason": (
+                        "Upstream provider and model tables are intentionally omitted; "
+                        "the public Codex package stays provider-neutral and requires no "
+                        "external model delegation."
+                    ),
+                }
+            )
+
+    if decision == "reviewed-deferred" and source_name == "gstack":
+        decision_reason = (
+            "The current mapped upstream delta is Claude Code question-preference hook "
+            "wiring; the concise Codex adapter intentionally retains its host-native flow."
+        )
+    elif decision == "reviewed-deferred" and source_slug == "capture":
+        decision_reason = (
+            "The Codex file-backed capture adapter retains its reviewed 12-word title "
+            "contract instead of importing the upstream 80-character ellipsis rule."
+        )
+    else:
+        decision_reason = (
+            f"{adaptation_notes} The local skill represents the portable behavior "
+            "reviewed at the current upstream boundary; recorded removals keep "
+            "host-specific detail out."
+        )
+
+    skill_dir = (repo_root / local_path).parent
+    companions = sorted(
+        path.relative_to(repo_root).as_posix()
+        for path in skill_dir.rglob("*")
+        if path.is_file() and path.name != "SKILL.md"
+    )
+    host_coupling = (
+        "runtime-heavy"
+        if entry["port_kind"] == "runtime-aware"
+        else "portable"
+        if entry["port_kind"] == "native" and preserved
+        else "codex-adapter"
+    )
+    return {
+        "canonical_id": entry["canonical_id"],
+        "source_name": source_name,
+        "upstream_path": upstream_path,
+        "local_path": local_path,
+        "adopted_commit": adopted_commit,
+        "reviewed_commit": reviewed_commit,
+        "classifications": classifications,
+        "host_coupling": host_coupling,
+        "hashes": {
+            "adopted_source_sha256": sha256_text(adopted_text),
+            "current_upstream_sha256": sha256_text(reviewed_text),
+            "local_sha256": sha256_text(local_text),
+        },
+        "retention": {
+            "basis": "normalized-nonblank-line-overlap",
+            "adopted_source_percent": normalized_line_retention(adopted_text, local_text),
+            "current_upstream_percent": normalized_line_retention(reviewed_text, local_text),
+        },
+        "intentional_removals": removals,
+        "companion_resources": companions,
+        "validation": [
+            "python3 scripts/check_engineering_milestone.py",
+            "python3 scripts/check_engineering_milestone.py --upstream",
+        ],
+        "decision": decision,
+        "decision_reason": decision_reason,
+    }
+
+
+def build_complete_reconciliation_manifest(
+    repo_root: Path,
+    upstream_roots: dict[str, Path],
+    reviewed_at: str,
+) -> dict:
+    """Build the full reviewed GStack and GBrain packaged-skill manifest."""
+
+    inventory = build_canonical_inventory(repo_root)
+    maps = {
+        "gstack": json.loads((repo_root / "data/skill-map.json").read_text(encoding="utf-8")),
+        "gbrain": json.loads(
+            (repo_root / "data/gbrain-skill-map.json").read_text(encoding="utf-8")
+        ),
+    }
+    sources = {
+        source_name: {
+            "repo": data["source"]["repo"],
+            "adopted_commit": data["source"].get("skill_parity_commit")
+            or data["source"]["commit"],
+            "current_commit": data["source"]["skill_reviewed_commit"],
+        }
+        for source_name, data in maps.items()
+    }
+
+    records: list[dict] = []
+    alternate_source_records: list[dict] = []
+    for entry in inventory["entries"]:
+        if entry.get("source_name") not in maps:
+            continue
+        records.append(_build_complete_record(entry, repo_root, upstream_roots))
+        for secondary_source in entry.get("secondary_sources", []):
+            alternate_entry = {
+                **entry,
+                **secondary_source,
+                "secondary_sources": [],
+            }
+            alternate_source_records.append(
+                _build_complete_record(alternate_entry, repo_root, upstream_roots)
+            )
+
+    return {
+        "schema_version": 1,
+        "milestone": "complete",
+        "reviewed_at": reviewed_at,
+        "sources": sources,
+        "records": records,
+        "alternate_source_records": alternate_source_records,
+        "resource_records": [],
+        "evaluations": [],
+    }
+
+
 def build_canonical_inventory(repo_root: Path) -> dict:
-    mapped: dict[str, dict] = {}
+    mapped: dict[str, list[dict]] = {}
     for map_path in SKILL_MAP_PATHS:
         data = json.loads((repo_root / map_path).read_text(encoding="utf-8"))
         source = data["source"]
         for skill in data["skills"]:
             slug = skill["codex_slug"]
-            mapped[slug] = {
+            provenance = {
                 "source_name": source["name"],
                 "source_repo": source["repo"],
                 "source_slug": skill["upstream_slug"],
+                "source_summary": skill["summary"],
+                "adaptation_notes": skill["notes"],
                 "adopted_commit": str(
                     skill.get("source_commit")
+                    or source.get("skill_parity_commit")
+                    or source["commit"]
+                ),
+                "reviewed_commit": str(
+                    skill.get("reviewed_commit")
+                    or source.get("skill_reviewed_commit")
+                    or skill.get("source_commit")
                     or source.get("skill_parity_commit")
                     or source["commit"]
                 ),
                 "port_kind": skill["port_kind"],
                 "status": skill["status"],
             }
+            if skill.get("upstream_path"):
+                provenance["source_path"] = skill["upstream_path"]
+            if skill.get("upstream_paths"):
+                provenance["source_paths"] = skill["upstream_paths"]
+            mapped.setdefault(slug, []).append(provenance)
 
     entries: list[dict] = []
     for skill_md in sorted((repo_root / "skills").glob("*/SKILL.md")):
         slug = skill_md.parent.name
         content_hash = sha256_bytes(skill_md.read_bytes())
-        provenance = mapped.get(slug)
+        provenance_lineage = mapped.get(slug, [])
+        provenance = provenance_lineage[-1] if provenance_lineage else None
         entry = {
             "canonical_id": f"skill:{slug}",
             "skill_name": slug,
@@ -89,6 +281,8 @@ def build_canonical_inventory(repo_root: Path) -> dict:
         }
         if provenance:
             entry.update(provenance)
+            if len(provenance_lineage) > 1:
+                entry["secondary_sources"] = provenance_lineage[:-1]
         else:
             entry.update(
                 {
@@ -239,14 +433,16 @@ def refresh_reconciliation_manifest(
 
         source = sources[source_name]
         upstream_root = upstream_roots[source_name]
+        adopted_commit = record.get("adopted_commit") or source["adopted_commit"]
+        reviewed_commit = record.get("reviewed_commit") or source["current_commit"]
         adopted_text = git_blob_text(
             upstream_root,
-            source["adopted_commit"],
+            adopted_commit,
             record["upstream_path"],
         )
         current_text = git_blob_text(
             upstream_root,
-            source["current_commit"],
+            reviewed_commit,
             record["upstream_path"],
         )
         record["hashes"]["adopted_source_sha256"] = sha256_text(adopted_text)
@@ -308,13 +504,18 @@ def validate_reconciliation_manifest(
     records = manifest.get("records")
     if not isinstance(records, list) or not records:
         return errors + ["Reconciliation manifest needs a non-empty records list."]
+    alternate_records = manifest.get("alternate_source_records", [])
+    if not isinstance(alternate_records, list):
+        errors.append("Reconciliation alternate_source_records must be a list.")
+        alternate_records = []
 
-    seen_ids: set[str] = set()
-    for index, record in enumerate(records, start=1):
+    seen_keys: set[tuple[str | None, str | None]] = set()
+    for index, record in enumerate([*records, *alternate_records], start=1):
         canonical_id = record.get("canonical_id")
-        if canonical_id in seen_ids:
-            errors.append(f"Duplicate reconciliation record: {canonical_id}.")
-        seen_ids.add(canonical_id)
+        record_key = (canonical_id, record.get("source_name"))
+        if record_key in seen_keys:
+            errors.append(f"Duplicate reconciliation record: {record_key}.")
+        seen_keys.add(record_key)
         if canonical_id not in inventory_ids:
             errors.append(f"Reconciliation record is absent from inventory: {canonical_id}.")
 
@@ -353,6 +554,16 @@ def validate_reconciliation_manifest(
             errors.append(f"Reconciliation record {canonical_id} has invalid host_coupling.")
         if record.get("decision") not in ALLOWED_DECISIONS:
             errors.append(f"Reconciliation record {canonical_id} has invalid decision.")
+        if milestone == "complete":
+            for field in ("adopted_commit", "reviewed_commit"):
+                if not COMMIT_PATTERN.fullmatch(str(record.get(field, ""))):
+                    errors.append(
+                        f"Complete reconciliation record {canonical_id} has invalid {field}."
+                    )
+            if not str(record.get("decision_reason", "")).strip():
+                errors.append(
+                    f"Complete reconciliation record {canonical_id} needs decision_reason."
+                )
 
         removals = record.get("intentional_removals")
         if not isinstance(removals, list):
@@ -373,6 +584,27 @@ def validate_reconciliation_manifest(
                 errors.append(f"Reconciliation record {canonical_id} has invalid {field}.")
             if source_name != "local" and value is None:
                 errors.append(f"Reconciliation record {canonical_id} is missing {field}.")
+        if milestone == "complete":
+            adopted_matches_review = record.get("adopted_commit") == record.get(
+                "reviewed_commit"
+            )
+            if record.get("decision") == "adopted" and not adopted_matches_review:
+                errors.append(
+                    f"Adopted complete record {canonical_id} does not pin the reviewed commit."
+                )
+            if record.get("decision") == "reviewed-deferred" and adopted_matches_review:
+                errors.append(
+                    f"Deferred complete record {canonical_id} already pins the reviewed commit."
+                )
+            current_retention = retention.get("current_upstream_percent")
+            if (
+                isinstance(current_retention, (int, float))
+                and current_retention < 50
+                and not removals
+            ):
+                errors.append(
+                    f"Low-retention complete record {canonical_id} lacks removal evidence."
+                )
 
         companions = record.get("companion_resources")
         if not isinstance(companions, list):
@@ -459,5 +691,39 @@ def validate_reconciliation_manifest(
             errors.append(f"Reconciliation evaluation outcome drift for {name}.")
         if not all(outcomes.values()):
             errors.append(f"Reconciliation evaluation {name} has failing outcomes.")
+
+    if milestone == "complete":
+        expected_ids = {
+            entry["canonical_id"]
+            for entry in inventory.get("entries", [])
+            if entry.get("source_name") in {"gstack", "gbrain"}
+        }
+        actual_ids = {record.get("canonical_id") for record in records}
+        missing = sorted(expected_ids - actual_ids)
+        extra = sorted(actual_ids - expected_ids)
+        if missing:
+            errors.append(f"Complete reconciliation is missing records: {missing}.")
+        if extra:
+            errors.append(f"Complete reconciliation has unexpected records: {extra}.")
+        expected_alternates = {
+            (entry["canonical_id"], secondary["source_name"])
+            for entry in inventory.get("entries", [])
+            for secondary in entry.get("secondary_sources", [])
+            if secondary.get("source_name") in {"gstack", "gbrain"}
+        }
+        actual_alternates = {
+            (record.get("canonical_id"), record.get("source_name"))
+            for record in alternate_records
+        }
+        missing_alternates = sorted(expected_alternates - actual_alternates)
+        extra_alternates = sorted(actual_alternates - expected_alternates)
+        if missing_alternates:
+            errors.append(
+                f"Complete reconciliation is missing alternate sources: {missing_alternates}."
+            )
+        if extra_alternates:
+            errors.append(
+                f"Complete reconciliation has unexpected alternate sources: {extra_alternates}."
+            )
 
     return errors

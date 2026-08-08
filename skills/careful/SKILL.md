@@ -7,7 +7,7 @@ description: Destructive-action guardrail for Codex. Use when the user wants ext
 
 Use this skill when the work touches destructive commands, production systems, or changes that are hard to undo.
 
-This port is adapted from `garrytan/gstack` at commit `a3259400a366593e0c909dd9ac3e59752efd2488`.
+This port is adapted from `garrytan/gstack` at commit `94993f74012782fd94416dd44b8314f6363a13a4`.
 
 ## Protected Actions
 
@@ -25,5 +25,8 @@ Safe read-only inspection, creation of new reversible artifacts, and narrowly sc
 ## Guardrails
 
 - Never treat destructive commands as routine.
+- Treat chained commands, command substitution, and both lowercase `-r` and
+  macOS/BSD uppercase `-R` as part of the destructive-command review. A safe
+  final path does not make an earlier command or substituted path safe.
 - Prefer reversible operations over irreversible ones.
 - Be especially cautious around production, shared branches, and data deletion.
