@@ -31,6 +31,95 @@ SKILL_MAP_PATHS = (
 )
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
+CONTROL_CHARACTER_PATTERN = re.compile(r"[\x00-\x1f\x7f]")
+
+
+def _tracked_repo_paths(repo_root: Path) -> frozenset[str] | None:
+    root = repo_root.resolve()
+    if not (root / ".git").exists():
+        return None
+    completed = subprocess.run(
+        ["git", "-C", str(root), "ls-files", "-z"],
+        check=True,
+        capture_output=True,
+    )
+    return frozenset(
+        path.decode("utf-8")
+        for path in completed.stdout.split(b"\0")
+        if path
+    )
+
+
+def validate_git_commit(commit: object) -> str:
+    if not isinstance(commit, str) or not COMMIT_PATTERN.fullmatch(commit):
+        value = str(commit)
+        raise ValueError(f"Invalid full Git commit SHA: {value!r}")
+    return commit
+
+
+def _validate_relative_path(
+    path: object, *, allow_path_object: bool, label: str
+) -> tuple[str, Path]:
+    if isinstance(path, str):
+        value = path
+    elif allow_path_object and isinstance(path, Path):
+        value = str(path)
+    else:
+        raise ValueError(f"Unsafe {label} path: {path!r}")
+    candidate = Path(value)
+    if (
+        not value
+        or candidate.is_absolute()
+        or ".." in candidate.parts
+        or "\\" in value
+        or CONTROL_CHARACTER_PATTERN.search(value)
+    ):
+        raise ValueError(f"Unsafe {label} path: {value!r}")
+    return value, candidate
+
+
+def validate_git_path(path: object) -> str:
+    value, _ = _validate_relative_path(
+        path, allow_path_object=False, label="Git"
+    )
+    return value
+
+
+def resolve_repo_path(repo_root: Path, path: object) -> Path:
+    value, candidate = _validate_relative_path(
+        path, allow_path_object=True, label="repository"
+    )
+    root = repo_root.resolve()
+    resolved = (root / candidate).resolve()
+    if not resolved.is_relative_to(root):
+        raise ValueError(f"Repository path escapes its root: {value!r}")
+    return resolved
+
+
+def resolve_tracked_repo_path(
+    repo_root: Path,
+    path: object,
+    tracked_paths: frozenset[str] | None = None,
+) -> Path:
+    """Resolve a non-symlinked package path and require Git tracking when available."""
+
+    value, candidate = _validate_relative_path(
+        path, allow_path_object=True, label="repository"
+    )
+    root = repo_root.resolve()
+    current = root
+    for part in candidate.parts:
+        current /= part
+        if current.is_symlink():
+            raise ValueError(f"Repository package path uses a symlink: {value!r}")
+    resolved = resolve_repo_path(root, candidate)
+    if (root / ".git").exists():
+        available_paths = (
+            tracked_paths if tracked_paths is not None else _tracked_repo_paths(root)
+        )
+        if available_paths is None or value not in available_paths:
+            raise ValueError(f"Repository package path is not Git-tracked: {value!r}")
+    return resolved
 
 
 def sha256_bytes(content: bytes) -> str:
@@ -68,6 +157,7 @@ def _build_complete_record(
     repo_root: Path,
     upstream_roots: dict[str, Path],
     blob_cache: dict[tuple[str, str, str], str],
+    tracked_paths: frozenset[str] | None,
 ) -> dict:
     source_name = entry["source_name"]
     source_slug = entry["source_slug"]
@@ -77,7 +167,8 @@ def _build_complete_record(
     adopted_commit = entry["adopted_commit"]
     reviewed_commit = entry["reviewed_commit"]
     local_path = entry["local_path"]
-    local_text = (repo_root / local_path).read_text(encoding="utf-8")
+    local_file = resolve_tracked_repo_path(repo_root, local_path, tracked_paths)
+    local_text = local_file.read_text(encoding="utf-8")
     def cached_blob_text(commit: str) -> str:
         key = (source_name, commit, upstream_path)
         if key not in blob_cache:
@@ -142,11 +233,17 @@ def _build_complete_record(
             "host-specific detail out."
         )
 
-    skill_dir = (repo_root / local_path).parent
+    skill_dir = local_file.parent
     companions = sorted(
         path.relative_to(repo_root).as_posix()
         for path in skill_dir.rglob("*")
-        if path.is_file() and path.name != "SKILL.md"
+        if path.is_file()
+        and path.name != "SKILL.md"
+        and (
+            tracked_paths is None
+            or path.relative_to(repo_root).as_posix() in tracked_paths
+        )
+        and not path.is_symlink()
     )
     host_coupling = (
         "runtime-heavy"
@@ -247,6 +344,7 @@ def build_complete_reconciliation_manifest(
             register_blob_requests({**entry, **secondary_source})
 
     blob_cache: dict[tuple[str, str, str], str] = {}
+    tracked_paths = _tracked_repo_paths(repo_root)
     for source_name, requests in blob_requests.items():
         for (commit, path), content in git_blob_text_batch(
             upstream_roots[source_name], sorted(requests)
@@ -259,7 +357,9 @@ def build_complete_reconciliation_manifest(
         if entry.get("source_name") not in maps:
             continue
         records.append(
-            _build_complete_record(entry, repo_root, upstream_roots, blob_cache)
+            _build_complete_record(
+                entry, repo_root, upstream_roots, blob_cache, tracked_paths
+            )
         )
         for secondary_source in entry.get("secondary_sources", []):
             alternate_entry = {
@@ -269,7 +369,11 @@ def build_complete_reconciliation_manifest(
             }
             alternate_source_records.append(
                 _build_complete_record(
-                    alternate_entry, repo_root, upstream_roots, blob_cache
+                    alternate_entry,
+                    repo_root,
+                    upstream_roots,
+                    blob_cache,
+                    tracked_paths,
                 )
             )
 
@@ -291,6 +395,7 @@ def build_complete_reconciliation_manifest(
 
 
 def build_canonical_inventory(repo_root: Path) -> dict:
+    tracked_paths = _tracked_repo_paths(repo_root)
     mapped: dict[str, list[dict]] = {}
     for map_path in SKILL_MAP_PATHS:
         data = json.loads((repo_root / map_path).read_text(encoding="utf-8"))
@@ -326,14 +431,20 @@ def build_canonical_inventory(repo_root: Path) -> dict:
 
     entries: list[dict] = []
     for skill_md in sorted((repo_root / "skills").glob("*/SKILL.md")):
-        slug = skill_md.parent.name
-        content_hash = sha256_bytes(skill_md.read_bytes())
+        relative_skill_path = skill_md.relative_to(repo_root).as_posix()
+        if tracked_paths is not None and relative_skill_path not in tracked_paths:
+            continue
+        skill_file = resolve_tracked_repo_path(
+            repo_root, relative_skill_path, tracked_paths
+        )
+        slug = skill_file.parent.name
+        content_hash = sha256_bytes(skill_file.read_bytes())
         provenance_lineage = mapped.get(slug, [])
         provenance = provenance_lineage[-1] if provenance_lineage else None
         entry = {
             "canonical_id": f"skill:{slug}",
             "skill_name": slug,
-            "local_path": skill_md.relative_to(repo_root).as_posix(),
+            "local_path": relative_skill_path,
             "content_sha256": content_hash,
             "content_group": f"sha256:{content_hash}",
             "owner": "portable-core",
@@ -369,6 +480,7 @@ def build_canonical_inventory(repo_root: Path) -> dict:
 
 def validate_canonical_inventory(inventory: dict, repo_root: Path) -> list[str]:
     errors: list[str] = []
+    tracked_paths = _tracked_repo_paths(repo_root)
     if inventory.get("schema_version") != 1:
         errors.append("Canonical inventory schema_version must be 1.")
     if inventory.get("scope") != "public-packaged-skills":
@@ -389,10 +501,19 @@ def validate_canonical_inventory(inventory: dict, repo_root: Path) -> list[str]:
             seen_ids.add(canonical_id)
 
         local_path = entry.get("local_path")
-        if not local_path or not (repo_root / local_path).is_file():
+        try:
+            local_file = resolve_tracked_repo_path(
+                repo_root, local_path, tracked_paths
+            )
+        except ValueError:
+            errors.append(
+                f"Canonical inventory entry #{index} has unsafe local_path: {local_path!r}."
+            )
+            continue
+        if not local_file.is_file():
             errors.append(f"Canonical inventory entry #{index} has missing local_path: {local_path!r}.")
             continue
-        content_hash = sha256_bytes((repo_root / local_path).read_bytes())
+        content_hash = sha256_bytes(local_file.read_bytes())
         if entry.get("content_sha256") != content_hash:
             errors.append(f"Canonical inventory hash drift for {canonical_id}.")
         if entry.get("content_group") != f"sha256:{content_hash}":
@@ -407,6 +528,8 @@ def validate_canonical_inventory(inventory: dict, repo_root: Path) -> list[str]:
 
 
 def git_blob_bytes(repo: Path, commit: str, path: str) -> bytes:
+    commit = validate_git_commit(commit)
+    path = validate_git_path(path)
     completed = subprocess.run(
         ["git", "-C", str(repo), "show", f"{commit}:{path}"],
         check=True,
@@ -426,6 +549,10 @@ def git_blob_text_batch(
 
     if not requests:
         return {}
+    requests = [
+        (validate_git_commit(commit), validate_git_path(path))
+        for commit, path in requests
+    ]
     payload = "".join(f"{commit}:{path}\n" for commit, path in requests).encode()
     completed = subprocess.run(
         ["git", "-C", str(repo), "cat-file", "--batch"],
@@ -499,7 +626,9 @@ def evaluate_routing_jsonl(fixture_path: Path, repo_root: Path) -> tuple[int, di
 def evaluate_manifest_fixture(evaluation: dict, repo_root: Path) -> tuple[int, dict[str, bool]]:
     kind = evaluation.get("kind")
     if kind == "routing-jsonl":
-        return evaluate_routing_jsonl(repo_root / evaluation["fixture_path"], repo_root)
+        return evaluate_routing_jsonl(
+            resolve_repo_path(repo_root, evaluation["fixture_path"]), repo_root
+        )
     raise ValueError(f"Unsupported reconciliation evaluation kind: {kind!r}.")
 
 
@@ -510,9 +639,24 @@ def refresh_reconciliation_manifest(
 ) -> dict:
     refreshed = json.loads(json.dumps(manifest))
     sources = refreshed["sources"]
+    tracked_paths = _tracked_repo_paths(repo_root)
+    inventory_paths: dict[str, str] = {}
+    if all((repo_root / map_path).is_file() for map_path in SKILL_MAP_PATHS):
+        inventory_paths = {
+            entry["canonical_id"]: entry["local_path"]
+            for entry in build_canonical_inventory(repo_root)["entries"]
+        }
 
     for record in refreshed["records"]:
-        local_text = (repo_root / record["local_path"]).read_text(encoding="utf-8")
+        canonical_id = record.get("canonical_id")
+        expected_path = inventory_paths.get(canonical_id)
+        if expected_path is not None and record.get("local_path") != expected_path:
+            raise ValueError(
+                f"Reconciliation record {canonical_id} does not use its canonical path."
+            )
+        local_text = resolve_tracked_repo_path(
+            repo_root, record["local_path"], tracked_paths
+        ).read_text(encoding="utf-8")
         record["hashes"]["local_sha256"] = sha256_text(local_text)
         source_name = record["source_name"]
         if source_name == "local":
@@ -548,7 +692,11 @@ def refresh_reconciliation_manifest(
         )
 
     for resource in refreshed.get("resource_records", []):
-        local_bytes = (repo_root / resource["local_path"]).read_bytes()
+        if not str(resource.get("local_path", "")).startswith("skills/"):
+            raise ValueError("Reconciliation resource must stay under skills/.")
+        local_bytes = resolve_tracked_repo_path(
+            repo_root, resource["local_path"], tracked_paths
+        ).read_bytes()
         resource["hashes"]["local_sha256"] = sha256_bytes(local_bytes)
         source = sources[resource["source_name"]]
         upstream_root = upstream_roots[resource["source_name"]]
@@ -560,7 +708,11 @@ def refresh_reconciliation_manifest(
         )
 
     for evaluation in refreshed.get("evaluations", []):
-        fixture_path = repo_root / evaluation["fixture_path"]
+        if not str(evaluation.get("fixture_path", "")).startswith("skills/"):
+            raise ValueError("Reconciliation evaluation must stay under skills/.")
+        fixture_path = resolve_tracked_repo_path(
+            repo_root, evaluation["fixture_path"], tracked_paths
+        )
         evaluation["fixture_sha256"] = sha256_bytes(fixture_path.read_bytes())
         case_count, outcomes = evaluate_manifest_fixture(evaluation, repo_root)
         evaluation["case_count"] = case_count
@@ -575,6 +727,7 @@ def validate_reconciliation_manifest(
     inventory: dict,
 ) -> list[str]:
     errors: list[str] = []
+    tracked_paths = _tracked_repo_paths(repo_root)
     if manifest.get("schema_version") != 1:
         errors.append("Reconciliation manifest schema_version must be 1.")
     milestone = manifest.get("milestone")
@@ -603,6 +756,10 @@ def validate_reconciliation_manifest(
                 minimum_retention = float(configured_threshold)
 
     inventory_ids = {entry["canonical_id"] for entry in inventory.get("entries", [])}
+    inventory_paths = {
+        entry["canonical_id"]: entry.get("local_path")
+        for entry in inventory.get("entries", [])
+    }
     sources = manifest.get("sources")
     if not isinstance(sources, dict) or not sources:
         errors.append("Reconciliation manifest needs source metadata.")
@@ -610,7 +767,8 @@ def validate_reconciliation_manifest(
     else:
         for source_name, source in sources.items():
             for field in ("adopted_commit", "current_commit"):
-                if not COMMIT_PATTERN.fullmatch(str(source.get(field, ""))):
+                value = source.get(field)
+                if not isinstance(value, str) or not COMMIT_PATTERN.fullmatch(value):
                     errors.append(f"Reconciliation source {source_name} has invalid {field}.")
 
     records = manifest.get("records")
@@ -634,14 +792,31 @@ def validate_reconciliation_manifest(
         source_name = record.get("source_name")
         if source_name != "local" and source_name not in sources:
             errors.append(f"Unknown reconciliation source for {canonical_id}: {source_name!r}.")
-        if source_name != "local" and not record.get("upstream_path"):
-            errors.append(f"Reconciliation record {canonical_id} is missing upstream_path.")
+        if source_name != "local":
+            try:
+                validate_git_path(record.get("upstream_path"))
+            except ValueError:
+                errors.append(
+                    f"Reconciliation record {canonical_id} has unsafe upstream_path."
+                )
 
         local_path = record.get("local_path")
-        if not local_path or not (repo_root / local_path).is_file():
+        if local_path != inventory_paths.get(canonical_id):
+            errors.append(
+                f"Reconciliation record {canonical_id} does not use its canonical local_path."
+            )
+            continue
+        try:
+            local_file = resolve_tracked_repo_path(
+                repo_root, local_path, tracked_paths
+            )
+        except ValueError:
+            errors.append(f"Reconciliation record {canonical_id} has unsafe local_path.")
+            continue
+        if not local_file.is_file():
             errors.append(f"Reconciliation record {canonical_id} has missing local_path.")
             continue
-        local_hash = sha256_bytes((repo_root / local_path).read_bytes())
+        local_hash = sha256_bytes(local_file.read_bytes())
         hashes = record.get("hashes", {})
         if hashes.get("local_sha256") != local_hash:
             errors.append(f"Reconciliation local hash drift for {canonical_id}.")
@@ -668,7 +843,8 @@ def validate_reconciliation_manifest(
             errors.append(f"Reconciliation record {canonical_id} has invalid decision.")
         if milestone == "complete":
             for field in ("adopted_commit", "reviewed_commit"):
-                if not COMMIT_PATTERN.fullmatch(str(record.get(field, ""))):
+                value = record.get(field)
+                if not isinstance(value, str) or not COMMIT_PATTERN.fullmatch(value):
                     errors.append(
                         f"Complete reconciliation record {canonical_id} has invalid {field}."
                     )
@@ -734,9 +910,25 @@ def validate_reconciliation_manifest(
             errors.append(f"Reconciliation record {canonical_id} needs companion_resources.")
         else:
             for companion in companions:
-                if not (repo_root / companion).exists():
+                try:
+                    companion_path = resolve_repo_path(repo_root, companion)
+                except ValueError:
+                    errors.append(
+                        f"Reconciliation record {canonical_id} has unsafe companion resource: "
+                        f"{companion}."
+                    )
+                    continue
+                if not companion_path.exists():
                     errors.append(
                         f"Reconciliation record {canonical_id} has missing companion resource: {companion}."
+                    )
+                    continue
+                try:
+                    resolve_tracked_repo_path(repo_root, companion, tracked_paths)
+                except ValueError:
+                    errors.append(
+                        f"Reconciliation record {canonical_id} has unsafe companion resource: "
+                        f"{companion}."
                     )
 
         if not isinstance(record.get("validation"), list) or not record.get("validation"):
@@ -764,12 +956,31 @@ def validate_reconciliation_manifest(
         for field in ("upstream_path", "local_path"):
             if not resource.get(field):
                 errors.append(f"Reconciliation resource {resource_id} is missing {field}.")
+        try:
+            validate_git_path(resource.get("upstream_path"))
+        except ValueError:
+            errors.append(
+                f"Reconciliation resource {resource_id} has unsafe upstream_path."
+            )
         local_path = resource.get("local_path")
-        if local_path and (repo_root / local_path).is_file():
-            local_hash = sha256_bytes((repo_root / local_path).read_bytes())
+        if not str(local_path or "").startswith("skills/"):
+            errors.append(
+                f"Reconciliation resource {resource_id} must stay under skills/."
+            )
+        try:
+            local_file = resolve_tracked_repo_path(
+                repo_root, local_path, tracked_paths
+            )
+        except ValueError:
+            local_file = None
+            errors.append(
+                f"Reconciliation resource {resource_id} has unsafe local_path."
+            )
+        if local_file and local_file.is_file():
+            local_hash = sha256_bytes(local_file.read_bytes())
             if resource.get("hashes", {}).get("local_sha256") != local_hash:
                 errors.append(f"Reconciliation resource hash drift for {resource_id}.")
-        else:
+        elif local_file:
             errors.append(f"Reconciliation resource {resource_id} has missing local_path.")
 
         hashes = resource.get("hashes", {})
@@ -801,10 +1012,21 @@ def validate_reconciliation_manifest(
             errors.append(f"Reconciliation evaluation {name} has invalid kind.")
             continue
         fixture_path = evaluation.get("fixture_path")
-        if not fixture_path or not (repo_root / fixture_path).is_file():
+        if not str(fixture_path or "").startswith("skills/"):
+            errors.append(
+                f"Reconciliation evaluation {name} must stay under skills/."
+            )
+        try:
+            fixture_file = resolve_tracked_repo_path(
+                repo_root, fixture_path, tracked_paths
+            )
+        except ValueError:
+            errors.append(f"Reconciliation evaluation {name} has unsafe fixture_path.")
+            continue
+        if not fixture_file.is_file():
             errors.append(f"Reconciliation evaluation {name} has missing fixture_path.")
             continue
-        fixture_hash = sha256_bytes((repo_root / fixture_path).read_bytes())
+        fixture_hash = sha256_bytes(fixture_file.read_bytes())
         if evaluation.get("fixture_sha256") != fixture_hash:
             errors.append(f"Reconciliation evaluation fixture hash drift for {name}.")
         case_count, outcomes = evaluate_manifest_fixture(evaluation, repo_root)

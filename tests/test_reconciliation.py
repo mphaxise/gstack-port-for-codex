@@ -24,6 +24,52 @@ from gstack_port_for_codex.reconciliation import (  # noqa: E402
 import gstack_port_for_codex.reconciliation as reconciliation  # noqa: E402
 
 
+def init_test_repo(repo: Path) -> None:
+    repo.mkdir()
+    subprocess.run(["git", "init", "-q"], cwd=repo, check=True)
+    subprocess.run(
+        ["git", "config", "user.email", "tests@example.invalid"],
+        cwd=repo,
+        check=True,
+    )
+    subprocess.run(
+        ["git", "config", "user.name", "Test Suite"],
+        cwd=repo,
+        check=True,
+    )
+
+
+def commit_test_file(
+    repo: Path, path: str, text: str, message: str, empty_hooks: Path
+) -> str:
+    target = repo / path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(text, encoding="utf-8")
+    subprocess.run(["git", "add", path], cwd=repo, check=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "commit.gpgsign=false",
+            "-c",
+            f"core.hooksPath={empty_hooks}",
+            "commit",
+            "-q",
+            "-m",
+            message,
+        ],
+        cwd=repo,
+        check=True,
+    )
+    return subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=repo,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+
+
 class ReconciliationTests(unittest.TestCase):
     def test_line_retention_uses_nonblank_multiset_overlap(self) -> None:
         source = "one\ntwo\ntwo\n\nthree\n"
@@ -33,11 +79,101 @@ class ReconciliationTests(unittest.TestCase):
     def test_line_retention_treats_empty_source_as_fully_retained(self) -> None:
         self.assertEqual(normalized_line_retention("\n", "anything\n"), 100.0)
 
+    def test_git_blob_batch_rejects_unsafe_specs_before_subprocess(self) -> None:
+        unsafe_requests = [
+            [("-c core.pager=cat", "SKILL.md")],
+            [("a" * 40, "skills/one/SKILL.md\n" + "b" * 40 + ":secret")],
+        ]
+        for requests in unsafe_requests:
+            with (
+                self.subTest(requests=requests),
+                patch.object(reconciliation.subprocess, "run") as run,
+                self.assertRaises(ValueError),
+            ):
+                reconciliation.git_blob_text_batch(Path("/tmp/upstream"), requests)
+            run.assert_not_called()
+
+    def test_repository_path_resolution_rejects_traversal_and_symlink_escape(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir) / "repo"
+            outside = Path(temp_dir) / "outside"
+            root.mkdir()
+            outside.mkdir()
+            subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+            (root / "safe.txt").write_text("safe\n", encoding="utf-8")
+            (root / "private.env").write_text("private\n", encoding="utf-8")
+            subprocess.run(["git", "add", "safe.txt"], cwd=root, check=True)
+            (root / "escape").symlink_to(outside, target_is_directory=True)
+
+            self.assertEqual(
+                reconciliation.resolve_tracked_repo_path(root, "safe.txt"),
+                (root / "safe.txt").resolve(),
+            )
+            with self.assertRaises(ValueError):
+                reconciliation.resolve_tracked_repo_path(root, "private.env")
+            subprocess.run(["git", "add", "private.env"], cwd=root, check=True)
+            self.assertEqual(
+                reconciliation.resolve_tracked_repo_path(root, "private.env"),
+                (root / "private.env").resolve(),
+            )
+            for path in (
+                "../outside/secret",
+                "escape/secret",
+                "/tmp/secret",
+                None,
+                7,
+                False,
+            ):
+                with self.subTest(path=path), self.assertRaises(ValueError):
+                    reconciliation.resolve_repo_path(root, path)
+
     def test_canonical_inventory_covers_every_packaged_skill(self) -> None:
         inventory = build_canonical_inventory(REPO_ROOT)
         packaged = list((REPO_ROOT / "skills").glob("*/SKILL.md"))
         self.assertEqual(len(inventory["entries"]), len(packaged))
         self.assertEqual(validate_canonical_inventory(inventory, REPO_ROOT), [])
+
+    def test_canonical_inventory_ignores_untracked_skills_and_rejects_symlinks(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir) / "repo"
+            init_test_repo(root)
+            (root / "data").mkdir()
+            for map_name in (
+                "skill-map.json",
+                "gbrain-skill-map.json",
+                "praneet-skill-map.json",
+            ):
+                (root / "data" / map_name).write_text(
+                    json.dumps({"source": {}, "skills": []}), encoding="utf-8"
+                )
+            (root / "skills/tracked").mkdir(parents=True)
+            (root / "skills/tracked/SKILL.md").write_text(
+                "tracked\n", encoding="utf-8"
+            )
+            (root / "skills/ignored").mkdir(parents=True)
+            (root / "skills/ignored/SKILL.md").write_text(
+                "ignored private text\n", encoding="utf-8"
+            )
+            subprocess.run(
+                ["git", "add", "skills/tracked/SKILL.md"], cwd=root, check=True
+            )
+
+            inventory = build_canonical_inventory(root)
+
+            self.assertEqual(
+                [entry["skill_name"] for entry in inventory["entries"]], ["tracked"]
+            )
+
+            outside = Path(temp_dir) / "outside.md"
+            outside.write_text("outside private text\n", encoding="utf-8")
+            (root / "skills/linked").mkdir()
+            (root / "skills/linked/SKILL.md").symlink_to(outside)
+            subprocess.run(
+                ["git", "add", "skills/linked/SKILL.md"], cwd=root, check=True
+            )
+
+            with self.assertRaises(ValueError):
+                build_canonical_inventory(root)
 
     def test_tracked_canonical_inventory_is_current(self) -> None:
         inventory = json.loads(
@@ -128,11 +264,11 @@ class ReconciliationTests(unittest.TestCase):
             (root / "skills/remote/SKILL.md").write_text("shared\nlocal\n", encoding="utf-8")
             (root / "skills/expected").mkdir(parents=True)
             (root / "skills/expected/SKILL.md").write_text("expected\n", encoding="utf-8")
-            (root / "fixtures").mkdir()
-            (root / "fixtures/routing.jsonl").write_text(
+            (root / "skills/fixtures").mkdir(parents=True)
+            (root / "skills/fixtures/routing.jsonl").write_text(
                 '{"intent":"route","expected_skill":"expected"}\n', encoding="utf-8"
             )
-            (root / "resource.txt").write_bytes(b"local resource\n")
+            (root / "skills/resource.txt").write_bytes(b"local resource\n")
             manifest = {
                 "sources": {
                     "gstack": {
@@ -158,7 +294,7 @@ class ReconciliationTests(unittest.TestCase):
                 "resource_records": [
                     {
                         "source_name": "gstack",
-                        "local_path": "resource.txt",
+                        "local_path": "skills/resource.txt",
                         "upstream_path": "resource.txt",
                         "hashes": {},
                     }
@@ -166,7 +302,7 @@ class ReconciliationTests(unittest.TestCase):
                 "evaluations": [
                     {
                         "kind": "routing-jsonl",
-                        "fixture_path": "fixtures/routing.jsonl",
+                        "fixture_path": "skills/fixtures/routing.jsonl",
                     }
                 ],
             }
@@ -256,85 +392,22 @@ class ReconciliationTests(unittest.TestCase):
                 ("gbrain", "skills/deferred/SKILL.md"),
             ):
                 upstream = root / source_name
-                upstream.mkdir()
-                subprocess.run(["git", "init", "-q"], cwd=upstream, check=True)
-                subprocess.run(
-                    ["git", "config", "user.email", "tests@example.invalid"],
-                    cwd=upstream,
-                    check=True,
-                )
-                subprocess.run(
-                    ["git", "config", "user.name", "Test Suite"],
-                    cwd=upstream,
-                    check=True,
-                )
-                subprocess.run(
-                    ["git", "config", "commit.gpgsign", "false"],
-                    cwd=upstream,
-                    check=True,
-                )
-                subprocess.run(
-                    ["git", "config", "core.hooksPath", str(empty_hooks)],
-                    cwd=upstream,
-                    check=True,
-                )
-                skill_path = upstream / source_path
-                skill_path.parent.mkdir(parents=True, exist_ok=True)
+                init_test_repo(upstream)
                 initial_text = (
                     "shared\n" if source_name == "gstack" else "old upstream\n"
                 )
-                skill_path.write_text(initial_text, encoding="utf-8")
-                subprocess.run(["git", "add", source_path], cwd=upstream, check=True)
-                subprocess.run(
-                    [
-                        "git",
-                        "-c",
-                        "commit.gpgsign=false",
-                        "-c",
-                        f"core.hooksPath={empty_hooks}",
-                        "commit",
-                        "-q",
-                        "-m",
-                        "initial",
-                    ],
-                    cwd=upstream,
-                    check=True,
+                adopted_commit = commit_test_file(
+                    upstream, source_path, initial_text, "initial", empty_hooks
                 )
-                adopted_commit = subprocess.run(
-                    ["git", "rev-parse", "HEAD"],
-                    cwd=upstream,
-                    check=True,
-                    capture_output=True,
-                    text=True,
-                ).stdout.strip()
                 reviewed_commit = adopted_commit
                 if source_name == "gbrain":
-                    skill_path.write_text("current upstream\n", encoding="utf-8")
-                    subprocess.run(
-                        ["git", "add", source_path], cwd=upstream, check=True
+                    reviewed_commit = commit_test_file(
+                        upstream,
+                        source_path,
+                        "current upstream\n",
+                        "current",
+                        empty_hooks,
                     )
-                    subprocess.run(
-                        [
-                            "git",
-                            "-c",
-                            "commit.gpgsign=false",
-                            "-c",
-                            f"core.hooksPath={empty_hooks}",
-                            "commit",
-                            "-q",
-                            "-m",
-                            "current",
-                        ],
-                        cwd=upstream,
-                        check=True,
-                    )
-                    reviewed_commit = subprocess.run(
-                        ["git", "rev-parse", "HEAD"],
-                        cwd=upstream,
-                        check=True,
-                        capture_output=True,
-                        text=True,
-                    ).stdout.strip()
                 upstream_roots[source_name] = upstream
                 commits[source_name] = (adopted_commit, reviewed_commit)
 
@@ -529,6 +602,24 @@ class ReconciliationTests(unittest.TestCase):
         errors = validate_reconciliation_manifest(invalid, REPO_ROOT, inventory)
 
         self.assertTrue(any("unexplained removal" in error for error in errors))
+
+    def test_complete_manifest_rejects_repository_path_escape(self) -> None:
+        inventory = json.loads(
+            (REPO_ROOT / "data" / "canonical-skill-inventory.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        manifest = json.loads(
+            (REPO_ROOT / "data" / "reconciliation-complete.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        invalid = copy.deepcopy(manifest)
+        invalid["records"][0]["local_path"] = "../private-material"
+
+        errors = validate_reconciliation_manifest(invalid, REPO_ROOT, inventory)
+
+        self.assertTrue(any("canonical local_path" in error for error in errors))
 
     def test_complete_manifest_requires_duplicate_source_lineage(self) -> None:
         inventory = json.loads(

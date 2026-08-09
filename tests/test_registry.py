@@ -121,6 +121,31 @@ class RegistryTests(unittest.TestCase):
         errors = validate_skill_map(data)
         self.assertTrue(any("Duplicate codex slug: shared." == error for error in errors))
 
+    def test_validate_skill_map_requires_full_commit_sha(self) -> None:
+        data = {
+            "source": {
+                "name": "gstack",
+                "repo": "https://example.com",
+                "license": "MIT",
+                "commit": "abc1234",
+            },
+            "skills": [
+                {
+                    "upstream_slug": "one",
+                    "codex_slug": "one",
+                    "status": "ported",
+                    "port_kind": "native",
+                    "summary": "one",
+                    "notes": "one notes",
+                    "source_files": ["one/SKILL.md"],
+                }
+            ],
+        }
+
+        errors = validate_skill_map(data)
+
+        self.assertTrue(any("expected a full Git commit SHA" in error for error in errors))
+
     def test_skill_source_commit_uses_parity_boundary_then_explicit_override(self) -> None:
         skill_map = {
             "source": {"commit": "baseline", "skill_parity_commit": "parity123"},

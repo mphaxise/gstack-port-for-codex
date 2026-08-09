@@ -11,7 +11,10 @@ import sys
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from gstack_port_for_codex.reconciliation import refresh_reconciliation_manifest  # noqa: E402
+from gstack_port_for_codex.reconciliation import (  # noqa: E402
+    refresh_reconciliation_manifest,
+    resolve_repo_path,
+)
 
 
 def main() -> int:
@@ -27,7 +30,7 @@ def main() -> int:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
 
-    target = args.manifest if args.manifest.is_absolute() else REPO_ROOT / args.manifest
+    target = resolve_repo_path(REPO_ROOT, args.manifest)
     manifest = json.loads(target.read_text(encoding="utf-8"))
     refreshed = refresh_reconciliation_manifest(
         manifest,
@@ -35,6 +38,7 @@ def main() -> int:
         {"gstack": args.gstack_repo, "gbrain": args.gbrain_repo},
     )
     rendered = json.dumps(refreshed, indent=2) + "\n"
+    relative_target = target.relative_to(REPO_ROOT.resolve())
     if args.check:
         if target.read_text(encoding="utf-8") != rendered:
             print(f"{manifest['milestone'].title()} reconciliation manifest is stale.", file=sys.stderr)
@@ -43,7 +47,7 @@ def main() -> int:
         return 0
 
     target.write_text(rendered, encoding="utf-8")
-    print(f"Wrote {target.relative_to(REPO_ROOT)}.")
+    print(f"Wrote {relative_target}.")
     return 0
 
 

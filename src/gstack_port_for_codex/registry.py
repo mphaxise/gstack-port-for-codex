@@ -4,7 +4,11 @@ import json
 from pathlib import Path
 import re
 
-from .reconciliation import validate_canonical_inventory, validate_reconciliation_manifest
+from .reconciliation import (
+    COMMIT_PATTERN,
+    validate_canonical_inventory,
+    validate_reconciliation_manifest,
+)
 
 
 ALLOWED_STATUSES = {"ported", "planned", "blocked"}
@@ -218,22 +222,19 @@ def validate_skill_map(data: dict) -> list[str]:
         for key in ("name", "repo", "license", "commit"):
             if not source.get(key):
                 errors.append(f"Missing source.{key} in a skill map file.")
-        parity_commit = source.get("skill_parity_commit")
-        if parity_commit is not None and (
-            not isinstance(parity_commit, str) or len(parity_commit.strip()) < 7
+        for key in (
+            "commit",
+            "skill_parity_commit",
+            "skill_reviewed_commit",
+            "latest_checked_commit",
         ):
-            errors.append(
-                f"Invalid source.skill_parity_commit {parity_commit!r}; "
-                "expected a git commit SHA string."
-            )
-        reviewed_commit = source.get("skill_reviewed_commit")
-        if reviewed_commit is not None and (
-            not isinstance(reviewed_commit, str) or len(reviewed_commit.strip()) < 7
-        ):
-            errors.append(
-                f"Invalid source.skill_reviewed_commit {reviewed_commit!r}; "
-                "expected a git commit SHA string."
-            )
+            value = source.get(key)
+            if value is not None and (
+                not isinstance(value, str) or not COMMIT_PATTERN.fullmatch(value)
+            ):
+                errors.append(
+                    f"Invalid source.{key} {value!r}; expected a full Git commit SHA."
+                )
 
     skills = data.get("skills")
     if not isinstance(skills, list) or not skills:
@@ -278,16 +279,20 @@ def validate_skill_map(data: dict) -> list[str]:
         if not isinstance(source_files, list) or not source_files:
             errors.append(f"Skill entry #{index} needs at least one source_files entry.")
         if source_commit is not None:
-            if not isinstance(source_commit, str) or len(source_commit.strip()) < 7:
+            if not isinstance(source_commit, str) or not COMMIT_PATTERN.fullmatch(
+                source_commit
+            ):
                 errors.append(
                     f"Skill entry #{index} has invalid source_commit {source_commit!r}; "
-                    "expected a git commit SHA string."
+                    "expected a full Git commit SHA."
                 )
         if reviewed_commit is not None:
-            if not isinstance(reviewed_commit, str) or len(reviewed_commit.strip()) < 7:
+            if not isinstance(reviewed_commit, str) or not COMMIT_PATTERN.fullmatch(
+                reviewed_commit
+            ):
                 errors.append(
                     f"Skill entry #{index} has invalid reviewed_commit {reviewed_commit!r}; "
-                    "expected a git commit SHA string."
+                    "expected a full Git commit SHA."
                 )
 
         if upstream_slug:

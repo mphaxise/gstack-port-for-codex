@@ -206,6 +206,12 @@ class RefreshReconciliationScriptTests(unittest.TestCase):
 
 
 class RecordSkillReviewScriptTests(unittest.TestCase):
+    def test_record_review_rejects_non_full_commit(self) -> None:
+        data = {"source": {}, "skills": [{"upstream_slug": "accepted"}]}
+
+        with self.assertRaises(ValueError):
+            review_script.record_review(data, "-c core.pager=cat", ["accepted"])
+
     def test_write_and_check_current_review(self) -> None:
         data = {"source": {}, "skills": [{"upstream_slug": "accepted"}]}
         with TemporaryDirectory() as temp_dir:
