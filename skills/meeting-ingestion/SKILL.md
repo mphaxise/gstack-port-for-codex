@@ -7,7 +7,7 @@ description: GBrain-inspired meeting ingestion for Codex. Use when transcript or
 
 Use this skill when the user wants a transcript or meeting-note file turned into structured memory under `brain/meetings/`.
 
-This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
+This port is adapted from `garrytan/gbrain` at commit `0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Important Adaptation
 

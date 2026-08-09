@@ -34,6 +34,8 @@ Upstream GBrain reads the active schema pack. This Codex port first uses the rep
    - required backlinks or citations
 5. If no existing category fits, recommend `schema-author` before writing.
 
+Use `routing-eval.jsonl` as the deterministic routing fixture. Each JSON object must identify an expected packaged skill; any `ambiguous_with` targets must also exist in the package.
+
 ## Guardrails
 
 - Do not hardcode a new directory if an active schema says otherwise.

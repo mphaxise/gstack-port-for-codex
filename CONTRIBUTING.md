@@ -15,17 +15,14 @@ review and preserve the repository's provenance boundaries.
 ## Local checks
 
 ```bash
-python3 scripts/validate_repo.py
-python3 -m unittest discover -s tests
-python3 scripts/smoke_install.py
-python3 scripts/check_public_boundary.py
-python3 -m compileall -q scripts src tests
-git diff --check
+python3 scripts/check_engineering_milestone.py
 ```
 
-The upstream drift checker needs network access to GitHub. A failed network
-request should be reported as an unavailable freshness check, not as proof of
-parity.
+The milestone gate prints each local check and preserves failure output. Add
+`--upstream` for live drift. Before a parity claim or release, also pass
+`--gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain` so the gate
+rebuilds the complete manifest from its pinned Git blobs. An unavailable check
+reports a limitation; parity remains unverified.
 
 ## Skill changes
 

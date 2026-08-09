@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 
@@ -11,12 +12,15 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from gstack_port_for_codex.registry import (  # noqa: E402
     format_capability_status_table,
     extract_frontmatter_keys,
+    extract_routed_skill_references,
     format_status_table,
     load_skill_map,
     skill_source_commit,
+    skill_reviewed_commit,
     validate_repo,
     validate_capability_map,
     validate_skill_map,
+    validate_skill_portability,
 )
 
 
@@ -35,6 +39,54 @@ class RegistryTests(unittest.TestCase):
             extract_frontmatter_keys(text),
             {"name": "demo-skill", "description": "A short description."},
         )
+
+    def test_extract_routed_skill_references_ignores_shell_commands(self) -> None:
+        text = (
+            "## Routing\n"
+            "- Review: `review` or `qa-only`\n"
+            "Use `capture` and `brain-taxonomist` for the note.\n"
+            "## Commands\n"
+            "Run `gbrain doctor`.\n"
+            "Route material accessibility questions to `accessibility-review`, "
+            "`responsible-design-review`, or `design-leadership-review`.\n"
+            "Never use a Codex/OpenAI-billed model; the `openai` segment is a provider name.\n"
+        )
+
+        self.assertEqual(
+            extract_routed_skill_references(text),
+            {
+                "accessibility-review",
+                "brain-taxonomist",
+                "capture",
+                "design-leadership-review",
+                "qa-only",
+                "responsible-design-review",
+                "review",
+            },
+        )
+
+    def test_validate_skill_portability_rejects_missing_route_and_home_path(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            skill_dir = Path(tmp) / "demo-skill"
+            skill_dir.mkdir()
+            skill_md = skill_dir / "SKILL.md"
+            skill_md.write_text(
+                "---\n"
+                "name: demo-skill\n"
+                "description: Demo.\n"
+                "user-invocable: true\n"
+                "---\n\n"
+                "## Routing\n"
+                "- Missing: `absent-skill`\n"
+                "Use `/Users/example/tool`.\n",
+                encoding="utf-8",
+            )
+
+            errors = validate_skill_portability(skill_md, {"demo-skill"})
+
+        self.assertTrue(any("missing skill: 'absent-skill'" in error for error in errors))
+        self.assertTrue(any("user-invocable" in error for error in errors))
+        self.assertTrue(any("authoring-machine absolute home path" in error for error in errors))
 
     def test_validate_skill_map_rejects_duplicate_codex_slug(self) -> None:
         data = {
@@ -69,6 +121,31 @@ class RegistryTests(unittest.TestCase):
         errors = validate_skill_map(data)
         self.assertTrue(any("Duplicate codex slug: shared." == error for error in errors))
 
+    def test_validate_skill_map_requires_full_commit_sha(self) -> None:
+        data = {
+            "source": {
+                "name": "gstack",
+                "repo": "https://example.com",
+                "license": "MIT",
+                "commit": "abc1234",
+            },
+            "skills": [
+                {
+                    "upstream_slug": "one",
+                    "codex_slug": "one",
+                    "status": "ported",
+                    "port_kind": "native",
+                    "summary": "one",
+                    "notes": "one notes",
+                    "source_files": ["one/SKILL.md"],
+                }
+            ],
+        }
+
+        errors = validate_skill_map(data)
+
+        self.assertTrue(any("expected a full Git commit SHA" in error for error in errors))
+
     def test_skill_source_commit_uses_parity_boundary_then_explicit_override(self) -> None:
         skill_map = {
             "source": {"commit": "baseline", "skill_parity_commit": "parity123"},
@@ -78,6 +155,22 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(
             skill_source_commit(skill_map, {"source_commit": "override456"}),
             "override456",
+        )
+
+    def test_skill_reviewed_commit_is_separate_from_adopted_source(self) -> None:
+        skill_map = {
+            "source": {
+                "commit": "baseline",
+                "skill_parity_commit": "adopted123",
+                "skill_reviewed_commit": "reviewed456",
+            },
+        }
+
+        self.assertEqual(skill_source_commit(skill_map, {}), "adopted123")
+        self.assertEqual(skill_reviewed_commit(skill_map, {}), "reviewed456")
+        self.assertEqual(
+            skill_reviewed_commit(skill_map, {"reviewed_commit": "reviewed789"}),
+            "reviewed789",
         )
 
     def test_validate_repo_passes_for_current_checkout(self) -> None:

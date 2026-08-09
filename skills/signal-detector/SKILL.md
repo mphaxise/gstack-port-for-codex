@@ -11,7 +11,7 @@ Use this skill when a message contains durable signal:
 - an observation in the user's own words
 - a person, company, or concept worth linking into the local brain
 
-This port is adapted from `garrytan/gbrain` at commit `5008b287e47bf791132eedfebf66bdef11e9398c`.
+This port is adapted from `garrytan/gbrain` at commit `0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Important Adaptation
 

@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "milestone": "alpha",
+  "reviewed_at": "2026-08-08",
+  "sources": {
+    "gstack": {
+      "repo": "https://github.com/garrytan/gstack",
+      "adopted_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
+      "current_commit": "94993f74012782fd94416dd44b8314f6363a13a4"
+    },
+    "gbrain": {
+      "repo": "https://github.com/garrytan/gbrain",
+      "adopted_commit": "5008b287e47bf791132eedfebf66bdef11e9398c",
+      "current_commit": "0b47afbf402a4e27a648bb9d131ce584461461ea"
+    }
+  },
+  "records": [
+    {
+      "canonical_id": "skill:gstack",
+      "source_name": "gstack",
+      "upstream_path": "SKILL.md",
+      "local_path": "skills/gstack/SKILL.md",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "b77bab43d1db15b6019f34506a204bca9f5e9632d314b70075c26fd07b13b173",
+        "current_upstream_sha256": "b77bab43d1db15b6019f34506a204bca9f5e9632d314b70075c26fd07b13b173",
+        "local_sha256": "dbcbc7d8c5fcb236e8f4d2c4802b68e82e75b995bb0e79fbe1c377daa36ccdb5"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 0.62,
+        "current_upstream_percent": 0.62
+      },
+      "intentional_removals": [
+        {
+          "category": "Claude preamble and session machinery",
+          "reason": "Codex supplies its own skill discovery, session, approval, and instruction surfaces."
+        },
+        {
+          "category": "Telemetry, activation prompts, and updater side effects",
+          "reason": "The public Codex router stays a deterministic dispatch layer without implicit machine mutation."
+        }
+      ],
+      "companion_resources": [
+        "skills/workflow-router/SKILL.md"
+      ],
+      "validation": [
+        "python3 scripts/validate_repo.py",
+        "python3 -m unittest discover -s tests"
+      ],
+      "decision": "reviewed-deferred"
+    },
+    {
+      "canonical_id": "skill:workflow-router",
+      "source_name": "local",
+      "upstream_path": null,
+      "local_path": "skills/workflow-router/SKILL.md",
+      "classifications": [
+        "local-origin"
+      ],
+      "host_coupling": "portable",
+      "hashes": {
+        "adopted_source_sha256": null,
+        "current_upstream_sha256": null,
+        "local_sha256": "7c825acca38dbb1738dd9581ba693e1c1230a15c8a89da04accec72ff2cc6895"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": null,
+        "current_upstream_percent": null
+      },
+      "intentional_removals": [],
+      "companion_resources": [
+        "skills/workflow-router/references/intent-map.md"
+      ],
+      "validation": [
+        "python3 scripts/validate_repo.py"
+      ],
+      "decision": "local-origin"
+    },
+    {
+      "canonical_id": "skill:gstack-upgrade",
+      "source_name": "gstack",
+      "upstream_path": "gstack-upgrade/SKILL.md",
+      "local_path": "skills/gstack-upgrade/SKILL.md",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "aa78f4af40338c0dc27f2eb6049a6eb6af23781fd88ff250d46aa3144fc2f0e4",
+        "current_upstream_sha256": "aa78f4af40338c0dc27f2eb6049a6eb6af23781fd88ff250d46aa3144fc2f0e4",
+        "local_sha256": "3e05017c7e55f094a036968024106c0ee8feb874ec40501f596baff7166b3a35"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 1.33,
+        "current_upstream_percent": 1.33
+      },
+      "intentional_removals": [
+        {
+          "category": "Claude installation and self-update mechanics",
+          "reason": "This repository uses explicit fetch, reconciliation, validation, and install steps for Codex."
+        }
+      ],
+      "companion_resources": [
+        "AGENTS.md",
+        "docs/codex-documentation-refresh.md"
+      ],
+      "validation": [
+        "python3 scripts/check_upstream_drift.py",
+        "python3 scripts/validate_repo.py"
+      ],
+      "decision": "reviewed-deferred"
+    },
+    {
+      "canonical_id": "skill:gbrain-upgrade",
+      "source_name": "gbrain",
+      "upstream_path": "skills/gbrain-upgrade/SKILL.md",
+      "local_path": "skills/gbrain-upgrade/SKILL.md",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "7cd05f43027fa20d56ed651f696288f9e4814b7bdf7b396f132fde7c96dac620",
+        "current_upstream_sha256": "7cd05f43027fa20d56ed651f696288f9e4814b7bdf7b396f132fde7c96dac620",
+        "local_sha256": "42fe4db47ff08413210e847be9922b3b66806daaa17de62d718f518fdfa8275f"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 2.94,
+        "current_upstream_percent": 2.94
+      },
+      "intentional_removals": [
+        {
+          "category": "Automatic upgrade and daemon-specific prompting",
+          "reason": "The optional upstream CLI stays approval-gated and separate from the repository's file-backed substrate."
+        }
+      ],
+      "companion_resources": [
+        "scripts/brain_doctor.py",
+        "docs/codex-brain-substrate.md"
+      ],
+      "validation": [
+        "python3 scripts/check_upstream_drift.py --map gbrain",
+        "python3 scripts/brain_doctor.py"
+      ],
+      "decision": "reviewed-deferred"
+    },
+    {
+      "canonical_id": "skill:skillpack-check",
+      "source_name": "gbrain",
+      "upstream_path": "skills/skillpack-check/SKILL.md",
+      "local_path": "skills/skillpack-check/SKILL.md",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "3f347ec8b498530a662be212d05f4cd06b205bce5795c2231b6a4cecef149ea0",
+        "current_upstream_sha256": "3f347ec8b498530a662be212d05f4cd06b205bce5795c2231b6a4cecef149ea0",
+        "local_sha256": "deb1b4d42d92997796851496775481b0b9d48eec99b8e05d3b7ec53aca5580a7"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 3.81,
+        "current_upstream_percent": 3.81
+      },
+      "intentional_removals": [
+        {
+          "category": "CLI-only migration executor",
+          "reason": "The Codex package check separates repository health from an optional installed GBrain CLI and never executes remediation text from a report."
+        }
+      ],
+      "companion_resources": [
+        "scripts/validate_repo.py",
+        "scripts/smoke_install.py"
+      ],
+      "validation": [
+        "python3 scripts/validate_repo.py",
+        "python3 scripts/smoke_install.py"
+      ],
+      "decision": "reviewed-deferred"
+    },
+    {
+      "canonical_id": "skill:browse",
+      "source_name": "gstack",
+      "upstream_path": "browse/SKILL.md",
+      "local_path": "skills/browse/SKILL.md",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "runtime-heavy",
+      "hashes": {
+        "adopted_source_sha256": "a33632d9948aa65e207fcdcf6bd6c39d46fee8a4028cafc56a472481609d106f",
+        "current_upstream_sha256": "a33632d9948aa65e207fcdcf6bd6c39d46fee8a4028cafc56a472481609d106f",
+        "local_sha256": "19d7be5fb9ffe41554231c1664e01fddc2ad68d6964a2a8d15dc1507bd65da86"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 0.36,
+        "current_upstream_percent": 0.36
+      },
+      "intentional_removals": [
+        {
+          "category": "Bundled browser daemon, binary, and telemetry runtime",
+          "reason": "Codex selects its documented Browser, Chrome, Computer Use, or repository-owned browser tooling at runtime."
+        }
+      ],
+      "companion_resources": [
+        "skills/browse/references/runtime-strategy.md",
+        "skills/browse/references/browser-command-map.md"
+      ],
+      "validation": [
+        "python3 scripts/validate_repo.py",
+        "python3 scripts/check_public_boundary.py"
+      ],
+      "decision": "reviewed-deferred"
+    }
+  ]
+}

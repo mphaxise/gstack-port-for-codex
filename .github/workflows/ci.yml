@@ -18,20 +18,5 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Validate repository structure
-        run: python3 scripts/validate_repo.py
-
-      - name: Run unit tests
-        run: python3 -m unittest discover -s tests
-
-      - name: Check public boundary
-        run: python3 scripts/check_public_boundary.py
-
-      - name: Smoke test installer
-        run: python3 scripts/smoke_install.py
-
-      - name: Compile Python sources
-        run: python3 -m compileall -q scripts src tests
-
-      - name: Check diff formatting
-        run: git diff --check
+      - name: Run engineering milestone gate
+        run: python3 scripts/check_engineering_milestone.py

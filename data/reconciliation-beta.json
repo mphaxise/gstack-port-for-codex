@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "milestone": "beta",
+  "reviewed_at": "2026-08-08",
+  "sources": {
+    "gbrain": {
+      "repo": "https://github.com/garrytan/gbrain",
+      "adopted_commit": "5008b287e47bf791132eedfebf66bdef11e9398c",
+      "current_commit": "0b47afbf402a4e27a648bb9d131ce584461461ea"
+    }
+  },
+  "records": [
+    {
+      "canonical_id": "skill:capture",
+      "source_name": "gbrain",
+      "upstream_path": "skills/capture/SKILL.md",
+      "local_path": "skills/capture/SKILL.md",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "405b3584cb1748b50454b0ced0385528a87b924c6a4a34cace9df75fdcc47135",
+        "current_upstream_sha256": "98568ac96331f57397ea072749641d9748b1ce31e8b09d512b8db25c8fcda65f",
+        "local_sha256": "97b025141e0a70c96ae468a45372e45c8b7bce11ec7be255b393c307f17fee61"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 3.57,
+        "current_upstream_percent": 3.57
+      },
+      "intentional_removals": [
+        {
+          "category": "GBrain CLI storage and title semantics",
+          "reason": "The Codex adapter uses repository-owned file helpers. Its signal helper derives a title from the first 12 words; the upstream 80-character ellipsis rule belongs to the GBrain CLI."
+        },
+        {
+          "category": "Daemon, database, and JSON output paths",
+          "reason": "Capture remains an explicit local-file operation. Ambient daemon and private database behavior stays in the upstream runtime."
+        }
+      ],
+      "companion_resources": [
+        "scripts/brain_capture_signal.py",
+        "scripts/brain_ingest_source.py",
+        "skills/brain-taxonomist/SKILL.md"
+      ],
+      "validation": [
+        "python3 -m unittest discover -s tests",
+        "python3 scripts/brain_doctor.py"
+      ],
+      "decision": "reviewed-deferred"
+    },
+    {
+      "canonical_id": "skill:brain-taxonomist",
+      "source_name": "gbrain",
+      "upstream_path": "skills/brain-taxonomist/SKILL.md",
+      "local_path": "skills/brain-taxonomist/SKILL.md",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "dea4557b540868ec2c56bf43ee7f63c5d03a22d4047cd0dfbeaf19adef334f60",
+        "current_upstream_sha256": "dea4557b540868ec2c56bf43ee7f63c5d03a22d4047cd0dfbeaf19adef334f60",
+        "local_sha256": "b3a23f2d7453850ce4118e5e65ea3fdb45952d2971eeb5d72d33f52aa5e8c837"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 1.99,
+        "current_upstream_percent": 1.99
+      },
+      "intentional_removals": [
+        {
+          "category": "Mandatory live schema-pack routing",
+          "reason": "The Codex adapter uses the repository's public brain layout first and consults the optional GBrain CLI only when it is installed."
+        }
+      ],
+      "companion_resources": [
+        "skills/brain-taxonomist/routing-eval.jsonl",
+        "skills/schema-author/SKILL.md"
+      ],
+      "validation": [
+        "python3 -m unittest tests.test_reconciliation",
+        "python3 scripts/validate_repo.py"
+      ],
+      "decision": "reviewed-deferred"
+    }
+  ],
+  "resource_records": [
+    {
+      "resource_id": "skill:brain-taxonomist:routing-eval",
+      "source_name": "gbrain",
+      "upstream_path": "skills/brain-taxonomist/routing-eval.jsonl",
+      "local_path": "skills/brain-taxonomist/routing-eval.jsonl",
+      "disposition": "preserved",
+      "hashes": {
+        "adopted_source_sha256": "8b485b3d735aace60be703854f0f2e9d97c52d52564efdaf7334a0c39e8d20ae",
+        "current_upstream_sha256": "8b485b3d735aace60be703854f0f2e9d97c52d52564efdaf7334a0c39e8d20ae",
+        "local_sha256": "8b485b3d735aace60be703854f0f2e9d97c52d52564efdaf7334a0c39e8d20ae"
+      }
+    }
+  ],
+  "evaluations": [
+    {
+      "name": "brain-taxonomist-routing",
+      "kind": "routing-jsonl",
+      "fixture_path": "skills/brain-taxonomist/routing-eval.jsonl",
+      "fixture_sha256": "8b485b3d735aace60be703854f0f2e9d97c52d52564efdaf7334a0c39e8d20ae",
+      "case_count": 6,
+      "outcomes": {
+        "valid_jsonl": true,
+        "nonempty_cases": true,
+        "unique_intents": true,
+        "expected_skills_packaged": true,
+        "ambiguous_skills_packaged": true
+      }
+    }
+  ]
+}

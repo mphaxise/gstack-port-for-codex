@@ -2,9 +2,11 @@
 
 Baseline upstream source: `garrytan/gstack@2aa745cb0e4331d683e727ec77385d04cdbb45a2`
 
-Latest checked upstream source: `garrytan/gstack@a3259400a366593e0c909dd9ac3e59752efd2488`
+Latest reviewed upstream source: `garrytan/gstack@94993f74012782fd94416dd44b8314f6363a13a4`
 
-The July 16 audit records full skill-workflow parity through `skill_parity_commit`; explicit per-skill `source_commit` values override that boundary when needed.
+The August 8 reconciliation records the full review boundary through
+`skill_reviewed_commit`. Per-skill `source_commit` values record accepted
+content and remain older when a current host-specific change is deferred.
 
 This map tracks full upstream coverage, but the right way to read it is by adoption tier as well as by status.
 
@@ -44,6 +46,8 @@ This map tracks full upstream coverage, but the right way to read it is by adopt
 - `status = ported` means the workflow is represented in Codex form.
 - `port_kind = runtime-aware` means the workflow depends on host browser, deploy, or runtime capabilities for full depth.
 - `source_commit` on a skill means that skill was ported or refreshed against a newer upstream commit than the baseline pin.
+- `reviewed_commit` or the map-level `skill_reviewed_commit` means newer
+  upstream content was inspected, including when the Codex adapter was retained.
 
 ## Adaptation Notes
 

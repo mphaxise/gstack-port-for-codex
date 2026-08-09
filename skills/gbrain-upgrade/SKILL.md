@@ -7,7 +7,8 @@ description: Check and apply upstream gbrain upgrades safely, while keeping the 
 
 Use this skill when the user asks to update, upgrade, or verify upstream GBrain availability.
 
-This port is adapted from `garrytan/gbrain` at commit `814258dda67945ffec9457a1e73980e947b7e462`.
+This port was reconciled against `garrytan/gbrain` at commit
+`0b47afbf402a4e27a648bb9d131ce584461461ea`.
 
 ## Workflow
 
@@ -21,7 +22,7 @@ This port is adapted from `garrytan/gbrain` at commit `814258dda67945ffec9457a1e
    - `command -v gbrain`
    - `python3 scripts/brain_doctor.py`
 3. Refresh the current official Codex manual before judging whether a local fallback is still necessary:
-   - `node /Users/praneet/.codex/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs`
+   - `node "${CODEX_HOME:-$HOME/.codex}/skills/.system/openai-docs/scripts/fetch-codex-manual.mjs"`
    - review the relevant skills, MCP, plugins, memories, automations, sandboxing, and local environment sections
 4. If the upstream CLI exists, use read-only upgrade checks first:
    - `gbrain self-upgrade --check-only --json` when available

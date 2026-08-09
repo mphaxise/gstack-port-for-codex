@@ -7,7 +7,8 @@ description: Browser QA for Codex using @Browser, @Chrome, Computer Use, or repo
 
 Use this skill when the task requires browser-based verification instead of static code reading.
 
-This port is adapted from `garrytan/gstack` at commit `11de390be1be6849eb9a15f91ff4922dd16c589a`.
+This port was reconciled against `garrytan/gstack` at commit
+`94993f74012782fd94416dd44b8314f6363a13a4`.
 
 ## Important Adaptation
 

@@ -11,7 +11,9 @@
 
 - GStack upstream exposes 54 skill directories. This port maps all 54 and retains two local compatibility entries: `gstack` and `checkpoint`.
 - GBrain upstream exposes 53 skill directories. This port maps all 53.
-- Local installation uses symlinks from `/Users/praneet/.codex/skills/<skill>` to this checkout, so validated repo updates are immediately active locally.
+- The July installation used symlinks under `~/.codex/skills`. Current Codex
+  documentation places user skills in `~/.agents/skills`; the August complete
+  reconciliation and receipted installer supersede this historical path.
 
 ## Port Decisions
 
