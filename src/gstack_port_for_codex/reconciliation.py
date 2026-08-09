@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 import hashlib
+import io
 import json
 from pathlib import Path
 import re
@@ -66,6 +67,7 @@ def _build_complete_record(
     entry: dict,
     repo_root: Path,
     upstream_roots: dict[str, Path],
+    blob_cache: dict[tuple[str, str, str], str],
 ) -> dict:
     source_name = entry["source_name"]
     source_slug = entry["source_slug"]
@@ -76,12 +78,16 @@ def _build_complete_record(
     reviewed_commit = entry["reviewed_commit"]
     local_path = entry["local_path"]
     local_text = (repo_root / local_path).read_text(encoding="utf-8")
-    adopted_text = git_blob_text(
-        upstream_roots[source_name], adopted_commit, upstream_path
-    )
-    reviewed_text = git_blob_text(
-        upstream_roots[source_name], reviewed_commit, upstream_path
-    )
+    def cached_blob_text(commit: str) -> str:
+        key = (source_name, commit, upstream_path)
+        if key not in blob_cache:
+            blob_cache[key] = git_blob_text(
+                upstream_roots[source_name], commit, upstream_path
+            )
+        return blob_cache[key]
+
+    adopted_text = cached_blob_text(adopted_commit)
+    reviewed_text = cached_blob_text(reviewed_commit)
     preserved = local_text == reviewed_text
     decision = "adopted" if adopted_commit == reviewed_commit else "reviewed-deferred"
     adaptation_notes = entry.get("adaptation_notes", "")
@@ -216,12 +222,45 @@ def build_complete_reconciliation_manifest(
         for source_name, data in maps.items()
     }
 
+    blob_requests: dict[str, set[tuple[str, str]]] = {
+        source_name: set() for source_name in maps
+    }
+
+    def register_blob_requests(entry: dict) -> None:
+        source_name = entry["source_name"]
+        source_slug = entry["source_slug"]
+        upstream_path = entry.get("source_path") or _complete_upstream_path(
+            source_name, source_slug
+        )
+        blob_requests[source_name].update(
+            {
+                (entry["adopted_commit"], upstream_path),
+                (entry["reviewed_commit"], upstream_path),
+            }
+        )
+
+    for entry in inventory["entries"]:
+        if entry.get("source_name") not in maps:
+            continue
+        register_blob_requests(entry)
+        for secondary_source in entry.get("secondary_sources", []):
+            register_blob_requests({**entry, **secondary_source})
+
+    blob_cache: dict[tuple[str, str, str], str] = {}
+    for source_name, requests in blob_requests.items():
+        for (commit, path), content in git_blob_text_batch(
+            upstream_roots[source_name], sorted(requests)
+        ).items():
+            blob_cache[(source_name, commit, path)] = content
+
     records: list[dict] = []
     alternate_source_records: list[dict] = []
     for entry in inventory["entries"]:
         if entry.get("source_name") not in maps:
             continue
-        records.append(_build_complete_record(entry, repo_root, upstream_roots))
+        records.append(
+            _build_complete_record(entry, repo_root, upstream_roots, blob_cache)
+        )
         for secondary_source in entry.get("secondary_sources", []):
             alternate_entry = {
                 **entry,
@@ -229,7 +268,9 @@ def build_complete_reconciliation_manifest(
                 "secondary_sources": [],
             }
             alternate_source_records.append(
-                _build_complete_record(alternate_entry, repo_root, upstream_roots)
+                _build_complete_record(
+                    alternate_entry, repo_root, upstream_roots, blob_cache
+                )
             )
 
     return {
@@ -376,6 +417,37 @@ def git_blob_bytes(repo: Path, commit: str, path: str) -> bytes:
 
 def git_blob_text(repo: Path, commit: str, path: str) -> str:
     return git_blob_bytes(repo, commit, path).decode("utf-8")
+
+
+def git_blob_text_batch(
+    repo: Path, requests: list[tuple[str, str]]
+) -> dict[tuple[str, str], str]:
+    """Read multiple Git blobs with one process for an upstream repository."""
+
+    if not requests:
+        return {}
+    payload = "".join(f"{commit}:{path}\n" for commit, path in requests).encode()
+    completed = subprocess.run(
+        ["git", "-C", str(repo), "cat-file", "--batch"],
+        input=payload,
+        check=True,
+        capture_output=True,
+    )
+    stream = io.BytesIO(completed.stdout)
+    blobs: dict[tuple[str, str], str] = {}
+    for request in requests:
+        header = stream.readline().decode("utf-8").rstrip("\n")
+        parts = header.rsplit(" ", 2)
+        if len(parts) != 3 or parts[1] != "blob":
+            raise ValueError(
+                f"Unable to read Git blob {request[0]}:{request[1]}: {header}"
+            )
+        size = int(parts[2])
+        content = stream.read(size)
+        if len(content) != size or stream.read(1) != b"\n":
+            raise ValueError(f"Truncated Git blob {request[0]}:{request[1]}")
+        blobs[request] = content.decode("utf-8")
+    return blobs
 
 
 def evaluate_routing_jsonl(fixture_path: Path, repo_root: Path) -> tuple[int, dict[str, bool]]:

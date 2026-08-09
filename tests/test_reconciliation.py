@@ -4,6 +4,7 @@ import copy
 from collections import Counter
 import json
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -231,6 +232,185 @@ class ReconciliationTests(unittest.TestCase):
             ),
             ("skill:skillify", "gstack", "reviewed-deferred"),
         )
+
+    def test_complete_manifest_builds_records_from_pinned_git_blobs(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            repo_root = root / "local"
+            empty_hooks = root / "empty-hooks"
+            empty_hooks.mkdir()
+            (repo_root / "data").mkdir(parents=True)
+            (repo_root / "skills/adopted").mkdir(parents=True)
+            (repo_root / "skills/deferred").mkdir(parents=True)
+            (repo_root / "skills/adopted/SKILL.md").write_text(
+                "shared\n", encoding="utf-8"
+            )
+            (repo_root / "skills/deferred/SKILL.md").write_text(
+                "local adaptation\n", encoding="utf-8"
+            )
+
+            upstream_roots: dict[str, Path] = {}
+            commits: dict[str, tuple[str, str]] = {}
+            for source_name, source_path in (
+                ("gstack", "adopted/SKILL.md"),
+                ("gbrain", "skills/deferred/SKILL.md"),
+            ):
+                upstream = root / source_name
+                upstream.mkdir()
+                subprocess.run(["git", "init", "-q"], cwd=upstream, check=True)
+                subprocess.run(
+                    ["git", "config", "user.email", "tests@example.invalid"],
+                    cwd=upstream,
+                    check=True,
+                )
+                subprocess.run(
+                    ["git", "config", "user.name", "Test Suite"],
+                    cwd=upstream,
+                    check=True,
+                )
+                subprocess.run(
+                    ["git", "config", "commit.gpgsign", "false"],
+                    cwd=upstream,
+                    check=True,
+                )
+                subprocess.run(
+                    ["git", "config", "core.hooksPath", str(empty_hooks)],
+                    cwd=upstream,
+                    check=True,
+                )
+                skill_path = upstream / source_path
+                skill_path.parent.mkdir(parents=True, exist_ok=True)
+                initial_text = (
+                    "shared\n" if source_name == "gstack" else "old upstream\n"
+                )
+                skill_path.write_text(initial_text, encoding="utf-8")
+                subprocess.run(["git", "add", source_path], cwd=upstream, check=True)
+                subprocess.run(
+                    [
+                        "git",
+                        "-c",
+                        "commit.gpgsign=false",
+                        "-c",
+                        f"core.hooksPath={empty_hooks}",
+                        "commit",
+                        "-q",
+                        "-m",
+                        "initial",
+                    ],
+                    cwd=upstream,
+                    check=True,
+                )
+                adopted_commit = subprocess.run(
+                    ["git", "rev-parse", "HEAD"],
+                    cwd=upstream,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                ).stdout.strip()
+                reviewed_commit = adopted_commit
+                if source_name == "gbrain":
+                    skill_path.write_text("current upstream\n", encoding="utf-8")
+                    subprocess.run(
+                        ["git", "add", source_path], cwd=upstream, check=True
+                    )
+                    subprocess.run(
+                        [
+                            "git",
+                            "-c",
+                            "commit.gpgsign=false",
+                            "-c",
+                            f"core.hooksPath={empty_hooks}",
+                            "commit",
+                            "-q",
+                            "-m",
+                            "current",
+                        ],
+                        cwd=upstream,
+                        check=True,
+                    )
+                    reviewed_commit = subprocess.run(
+                        ["git", "rev-parse", "HEAD"],
+                        cwd=upstream,
+                        check=True,
+                        capture_output=True,
+                        text=True,
+                    ).stdout.strip()
+                upstream_roots[source_name] = upstream
+                commits[source_name] = (adopted_commit, reviewed_commit)
+
+            for source_name in ("gstack", "gbrain"):
+                adopted_commit, reviewed_commit = commits[source_name]
+                map_data = {
+                    "source": {
+                        "name": source_name,
+                        "repo": f"https://example.invalid/{source_name}.git",
+                        "commit": adopted_commit,
+                        "skill_parity_commit": adopted_commit,
+                        "skill_reviewed_commit": reviewed_commit,
+                    },
+                    "skills": [],
+                }
+                map_filename = (
+                    "skill-map.json"
+                    if source_name == "gstack"
+                    else "gbrain-skill-map.json"
+                )
+                (repo_root / "data" / map_filename).write_text(
+                    json.dumps(map_data), encoding="utf-8"
+                )
+
+            inventory = {
+                "entries": [
+                    {
+                        "canonical_id": "skill:adopted",
+                        "source_name": "gstack",
+                        "source_slug": "adopted",
+                        "source_path": "adopted/SKILL.md",
+                        "local_path": "skills/adopted/SKILL.md",
+                        "adopted_commit": commits["gstack"][0],
+                        "reviewed_commit": commits["gstack"][1],
+                        "port_kind": "native",
+                        "adaptation_notes": "Preserved portable behavior.",
+                    },
+                    {
+                        "canonical_id": "skill:deferred",
+                        "source_name": "gbrain",
+                        "source_slug": "deferred",
+                        "source_path": "skills/deferred/SKILL.md",
+                        "local_path": "skills/deferred/SKILL.md",
+                        "adopted_commit": commits["gbrain"][0],
+                        "reviewed_commit": commits["gbrain"][1],
+                        "port_kind": "adapted",
+                        "adaptation_notes": "Retains the portable Codex workflow.",
+                    },
+                ]
+            }
+
+            with (
+                patch.object(
+                    reconciliation, "build_canonical_inventory", return_value=inventory
+                ),
+                patch.object(
+                    reconciliation,
+                    "git_blob_text_batch",
+                    wraps=reconciliation.git_blob_text_batch,
+                ) as blob_batch,
+            ):
+                manifest = reconciliation.build_complete_reconciliation_manifest(
+                    repo_root, upstream_roots, "2026-08-09"
+                )
+
+        adopted, deferred = manifest["records"]
+        self.assertEqual(adopted["decision"], "adopted")
+        self.assertEqual(adopted["classifications"], ["preserved"])
+        self.assertEqual(
+            adopted["hashes"]["local_sha256"],
+            adopted["hashes"]["current_upstream_sha256"],
+        )
+        self.assertEqual(deferred["decision"], "reviewed-deferred")
+        self.assertEqual(deferred["retention"]["current_upstream_percent"], 0.0)
+        self.assertEqual(deferred["adaptation_approval"]["status"], "approved")
+        self.assertEqual(blob_batch.call_count, 2)
 
     def test_complete_manifest_fails_closed_on_false_adoption_and_unapproved_low_retention(self) -> None:
         inventory = json.loads(
