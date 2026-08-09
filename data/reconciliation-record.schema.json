@@ -8,6 +8,18 @@
     "schema_version": {"const": 1},
     "milestone": {"enum": ["alpha", "beta", "complete"]},
     "reviewed_at": {"type": "string", "format": "date"},
+    "policy": {
+      "type": "object",
+      "required": ["minimum_current_upstream_retention_percent"],
+      "properties": {
+        "minimum_current_upstream_retention_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false
+    },
     "sources": {
       "type": "object",
       "additionalProperties": {
@@ -46,6 +58,15 @@
           "adopted_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
           "reviewed_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
           "decision_reason": {"type": "string", "minLength": 1},
+          "adaptation_approval": {
+            "type": "object",
+            "required": ["status", "reason"],
+            "properties": {
+              "status": {"const": "approved"},
+              "reason": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          },
           "upstream_path": {"type": ["string", "null"]},
           "local_path": {"type": "string", "pattern": "^skills/.+/SKILL\\.md$"},
           "classifications": {"type": "array", "minItems": 1, "items": {"type": "string"}},

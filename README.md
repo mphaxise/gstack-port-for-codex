@@ -125,9 +125,17 @@ When the source changes, the managed projection replaces its current compiled tr
 ```bash
 python3 scripts/check_engineering_milestone.py
 python3 scripts/check_engineering_milestone.py --upstream
+python3 scripts/check_engineering_milestone.py --upstream \
+  --gstack-repo /path/to/gstack \
+  --gbrain-repo /path/to/gbrain
 ```
 
-The first command is the local CI gate. The second adds network-backed drift checks for GStack, GBrain, the public Praneet extensions, and Impeccable. See the [engineering milestone alpha record](docs/engineering-milestone-alpha.md) for the exact acceptance surface and optional GBrain CLI behavior.
+The first command is the local CI gate. The second adds network-backed drift
+checks for GStack, GBrain, the public Praneet extensions, and Impeccable. The
+third also rebuilds the complete reconciliation from its pinned Git blobs and
+is required before a parity claim or release. See the [engineering milestone
+alpha record](docs/engineering-milestone-alpha.md) for the exact acceptance
+surface and optional GBrain CLI behavior.
 
 Current Codex behavior is checked against the official Codex manual before compatibility or runtime guidance is updated. See [`AGENTS.md`](AGENTS.md) and the [documentation refresh log](docs/codex-documentation-refresh.md).
 

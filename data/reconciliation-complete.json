@@ -2,6 +2,9 @@
   "schema_version": 1,
   "milestone": "complete",
   "reviewed_at": "2026-08-08",
+  "policy": {
+    "minimum_current_upstream_retention_percent": 50.0
+  },
   "sources": {
     "gstack": {
       "repo": "https://github.com/garrytan/gstack",
@@ -51,10 +54,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts upstream research verification to browse-first citation work with explicit verdicts and copyright-safe quoting. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts upstream research verification to browse-first citation work with explicit verdicts and copyright-safe quoting. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:archive-crawler",
@@ -92,10 +99,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports archive discovery as sample-first, privacy-preserving local triage before any ingest occurs. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports archive discovery as sample-first, privacy-preserving local triage before any ingest occurs. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:article-enrichment",
@@ -133,10 +144,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts article enrichment to local brain pages, citations, short quotes, and cross-linking. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts article enrichment to local brain pages, citations, short quotes, and cross-linking. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:ask-user",
@@ -174,10 +189,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports the upstream decision-gating pattern into a concise Codex-native skill. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports the upstream decision-gating pattern into a concise Codex-native skill. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:autoplan",
@@ -215,10 +234,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:benchmark",
@@ -256,10 +279,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Captures the best available load-time and resource-size signals and can save comparable benchmark reports over time. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Captures the best available load-time and resource-size signals and can save comparable benchmark reports over time. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:benchmark-models",
@@ -297,10 +324,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts upstream model comparison to whichever model CLIs or Codex paths are actually available locally, with no invented metrics. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts upstream model comparison to whichever model CLIs or Codex paths are actually available locally, with no invented metrics. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:book-mirror",
@@ -338,10 +369,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts personalized book reading while preserving copyright limits and requiring local brain evidence for user-specific claims. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts personalized book reading while preserving copyright limits and requiring local brain evidence for user-specific claims. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:brain-ops",
@@ -379,10 +414,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into an explicit workflow over the local `brain/` corpus using search, write, backlink, and citation helpers. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into an explicit workflow over the local `brain/` corpus using search, write, backlink, and citation helpers. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:brain-pdf",
@@ -420,10 +459,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports PDF generation for brain pages while keeping markdown as source of truth. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports PDF generation for brain pages while keeping markdown as source of truth. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:brain-taxonomist",
@@ -463,10 +506,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts active schema-pack filing into the repo's local brain folders while consulting real GBrain schema metadata when available. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts active schema-pack filing into the repo's local brain folders while consulting real GBrain schema metadata when available. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:briefing",
@@ -504,10 +551,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Maps GBrain page lookups into Codex calendar, Gmail, local files, and explicit coverage-gap notes. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Maps GBrain page lookups into Codex calendar, Gmail, local files, and explicit coverage-gap notes. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:browse",
@@ -548,10 +599,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Workflow ported fully; runtime parity depends on available Codex or repo-local browser tooling; refreshed in the June 26 runtime deepening pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Workflow ported fully; runtime parity depends on available Codex or repo-local browser tooling; refreshed in the June 26 runtime deepening pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:canary",
@@ -589,10 +644,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:capture",
@@ -630,10 +689,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The Codex file-backed capture adapter retains its reviewed 12-word title contract instead of importing the upstream 80-character ellipsis rule."
+      "decision_reason": "The Codex file-backed capture adapter retains its reviewed 12-word title contract instead of importing the upstream 80-character ellipsis rule.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:careful",
@@ -671,10 +734,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Warns before risky actions and pushes the user toward reversible changes wherever possible. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Warns before risky actions and pushes the user toward reversible changes wherever possible. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:checkpoint",
@@ -712,10 +779,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Uses timestamped reports or equivalent durable artifacts to capture branch state, open questions, and next actions for clean resumption. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Uses timestamped reports or equivalent durable artifacts to capture branch state, open questions, and next actions for clean resumption. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:citation-fixer",
@@ -753,10 +824,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into deterministic citation auditing and markup normalization via `scripts/brain_citations.py`. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into deterministic citation auditing and markup normalization via `scripts/brain_citations.py`. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:codex",
@@ -794,10 +869,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:cold-start",
@@ -835,10 +914,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts upstream day-one setup into local-first sample ingestion and smoke checks. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts upstream day-one setup into local-first sample ingestion and smoke checks. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:concept-synthesis",
@@ -876,10 +959,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports concept-tier synthesis while preserving provenance and requiring explicit approval before rewrites. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports concept-tier synthesis while preserving provenance and requiring explicit approval before rewrites. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:connect-chrome",
@@ -917,10 +1004,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Treats connect-chrome requests as open-gstack-browser requests while staying honest about the actual runtime path available in Codex. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Treats connect-chrome requests as open-gstack-browser requests while staying honest about the actual runtime path available in Codex. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:context-restore",
@@ -958,10 +1049,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adds the current upstream resume name while preserving guardrails around dirty worktrees and user-owned untracked files. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adds the current upstream resume name while preserving guardrails around dirty worktrees and user-owned untracked files. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:context-save",
@@ -999,10 +1094,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:cron-scheduler",
@@ -1043,10 +1142,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Preserves thin prompts, staggering, quiet-hours thinking, and idempotent recurring work while mapping raw cron into Codex automation primitives. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Preserves thin prompts, staggering, quiet-hours thinking, and idempotent recurring work while mapping raw cron into Codex automation primitives. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:cross-modal-review",
@@ -1084,10 +1187,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into a second-pass review workflow using Codex-native review patterns and explicit disagreement reporting. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into a second-pass review workflow using Codex-native review patterns and explicit disagreement reporting. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:cso",
@@ -1125,10 +1232,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:daily-task-manager",
@@ -1166,10 +1277,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Maps brain task pages into a simpler Codex-side task tracker. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Maps brain task pages into a simpler Codex-side task tracker. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:daily-task-prep",
@@ -1207,10 +1322,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Uses Codex connectors and local task state rather than GBrain page queries. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Uses Codex connectors and local task state rather than GBrain page queries. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:data-research",
@@ -1248,10 +1367,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into a research-to-tracker workflow using files, reports, connectors, and explicit source archives. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into a research-to-tracker workflow using files, reports, connectors, and explicit source archives. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:design-consultation",
@@ -1289,10 +1412,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:design-html",
@@ -1330,10 +1457,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:design-review",
@@ -1371,10 +1502,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:design-shotgun",
@@ -1412,10 +1547,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:devex-review",
@@ -1453,10 +1592,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:diagram",
@@ -1494,10 +1637,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:document-generate",
@@ -1535,10 +1682,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:document-release",
@@ -1576,10 +1727,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:eiirp",
@@ -1617,10 +1772,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts Everything In Its Right Place to repo artifacts, reports, and the local brain substrate. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts Everything In Its Right Place to repo artifacts, reports, and the local brain substrate. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:enrich",
@@ -1658,10 +1817,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into file-backed page improvement with compiled-truth updates, timeline additions, and explicit citations. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into file-backed page improvement with compiled-truth updates, timeline additions, and explicit citations. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:freeze",
@@ -1699,10 +1862,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Keeps edits inside an explicit path boundary until the user widens it or invokes unfreeze. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Keeps edits inside an explicit path boundary until the user widens it or invokes unfreeze. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:frontmatter-guard",
@@ -1740,10 +1907,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Maps upstream frontmatter validation to read-first local checks and `brain_doctor.py`, with optional upstream CLI support when present. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Maps upstream frontmatter validation to read-first local checks and `brain_doctor.py`, with optional upstream CLI support when present. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:functional-area-resolver",
@@ -1781,10 +1952,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports resolver compaction while preserving safety and discoverability. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports resolver compaction while preserving safety and discoverability. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:gbrain-advisor",
@@ -1822,10 +1997,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Maps upstream advisor behavior to repo-local checks first, then optional upstream gbrain CLI read-only checks. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Maps upstream advisor behavior to repo-local checks first, then optional upstream gbrain CLI read-only checks. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:gbrain-upgrade",
@@ -1863,10 +2042,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Keeps upgrade markers non-executable and separates upstream CLI upgrades from this repo local substrate. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Keeps upgrade markers non-executable and separates upstream CLI upgrades from this repo local substrate. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:gstack",
@@ -1904,10 +2087,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports the upstream root router intent while dropping Claude-specific preambles, telemetry, and skill path checks. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports the upstream root router intent while dropping Claude-specific preambles, telemetry, and skill path checks. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:gstack-upgrade",
@@ -1945,10 +2132,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Refreshes the checkout or local install, then revalidates so upgrades are explicit and trustworthy; refreshed for the June 26 Codex host audit. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Refreshes the checkout or local install, then revalidates so upgrades are explicit and trustworthy; refreshed for the June 26 Codex host audit. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:guard",
@@ -1986,10 +2177,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Applies the destructive-action discipline from careful together with the edit boundary from freeze. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Applies the destructive-action discipline from careful together with the edit boundary from freeze. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:health",
@@ -2027,10 +2222,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:idea-ingest",
@@ -2068,10 +2267,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into local-file ingest with preserved raw artifacts, author page updates, and explicit related-entity propagation. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into local-file ingest with preserved raw artifacts, author page updates, and explicit related-entity propagation. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:idea-lineage",
@@ -2109,10 +2312,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts upstream graph/search tools to deterministic local brain_search and direct Markdown page reads. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts upstream graph/search tools to deterministic local brain_search and direct Markdown page reads. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:ingest",
@@ -2150,10 +2357,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into file-backed page creation and updates under `brain/` with category-based routing and explicit source handling. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into file-backed page creation and updates under `brain/` with category-based routing and explicit source handling. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:install",
@@ -2191,10 +2402,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts upstream install to idempotent local symlink verification without replacing non-repo skills; refreshed for the June 26 Codex install and drift-check pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts upstream install to idempotent local symlink verification without replacing non-repo skills; refreshed for the June 26 Codex install and drift-check pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:investigate",
@@ -2232,10 +2447,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:ios-clean",
@@ -2273,10 +2492,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:ios-design-review",
@@ -2314,10 +2537,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:ios-fix",
@@ -2355,10 +2582,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:ios-qa",
@@ -2396,10 +2627,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:ios-sync",
@@ -2437,10 +2672,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:land-and-deploy",
@@ -2478,10 +2717,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:landing-report",
@@ -2519,10 +2762,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:learn",
@@ -2560,10 +2807,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:maintain",
@@ -2601,10 +2852,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into package-health and corpus-health maintenance using repo checks, targeted audits, and timestamped maintenance reports. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into package-health and corpus-health maintenance using repo checks, targeted audits, and timestamped maintenance reports. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:make-pdf",
@@ -2642,10 +2897,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Uses upstream make-pdf when installed and otherwise routes through available local document tooling without mutating source markdown. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Uses upstream make-pdf when installed and otherwise routes through available local document tooling without mutating source markdown. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:media-ingest",
@@ -2683,10 +2942,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into text-bearing media ingest for artifacts already readable by Codex, with raw preservation and follow-on enrichment. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into text-bearing media ingest for artifacts already readable by Codex, with raw preservation and follow-on enrichment. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:meeting-ingestion",
@@ -2724,10 +2987,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into file-backed meeting-page creation plus attendee and company backlink propagation via `scripts/brain_ingest_meeting.py`. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into file-backed meeting-page creation plus attendee and company backlink propagation via `scripts/brain_ingest_meeting.py`. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:migrate",
@@ -2765,10 +3032,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into a sample-first migration and verification workflow for Codex-side files or a future substrate. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into a sample-first migration and verification workflow for Codex-side files or a future substrate. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:minion-orchestrator",
@@ -2806,10 +3077,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports minion orchestration into bounded Codex job planning and status collection; refreshed in the June 26 runtime deepening pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports minion orchestration into bounded Codex job planning and status collection; refreshed in the June 26 runtime deepening pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:office-hours",
@@ -2847,10 +3122,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:open-gstack-browser",
@@ -2888,10 +3167,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:pair-agent",
@@ -2929,10 +3212,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:perplexity-research",
@@ -2970,10 +3257,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts Perplexity-style research to local brain search plus browser-backed source citation. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts Perplexity-style research to local brain search plus browser-backed source citation. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:plan-ceo-review",
@@ -3014,10 +3305,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:plan-design-review",
@@ -3055,10 +3350,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:plan-devex-review",
@@ -3096,10 +3395,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:plan-eng-review",
@@ -3141,10 +3444,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:plan-tune",
@@ -3182,10 +3489,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:publish",
@@ -3223,10 +3534,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into a file-based publishing and sharing workflow for reports, memos, and exported pages. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into a file-based publishing and sharing workflow for reports, memos, and exported pages. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:qa",
@@ -3267,10 +3582,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:qa-only",
@@ -3308,10 +3627,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:query",
@@ -3349,10 +3672,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into file-backed search and page reads using the local `brain/` corpus plus deterministic helper scripts. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into file-backed search and page reads using the local `brain/` corpus plus deterministic helper scripts. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:repo-architecture",
@@ -3390,10 +3717,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts upstream brain filing into package-architecture guidance for this repo. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts upstream brain filing into package-architecture guidance for this repo. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:reports",
@@ -3431,10 +3762,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts page-based report storage into file-based report storage inside or alongside the repo. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts page-based report storage into file-based report storage inside or alongside the repo. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:retro",
@@ -3475,10 +3810,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:review",
@@ -3519,10 +3858,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:schema-author",
@@ -3560,10 +3903,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Keeps schema changes small and compatible with the file-backed local substrate while preserving an upgrade path to upstream GBrain schema packs. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Keeps schema changes small and compatible with the file-backed local substrate while preserving an upgrade path to upstream GBrain schema packs. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:schema-unify",
@@ -3601,10 +3948,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports the canonical-taxonomy migration playbook as an audit-first Codex workflow with explicit approval gates. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports the canonical-taxonomy migration playbook as an audit-first Codex workflow with explicit approval gates. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:scrape",
@@ -3642,10 +3993,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:setup",
@@ -3683,10 +4038,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into package setup, file conventions, and substrate-preparation guidance for Codex. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into package setup, file conventions, and substrate-preparation guidance for Codex. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:setup-browser-cookies",
@@ -3726,10 +4085,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Preserves the authenticated-session workflow with explicit fallback options; refreshed in the June 26 runtime deepening pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Preserves the authenticated-session workflow with explicit fallback options; refreshed in the June 26 runtime deepening pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:setup-deploy",
@@ -3767,10 +4130,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:setup-gbrain",
@@ -3808,10 +4175,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts upstream GStack's GBrain setup flow around the existing file-backed local brain substrate, while detecting real upstream gbrain CLI availability when present; refreshed for the June 26 Codex host audit. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts upstream GStack's GBrain setup flow around the existing file-backed local brain substrate, while detecting real upstream gbrain CLI availability when present; refreshed for the June 26 Codex host audit. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:ship",
@@ -3852,10 +4223,14 @@
       ],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:signal-detector",
@@ -3893,10 +4268,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted from always-on sidecar behavior into a deliberate local-brain capture flow backed by `scripts/brain_capture_signal.py`. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted from always-on sidecar behavior into a deliberate local-brain capture flow backed by `scripts/brain_capture_signal.py`. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:skill-creator",
@@ -3934,10 +4313,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Updates the registry and docs instead of the upstream manifest-plus-resolver pair. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Updates the registry and docs instead of the upstream manifest-plus-resolver pair. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:skill-optimizer",
@@ -3975,10 +4358,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts upstream SkillOpt into Codex-native benchmark-first editing without automatic external optimizer calls. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts upstream SkillOpt into Codex-native benchmark-first editing without automatic external optimizer calls. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:skillify",
@@ -4020,10 +4407,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Shares the local skillify implementation with GStack while preserving the GBrain skill authoring lens. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Shares the local skillify implementation with GStack while preserving the GBrain skill authoring lens. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:skillpack-check",
@@ -4061,10 +4452,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports skillpack doctor behavior to repo validation, tests, upstream coverage, local installs, and brain health checks; refreshed for the June 26 Codex install and drift-check pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports skillpack doctor behavior to repo validation, tests, upstream coverage, local installs, and brain health checks; refreshed for the June 26 Codex install and drift-check pass. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:skillpack-harvest",
@@ -4102,10 +4497,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports skill harvesting with privacy review, provenance, routing, and validation steps. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports skill harvesting with privacy review, provenance, routing, and validation steps. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:smoke-test",
@@ -4143,10 +4542,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports smoke testing to validation, unit tests, brain doctor, and local install checks. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports smoke testing to validation, unit tests, brain doctor, and local install checks. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:soul-audit",
@@ -4184,10 +4587,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into a file-generating workflow for local identity, user, access, and cadence documents. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into a file-generating workflow for local identity, user, access, and cadence documents. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:spec",
@@ -4225,10 +4632,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:strategic-reading",
@@ -4266,10 +4677,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapts applied reading to local brain context and source-grounded strategic synthesis. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapts applied reading to local brain context and source-grounded strategic synthesis. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:sync-gbrain",
@@ -4307,10 +4722,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Maps upstream sync behavior to repo-local brain checks, search verification, and non-destructive handling of untracked brain corpus files; refreshed for the June 26 Codex host audit. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Maps upstream sync behavior to repo-local brain checks, search verification, and non-destructive handling of untracked brain corpus files; refreshed for the June 26 Codex host audit. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:testing",
@@ -4348,10 +4767,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Maps upstream conformance checks onto this repo's registries, docs, and validation scripts. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Maps upstream conformance checks onto this repo's registries, docs, and validation scripts. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:unfreeze",
@@ -4389,10 +4812,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Clears or widens the prior edit boundary explicitly so the current scope is no longer ambiguous. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Clears or widens the prior edit boundary explicitly so the current scope is no longer ambiguous. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:voice-note-ingest",
@@ -4430,10 +4857,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Ports voice note routing into capture, taxonomy, and local brain conventions without paraphrasing preserved text. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Ports voice note routing into capture, taxonomy, and local brain conventions without paraphrasing preserved text. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     },
     {
       "canonical_id": "skill:webhook-transforms",
@@ -4471,10 +4902,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "adopted",
-      "decision_reason": "Adapted into offline JSON payload replay, transform, and dead-letter handling through `scripts/brain_transform_event.py`. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out."
+      "decision_reason": "Adapted into offline JSON payload replay, transform, and dead-letter handling through `scripts/brain_transform_event.py`. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     }
   ],
   "alternate_source_records": [
@@ -4514,10 +4949,14 @@
       "companion_resources": [],
       "validation": [
         "python3 scripts/check_engineering_milestone.py",
-        "python3 scripts/check_engineering_milestone.py --upstream"
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
       ],
       "decision": "reviewed-deferred",
-      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow."
+      "decision_reason": "The current mapped upstream delta is Claude Code question-preference hook wiring; the concise Codex adapter intentionally retains its host-native flow.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
     }
   ],
   "resource_records": [],

@@ -40,20 +40,36 @@ Add network-backed drift checks for all tracked public sources with:
 python3 scripts/check_engineering_milestone.py --upstream
 ```
 
+Before a parity claim or release, also verify every recorded complete-manifest
+hash and retention value against local Git checkouts containing the pinned
+GStack and GBrain commits:
+
+```bash
+python3 scripts/check_engineering_milestone.py --upstream \
+  --gstack-repo /path/to/gstack \
+  --gbrain-repo /path/to/gbrain
+```
+
 Use `--json` when another tool needs structured outcomes.
 
 ## Verified result
 
-The 2026-08-08 local and upstream run completed with 13 passed checks, one skipped check, and zero failures. The GBrain CLI was absent, so its optional skillpack command was the skipped check. Live drift reporting reached these public heads:
+The 2026-08-08 checkout-backed upstream run completed with 14 passed checks,
+one skipped check, and zero failures. The GBrain CLI was absent, so its optional
+skillpack command was the skipped check. The run rebuilt the complete manifest
+against its pinned Git blobs. Live drift reporting reached these public heads:
 
 - GStack: `94993f74012782fd94416dd44b8314f6363a13a4`
 - GBrain: `0b47afbf402a4e27a648bb9d131ce584461461ea`
 - public Praneet extension source: `2b46f495fb36f3fbea3b33efd1b29e6a75171072`
-- Impeccable: `d65a08b0644bc2bc9639fcf22b042eadf4136f2d`
+- Impeccable: `5d10bc842cbccd2ae7d3a88296d87d3be0b125b3`
 
 ## CI and release use
 
-GitHub Actions runs the local gate on every push and pull request. Maintainers run the same command before a local commit or release review, then add `--upstream` when GitHub is reachable. This keeps local, CI, and release acceptance aligned.
+GitHub Actions runs the local gate on every push and pull request. Maintainers
+add `--upstream` for live drift and provide both source checkouts before a
+parity claim or release. This separates ordinary CI from the stronger
+checkout-backed integrity gate.
 
 ## Ownership and external state
 

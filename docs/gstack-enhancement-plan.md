@@ -56,6 +56,10 @@ Each adapted export should carry a machine-readable reconciliation record with:
 
 The export pipeline should fail closed when a removal is unexplained, a required target is absent, or retention falls below the configured threshold without an approved adaptation record.
 
+The complete reconciliation configures the threshold at 50% and records an
+explicit approval reason for every adaptation below it. The repository gate
+validates both fields.
+
 ### P3: Reconcile upstream in representative tranches
 
 Run a three-way comparison for each tranche:

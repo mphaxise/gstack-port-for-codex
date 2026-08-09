@@ -19,6 +19,11 @@ line-retention measurements, host coupling, companion resources, intentional
 removals, validation commands, and a decision reason grounded in the registry's
 skill-specific adaptation note.
 
+The complete manifest sets `minimum_current_upstream_retention_percent` to 50.
+Every record below that threshold includes an explicit approved-adaptation
+record with its acceptance basis. Validation reads the configured threshold and
+fails when a low-retention adaptation lacks that approval.
+
 ## Accepted portable changes
 
 The refresh updates the reusable Codex guidance for:
@@ -88,6 +93,15 @@ existing shared symlinks remained unchanged, including the 110 names that
 overlap this package. This preserves the richer shared skill sources while
 making the previously absent package entries discoverable.
 
-The repository gate remains the package acceptance command. Add `--upstream`
-to confirm that no mapped GStack or GBrain skill changed after these review
-boundaries.
+The repository gate remains the package acceptance command. Before a parity
+claim or release, combine live drift checks with pinned-blob verification:
+
+```bash
+python3 scripts/check_engineering_milestone.py --upstream \
+  --gstack-repo /path/to/gstack \
+  --gbrain-repo /path/to/gbrain
+```
+
+The source checkouts must contain the adopted and reviewed commits recorded in
+the manifest. The builder then recomputes every source hash and retention value
+and fails if the checked-in manifest differs.

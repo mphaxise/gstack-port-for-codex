@@ -19,8 +19,10 @@ python3 scripts/check_engineering_milestone.py
 ```
 
 The milestone gate prints each local check and preserves failure output. Add
-`--upstream` when network access is available. An unavailable check reports a
-network limitation; parity remains unverified.
+`--upstream` for live drift. Before a parity claim or release, also pass
+`--gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain` so the gate
+rebuilds the complete manifest from its pinned Git blobs. An unavailable check
+reports a limitation; parity remains unverified.
 
 ## Skill changes
 

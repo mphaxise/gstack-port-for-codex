@@ -100,6 +100,94 @@ class InstallSkillsTests(unittest.TestCase):
                 (REPO_ROOT / "skills/spec/SKILL.md").read_bytes(),
             )
 
+    def test_force_install_rejects_unsafe_receipt_path(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            destination = Path(temp_dir) / "skills"
+            target = install_skills(destination, ["spec"])[0]
+            receipt_path = target / INSTALL_RECEIPT
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            receipt["files"]["../outside.txt"] = hashlib.sha256(b"outside\n").hexdigest()
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+            with self.assertRaisesRegex(FileExistsError, "Unsafe path"):
+                install_skills(destination, ["spec"], force=True)
+
+    def test_force_install_rejects_symlinked_receipt_parent(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            destination = Path(temp_dir) / "skills"
+            target = install_skills(destination, ["spec"])[0]
+            external = Path(temp_dir) / "external"
+            external.mkdir()
+            (target / "linked").symlink_to(external, target_is_directory=True)
+            receipt_path = target / INSTALL_RECEIPT
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            receipt["files"]["linked/stale.txt"] = hashlib.sha256(b"stale\n").hexdigest()
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+            with self.assertRaisesRegex(FileExistsError, "symlinked parent"):
+                install_skills(destination, ["spec"], force=True)
+
+    def test_force_install_refuses_symlink_replacing_stale_receipted_file(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            source_root = Path(temp_dir) / "source"
+            source_skill = source_root / "demo"
+            source_skill.mkdir(parents=True)
+            (source_skill / "SKILL.md").write_text("skill\n", encoding="utf-8")
+            (source_skill / "stale.txt").write_text("managed\n", encoding="utf-8")
+            destination = Path(temp_dir) / "skills"
+            target = install_skills(destination, ["demo"], skills_root=source_root)[0]
+
+            (source_skill / "stale.txt").unlink()
+            (target / "stale.txt").unlink()
+            external = Path(temp_dir) / "external.txt"
+            external.write_text("user file\n", encoding="utf-8")
+            (target / "stale.txt").symlink_to(external)
+
+            with self.assertRaisesRegex(FileExistsError, "symlinked stale file"):
+                install_skills(destination, ["demo"], skills_root=source_root, force=True)
+
+            self.assertEqual(external.read_text(encoding="utf-8"), "user file\n")
+
+    def test_force_install_rejects_invalid_receipt_files(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            destination = Path(temp_dir) / "skills"
+            target = install_skills(destination, ["spec"])[0]
+            receipt_path = target / INSTALL_RECEIPT
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            receipt["files"] = []
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+            with self.assertRaisesRegex(FileExistsError, "Invalid install receipt"):
+                install_skills(destination, ["spec"], force=True)
+
+    def test_force_install_rejects_mismatched_receipt_identity(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            destination = Path(temp_dir) / "skills"
+            target = install_skills(destination, ["spec"])[0]
+            receipt_path = target / INSTALL_RECEIPT
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            receipt["slug"] = "another-skill"
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+            with self.assertRaisesRegex(FileExistsError, "unowned skill"):
+                install_skills(destination, ["spec"], force=True)
+
+    def test_force_install_rejects_unowned_file_at_packaged_path(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            source_root = Path(temp_dir) / "source"
+            source_skill = source_root / "demo"
+            source_skill.mkdir(parents=True)
+            (source_skill / "SKILL.md").write_text("upstream\n", encoding="utf-8")
+            destination = Path(temp_dir) / "skills"
+            target = install_skills(destination, ["demo"], skills_root=source_root)[0]
+            receipt_path = target / INSTALL_RECEIPT
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            receipt["files"].pop("SKILL.md")
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+
+            with self.assertRaisesRegex(FileExistsError, "unowned file"):
+                install_skills(destination, ["demo"], skills_root=source_root, force=True)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -147,11 +147,15 @@ def install_skills(
                     )
             for relative in sorted(set(previous_files) - set(source_files)):
                 stale_path = _safe_target_file(target, relative)
+                if stale_path.is_symlink():
+                    raise FileExistsError(
+                        f"Refusing to remove symlinked stale file at {stale_path}."
+                    )
                 if (
                     stale_path.is_file()
                     and hashlib.sha256(stale_path.read_bytes()).hexdigest()
                     == previous_files[relative]
-                ) or stale_path.is_symlink():
+                ):
                     stale_path.unlink()
                     parent = stale_path.parent
                     while parent != target:

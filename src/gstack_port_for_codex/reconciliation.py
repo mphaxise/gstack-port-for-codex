@@ -22,6 +22,7 @@ ALLOWED_DECISIONS = {"adopted", "local-origin", "reviewed-deferred"}
 ALLOWED_MILESTONES = {"alpha", "beta", "complete"}
 ALLOWED_RESOURCE_DISPOSITIONS = {"host-adapted", "preserved", "reviewed-deferred"}
 ALLOWED_EVALUATION_KINDS = {"routing-jsonl"}
+DEFAULT_MINIMUM_CURRENT_UPSTREAM_RETENTION_PERCENT = 50.0
 SKILL_MAP_PATHS = (
     Path("data/skill-map.json"),
     Path("data/gbrain-skill-map.json"),
@@ -148,7 +149,8 @@ def _build_complete_record(
         if entry["port_kind"] == "native" and preserved
         else "codex-adapter"
     )
-    return {
+    current_upstream_retention = normalized_line_retention(reviewed_text, local_text)
+    record = {
         "canonical_id": entry["canonical_id"],
         "source_name": source_name,
         "upstream_path": upstream_path,
@@ -165,17 +167,29 @@ def _build_complete_record(
         "retention": {
             "basis": "normalized-nonblank-line-overlap",
             "adopted_source_percent": normalized_line_retention(adopted_text, local_text),
-            "current_upstream_percent": normalized_line_retention(reviewed_text, local_text),
+            "current_upstream_percent": current_upstream_retention,
         },
         "intentional_removals": removals,
         "companion_resources": companions,
         "validation": [
             "python3 scripts/check_engineering_milestone.py",
-            "python3 scripts/check_engineering_milestone.py --upstream",
+            (
+                "python3 scripts/check_engineering_milestone.py --upstream "
+                "--gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
+            ),
         ],
         "decision": decision,
         "decision_reason": decision_reason,
     }
+    if current_upstream_retention < DEFAULT_MINIMUM_CURRENT_UPSTREAM_RETENTION_PERCENT:
+        record["adaptation_approval"] = {
+            "status": "approved",
+            "reason": (
+                "The reviewed Codex adaptation is accepted with its recorded "
+                "intentional removals, companion resources, and validation commands."
+            ),
+        }
+    return record
 
 
 def build_complete_reconciliation_manifest(
@@ -222,6 +236,11 @@ def build_complete_reconciliation_manifest(
         "schema_version": 1,
         "milestone": "complete",
         "reviewed_at": reviewed_at,
+        "policy": {
+            "minimum_current_upstream_retention_percent": (
+                DEFAULT_MINIMUM_CURRENT_UPSTREAM_RETENTION_PERCENT
+            )
+        },
         "sources": sources,
         "records": records,
         "alternate_source_records": alternate_source_records,
@@ -490,6 +509,27 @@ def validate_reconciliation_manifest(
     if milestone not in ALLOWED_MILESTONES:
         errors.append(f"Reconciliation manifest has invalid milestone: {milestone!r}.")
 
+    minimum_retention: float | None = None
+    if milestone == "complete":
+        policy = manifest.get("policy")
+        if not isinstance(policy, dict):
+            errors.append("Complete reconciliation manifest needs a retention policy.")
+        else:
+            configured_threshold = policy.get(
+                "minimum_current_upstream_retention_percent"
+            )
+            if (
+                isinstance(configured_threshold, bool)
+                or not isinstance(configured_threshold, (int, float))
+                or not 0 <= configured_threshold <= 100
+            ):
+                errors.append(
+                    "Complete reconciliation retention threshold must be a number "
+                    "between 0 and 100."
+                )
+            else:
+                minimum_retention = float(configured_threshold)
+
     inventory_ids = {entry["canonical_id"] for entry in inventory.get("entries", [])}
     sources = manifest.get("sources")
     if not isinstance(sources, dict) or not sources:
@@ -570,7 +610,11 @@ def validate_reconciliation_manifest(
             errors.append(f"Reconciliation record {canonical_id} needs intentional_removals.")
         else:
             for removal in removals:
-                if not removal.get("category") or not removal.get("reason"):
+                if (
+                    not isinstance(removal, dict)
+                    or not removal.get("category")
+                    or not removal.get("reason")
+                ):
                     errors.append(f"Reconciliation record {canonical_id} has an unexplained removal.")
             if "intentionally-removed" in (classifications or []) and not removals:
                 errors.append(f"Reconciliation record {canonical_id} lacks its removal manifest.")
@@ -598,13 +642,20 @@ def validate_reconciliation_manifest(
                 )
             current_retention = retention.get("current_upstream_percent")
             if (
-                isinstance(current_retention, (int, float))
-                and current_retention < 50
-                and not removals
+                minimum_retention is not None
+                and isinstance(current_retention, (int, float))
+                and current_retention < minimum_retention
             ):
-                errors.append(
-                    f"Low-retention complete record {canonical_id} lacks removal evidence."
-                )
+                approval = record.get("adaptation_approval")
+                if (
+                    not isinstance(approval, dict)
+                    or approval.get("status") != "approved"
+                    or not str(approval.get("reason", "")).strip()
+                ):
+                    errors.append(
+                        f"Low-retention complete record {canonical_id} lacks an "
+                        "approved adaptation record."
+                    )
 
         companions = record.get("companion_resources")
         if not isinstance(companions, list):

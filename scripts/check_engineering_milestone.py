@@ -41,9 +41,14 @@ class Outcome:
 def build_checks(
     include_upstream: bool,
     *,
+    gstack_repo: Path | None = None,
+    gbrain_repo: Path | None = None,
     python_executable: str = sys.executable,
     which: Callable[[str], str | None] = shutil.which,
 ) -> list[Check]:
+    if (gstack_repo is None) != (gbrain_repo is None):
+        raise ValueError("Provide both GStack and GBrain repositories for reconciliation verification.")
+
     checks = [
         Check(
             "canonical inventory",
@@ -64,6 +69,22 @@ def build_checks(
         Check("unstaged diff formatting", ("git", "diff", "--check")),
         Check("staged diff formatting", ("git", "diff", "--cached", "--check")),
     ]
+
+    if gstack_repo is not None and gbrain_repo is not None:
+        checks.append(
+            Check(
+                "complete reconciliation integrity",
+                (
+                    python_executable,
+                    "scripts/build_complete_reconciliation.py",
+                    "--gstack-repo",
+                    str(gstack_repo),
+                    "--gbrain-repo",
+                    str(gbrain_repo),
+                    "--check",
+                ),
+            )
+        )
 
     gbrain_executable = which("gbrain")
     if gbrain_executable:
@@ -173,9 +194,28 @@ def main() -> int:
         help="Include network-backed drift checks for every tracked public upstream",
     )
     parser.add_argument("--json", action="store_true", help="Print structured results")
+    parser.add_argument(
+        "--gstack-repo",
+        type=Path,
+        help="Local GStack Git checkout used to verify pinned reconciliation blobs",
+    )
+    parser.add_argument(
+        "--gbrain-repo",
+        type=Path,
+        help="Local GBrain Git checkout used to verify pinned reconciliation blobs",
+    )
     args = parser.parse_args()
 
-    outcomes = run_checks(build_checks(args.upstream))
+    if (args.gstack_repo is None) != (args.gbrain_repo is None):
+        parser.error("--gstack-repo and --gbrain-repo must be provided together")
+
+    outcomes = run_checks(
+        build_checks(
+            args.upstream,
+            gstack_repo=args.gstack_repo,
+            gbrain_repo=args.gbrain_repo,
+        )
+    )
     if args.json:
         print(json.dumps([asdict(outcome) for outcome in outcomes], indent=2))
     else:
