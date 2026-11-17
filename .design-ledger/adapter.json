@@ -16,8 +16,8 @@
         "pre-push"
       ],
       "command": [
-        "python3",
-        "scripts/check_engineering_milestone.py"
+        "sh",
+        ".design-ledger/check.sh"
       ]
     }
   ],
