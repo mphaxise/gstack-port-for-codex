@@ -345,7 +345,7 @@ class ReconciliationTests(unittest.TestCase):
         )
 
         self.assertEqual(validate_reconciliation_manifest(manifest, REPO_ROOT, inventory), [])
-        self.assertEqual(len(manifest["records"]), 108)
+        self.assertEqual(len(manifest["records"]), 112)
         self.assertEqual(len(manifest["alternate_source_records"]), 1)
         self.assertEqual(
             manifest["policy"]["minimum_current_upstream_retention_percent"],
@@ -354,11 +354,11 @@ class ReconciliationTests(unittest.TestCase):
         all_records = [*manifest["records"], *manifest["alternate_source_records"]]
         self.assertEqual(
             Counter(record["decision"] for record in all_records),
-            {"adopted": 68, "reviewed-deferred": 41},
+            {"adopted": 72, "reviewed-deferred": 41},
         )
         self.assertEqual(
             Counter(record["source_name"] for record in manifest["records"]),
-            {"gstack": 55, "gbrain": 53},
+            {"gstack": 57, "gbrain": 55},
         )
         self.assertEqual(
             (

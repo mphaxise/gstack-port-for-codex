@@ -4,8 +4,8 @@
     "repo": "https://github.com/garrytan/gbrain",
     "license": "MIT",
     "commit": "b7e3005b5b3f1b54082f9c5990482ebf81a4a807",
-    "latest_checked_commit": "0b47afbf402a4e27a648bb9d131ce584461461ea",
-    "latest_checked_at": "2026-08-08",
+    "latest_checked_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+    "latest_checked_at": "2026-11-17",
     "skill_parity_commit": "5008b287e47bf791132eedfebf66bdef11e9398c",
     "skill_reviewed_commit": "0b47afbf402a4e27a648bb9d131ce584461461ea"
   },
@@ -606,12 +606,13 @@
       "codex_slug": "gbrain-upgrade",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "0b47afbf402a4e27a648bb9d131ce584461461ea",
+      "source_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
       "summary": "Safe upstream gbrain CLI upgrade workflow with hardcoded commands and local validation.",
       "notes": "Keeps upgrade markers non-executable and separates upstream CLI upgrades from this repo local substrate.",
       "source_files": [
         "gbrain-upgrade/SKILL.md"
-      ]
+      ],
+      "reviewed_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31"
     },
     {
       "upstream_slug": "idea-lineage",
@@ -647,6 +648,32 @@
       "notes": "Adapts upstream SkillOpt into Codex-native benchmark-first editing without automatic external optimizer calls.",
       "source_files": [
         "skill-optimizer/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "fact-check",
+      "codex_slug": "fact-check",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "reviewed_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "summary": "Trace public and private claims to primary evidence and independently reproduce data-derived results.",
+      "notes": "Trace public and private claims to primary evidence and independently reproduce data-derived results.",
+      "source_files": [
+        "fact-check/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "resolve-before-asking",
+      "codex_slug": "resolve-before-asking",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "reviewed_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "summary": "Resolve ambiguous identities inside authorized sources and ask with a supported hypothesis when needed.",
+      "notes": "Resolve ambiguous identities inside authorized sources and ask with a supported hypothesis when needed.",
+      "source_files": [
+        "resolve-before-asking/SKILL.md"
       ]
     }
   ]

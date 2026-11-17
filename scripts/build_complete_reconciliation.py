@@ -21,7 +21,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--gstack-repo", type=Path, required=True)
     parser.add_argument("--gbrain-repo", type=Path, required=True)
-    parser.add_argument("--reviewed-at", default="2026-08-08")
+    parser.add_argument("--reviewed-at", default="2026-11-17")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
 

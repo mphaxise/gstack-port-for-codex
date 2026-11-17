@@ -8,7 +8,7 @@ description: Check and apply upstream gbrain upgrades safely, while keeping the 
 Use this skill when the user asks to update, upgrade, or verify upstream GBrain availability.
 
 This port was reconciled against `garrytan/gbrain` at commit
-`0b47afbf402a4e27a648bb9d131ce584461461ea`.
+`a64fb58b9d407f4ee412249dbf4660b158f55f31`.
 
 ## Workflow
 
@@ -30,6 +30,24 @@ This port was reconciled against `garrytan/gbrain` at commit
    - `gbrain doctor`
 5. Apply upgrades only after the user approves, unless they explicitly requested the upgrade.
 6. Re-run local validation after any update.
+
+## Verify a live service upgrade
+
+Use the configured release channel. On a host with active workers, record
+whether autopilot was already paused. Pause intake for the upgrade and let
+active jobs drain. Preview restarts with
+`gbrain upgrade --restart-only --dry-run --json` when the installed CLI
+supports it. A refused restart identifies a process that needs its owner.
+Check the new executable version and run
+`gbrain doctor --only runtime_build_skew,serve_build_drift --json`.
+Resume intake only if it was running before and verification passed.
+
+Upstream also offers Codex MCP setup, optional hooks and a plugin. Inspect
+`gbrain setup codex --dry-run` when connection setup is in scope.
+Connecting hosted storage, importing a corpus and enabling capture are
+separate decisions.
+
+[Upstream operator workflow](https://github.com/garrytan/gbrain/tree/a64fb58b9d407f4ee412249dbf4660b158f55f31/skills/gbrain-upgrade) · [Codex integration](https://github.com/garrytan/gbrain/blob/a64fb58b9d407f4ee412249dbf4660b158f55f31/docs/mcp/CODEX.md)
 
 ## Codex Adaptation
 

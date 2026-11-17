@@ -139,11 +139,31 @@ def fetch_branch_head(owner: str, repo: str, branch: str, token: str | None = No
 
 
 def fetch_compare(owner: str, repo: str, base: str, head: str, token: str | None = None) -> dict[str, Any]:
-    return fetch_json(
-        f"https://api.github.com/repos/{owner}/{repo}/compare/{base}...{head}",
-        token=token,
-    )
+    url = f"https://api.github.com/repos/{owner}/{repo}"
+    comparison = fetch_json(f"{url}/compare/{base}...{head}", token=token)
+    # GitHub returns at most 300 files, including on paginated comparisons.
+    if len(comparison["files"]) < 300:
+        return comparison
 
+    def tree_at(commit: str) -> dict[str, tuple[str, str]]:
+        tree = fetch_json(f"{url}/git/trees/{commit}?recursive=1", token=token)
+        if tree["truncated"]:
+            raise UpstreamDriftError(
+                f"GitHub truncated the {commit} tree. Compare the Git trees locally."
+            )
+        return {
+            entry["path"]: (entry["mode"], entry["sha"])
+            for entry in tree["tree"] if entry["type"] != "tree"
+        }
+
+    # Match the compare endpoint's three-dot semantics on diverged branches.
+    before = tree_at(comparison["merge_base_commit"]["sha"])
+    after = tree_at(head)
+    paths = sorted(before.keys() | after.keys())
+    comparison["files"] = [
+        {"filename": path} for path in paths if before.get(path) != after.get(path)
+    ]
+    return comparison
 
 def classify_changed_paths(
     changed_paths: list[str],
@@ -287,7 +307,7 @@ def check_upstream_drift(skill_map: dict[str, Any], token: str | None = None) ->
         owner,
         repo,
         skill_map["source"]["commit"],
-        default_branch,
+        branch_head["sha"],
         token=token,
     )
     compares_by_source = {skill_map["source"]["commit"]: compare_data}
@@ -299,7 +319,7 @@ def check_upstream_drift(skill_map: dict[str, Any], token: str | None = None) ->
                 owner,
                 repo,
                 source_commit,
-                default_branch,
+                branch_head["sha"],
                 token=token,
             )
 
@@ -343,7 +363,7 @@ def format_drift_report(report: dict[str, Any]) -> str:
         (
             "",
             f"Commits since pin: {report['ahead_by']}",
-            f"Changed files since pin: {report['changed_files_count']}",
+            f"Changed paths since pin: {report['changed_files_count']}",
         )
     )
 

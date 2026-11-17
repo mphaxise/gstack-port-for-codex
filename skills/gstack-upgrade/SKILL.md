@@ -8,7 +8,7 @@ description: Update workflow for this Codex port package. Use when the repo or l
 Use this skill when the local Codex port package should be updated, reinstalled, or checked against upstream changes.
 
 This port was reconciled against `garrytan/gstack` at commit
-`94993f74012782fd94416dd44b8314f6363a13a4`.
+`76535826f5d50c721f95820f300037a3efe833a9`.
 
 ## Workflow
 
@@ -21,6 +21,21 @@ This port was reconciled against `garrytan/gstack` at commit
 5. Port upstream changes into Codex-native skill files instead of copying Claude-specific preambles.
 6. Reinstall or re-link local skills if needed.
 7. Run validation and summarize what changed, including the Codex version and any documentation-driven decisions.
+
+## Select the installed channel and host
+
+Resolve the skill path and its backing repository. An upstream checkout can
+follow stable releases or main. Inspect its configured channel and version.
+An install ahead of stable waits for stable to catch up. Preserve local edits
+and use a separate checkout for comparison. The Codex port keeps its own
+registry, installer and checks.
+
+Upstream provides a Codex host and model-specific instruction sets called
+loadouts. Unknown models use the full set. The measured lite exception for
+Opus 5.5 applies only to that model and upstream workflow. Test any smaller
+Codex prompt on the same tasks before changing its default.
+
+[Release channels](https://github.com/garrytan/gstack/blob/76535826f5d50c721f95820f300037a3efe833a9/docs/releases.md) · [Loadouts](https://github.com/garrytan/gstack/blob/76535826f5d50c721f95820f300037a3efe833a9/docs/loadouts.md)
 
 ## Codex Host Audit
 

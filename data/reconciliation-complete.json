@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "milestone": "complete",
-  "reviewed_at": "2026-08-08",
+  "reviewed_at": "2026-11-17",
   "policy": {
     "minimum_current_upstream_retention_percent": 50.0
   },
@@ -1467,6 +1467,51 @@
       }
     },
     {
+      "canonical_id": "skill:design-motion",
+      "source_name": "gstack",
+      "upstream_path": "design-motion/SKILL.md",
+      "local_path": "skills/design-motion/SKILL.md",
+      "adopted_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "reviewed_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "runtime-heavy",
+      "hashes": {
+        "adopted_source_sha256": "884606e71c7fe04faa93863b69450673570a8f88ecbad71e3f7fdf9c9d903263",
+        "current_upstream_sha256": "884606e71c7fe04faa93863b69450673570a8f88ecbad71e3f7fdf9c9d903263",
+        "local_sha256": "da745ed9ab02cf32e552ba63381b9c5f436c5e27452c600f59cff769723d0863"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 1.62,
+        "current_upstream_percent": 1.62
+      },
+      "intentional_removals": [
+        {
+          "category": "runtime-specific-invocation",
+          "reason": "Host-specific tool declarations, slash-command setup, hooks, and environment paths stay outside the portable Codex skill."
+        },
+        {
+          "category": "expanded-source-prose",
+          "reason": "The Codex adapter condenses repeated preambles and implementation detail while retaining reusable intent, workflow, and guardrails. Registry evidence: Match an approved still, verify the rest and loop frames, and report the actual export."
+        }
+      ],
+      "companion_resources": [],
+      "validation": [
+        "python3 scripts/check_engineering_milestone.py",
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
+      ],
+      "decision": "adopted",
+      "decision_reason": "Match an approved still, verify the rest and loop frames, and report the actual export. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
+    },
+    {
       "canonical_id": "skill:design-review",
       "source_name": "gstack",
       "upstream_path": "design-review/SKILL.md",
@@ -1827,6 +1872,96 @@
       }
     },
     {
+      "canonical_id": "skill:eval-plan",
+      "source_name": "gstack",
+      "upstream_path": "eval-plan/SKILL.md",
+      "local_path": "skills/eval-plan/SKILL.md",
+      "adopted_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "reviewed_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "c5b44df01d246593af0adb7833f3c65bffcfd2cb1c8c2f959b217ec9faf4533d",
+        "current_upstream_sha256": "c5b44df01d246593af0adb7833f3c65bffcfd2cb1c8c2f959b217ec9faf4533d",
+        "local_sha256": "2b669c191aaa9205e6440b567c1a8bec0cd4af644b9f978b1944e0dee9d9c569"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 0.97,
+        "current_upstream_percent": 0.97
+      },
+      "intentional_removals": [
+        {
+          "category": "runtime-specific-invocation",
+          "reason": "Host-specific tool declarations, slash-command setup, hooks, and environment paths stay outside the portable Codex skill."
+        },
+        {
+          "category": "expanded-source-prose",
+          "reason": "The Codex adapter condenses repeated preambles and implementation detail while retaining reusable intent, workflow, and guardrails. Registry evidence: Preregister model or skill comparisons, exercise the grader, and estimate full-run cost from a pilot."
+        }
+      ],
+      "companion_resources": [],
+      "validation": [
+        "python3 scripts/check_engineering_milestone.py",
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
+      ],
+      "decision": "adopted",
+      "decision_reason": "Preregister model or skill comparisons, exercise the grader, and estimate full-run cost from a pilot. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
+    },
+    {
+      "canonical_id": "skill:fact-check",
+      "source_name": "gbrain",
+      "upstream_path": "skills/fact-check/SKILL.md",
+      "local_path": "skills/fact-check/SKILL.md",
+      "adopted_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "reviewed_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "49f0d356eee44541eddbc9cd501dc36707d417d84ca10446c0d315321f259674",
+        "current_upstream_sha256": "49f0d356eee44541eddbc9cd501dc36707d417d84ca10446c0d315321f259674",
+        "local_sha256": "1165315f4b3b32d0257348fe41567f62243cb17aae372b93304a9f2a30098f4a"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 0.82,
+        "current_upstream_percent": 0.82
+      },
+      "intentional_removals": [
+        {
+          "category": "runtime-specific-invocation",
+          "reason": "Host-specific tool declarations, slash-command setup, hooks, and environment paths stay outside the portable Codex skill."
+        },
+        {
+          "category": "expanded-source-prose",
+          "reason": "The Codex adapter condenses repeated preambles and implementation detail while retaining reusable intent, workflow, and guardrails. Registry evidence: Trace public and private claims to primary evidence and independently reproduce data-derived results."
+        }
+      ],
+      "companion_resources": [],
+      "validation": [
+        "python3 scripts/check_engineering_milestone.py",
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
+      ],
+      "decision": "adopted",
+      "decision_reason": "Trace public and private claims to primary evidence and independently reproduce data-derived results. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
+    },
+    {
       "canonical_id": "skill:freeze",
       "source_name": "gstack",
       "upstream_path": "freeze/SKILL.md",
@@ -2011,8 +2146,8 @@
       "source_name": "gbrain",
       "upstream_path": "skills/gbrain-upgrade/SKILL.md",
       "local_path": "skills/gbrain-upgrade/SKILL.md",
-      "adopted_commit": "0b47afbf402a4e27a648bb9d131ce584461461ea",
-      "reviewed_commit": "0b47afbf402a4e27a648bb9d131ce584461461ea",
+      "adopted_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "reviewed_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
       "classifications": [
         "host-adapted",
         "condensed",
@@ -2020,14 +2155,14 @@
       ],
       "host_coupling": "codex-adapter",
       "hashes": {
-        "adopted_source_sha256": "7cd05f43027fa20d56ed651f696288f9e4814b7bdf7b396f132fde7c96dac620",
-        "current_upstream_sha256": "7cd05f43027fa20d56ed651f696288f9e4814b7bdf7b396f132fde7c96dac620",
-        "local_sha256": "42fe4db47ff08413210e847be9922b3b66806daaa17de62d718f518fdfa8275f"
+        "adopted_source_sha256": "84532557d02350a3bf7113e823e36cf9ccc790fcf97c76b548c9149e99c3176b",
+        "current_upstream_sha256": "84532557d02350a3bf7113e823e36cf9ccc790fcf97c76b548c9149e99c3176b",
+        "local_sha256": "c5ddfccfde596cf31f49bf6d46bb136ec23df135ed6d25e6baff0a8a076e55a1"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
-        "adopted_source_percent": 2.94,
-        "current_upstream_percent": 2.94
+        "adopted_source_percent": 1.91,
+        "current_upstream_percent": 1.91
       },
       "intentional_removals": [
         {
@@ -2067,7 +2202,7 @@
       "hashes": {
         "adopted_source_sha256": "b77bab43d1db15b6019f34506a204bca9f5e9632d314b70075c26fd07b13b173",
         "current_upstream_sha256": "b77bab43d1db15b6019f34506a204bca9f5e9632d314b70075c26fd07b13b173",
-        "local_sha256": "dbcbc7d8c5fcb236e8f4d2c4802b68e82e75b995bb0e79fbe1c377daa36ccdb5"
+        "local_sha256": "93ace6aa83f374a3dc124dd5c92fdd928cb85e303be2854b23c9650a4bab41b2"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
@@ -2101,8 +2236,8 @@
       "source_name": "gstack",
       "upstream_path": "gstack-upgrade/SKILL.md",
       "local_path": "skills/gstack-upgrade/SKILL.md",
-      "adopted_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
-      "reviewed_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
+      "adopted_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "reviewed_commit": "76535826f5d50c721f95820f300037a3efe833a9",
       "classifications": [
         "host-adapted",
         "condensed",
@@ -2110,14 +2245,14 @@
       ],
       "host_coupling": "codex-adapter",
       "hashes": {
-        "adopted_source_sha256": "aa78f4af40338c0dc27f2eb6049a6eb6af23781fd88ff250d46aa3144fc2f0e4",
-        "current_upstream_sha256": "aa78f4af40338c0dc27f2eb6049a6eb6af23781fd88ff250d46aa3144fc2f0e4",
-        "local_sha256": "3e05017c7e55f094a036968024106c0ee8feb874ec40501f596baff7166b3a35"
+        "adopted_source_sha256": "a00d17470099192459e2cbae1f7c7b55b95a9d30b6f16e06e19ebc0e47d8d4fd",
+        "current_upstream_sha256": "a00d17470099192459e2cbae1f7c7b55b95a9d30b6f16e06e19ebc0e47d8d4fd",
+        "local_sha256": "194dbcfdb6d6ece8f56da997479c27169f742ec7e89a3324061c758404e049da"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
-        "adopted_source_percent": 1.33,
-        "current_upstream_percent": 1.33
+        "adopted_source_percent": 0.85,
+        "current_upstream_percent": 0.85
       },
       "intentional_removals": [
         {
@@ -3766,6 +3901,51 @@
       ],
       "decision": "adopted",
       "decision_reason": "Adapts page-based report storage into file-based report storage inside or alongside the repo. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
+      "adaptation_approval": {
+        "status": "approved",
+        "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."
+      }
+    },
+    {
+      "canonical_id": "skill:resolve-before-asking",
+      "source_name": "gbrain",
+      "upstream_path": "skills/resolve-before-asking/SKILL.md",
+      "local_path": "skills/resolve-before-asking/SKILL.md",
+      "adopted_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "reviewed_commit": "a64fb58b9d407f4ee412249dbf4660b158f55f31",
+      "classifications": [
+        "host-adapted",
+        "condensed",
+        "intentionally-removed"
+      ],
+      "host_coupling": "codex-adapter",
+      "hashes": {
+        "adopted_source_sha256": "ba5aa2ce7bf45116052625eb14fe90f0cc807b4b1490a4646b1cee11b888e897",
+        "current_upstream_sha256": "ba5aa2ce7bf45116052625eb14fe90f0cc807b4b1490a4646b1cee11b888e897",
+        "local_sha256": "20d760d87afe36795aac64b2b55e3acba3c56924f92148c5228f7fbe0c660d16"
+      },
+      "retention": {
+        "basis": "normalized-nonblank-line-overlap",
+        "adopted_source_percent": 1.22,
+        "current_upstream_percent": 1.22
+      },
+      "intentional_removals": [
+        {
+          "category": "runtime-specific-invocation",
+          "reason": "Host-specific tool declarations, slash-command setup, hooks, and environment paths stay outside the portable Codex skill."
+        },
+        {
+          "category": "expanded-source-prose",
+          "reason": "The Codex adapter condenses repeated preambles and implementation detail while retaining reusable intent, workflow, and guardrails. Registry evidence: Resolve ambiguous identities inside authorized sources and ask with a supported hypothesis when needed."
+        }
+      ],
+      "companion_resources": [],
+      "validation": [
+        "python3 scripts/check_engineering_milestone.py",
+        "python3 scripts/check_engineering_milestone.py --upstream --gstack-repo /path/to/gstack --gbrain-repo /path/to/gbrain"
+      ],
+      "decision": "adopted",
+      "decision_reason": "Resolve ambiguous identities inside authorized sources and ask with a supported hypothesis when needed. The local skill represents the portable behavior reviewed at the current upstream boundary; recorded removals keep host-specific detail out.",
       "adaptation_approval": {
         "status": "approved",
         "reason": "The reviewed Codex adaptation is accepted with its recorded intentional removals, companion resources, and validation commands."

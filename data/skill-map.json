@@ -4,8 +4,8 @@
     "repo": "https://github.com/garrytan/gstack",
     "license": "MIT",
     "commit": "2aa745cb0e4331d683e727ec77385d04cdbb45a2",
-    "latest_checked_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
-    "latest_checked_at": "2026-08-08",
+    "latest_checked_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+    "latest_checked_at": "2026-11-17",
     "skill_parity_commit": "a3259400a366593e0c909dd9ac3e59752efd2488",
     "skill_reviewed_commit": "94993f74012782fd94416dd44b8314f6363a13a4"
   },
@@ -405,12 +405,13 @@
       "codex_slug": "gstack-upgrade",
       "status": "ported",
       "port_kind": "workflow-adapted",
-      "source_commit": "94993f74012782fd94416dd44b8314f6363a13a4",
+      "source_commit": "76535826f5d50c721f95820f300037a3efe833a9",
       "summary": "Repo and local-skill update workflow for this Codex port package.",
       "notes": "Refreshes the checkout or local install, then revalidates so upgrades are explicit and trustworthy; refreshed for the June 26 Codex host audit.",
       "source_files": [
         "gstack-upgrade/SKILL.md"
-      ]
+      ],
+      "reviewed_commit": "76535826f5d50c721f95820f300037a3efe833a9"
     },
     {
       "upstream_slug": "codex",
@@ -691,6 +692,32 @@
       "notes": "Ports the upstream spec flow without Claude plan-mode or automatic spawned-agent assumptions.",
       "source_files": [
         "spec/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "eval-plan",
+      "codex_slug": "eval-plan",
+      "status": "ported",
+      "port_kind": "workflow-adapted",
+      "source_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "reviewed_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "summary": "Preregister model or skill comparisons, exercise the grader, and estimate full-run cost from a pilot.",
+      "notes": "Preregister model or skill comparisons, exercise the grader, and estimate full-run cost from a pilot.",
+      "source_files": [
+        "eval-plan/SKILL.md"
+      ]
+    },
+    {
+      "upstream_slug": "design-motion",
+      "codex_slug": "design-motion",
+      "status": "ported",
+      "port_kind": "runtime-aware",
+      "source_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "reviewed_commit": "76535826f5d50c721f95820f300037a3efe833a9",
+      "summary": "Match an approved still, verify the rest and loop frames, and report the actual export.",
+      "notes": "Match an approved still, verify the rest and loop frames, and report the actual export.",
+      "source_files": [
+        "design-motion/SKILL.md"
       ]
     }
   ]
