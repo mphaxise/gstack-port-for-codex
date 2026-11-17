@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.4",
+  "adapter": "design-ledger/git-codex",
+  "repository": {
+    "id": "gstack-port-for-codex"
+  },
+  "checks": [
+    {
+      "id": "repository-checks",
+      "kind": "command",
+      "proof_class": "repository-checks",
+      "inputs": [
+        "**"
+      ],
+      "required_at": [
+        "pre-push"
+      ],
+      "command": [
+        "python3",
+        "scripts/check_engineering_milestone.py"
+      ]
+    }
+  ],
+  "risk_rules": [
+    {
+      "id": "repository-files",
+      "paths": [
+        "**"
+      ],
+      "risk": "low",
+      "invalidates": [
+        "repository-checks"
+      ]
+    }
+  ]
+}

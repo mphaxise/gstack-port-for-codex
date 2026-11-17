@@ -11,7 +11,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from gstack_port_for_codex.upstream_drift import (  # noqa: E402
+    UpstreamDriftError,
     build_drift_report,
+    fetch_compare,
     classify_changed_paths,
     classify_skill_changes_by_source,
     fetch_json,
@@ -78,6 +80,33 @@ class UpstreamDriftTests(unittest.TestCase):
 
         self.assertEqual(fetch_json("https://example.test/api"), {})
         self.assertEqual(urlopen.call_args.kwargs["timeout"], 30)
+
+    @patch("gstack_port_for_codex.upstream_drift.fetch_json")
+    def test_large_compare_finds_changes_after_the_api_limit(self, fetch) -> None:
+        def tree(rows):
+            return {"truncated": False, "tree": [
+                {"path": path, "mode": mode, "sha": sha, "type": "blob"}
+                for path, mode, sha in rows
+            ]}
+
+        fetch.side_effect = [
+            {"files": [{}] * 300, "merge_base_commit": {"sha": "common"}},
+            tree([("keep", "100644", "x"), ("gone", "100644", "a"), ("run", "100644", "b")]),
+            tree([("keep", "100644", "x"), ("run", "100755", "b"), ("z/SKILL.md", "100644", "c")]),
+        ]
+        result = fetch_compare("org", "project", "base", "head")
+        self.assertEqual([row["filename"] for row in result["files"]], ["gone", "run", "z/SKILL.md"])
+        self.assertIn("/trees/common?", fetch.call_args_list[1].args[0])
+        self.assertIn("/trees/head?", fetch.call_args_list[2].args[0])
+
+    @patch("gstack_port_for_codex.upstream_drift.fetch_json")
+    def test_incomplete_tree_cannot_establish_freshness(self, fetch) -> None:
+        fetch.side_effect = [
+            {"files": [{}] * 300, "merge_base_commit": {"sha": "base"}},
+            {"truncated": True, "tree": []},
+        ]
+        with self.assertRaises(UpstreamDriftError):
+            fetch_compare("org", "project", "base", "head")
 
     def test_classify_changed_paths_groups_skill_and_shared_paths(self) -> None:
         classified = classify_changed_paths(

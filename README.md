@@ -6,18 +6,20 @@ This repository started as a port of [GStack](https://github.com/garrytan/gstack
 
 | Layer | What it contributes | Current registry |
 | --- | --- | ---: |
-| **GStack** | Planning, design, review, debugging, QA, release, and engineering workflows | [56 ports](data/skill-map.json) |
-| **GBrain** | Capture, research, ingestion, daily operations, local memory, and knowledge maintenance | [53 ports](data/gbrain-skill-map.json) |
+| **GStack** | Planning, design, review, debugging, QA, release, and engineering workflows | [58 ports](data/skill-map.json) |
+| **GBrain** | Capture, research, ingestion, daily operations, local memory, and knowledge maintenance | [55 ports](data/gbrain-skill-map.json) |
 | **Praneet extensions** | Responsible design, accessibility, research synthesis, design leadership, market judgment, and outcome learning | [7 extensions](data/praneet-skill-map.json) |
 | **Impeccable integration** | Project-aware design quality, optional deterministic checks, critique evidence, and external live-mode routing | [capability map](data/impeccable-capability-map.json) |
 
 ## What changed from upstream
 
-This is an adapted port. The complete `2026-08-08` reconciliation covers all
+This is an adapted port. The August 8 reconciliation covered all
 108 canonical GStack and GBrain packages and all 109 mapped source lineages
 through GStack `94993f7` and GBrain `0b47afb`. `skillify` retains both upstream
 lineages without creating a duplicate installed skill. The GStack registry also
 retains the local `gstack` router and `checkpoint` compatibility skill.
+
+The [November upstream review](docs/upstream-freshness-2026-11-17.md) adds four workflows and updates both upgrade skills. The registry records the reviewed revision for each adoption.
 
 - **Codex-native skills:** upstream commands were rewritten as focused `SKILL.md` workflows with Codex-oriented invocation and outputs.
 - **Explicit runtime boundaries:** browser, automation, subagent, permission, and external-tool dependencies carry specific availability labels.

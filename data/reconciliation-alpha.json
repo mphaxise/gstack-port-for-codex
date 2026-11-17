@@ -29,7 +29,7 @@
       "hashes": {
         "adopted_source_sha256": "b77bab43d1db15b6019f34506a204bca9f5e9632d314b70075c26fd07b13b173",
         "current_upstream_sha256": "b77bab43d1db15b6019f34506a204bca9f5e9632d314b70075c26fd07b13b173",
-        "local_sha256": "dbcbc7d8c5fcb236e8f4d2c4802b68e82e75b995bb0e79fbe1c377daa36ccdb5"
+        "local_sha256": "93ace6aa83f374a3dc124dd5c92fdd928cb85e303be2854b23c9650a4bab41b2"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
@@ -67,7 +67,7 @@
       "hashes": {
         "adopted_source_sha256": null,
         "current_upstream_sha256": null,
-        "local_sha256": "7c825acca38dbb1738dd9581ba693e1c1230a15c8a89da04accec72ff2cc6895"
+        "local_sha256": "13bc75a4818d64e44b6af8239fedf3fe202a8db48fe232ea7b3d2f920d6bacd2"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
@@ -97,7 +97,7 @@
       "hashes": {
         "adopted_source_sha256": "aa78f4af40338c0dc27f2eb6049a6eb6af23781fd88ff250d46aa3144fc2f0e4",
         "current_upstream_sha256": "aa78f4af40338c0dc27f2eb6049a6eb6af23781fd88ff250d46aa3144fc2f0e4",
-        "local_sha256": "3e05017c7e55f094a036968024106c0ee8feb874ec40501f596baff7166b3a35"
+        "local_sha256": "194dbcfdb6d6ece8f56da997479c27169f742ec7e89a3324061c758404e049da"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",
@@ -134,7 +134,7 @@
       "hashes": {
         "adopted_source_sha256": "7cd05f43027fa20d56ed651f696288f9e4814b7bdf7b396f132fde7c96dac620",
         "current_upstream_sha256": "7cd05f43027fa20d56ed651f696288f9e4814b7bdf7b396f132fde7c96dac620",
-        "local_sha256": "42fe4db47ff08413210e847be9922b3b66806daaa17de62d718f518fdfa8275f"
+        "local_sha256": "c5ddfccfde596cf31f49bf6d46bb136ec23df135ed6d25e6baff0a8a076e55a1"
       },
       "retention": {
         "basis": "normalized-nonblank-line-overlap",

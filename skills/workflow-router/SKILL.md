@@ -94,7 +94,9 @@ Read `references/intent-map.md` before routing if the match is not obvious.
 - If the user wants to optimize or tune an existing skill, use `skill-optimizer`.
 - If the user wants skillpack health or post-restart validation, use `skillpack-check` or `smoke-test`.
 - If the user wants recurring work, use `cron-scheduler`.
-- If the user is debugging or asking why something broke, use `investigate`.
+- For a bug, check its cause directly and verify the fix on the failing path.
+- For claims in a report use `fact-check`. For an ambiguous identity use `resolve-before-asking`.
+- Use `eval-plan` for a model comparison and `design-motion` for a loop based on an approved still.
 - If the user wants pre-landing scrutiny, use `review`.
 - If the user wants to push and open a PR, use `ship` after `review`.
 - If the user wants to merge and verify production, use `land-and-deploy`.

@@ -21,7 +21,9 @@ This port was reconciled against `garrytan/gstack` at commit
 - Code review before landing: `review`
 - QA or verification: `qa` or `qa-only`
 - Browser-driven exploration: `browse`
-- Debugging: `investigate`
+- Reproduce a bug and check its cause directly. The local `investigate` skill remains available on explicit request.
+- Compare model or prompt changes: `eval-plan`
+- Animate an approved frame: `design-motion`
 - Shipping and release: `ship`, `document-release`, `setup-deploy`, or `land-and-deploy`
 - Security review: `cso`
 - Health check: `health`
